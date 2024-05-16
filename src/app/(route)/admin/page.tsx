@@ -3,7 +3,7 @@ export default async function AdminLogin() {
     <div className="flex min-h-screen flex-col items-center justify-center bg-white">
       <div className="mb-8">
         <img
-          src="/images/logo.png"
+          src="/images/logo2.png"
           alt="캐릭터 로고"
           className="laptop:h-78 mobile:h-50 tablet:h-76 desktop:h-78"
         />
