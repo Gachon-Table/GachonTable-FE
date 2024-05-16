@@ -10,17 +10,17 @@ const Container = styled.div`
   justify-content: center;
   min-height: 100vh;
   background-color: #f3f4f6;
-  padding: 1rem;
 `;
 
 const Header = styled.header`
   width: 100%;
+  height: 100vh;
   max-width: 640px;
-  padding: 1rem;
   background-color: #ffffff;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   text-align: center;
+  border: 1px solid red;
 `;
 
 const Title = styled.h1`
