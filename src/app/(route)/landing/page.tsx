@@ -15,8 +15,9 @@ import {
   SearchInput,
   SecondLine,
   ListBox,
-  List
+  List,
 } from './LandingPageStyles';
+import ResponsiveTest from './ResponsiveTest'; // 새로운 컴포넌트를 가져옴
 
 
 const LandingPage: React.FC = () => {
@@ -41,11 +42,10 @@ const LandingPage: React.FC = () => {
           </SecondLine>
         </Header>
         <Main>
-          <Paragraph>
-            반응형테스트
-          </Paragraph>
-          <Button>Get Started</Button>
+          <ResponsiveTest />
+
         </Main>
+        <Button>Get Started</Button>
       </Box>
     </Container>
   );

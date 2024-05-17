@@ -12,7 +12,7 @@ export const Container = styled.div`
 
 export const Box = styled.header`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   max-width: 450px;
   background-color: #ffffff;
   border-radius: 0.5rem;
@@ -99,6 +99,8 @@ export const Main = styled.main`
   margin-top: 1.5rem;
   gap: 1.5rem;
   border: 1px solid blue;
+  height: 100%;
+
 `;
 
 export const Paragraph = styled.p`
@@ -165,3 +167,52 @@ export const SearchInput = styled.input`
   border-radius: 1rem;
   border: none;
 `;
+
+export const ListItem = styled.div`
+  width: 100%;
+  height: 10%;
+  background-color: #ffffff;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const TextBox = styled.div`
+  width: 80%;
+  background-color: #ffffff;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  //align-items: center;
+  //text-align: center;
+  //justify-content: center;
+`;
+
+export const Department = styled.div`
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid red;
+  display: flex;
+  //align-items: center;
+  //text-align: center;
+  justify-content: left;
+  font-size: 20px;
+`;
+
+export const Introduction = styled(Department)`
+    margin-bottom: 0.5%;
+    font-size: 15px;
+    align-items: left;
+    text-align: left;
+
+`;
+export const StudentID = styled(Department)`
+    font-size: 10px;
+
+`;
+export const Menu = styled(Department)`
+    font-size: 10px;
+
+`;
+
+

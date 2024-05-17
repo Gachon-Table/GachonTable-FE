@@ -1,0 +1,211 @@
+{
+    "stores": [
+        {
+            "id": 1,
+            "name": "카페 루프탑",
+            "department": "호텔경영학과",
+            "introduction": "도심 속 루프탑에서 편안한 커피를 즐길 수 있는 공간입니다.",
+            "studentIDRequired": true,
+            "people": "적음",
+            "bookmark": true,
+            "menu": [
+                {
+                    "name": "에스프레소",
+                    "price": 4000
+                },
+                {
+                    "name": "아이스 라떼",
+                    "price": 4500
+                },
+                {
+                    "name": "케이크",
+                    "price": 6000
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "피자 파티",
+            "department": "식품공학과",
+            "introduction": "신선한 재료로 만든 다양한 종류의 피자를 제공합니다.",
+            "studentIDRequired": false,
+            "people": "많음",
+            "bookmark": true,
+            "menu": [
+                {
+                    "name": "마르게리따 피자",
+                    "price": 16000
+                },
+                {
+                    "name": "페퍼로니 피자",
+                    "price": 18000
+                },
+                {
+                    "name": "치즈피자",
+                    "price": 15000
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "한식당",
+            "department": "한국어학과",
+            "introduction": "전통적인 한식을 경험할 수 있는 가게입니다.",
+            "studentIDRequired": true,
+            "people": "보통",
+            "bookmark": false,
+            "menu": [
+                {
+                    "name": "비빔밥",
+                    "price": 8000
+                },
+                {
+                    "name": "된장찌개",
+                    "price": 9000
+                },
+                {
+                    "name": "김치찌개",
+                    "price": 8500
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "name": "이탈리안 피자",
+            "department": "이탈리아어학과",
+            "introduction": "오리지널 이탈리안 레시피로 만든 피자를 제공합니다.",
+            "studentIDRequired": true,
+            "bookmark": false,
+            "people": "보통",
+            "menu": [
+                {
+                    "name": "마르게리따 피자",
+                    "price": 16000
+                },
+                {
+                    "name": "토마토 파스타",
+                    "price": 14000
+                },
+                {
+                    "name": "페퍼로니 피자",
+                    "price": 18000
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "name": "스시 바",
+            "department": "일본어학과",
+            "introduction": "신선한 재료로 만든 일본식 스시를 제공합니다.",
+            "studentIDRequired": false,
+            "bookmark": false,
+            "people": "많음",
+            "menu": [
+                {
+                    "name": "연어 스시",
+                    "price": 12000
+                },
+                {
+                    "name": "참치 스시",
+                    "price": 10000
+                },
+                {
+                    "name": "에비 스시",
+                    "price": 15000
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "name": "베이커리",
+            "department": "제과제빵학과",
+            "introduction": "신선한 재료로 만든 다양한 종류의 빵을 제공합니다.",
+            "studentIDRequired": false,
+            "bookmark": false,
+            "people": "적음",
+            "menu": [
+                {
+                    "name": "프렌치 크루아상",
+                    "price": 3500
+                },
+                {
+                    "name": "초코 크로와상",
+                    "price": 4000
+                },
+                {
+                    "name": "식빵",
+                    "price": 2500
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "name": "버거 샵",
+            "department": "식품공학과",
+            "introduction": "신선한 재료로 만든 다양한 종류의 햄버거를 제공합니다.",
+            "studentIDRequired": true,
+            "bookmark": false,
+            "people": "적음",
+            "menu": [
+                {
+                    "name": "치즈버거",
+                    "price": 7000
+                },
+                {
+                    "name": "불고기버거",
+                    "price": 8000
+                },
+                {
+                    "name": "치킨버거",
+                    "price": 6500
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "name": "파스타 하우스",
+            "department": "이탈리아어학과",
+            "introduction": "신선한 재료로 만든 다양한 종류의 파스타를 제공합니다.",
+            "studentIDRequired": true,
+            "bookmark": false,
+            "people": "적음",
+            "menu": [
+                {
+                    "name": "크림 파스타",
+                    "price": 12000
+                },
+                {
+                    "name": "토마토 파스타",
+                    "price": 11000
+                },
+                {
+                    "name": "해산물 파스타",
+                    "price": 15000
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "name": "바베큐 레스토랑",
+            "department": "식품공학과",
+            "introduction": "실내와 야외에서 즐기는 바베큐 파티를 제공합니다.",
+            "studentIDRequired": false,
+            "bookmark": false,
+            "people": "적음",
+            "menu": [
+                {
+                    "name": "스테이크",
+                    "price": 25000
+                },
+                {
+                    "name": "리브 아이",
+                    "price": 20000
+                },
+                {
+                    "name": "치킨 윙",
+                    "price": 18000
+                }
+            ]
+        }
+    ]
+}
