@@ -18,7 +18,7 @@ import {
   List,
 } from './LandingPageStyles';
 import ResponsiveTest from './ResponsiveTest'; // 새로운 컴포넌트를 가져옴
-
+import Navigation from './Navigation'; // Navigation 컴포넌트를 import
 
 const LandingPage: React.FC = () => {
   return (
@@ -43,9 +43,8 @@ const LandingPage: React.FC = () => {
         </Header>
         <Main>
           <ResponsiveTest />
-
         </Main>
-        <Button>Get Started</Button>
+        <Navigation />
       </Box>
     </Container>
   );

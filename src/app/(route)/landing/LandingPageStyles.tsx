@@ -18,9 +18,44 @@ export const Box = styled.header`
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   text-align: center;
-  border: 1px solid red;
 `;
 
+export const NavigationBar = styled.nav`
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  bottom: 0; 
+  left: 0;
+  right: 0;
+  background-color: #f3f4f6;
+
+`;
+
+export const NavigationBox = styled.nav`
+  position: relative;
+  margin: 0 auto;
+  background-color: #fff;
+  max-width: 450px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+`;
+
+
+
+
+export const NavButton = styled.button`
+  padding: 10px 20px;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  color: #333333;
+  transition: all 0.3s ease; 
+  width: 30%;
+  &:hover {
+    color: #007bff;
+  }
+`;
 export const Header = styled.div`
   width: 100%;
   height: 15vh;
@@ -28,7 +63,6 @@ export const Header = styled.div`
   background-color: #ffffff;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid red;
 `;
 
 export const FirstLine = styled.div`
@@ -38,7 +72,6 @@ export const FirstLine = styled.div`
   background-color: #ffffff;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid green;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -52,7 +85,6 @@ export const SecondLine = styled.div`
   background-color: #ffffff;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid green;
   display: flex;
   align-items: center;
   text-align: center;
@@ -62,7 +94,6 @@ export const ListBox = styled.div`
   width: 100%;
   height: 7vh;
   border-radius: 0.5rem;
-  border: 1px solid grey;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -98,7 +129,6 @@ export const Main = styled.main`
   max-width: 640px;
   margin-top: 1.5rem;
   gap: 1.5rem;
-  border: 1px solid blue;
   height: 100%;
 
 `;
@@ -132,7 +162,6 @@ export const LogoBox = styled.div`
   height: 100%;
   max-width: 450px;
   background-color: #ffffff;
-  border: 1px solid black;
   display: flex;
   align-items: center;
   text-align: center;
@@ -152,7 +181,6 @@ export const SearchInputBox = styled.div`
   width: 80%;
   height: 100%;
   background-color: #ffffff;
-  border: 1px solid black;
   display: flex;
   align-items: center;
   text-align: center;
@@ -172,7 +200,6 @@ export const ListItem = styled.div`
   width: 100%;
   height: 10%;
   background-color: #ffffff;
-  border: 1px solid black;
   display: flex;
   flex-direction: row;
 `;
@@ -180,7 +207,6 @@ export const ListItem = styled.div`
 export const TextBox = styled.div`
   width: 80%;
   background-color: #ffffff;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   //align-items: center;
@@ -191,7 +217,6 @@ export const TextBox = styled.div`
 export const Department = styled.div`
   width: 100%;
   background-color: #ffffff;
-  border: 1px solid red;
   display: flex;
   //align-items: center;
   //text-align: center;
