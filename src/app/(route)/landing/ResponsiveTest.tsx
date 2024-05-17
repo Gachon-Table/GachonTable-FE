@@ -33,9 +33,9 @@ const ResponsiveTest: React.FC = () => {
             <Menu>{store.menu[0].name}</Menu> {/* 첫 번째 메뉴 이름만 표시 */}
           </TextBox>
           {store.bookmark ? (
-            <img src="/images/clickbookmark.png" alt="북마크됨" style={{ width: '40px', height: '40px' }} />
+            <img src="/images/clickbookmark.png" alt="북마크됨" style={{ width: '30px', height: '30px' }} />
           ) : (
-            <img src="/images/nonebookmark.png" alt="북마크안됨" style={{ width: '40px', height: '40px' }} />
+            <img src="/images/nonebookmark.png" alt="북마크안됨" style={{ width: '30px', height: '30px' }} />
           )}
         </ListItem>
       ))}

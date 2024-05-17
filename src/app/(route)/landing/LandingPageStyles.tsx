@@ -11,7 +11,7 @@ export const Container = styled.div`
 `;
 
 export const Box = styled.header`
-  width: 100%;
+  width: 90%;
   height: 100%;
   max-width: 450px;
   background-color: #ffffff;
@@ -125,11 +125,12 @@ export const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 95%;
   max-width: 640px;
   margin-top: 1.5rem;
   gap: 1.5rem;
   height: 100%;
+  margin: 0 auto;
 
 `;
 
@@ -215,7 +216,7 @@ export const TextBox = styled.div`
 `;
 
 export const Department = styled.div`
-  width: 100%;
+  width: 95%;
   background-color: #ffffff;
   display: flex;
   //align-items: center;
