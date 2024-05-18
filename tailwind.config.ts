@@ -19,6 +19,9 @@ const config: Config = {
         'laptop': '1024px',
         'desktop': '1280px',
       },
+      colors: {
+        'tory-blue': '#014f9e',
+      }
     },
   },
   plugins: [],
