@@ -1,5 +1,6 @@
 // src/app/layout.tsx
 import React from 'react';
+import './/globals.css';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -11,9 +12,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
       <head>
         <title>My Next.js App</title>
       </head>
-      <body>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 };
