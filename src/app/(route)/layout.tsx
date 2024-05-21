@@ -2,7 +2,7 @@
 
 import { SessionProvider } from 'next-auth/react';
 import { Noto_Sans_KR } from 'next/font/google';
-import './globals.css';
+import '../globals.css';
 
 const noto = Noto_Sans_KR({
   subsets: ['latin'], // 또는 preload: false
