@@ -2,7 +2,7 @@ import React from 'react';
 
 const Waited = () => {
   return (
-    <div className="flex w-[100%] flex-col p-[1rem] border-b-2 h-[5rem]">
+    <div className="flex w-[100%] flex-col p-[1rem] border-b-[1px] h-[5rem]">
       <div className="flex items-center justify-around">
         <div>주점이름</div>
         <div>
