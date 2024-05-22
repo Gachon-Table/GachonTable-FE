@@ -22,6 +22,7 @@ const config: Config = {
       colors: {
         'tory-blue': '#014f9e',
         'deep-cove': '#001140',
+        'sunglo': '#de6868',
       }
     },
   },
