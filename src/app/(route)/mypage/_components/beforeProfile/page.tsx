@@ -6,8 +6,8 @@ const BeforeProfile = () => {
   const { data: session } = useSession();
   console.log(session);
   return (
-    <div className="mr-[8rem] mt-[8rem] flex w-[100%] justify-center gap-2">
-      <div className="flex h-[4rem] w-[4rem] items-center justify-center">
+    <div className="mr-[8rem] mt-[8rem] flex w-[100%] justify-evenly">
+      <div className="flex h-full">
         <img src="/images/profile.png" />
       </div>
       <div className="mt-2 flex flex-col items-center gap-6 text-gray-400">
