@@ -17,8 +17,10 @@ export default function RootLayout({
       <body className="h-full overflow-hidden">
         {!isLoginPage && (
           <div className="flex h-full flex-col">
-            <Dropdown />
-            <div className="flex-grow overflow-auto">{children}</div>
+            <div className="px-4 pt-4">
+              <Dropdown />
+            </div>
+            <div className="flex-grow px-4">{children}</div>
           </div>
         )}
         {isLoginPage && <div className="flex h-full flex-col">{children}</div>}
