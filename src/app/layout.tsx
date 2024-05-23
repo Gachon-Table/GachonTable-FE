@@ -1,21 +1,19 @@
-// src/app/layout.tsx
-import React from 'react';
+import { Noto_Sans_KR } from 'next/font/google';
+import './globals.css';
 
-interface RootLayoutProps {
+const noto = Noto_Sans_KR({
+  subsets: ['latin'], // 또는 preload: false
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+});
+
+export default function RootLayout({
+  children,
+}: {
   children: React.ReactNode;
-}
-
-const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
+}) {
   return (
     <html lang="en">
-      <head>
-        <title>My Next.js App</title>
-      </head>
-      <body>
-        {children}
-      </body>
+      <body className={noto.className}>{children}</body>
     </html>
   );
-};
-
-export default RootLayout;
+}
