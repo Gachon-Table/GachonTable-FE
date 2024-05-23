@@ -15,7 +15,7 @@ const WaitingTeams: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full max-h-screen border border-red-500 mt-2 flex flex-col">
+    <div className="w-full h-full max-h-screen mt-2 flex flex-col">
       <div className="text-xl font-bold mb-10">현재 {numberOfTeams}팀이 웨이팅 중입니다.</div>
       <div className="flex flex-col justify-center items-center mt-2">
         <div className="mb-2">인원 수</div>
@@ -35,7 +35,7 @@ const WaitingTeams: React.FC = () => {
           </button>
         </div>
       </div>
-      <div className="bg-gray-800 text-white flex justify-center items-center h-24 text-lg font-bold">
+      <div className="bg-gray-800 text-white flex justify-center items-center h-24 text-2xl font-bold">
         웨이팅 신청
       </div>
     </div>

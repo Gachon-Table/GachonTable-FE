@@ -4,6 +4,7 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 import storeData from '../data.json';
 import WaitingTeams from './WaitingTeams';
+import Navigation from '../../_components/nav/Navigation';
 
 const StoreDetailPage: React.FC = () => {
   const pathname = usePathname();
@@ -16,12 +17,14 @@ const StoreDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="h-screen bg-gray-100 flex flex-col items-center justify-center ">
-      <div className="w-9/12 h-full max-w-2xl bg-white rounded-lg shadow-md p-6 border border-red-500 overflow-auto scrollbar-hide">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center mb-10">
+      <div className="w-9/12 h-full max-w-2xl bg-white rounded-lg shadow-md p-6 border overflow-auto scrollbar-hide">
         <div className="w-full flex justify-between mb-10">
           {/* 뒤로가기 & 북마크 */}
           <div>
-            <img src='/images/return.png' alt='뒤로가기' className="w-7 h-7" />
+            <a href={'/landing'}>
+              <img src='/images/return.png' alt='뒤로가기' className="w-7 h-7" />
+            </a>
           </div>
           <div>
             {store.bookmark ? (
@@ -60,14 +63,27 @@ const StoreDetailPage: React.FC = () => {
           <div className="text-lg font-bold border-b-2 border-black w-min">Instagram</div>
         </div>
         {/* 메뉴 & 전화 카테고리 */}
-        <div className="border-b border-gray-300 flex flex-row mt-5 h-1/6">
+        <div className="border-b border-gray-300 flex flex-row mt-5" style={{height:'10vh'}}>
           <div className="w-1/2 text-lg flex justify-center items-center border-r border-gray-300">전화</div>
           <div className="w-1/2 text-lg flex justify-center items-center">메뉴</div>
         </div>
         <div className="mt-4">
           <WaitingTeams />
         </div>
+        <div className="w-full mt-10 pt-10">
+          <div className="text-2xl font-bold mb-10 mt-10 p-4">메뉴</div>
+          <div className="flex flex-col">
+            {store.menu.map((menuItem) => (
+              <div key={menuItem.name} className="border-t border-gray-200 mb-4 p-4">
+                <h2 className="text-xl font-bold">{menuItem.name}</h2>
+                <p className="text-gray-600 text-sm">{menuItem.price}원</p>
+                <p className="text-gray-800 text-sm">{menuItem.explanation}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
+      <Navigation />
     </div>
   );
 };
