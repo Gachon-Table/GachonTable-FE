@@ -1,7 +1,7 @@
 // src/app/(route)/landing/page.tsx
 import React from 'react';
 import ResponsiveTest from './ResponsiveTest';
-import Navigation from './Navigation';
+import Navigation from '../_components/nav/Navigation';
 
 const LandingPage: React.FC = () => {
   return (

@@ -2,11 +2,11 @@ import React from 'react';
 import Link from 'next/link'; // Import Link from next/link
 import storeData from './data.json'; // JSON 파일을 import
 
-const ResponsiveTest: React.FC = () => {
+const ResponsiveTest: React.FC = () => {  
   return (
     <>
       {storeData.stores.map((store) => (
-        <Link href={`/landing/${store.id}`} key={store.id} className="w-full h-1/10 bg-white flex flex-row"> {/* Add Link here */}
+        <a href={`/landing/${store.id}`} key={store.id} className="w-full h-1/10 bg-white flex flex-row"> {/* Add Link here */}
           <div className="w-full h-1/10 bg-white flex flex-row">
             <img src='/images/storeImage.png' alt='가게사진' className="w-28 h-28 mr-2" />
             <div className="w-4/5 bg-white flex flex-row justify-between" >
@@ -32,7 +32,7 @@ const ResponsiveTest: React.FC = () => {
               </div>
             </div>
           </div>
-        </Link>
+        </a>
       ))}
     </>
   );
