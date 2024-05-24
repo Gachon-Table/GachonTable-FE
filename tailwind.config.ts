@@ -21,8 +21,10 @@ const config: Config = {
       },
       colors: {
         'tory-blue': '#014f9e',
+        'dodger-blue': '#0096ff',
         'deep-cove': '#001140',
         'sunglo': '#de6868',
+        'gallery': '#efeff0',
       }
     },
   },
