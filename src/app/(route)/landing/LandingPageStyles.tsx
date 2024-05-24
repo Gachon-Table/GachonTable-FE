@@ -20,42 +20,7 @@ export const Box = styled.header`
   text-align: center;
 `;
 
-export const NavigationBar = styled.nav`
-  width: 100%;
-  height: 60px;
-  position: fixed;
-  bottom: 0; 
-  left: 0;
-  right: 0;
-  background-color: #f3f4f6;
 
-`;
-
-export const NavigationBox = styled.nav`
-  position: relative;
-  margin: 0 auto;
-  background-color: #fff;
-  max-width: 450px;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-`;
-
-
-
-
-export const NavButton = styled.button`
-  padding: 10px 20px;
-  background-color: transparent;
-  border: none;
-  font-size: 16px;
-  color: #333333;
-  transition: all 0.3s ease; 
-  width: 30%;
-  &:hover {
-    color: #007bff;
-  }
-`;
 export const Header = styled.div`
   width: 100%;
   height: 15vh;
@@ -197,48 +162,6 @@ export const SearchInput = styled.input`
   border: none;
 `;
 
-export const ListItem = styled.div`
-  width: 100%;
-  height: 10%;
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: row;
-`;
 
-export const TextBox = styled.div`
-  width: 80%;
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  //align-items: center;
-  //text-align: center;
-  //justify-content: center;
-`;
-
-export const Department = styled.div`
-  width: 95%;
-  background-color: #ffffff;
-  display: flex;
-  //align-items: center;
-  //text-align: center;
-  justify-content: left;
-  font-size: 20px;
-`;
-
-export const Introduction = styled(Department)`
-    margin-bottom: 0.5%;
-    font-size: 15px;
-    align-items: left;
-    text-align: left;
-
-`;
-export const StudentID = styled(Department)`
-    font-size: 10px;
-
-`;
-export const Menu = styled(Department)`
-    font-size: 10px;
-
-`;
 
 
