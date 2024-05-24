@@ -1,6 +1,6 @@
 'use client';
 
-import Dropdown from 'src/components/Dropdown';
+import Dropdown from './_components/Dropdown';
 import { usePathname } from 'next/navigation';
 import './globals.css';
 
