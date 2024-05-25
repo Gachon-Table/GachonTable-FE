@@ -23,6 +23,7 @@ const config: Config = {
         'tory-blue': '#014f9e',
         'deep-cove': '#001140',
         'sunglo': '#de6868',
+        'modal-rgba': 'rgba(0, 0, 0, 0.4)',
       }
     },
   },

@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={noto.className}>{children}</body>
+      <body className={`${noto.className} mobile:max-w-[480px] mobile:mx-auto h-screen`}>{children}</body>
     </html>
   );
 }

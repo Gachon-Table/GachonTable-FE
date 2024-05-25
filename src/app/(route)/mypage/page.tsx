@@ -1,20 +1,21 @@
 'use client';
 
-import { signIn, useSession } from 'next-auth/react';
-import Image from 'next/image';
+import { useState } from 'react';
+import Waited from './_components/waited/page';
+import Waiting from './_components/waiting/page';
+import BeforeProfile from './_components/beforeProfile/page';
+import Tab from './_components/tab/page';
+import Navigation from '../_components/nav/Navigation';
 
-console.log();
 const Mypage = () => {
-  const { data: session } = useSession();
-  console.log(session);
+  const [curTab, setCurTab] = useState('ing');
   return (
-    <div onClick={() => signIn('kakao', { callbackUrl: '/mypage' })}>
-      <Image
-        src="/images/kakao_login_medium_wide.png"
-        alt="kakao-login"
-        width={300}
-        height={50}
-      />
+    <div className="flex flex-col justify-center">
+      <BeforeProfile />
+      <Tab curTab={curTab} setFunc={setCurTab} />
+      {curTab === 'ing' && <Waiting />}
+      {curTab === 'ed' && <Waited />}
+      <Navigation />
     </div>
   );
 };
