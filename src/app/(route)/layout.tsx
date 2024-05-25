@@ -3,7 +3,6 @@
 import { SessionProvider } from 'next-auth/react';
 import { Noto_Sans_KR } from 'next/font/google';
 import '../globals.css';
-import { ReactNode } from 'react';
 
 const noto = Noto_Sans_KR({
   subsets: ['latin'], // 또는 preload: false
@@ -15,7 +14,7 @@ export default function RootLayout({
   modal,
 }: {
   children: React.ReactNode;
-  modal: ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="ko">

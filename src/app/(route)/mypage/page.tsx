@@ -5,6 +5,7 @@ import Waited from './_components/waited/page';
 import Waiting from './_components/waiting/page';
 import BeforeProfile from './_components/beforeProfile/page';
 import Tab from './_components/tab/page';
+import Navigation from '../_components/nav/Navigation';
 
 const Mypage = () => {
   const [curTab, setCurTab] = useState('ing');
@@ -14,6 +15,7 @@ const Mypage = () => {
       <Tab curTab={curTab} setFunc={setCurTab} />
       {curTab === 'ing' && <Waiting />}
       {curTab === 'ed' && <Waited />}
+      <Navigation />
     </div>
   );
 };
