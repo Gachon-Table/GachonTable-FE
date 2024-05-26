@@ -2,6 +2,7 @@
 
 import { SessionProvider } from 'next-auth/react';
 import { Noto_Sans_KR } from 'next/font/google';
+import '../globals.css';
 
 const noto = Noto_Sans_KR({
   subsets: ['latin'], // 또는 preload: false
@@ -10,13 +11,18 @@ const noto = Noto_Sans_KR({
 
 export default function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="ko">
       <body className={noto.className}>
-        <SessionProvider>{children}</SessionProvider>
+        <SessionProvider>
+          {children}
+          {modal}
+        </SessionProvider>
       </body>
     </html>
   );

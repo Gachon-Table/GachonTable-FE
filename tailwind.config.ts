@@ -25,6 +25,7 @@ const config: Config = {
         'deep-cove': '#001140',
         'sunglo': '#de6868',
         'gallery': '#efeff0',
+        'modal-rgba': 'rgba(0, 0, 0, 0.4)',
       }
     },
   },
