@@ -1,7 +1,7 @@
-export default function Admin() {
+export default function PubManagement() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-deep-cove">
-      hi
+      주점 관리 페이지
     </div>
   );
 }
