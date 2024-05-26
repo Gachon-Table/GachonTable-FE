@@ -19,7 +19,7 @@ const ResponsiveTest: React.FC = () => {
                     {store.people === "적음" && <img src="/images/nonepeople.png" alt="적은 사람" className="w-4 h-4 mr-1" />}
                   </div>
                 </div>
-                <div className="w-12/12 bg-white flex justify-start mb-[5%] text-base items-start text-left">{store.introduction}</div>
+                <div className="w-80 bg-white flex justify-start mb-[1%] text-base items-start text-left">{store.introduction}</div>
                 <div className="w-12/12 bg-white flex justify-start mb-[0.5%] text-[10px] items-start text-left">{store.studentIDRequired ? '학생증 필요' : '학생증 불필요'}</div>
                 <div className="w-12/12 bg-white flex justify-start mb-[0.5%] text-[10px] items-start text-left">{store.menu[0].name}</div> {/* 첫 번째 메뉴 이름만 표시 */}
               </div>

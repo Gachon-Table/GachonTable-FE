@@ -18,7 +18,7 @@ const StoreDetailPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center mb-10">
-      <div className="w-9/12 h-full max-w-2xl bg-white rounded-lg shadow-md p-6 border overflow-auto scrollbar-hide">
+      <div className="w-full max-w-2xl h-full bg-white rounded-lg shadow-md p-6 border overflow-auto scrollbar-hide">
         <div className="w-full flex justify-between mb-10">
           {/* 뒤로가기 & 북마크 */}
           <div>
