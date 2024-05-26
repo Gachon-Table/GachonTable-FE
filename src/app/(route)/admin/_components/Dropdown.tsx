@@ -15,7 +15,7 @@ const Dropdown = () => {
   return (
     <div className="bg-deep-cove">
       <div className="relative mx-auto max-w-screen-xl">
-        <div className="flex justify-center bg-deep-cove pt-11">
+        <div className="flex justify-center bg-deep-cove">
           <div
             className={`relative flex w-full max-w-screen-xl cursor-pointer items-center bg-white px-4 py-6 shadow-md ${isOpen ? 'rounded-t-lg' : 'rounded-lg'}`}
             onClick={toggleDropdown}
