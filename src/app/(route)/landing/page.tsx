@@ -6,7 +6,7 @@ import Navigation from '../_components/nav/Navigation';
 const LandingPage: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <header className="w-9/12 max-w-2xl h-full bg-white rounded-lg shadow-md text-center mt-6">
+      <header className="w-full max-w-2xl h-full bg-white rounded-lg shadow-md text-center mt-6">
         <div className="w-full h-[7.5vh] bg-white rounded-lg flex items-center justify-center">
           <div className="w-1/5 bg-white flex items-center justify-center rounded-lg">
             <div className="w-11 h-11 bg-gray-300 rounded-full"></div>
@@ -27,7 +27,7 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </header>
-      <main className="flex flex-col items-center w-9/12 max-w-2xl mt-6 gap-6 h-full mx-auto">
+      <main className="flex flex-col items-center w-full max-w-2xl mt-6 gap-6 h-full">
         <ResponsiveTest />
       </main>
       <Navigation />
