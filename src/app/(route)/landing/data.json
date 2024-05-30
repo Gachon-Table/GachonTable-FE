@@ -2,47 +2,53 @@
     "stores": [
         {
             "id": 1,
-            "name": "카페 루프탑",
+            "name": "Cafe Rooftop",
             "department": "호텔경영학과",
-            "introduction": "도심 속 루프탑에서 편안한 커피를 즐길 수 있는 공간입니다.",
+            "introduction": "도심 속 옥상에서 편안한 커피를 즐길 수 있는 공간입니다.",
             "studentIDRequired": true,
             "people": "적음",
             "bookmark": true,
             "menu": [
                 {
                     "name": "에스프레소",
-                    "price": 4000
+                    "price": 4000,
+                    "explanation": "뜨거운 물을 가늘게 간 커피 가루에 강하게 통과시켜 추출한 진하고 풍부한 맛의 커피입니다."
                 },
                 {
                     "name": "아이스 라떼",
-                    "price": 4500
+                    "price": 4500,
+                    "explanation": "에스프레소와 차가운 우유를 섞어 얼음 위에 제공되는 시원한 커피 음료입니다."
                 },
                 {
                     "name": "케이크",
-                    "price": 6000
+                    "price": 6000,
+                    "explanation": "커피와 잘 어울리는 다양한 맛있는 케이크를 제공합니다."
                 }
             ]
         },
         {
             "id": 2,
-            "name": "피자 파티",
-            "department": "식품공학과",
-            "introduction": "신선한 재료로 만든 다양한 종류의 피자를 제공합니다.",
+            "name": "Pizza Party",
+            "department": "식품과학기술학과",
+            "introduction": "신선한 재료로 만든 다양한 피자를 제공합니다.",
             "studentIDRequired": false,
             "people": "많음",
             "bookmark": true,
             "menu": [
                 {
-                    "name": "마르게리따 피자",
-                    "price": 16000
+                    "name": "마르게리타 피자",
+                    "price": 16000,
+                    "explanation": "신선한 토마토, 모짜렐라 치즈, 바질을 얹은 클래식 피자입니다."
                 },
                 {
                     "name": "페퍼로니 피자",
-                    "price": 18000
+                    "price": 18000,
+                    "explanation": "매콤한 페퍼로니 조각과 모짜렐라 치즈가 듬뿍 올라간 인기 피자입니다."
                 },
                 {
-                    "name": "치즈피자",
-                    "price": 15000
+                    "name": "치즈 피자",
+                    "price": 15000,
+                    "explanation": "모짜렐라, 체더, 파마산 치즈가 어우러진 간단하면서도 맛있는 피자입니다."
                 }
             ]
         },
@@ -50,22 +56,25 @@
             "id": 3,
             "name": "한식당",
             "department": "한국어학과",
-            "introduction": "전통적인 한식을 경험할 수 있는 가게입니다.",
+            "introduction": "전통 한식을 경험할 수 있는 식당입니다.",
             "studentIDRequired": true,
             "people": "보통",
             "bookmark": false,
             "menu": [
                 {
                     "name": "비빔밥",
-                    "price": 8000
+                    "price": 8000,
+                    "explanation": "야채, 소고기, 매콤한 고추장 소스를 곁들인 혼합 밥 요리입니다."
                 },
                 {
                     "name": "된장찌개",
-                    "price": 9000
+                    "price": 9000,
+                    "explanation": "발효된 된장, 두부, 야채로 만든 푸짐한 찌개입니다."
                 },
                 {
                     "name": "김치찌개",
-                    "price": 8500
+                    "price": 8500,
+                    "explanation": "발효된 김치, 돼지고기, 두부로 만든 매콤한 찌개입니다."
                 }
             ]
         },
@@ -73,22 +82,25 @@
             "id": 4,
             "name": "이탈리안 피자",
             "department": "이탈리아어학과",
-            "introduction": "오리지널 이탈리안 레시피로 만든 피자를 제공합니다.",
+            "introduction": "원래의 이탈리아 레시피로 만든 피자를 제공합니다.",
             "studentIDRequired": true,
             "bookmark": false,
             "people": "보통",
             "menu": [
                 {
-                    "name": "마르게리따 피자",
-                    "price": 16000
+                    "name": "마르게리타 피자",
+                    "price": 16000,
+                    "explanation": "신선한 토마토, 모짜렐라, 바질을 얹은 전통 이탈리아 피자입니다."
                 },
                 {
                     "name": "토마토 파스타",
-                    "price": 14000
+                    "price": 14000,
+                    "explanation": "풍부하고 맛있는 토마토 소스를 곁들인 파스타입니다."
                 },
                 {
                     "name": "페퍼로니 피자",
-                    "price": 18000
+                    "price": 18000,
+                    "explanation": "매콤한 페퍼로니와 모짜렐라 치즈가 듬뿍 올라간 클래식 피자입니다."
                 }
             ]
         },
@@ -103,15 +115,18 @@
             "menu": [
                 {
                     "name": "연어 스시",
-                    "price": 12000
+                    "price": 12000,
+                    "explanation": "신선한 연어 슬라이스를 양념된 밥 위에 얹어 제공합니다."
                 },
                 {
                     "name": "참치 스시",
-                    "price": 10000
+                    "price": 10000,
+                    "explanation": "섬세한 참치 슬라이스를 양념된 밥 위에 얹어 제공합니다."
                 },
                 {
-                    "name": "에비 스시",
-                    "price": 15000
+                    "name": "새우 스시",
+                    "price": 15000,
+                    "explanation": "육즙이 풍부한 새우를 양념된 밥 위에 얹어 제공합니다."
                 }
             ]
         },
@@ -119,45 +134,51 @@
             "id": 6,
             "name": "베이커리",
             "department": "제과제빵학과",
-            "introduction": "신선한 재료로 만든 다양한 종류의 빵을 제공합니다.",
+            "introduction": "신선한 재료로 만든 다양한 빵을 제공합니다.",
             "studentIDRequired": false,
             "bookmark": false,
             "people": "적음",
             "menu": [
                 {
                     "name": "프렌치 크루아상",
-                    "price": 3500
+                    "price": 3500,
+                    "explanation": "버터리하고 바삭한 프랑스식 페이스트리입니다."
                 },
                 {
-                    "name": "초코 크로와상",
-                    "price": 4000
+                    "name": "초콜릿 크루아상",
+                    "price": 4000,
+                    "explanation": "풍부한 초콜릿이 들어간 크루아상입니다."
                 },
                 {
-                    "name": "식빵",
-                    "price": 2500
+                    "name": "빵",
+                    "price": 2500,
+                    "explanation": "다양한 신선한 빵을 제공합니다."
                 }
             ]
         },
         {
             "id": 7,
             "name": "버거 샵",
-            "department": "식품공학과",
-            "introduction": "신선한 재료로 만든 다양한 종류의 햄버거를 제공합니다.",
+            "department": "식품과학기술학과",
+            "introduction": "신선한 재료로 만든 다양한 버거를 제공합니다.",
             "studentIDRequired": true,
             "bookmark": false,
             "people": "적음",
             "menu": [
                 {
                     "name": "치즈버거",
-                    "price": 7000
+                    "price": 7000,
+                    "explanation": "육즙이 풍부한 소고기 패티와 녹은 치즈가 어우러진 클래식 버거입니다."
                 },
                 {
-                    "name": "불고기버거",
-                    "price": 8000
+                    "name": "불고기 버거",
+                    "price": 8000,
+                    "explanation": "양념된 소고기 불고기를 사용한 한국식 버거입니다."
                 },
                 {
-                    "name": "치킨버거",
-                    "price": 6500
+                    "name": "치킨 버거",
+                    "price": 6500,
+                    "explanation": "바삭한 치킨 패티와 양상추, 마요네즈가 어우러진 버거입니다."
                 }
             ]
         },
@@ -165,45 +186,51 @@
             "id": 8,
             "name": "파스타 하우스",
             "department": "이탈리아어학과",
-            "introduction": "신선한 재료로 만든 다양한 종류의 파스타를 제공합니다.",
+            "introduction": "신선한 재료로 만든 다양한 파스타를 제공합니다.",
             "studentIDRequired": true,
             "bookmark": false,
             "people": "적음",
             "menu": [
                 {
                     "name": "크림 파스타",
-                    "price": 12000
+                    "price": 12000,
+                    "explanation": "크리미한 화이트 소스를 곁들인 파스타입니다."
                 },
                 {
                     "name": "토마토 파스타",
-                    "price": 11000
+                    "price": 11000,
+                    "explanation": "풍부한 토마토 소스를 곁들인 파스타입니다."
                 },
                 {
                     "name": "해산물 파스타",
-                    "price": 15000
+                    "price": 15000,
+                    "explanation": "신선한 해산물과 함께 맛있는 소스를 곁들인 파스타입니다."
                 }
             ]
         },
         {
             "id": 9,
-            "name": "바베큐 레스토랑",
-            "department": "식품공학과",
-            "introduction": "실내와 야외에서 즐기는 바베큐 파티를 제공합니다.",
+            "name": "BBQ 레스토랑",
+            "department": "식품과학기술학과",
+            "introduction": "실내 및 실외 바비큐 파티를 제공합니다.",
             "studentIDRequired": false,
             "bookmark": false,
             "people": "적음",
             "menu": [
                 {
                     "name": "스테이크",
-                    "price": 25000
+                    "price": 25000,
+                    "explanation": "육즙이 풍부하고 부드러운 스테이크를 완벽하게 구워 제공합니다."
                 },
                 {
-                    "name": "리브 아이",
-                    "price": 20000
+                    "name": "립아이",
+                    "price": 20000,
+                    "explanation": "풍미가 좋고 마블링이 뛰어난 소고기를 원하는 대로 구워 제공합니다."
                 },
                 {
                     "name": "치킨 윙",
-                    "price": 18000
+                    "price": 18000,
+                    "explanation": "매콤하고 맛있는 양념을 한 그릴드 치킨 윙입니다."
                 }
             ]
         }
