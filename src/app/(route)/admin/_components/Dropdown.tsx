@@ -23,12 +23,10 @@ const Dropdown = () => {
             <img
               src="/images/dropdown.png"
               alt="드롭다운 아이콘"
-              className="h-5 tablet:h-6 laptop:h-7 desktop:h-8"
+              className="h-7"
             />
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-sm font-semibold mobile:text-base tablet:text-3xl">
-                GACHONTABLE
-              </div>
+              <div className="text-xl font-semibold">GACHONTABLE</div>
             </div>
           </div>
         </div>
@@ -46,9 +44,7 @@ const Dropdown = () => {
                 className="h-5 tablet:h-6 laptop:h-7 desktop:h-8"
               />
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-sm font-semibold mobile:text-base tablet:text-3xl">
-                  대기 인원 관리
-                </span>
+                <span className="text-xl font-semibold">대기 인원 관리</span>
               </div>
             </Link>
             <Link
@@ -62,9 +58,7 @@ const Dropdown = () => {
                 className="h-5 tablet:h-6 laptop:h-7 desktop:h-8"
               />
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-sm font-semibold mobile:text-base tablet:text-3xl">
-                  주점 관리
-                </span>
+                <span className="text-xl font-semibold">주점 관리</span>
               </div>
             </Link>
           </div>
