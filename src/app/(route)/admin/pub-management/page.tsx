@@ -4,11 +4,17 @@ import { useState } from 'react';
 import Dropdown from '../_components/Dropdown';
 import ImageInputBox from '../_components/pubInput/ImageInputBox';
 import StudentIdInputBox from '../_components/pubInput/StudentIdInputBox';
+import MenuInputBox from '../_components/pubInput/MenuInputBox';
 
 export default function PubManagement() {
   const [contentImages, setContentImages] = useState<File[]>([]);
-  const [studentIdInput, setStudentIdInput] = useState(false);
   const [studentId, setStudentId] = useState(false);
+
+  const initialFields = [
+    { name: '떡볶이', price: '1000' },
+    { name: '순대', price: '2000' },
+  ];
+  const maxFields = 5;
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-deep-cove pt-8">
@@ -23,6 +29,7 @@ export default function PubManagement() {
           }}
         />
         <StudentIdInputBox studentIdeState={{ studentId, setStudentId }} />
+        <MenuInputBox initialFields={initialFields} maxFields={maxFields} />
       </div>
       <button className="mb-8 mt-5 w-11/12 rounded-lg bg-sunglo py-6 text-xl font-semibold text-white">
         저장하기
