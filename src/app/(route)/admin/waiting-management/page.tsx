@@ -32,6 +32,58 @@ export default function WaitingManagement() {
       registerTime: '18:01',
       phoneNumber: '010-0000-0000',
     },
+
+    {
+      name: '이근표',
+      userId: 143123,
+      headCount: 2,
+      registerTime: '18:01',
+      phoneNumber: '010-0000-0000',
+    },
+
+    {
+      name: '이근표',
+      userId: 143123,
+      headCount: 2,
+      registerTime: '18:01',
+      phoneNumber: '010-0000-0000',
+    },
+
+    {
+      name: '이근표',
+      userId: 143123,
+      headCount: 2,
+      registerTime: '18:01',
+      phoneNumber: '010-0000-0000',
+    },
+    {
+      name: '이근표',
+      userId: 143123,
+      headCount: 2,
+      registerTime: '18:01',
+      phoneNumber: '010-0000-0000',
+    },
+    {
+      name: '이근표',
+      userId: 143123,
+      headCount: 2,
+      registerTime: '18:01',
+      phoneNumber: '010-0000-0000',
+    },
+    {
+      name: '이근표',
+      userId: 143123,
+      headCount: 2,
+      registerTime: '18:01',
+      phoneNumber: '010-0000-0000',
+    },
+    {
+      name: '이근표',
+      userId: 143123,
+      headCount: 2,
+      registerTime: '18:01',
+      phoneNumber: '010-0000-0000',
+    },
   ]);
 
   const handleCallout = () => setCallout(!callout);
@@ -39,67 +91,59 @@ export default function WaitingManagement() {
   const handleBeSeated = () => setBeSeated(!beSeated);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-start bg-deep-cove pt-11">
-      <div className="w-full max-w-screen-xl pb-11">
+    <div className="flex min-h-screen flex-col items-center justify-start bg-deep-cove pt-8">
+      <div className="w-11/12 max-w-screen-xl pb-5">
         <Dropdown />
       </div>
-      <div className="h-[515px] w-full max-w-screen-xl rounded-lg bg-white p-4 shadow-md tablet:h-[805px]">
+      <div className="h-[480px] w-11/12 max-w-screen-xl overflow-y-auto rounded-lg bg-white p-5 shadow-md">
         {list.map((user, idx) => (
-          <div
-            key={idx}
-            className="mb-4 flex flex-row items-center justify-between rounded-lg border p-4 "
-          >
-            <div className="mb-4 flex items-center space-x-4 tablet:mb-0">
-              <div className="mb-4 flex flex-col items-center pt-2">
-                <div className="text-lg font-bold mobile:text-3xl">
-                  {idx + 1}
+          <div key={idx}>
+            <div className="flex flex-row items-center justify-between rounded-lg border p-4">
+              <div className="flex items-center space-x-4">
+                <div className="mb-4 flex flex-col items-center pt-2">
+                  <div className="text-3xl font-bold">{idx + 1}</div>
+                  <span className="text-sm">{user.registerTime}</span>
                 </div>
-                <span className="text-sm mobile:text-base">
-                  {user.registerTime}
-                </span>
+                <div>
+                  <div className="text-xl font-bold">{user.name}</div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg">{user.headCount}명</span>
+                    <span className="cursor-pointer text-lg hover:underline">
+                      {user.phoneNumber.substring(user.phoneNumber.length - 4)}
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <div className="text-base font-bold mobile:text-xl">
-                  {user.name}
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-base mobile:text-lg">
-                    {user.headCount}명
+              <div className="flex items-center space-x-4">
+                <div
+                  className="flex cursor-pointer flex-col items-center space-y-2"
+                  onClick={handleCallout}
+                >
+                  <img
+                    src="/images/bell-icon.png"
+                    alt="고객 호출 아이콘"
+                    className="h-7 mobile:h-8 tablet:h-9"
+                  />
+                  <span className="text-xs font-light mobile:text-base">
+                    고객 호출
                   </span>
-                  <span className="cursor-pointer text-lg hover:underline mobile:text-base">
-                    {user.phoneNumber.substring(user.phoneNumber.length - 4)}
+                </div>
+                <div
+                  className="flex cursor-pointer flex-col items-center space-y-2"
+                  onClick={handleBeSeated}
+                >
+                  <img
+                    src="/images/check-icon.png"
+                    alt="착석 완료 아이콘"
+                    className="h-7 mobile:h-8 tablet:h-9"
+                  />
+                  <span className="text-xs font-light mobile:text-base">
+                    착석 완료
                   </span>
                 </div>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <div
-                className="flex cursor-pointer flex-col items-center space-y-2"
-                onClick={handleCallout}
-              >
-                <img
-                  src="/images/bell-icon.png"
-                  alt="고객 호출 아이콘"
-                  className="h-7 mobile:h-8 tablet:h-9"
-                />
-                <span className="text-xs font-light mobile:text-base">
-                  고객 호출
-                </span>
-              </div>
-              <div
-                className="flex cursor-pointer flex-col items-center space-y-2"
-                onClick={handleBeSeated}
-              >
-                <img
-                  src="/images/check-icon.png"
-                  alt="착석 완료 아이콘"
-                  className="h-7 mobile:h-8 tablet:h-9"
-                />
-                <span className="text-xs font-light mobile:text-base">
-                  착석 완료
-                </span>
-              </div>
-            </div>
+            {idx !== list.length - 1 && <div className="mt-5" />}
           </div>
         ))}
         {callout ? (
@@ -110,11 +154,11 @@ export default function WaitingManagement() {
         ) : null}
       </div>
 
-      <div className="flex w-full max-w-screen-xl items-center justify-center space-x-2 pt-11 tablet:space-x-2">
-        <button className="flex-1 rounded-lg bg-sunglo py-6 text-2xl font-semibold text-white">
+      <div className="flex w-11/12 max-w-screen-xl items-center justify-center space-x-2 pb-8 pt-5 tablet:space-x-2">
+        <button className="flex-1 rounded-lg bg-sunglo py-6 text-xl font-semibold text-white">
           현장 줄서기
         </button>
-        <button className="flex-1 rounded-lg bg-sunglo py-6 text-2xl font-semibold text-white">
+        <button className="flex-1 rounded-lg bg-sunglo py-6 text-xl font-semibold text-white">
           대기 마감
         </button>
       </div>
