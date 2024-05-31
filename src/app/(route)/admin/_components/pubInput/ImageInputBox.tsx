@@ -60,7 +60,7 @@ function ImageInputBox({ contentImagesState }: Props) {
         multiple
       />
       <div
-        className={`w-full max-w-md cursor-pointer rounded-md border-2 border-dashed border-gray-400 p-4 ${
+        className={`w-full max-w-md cursor-pointer rounded-md border-2 border-gray-400 p-5 hover:bg-gray-200 ${
           isDragging ? 'bg-gray-200' : 'bg-white'
         }`}
         onDragEnter={onDragEnter}
