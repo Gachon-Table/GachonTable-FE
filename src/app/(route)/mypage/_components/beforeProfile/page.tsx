@@ -1,10 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 const BeforeProfile = () => {
-  const { data: session } = useSession();
-  console.log(session);
   return (
     <div className="mr-[8rem] mt-[8rem] flex w-[100%] justify-evenly">
       <div className="flex h-full">
