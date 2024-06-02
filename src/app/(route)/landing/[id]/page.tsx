@@ -1,6 +1,5 @@
-// src/app/(route)/landing/[id]/page.tsx
 "use client";
-import React from 'react';
+import React, { useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import storeData from '../data.json';
 import WaitingTeams from './WaitingTeams';
@@ -9,12 +8,19 @@ import Navigation from '../../_components/nav/Navigation';
 const StoreDetailPage: React.FC = () => {
   const pathname = usePathname();
   const id = pathname.split('/').pop();
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const store = storeData.stores.find((store) => store.id === Number(id));
 
   if (!store) {
     return <div>Store not found</div>;
   }
+
+  const scrollToMenu = () => {
+    if (menuRef.current) {
+      menuRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center mb-10">
@@ -63,14 +69,14 @@ const StoreDetailPage: React.FC = () => {
           <div className="text-lg font-bold border-b-2 border-black w-min">Instagram</div>
         </div>
         {/* 메뉴 & 전화 카테고리 */}
-        <div className="border-b border-gray-300 flex flex-row mt-5" style={{height:'10vh'}}>
+        <div className="border-b border-gray-300 flex flex-row mt-5 h-20">
           <div className="w-1/2 text-lg flex justify-center items-center border-r border-gray-300">전화</div>
-          <div className="w-1/2 text-lg flex justify-center items-center">메뉴</div>
+          <div className="w-1/2 text-lg flex justify-center items-center cursor-pointer" onClick={scrollToMenu}>메뉴</div>
         </div>
         <div className="mt-4">
           <WaitingTeams />
         </div>
-        <div className="w-full mt-10 pt-10">
+        <div ref={menuRef} className="w-full mt-10 pt-10">
           <div className="text-2xl font-bold mb-10 mt-10 p-4">메뉴</div>
           <div className="flex flex-col">
             {store.menu.map((menuItem) => (

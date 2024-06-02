@@ -1,15 +1,45 @@
-import React from 'react';
+"use client"
+import React, { useState } from 'react';
 import Link from 'next/link'; // Import Link from next/link
 import storeData from './data.json'; // JSON 파일을 import
 
-const ResponsiveTest: React.FC = () => {  
+interface Store {
+  id: number;
+  department: string;
+  people: string;
+  introduction: string;
+  studentIDRequired: boolean;
+  menu: { name: string }[];
+  bookmark: boolean;
+}
+
+const ResponsiveTest: React.FC = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true); // 로그인 상태 관리
+  const [showLoginPopup, setShowLoginPopup] = useState<boolean>(false); // 팝업 상태 관리
+
+  const handleStoreClick = (e: React.MouseEvent<HTMLAnchorElement>, id: number) => {
+    if (!isLoggedIn) {
+      e.preventDefault(); // 페이지 이동 막기
+      setShowLoginPopup(true); // 팝업 표시
+    }
+  };
+
+  const closePopup = () => {
+    setShowLoginPopup(false);
+  };
+
   return (
     <>
-      {storeData.stores.map((store) => (
-        <a href={`/landing/${store.id}`} key={store.id} className="w-full h-1/10 bg-white flex flex-row"> {/* Add Link here */}
+      {storeData.stores.map((store: Store) => (
+        <a
+          href={`/landing/${store.id}`}
+          key={store.id}
+          onClick={(e) => handleStoreClick(e, store.id)}
+          className="w-full h-1/10 bg-white flex flex-row"
+        >
           <div className="w-full h-1/10 bg-white flex flex-row">
             <img src='/images/storeImage.png' alt='가게사진' className="w-28 h-28 mr-2" />
-            <div className="w-4/5 bg-white flex flex-row justify-between" >
+            <div className="w-4/5 bg-white flex flex-row justify-between">
               <div>
                 <div className="w-11/12 bg-white flex items-center text-center justify-start text-[20px]">
                   <div className="font-bold text-lg">{store.department}</div>
@@ -34,6 +64,18 @@ const ResponsiveTest: React.FC = () => {
           </div>
         </a>
       ))}
+
+      {showLoginPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-50">
+          <div className="absolute inset-0" onClick={closePopup}></div>
+          <div className="fixed bottom-5 h-1/3 w-full max-w-2xl mx-auto bg-white text-black text-center">
+            <div className="text-black text-xl font-bold h-24 flex justify-center items-center">로그인이 필요한 서비스입니다!</div>
+            <div className="text-center">
+              <img src="/images/kakao_login_medium_wide.png" alt="카카오 로그인" className="w-80 h-11 mx-auto" />
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

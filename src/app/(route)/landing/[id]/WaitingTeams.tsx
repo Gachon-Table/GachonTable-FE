@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
 const WaitingTeams: React.FC = () => {
-  const [numberOfTeams] = useState(5); // Example static number
-  const [peopleCount, setPeopleCount] = useState(1); // Default people count
+  const [numberOfTeams] = useState(5);
+  const [peopleCount, setPeopleCount] = useState(1);
+  const [showLoginPopup, setShowLoginPopup] = useState<boolean>(false); // 팝업 상태 관리
 
   const incrementPeople = () => {
     setPeopleCount(peopleCount + 1);
@@ -12,6 +13,14 @@ const WaitingTeams: React.FC = () => {
     if (peopleCount > 1) {
       setPeopleCount(peopleCount - 1);
     }
+  };
+
+  const openPopup = () => {
+    setShowLoginPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowLoginPopup(false);
   };
 
   return (
@@ -35,9 +44,23 @@ const WaitingTeams: React.FC = () => {
           </button>
         </div>
       </div>
-      <div className="bg-gray-800 text-white flex justify-center items-center h-24 text-2xl font-bold">
+      <div onClick={openPopup} className="bg-gray-800 text-white flex justify-center items-center h-24 text-2xl font-bold cursor-pointer">
         웨이팅 신청
       </div>
+      {showLoginPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-50">
+          <div className="absolute inset-0" onClick={closePopup}></div>
+          <div className="relative h-1/3 w-full max-w-md mx-auto bg-white text-black text-center rounded-lg shadow-lg border">
+            <div className="text-black text-xl font-bold h-20 flex justify-center items-center">신청하시겠습니까?</div>
+            <div className="text-black text-xs h-10 flex justify-center items-center">신청 시 카카오톡으로 대기 현황을 알려 드려요!</div>
+            <div className="text-red-600 text-xs flex justify-center items-center">해당 주점은 학생증이 필수인 주점입니다!</div>
+            <div className="flex flex-row mt-5 h-16">
+              <div className="w-1/2 text-lg flex justify-center items-center border-r border-gray-300 cursor-pointer" onClick={closePopup}>취소</div>
+              <div className="w-1/2 text-lg flex justify-center items-center cursor-pointer" >신청</div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
