@@ -1,5 +1,6 @@
 import NumberKeypad from '../_components/NumberKeypad';
 import Information from '../_components/Information';
+import ParticipantsModal from '../_components/ParticipantsModal';
 
 export default function FieldLineUp() {
   const data = {
@@ -16,6 +17,7 @@ export default function FieldLineUp() {
       <div className="flex h-full w-1/2 flex-col bg-white">
         <NumberKeypad />
       </div>
+      <ParticipantsModal />
     </div>
   );
 }
