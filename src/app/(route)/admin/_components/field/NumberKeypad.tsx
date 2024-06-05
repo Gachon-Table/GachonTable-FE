@@ -2,7 +2,11 @@
 
 import React, { useState } from 'react';
 
-const NumberKeypad = () => {
+interface NumberKeypadProps {
+  onClose: () => void;
+}
+
+const NumberKeypad: React.FC<NumberKeypadProps> = ({ onClose }) => {
   const [value, setValue] = useState('010');
   const maxLength = 11;
 
@@ -69,6 +73,7 @@ const NumberKeypad = () => {
       </div>
       <button
         className={`h-32 w-full px-4 text-4xl font-bold ${value.length === 11 ? 'bg-sunglo text-white' : 'bg-gray-300 text-gray-500'}`}
+        onClick={onClose}
       >
         방문 인원 수 입력
       </button>

@@ -1,7 +1,11 @@
 'use client';
 import React, { useState } from 'react';
 
-const ParticipantsModal = () => {
+interface ParticipantsModalProps {
+  onClose: () => void;
+}
+
+const ParticipantsModal: React.FC<ParticipantsModalProps> = ({ onClose }) => {
   const [count, setCount] = useState(1);
 
   const handleDecrement = () => {
@@ -23,7 +27,7 @@ const ParticipantsModal = () => {
           <button
             className="rounded-[5px]  border border-gray-300 bg-white px-[22px] py-3 text-[17px] font-bold text-gray-300  shadow-md hover:bg-gray-100 hover:text-white"
             onClick={handleDecrement}
-            disabled={count <= 1} // 1보다 작아지면 버튼 비활성화
+            disabled={count <= 1}
           >
             -
           </button>
@@ -37,9 +41,17 @@ const ParticipantsModal = () => {
             +
           </button>
         </div>
-        <button className="mb-6 rounded-[5px] bg-sunglo px-[68px] py-3 text-sm font-semibold text-white">
-          대기 시작
-        </button>
+        <div>
+          <button
+            className="mb-6 mr-5 rounded-[5px] bg-gray-400 px-[55px] py-3 text-sm font-semibold text-white"
+            onClick={onClose}
+          >
+            취소
+          </button>
+          <button className="mb-6 rounded-[5px] bg-sunglo px-[48px] py-3 text-sm font-semibold text-white">
+            대기 시작
+          </button>
+        </div>
       </div>
     </div>
   );

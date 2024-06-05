@@ -1,8 +1,16 @@
-import NumberKeypad from '../_components/NumberKeypad';
-import Information from '../_components/Information';
-import ParticipantsModal from '../_components/ParticipantsModal';
+'use client';
+import { useState } from 'react';
+import NumberKeypad from '../_components/field/NumberKeypad';
+import Information from '../_components/field/Information';
+import ParticipantsModal from '../_components/field/ParticipantsModal';
 
 export default function FieldLineUp() {
+  const [close, setClose] = useState(true);
+
+  const onClose = () => {
+    setClose(!close);
+  };
+
   const data = {
     pubName: '경제학과 이코노미더머니',
     queueing: 2,
@@ -15,9 +23,10 @@ export default function FieldLineUp() {
       </div>
 
       <div className="flex h-full w-1/2 flex-col bg-white">
-        <NumberKeypad />
+        <NumberKeypad onClose={onClose} />
       </div>
-      <ParticipantsModal />
+
+      {!close && <ParticipantsModal onClose={onClose} />}
     </div>
   );
 }
