@@ -21,12 +21,17 @@ const config: Config = {
       },
       colors: {
         'tory-blue': '#014f9e',
+        'dodger-blue': '#0096ff',
         'deep-cove': '#001140',
         'sunglo': '#de6868',
+        'gallery': '#efeff0',
         'modal-rgba': 'rgba(0, 0, 0, 0.4)',
-      }
+      },
+      maxWidth: {
+        '30rem': '30rem',// 하단 네비게이션바 width설정하기 위함
+      },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };
 export default config;
