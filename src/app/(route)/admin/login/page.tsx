@@ -1,4 +1,28 @@
-export default async function AdminLogin() {
+'use client';
+
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+
+export default function AdminLogin() {
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const res = axios.post('/api/admin/login', { id, password });
+      console.log(res);
+      alert('로그인 성공');
+      router.push('/admin/waiting-management');
+    } catch (error) {
+      console.error(error);
+      alert('로그인 실패');
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white">
       <div className="mb-8">
@@ -7,7 +31,7 @@ export default async function AdminLogin() {
           alt="캐릭터 로고"
           className="laptop:h-78 mobile:h-50 tablet:h-76 desktop:h-78"
         />
-        <div className="text-tory-blue text-center text-3xl font-bold mobile:text-3xl tablet:text-3xl laptop:text-4xl desktop:text-5xl">
+        <div className="text-center text-3xl font-bold text-tory-blue mobile:text-3xl tablet:text-3xl laptop:text-4xl desktop:text-5xl">
           관리자 로그인
         </div>
       </div>
@@ -16,30 +40,37 @@ export default async function AdminLogin() {
         <div className="mb-4">
           <label
             htmlFor="id"
-            className="text-tory-blue mb-2 block font-extralight"
+            className="mb-2 block font-extralight text-tory-blue"
           >
             ID
           </label>
           <input
             id="id"
             type="text"
-            className="border-tory-blue w-full rounded-md border px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 mobile:py-4"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            className="w-full rounded-md border border-tory-blue px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 mobile:py-4"
           />
         </div>
         <div className="mb-6">
           <label
             htmlFor="password"
-            className="text-tory-blue mb-2 block font-extralight"
+            className="mb-2 block font-extralight text-tory-blue"
           >
             Password
           </label>
           <input
             id="password"
             type="password"
-            className="border-tory-blue w-full rounded-md border px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 mobile:py-4"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full rounded-md border border-tory-blue px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 mobile:py-4"
           />
         </div>
-        <button className="w-full rounded-md bg-blue-500 py-3 font-light text-white transition-colors duration-300 hover:bg-blue-600 mobile:py-4">
+        <button
+          onClick={handleLogin}
+          className="w-full rounded-md bg-blue-500 py-3 font-light text-white transition-colors duration-300 hover:bg-blue-600 mobile:py-4"
+        >
           Login
         </button>
       </div>
