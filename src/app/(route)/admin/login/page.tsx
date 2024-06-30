@@ -9,17 +9,19 @@ export default function AdminLogin() {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const res = axios.post('/api/admin/login', { id, password });
+      const res = await axios.post('/api/admin/login', { id, password });
       console.log(res);
       alert('로그인 성공');
       router.push('/admin/waiting-management');
     } catch (error) {
       console.error(error);
       alert('로그인 실패');
+      setId('');
+      setPassword('');
     }
   };
 
