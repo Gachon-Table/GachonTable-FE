@@ -1,12 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Dropdown from '../_components/Dropdown';
 import AlertModal from '../_components/AlertModal';
+import { isAuthenticated } from '@/app/api/service/adminAuth';
+import { useRouter } from 'next/navigation';
 
 export default function WaitingManagement() {
   const [callout, setCallout] = useState<boolean>(false); //고객호출
   const [beSeated, setBeSeated] = useState<boolean>(false); //착석완료
+  const router = useRouter();
+
+  // useEffect(() => {
+  //   if (!isAuthenticated()) {
+  //     router.push('/admin/login');
+  //   }
+  // }, []);
 
   interface User {
     name: string;

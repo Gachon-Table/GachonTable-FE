@@ -1,29 +1,35 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
+import { adminLogin, isAuthenticated } from '@/app/api/service/adminAuth';
 
 export default function AdminLogin() {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async () => {
+    const credentials = {
+      id: id,
+      password: password,
+    };
 
     try {
-      const res = await axios.post('/api/admin/login', { id, password });
-      console.log(res);
+      const data = await adminLogin(credentials);
+      console.log('로그인 성공 : ', data);
       alert('로그인 성공');
       router.push('/admin/waiting-management');
     } catch (error) {
-      console.error(error);
-      alert('로그인 실패');
-      setId('');
-      setPassword('');
+      console.log(error);
     }
   };
+
+  // useEffect(() => {
+  //   if (isAuthenticated()) {
+  //     router.push('/admin/waiting-management');
+  //   }
+  // }, []);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white">
@@ -31,7 +37,7 @@ export default function AdminLogin() {
         <img
           src="/images/logo2.png"
           alt="캐릭터 로고"
-          className="laptop:h-78 mobile:h-50 tablet:h-76 desktop:h-78"
+          className="mobile:h-[360px]"
         />
         <div className="text-center text-3xl font-bold text-tory-blue mobile:text-3xl tablet:text-3xl laptop:text-4xl desktop:text-5xl">
           관리자 로그인
