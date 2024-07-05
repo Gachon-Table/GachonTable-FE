@@ -11,11 +11,11 @@ export default function WaitingManagement() {
   const [beSeated, setBeSeated] = useState<boolean>(false); //착석완료
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (!isAuthenticated()) {
-  //     router.push('/admin/login');
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      router.push('/admin/login');
+    }
+  }, []);
 
   interface User {
     name: string;
@@ -27,70 +27,10 @@ export default function WaitingManagement() {
 
   const [list, setList] = useState<User[]>([
     {
-      name: '이동훈',
+      name: '노정완',
       userId: 123123,
       headCount: 4,
       registerTime: '17:57',
-      phoneNumber: '010-0000-0000',
-    },
-
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
-      phoneNumber: '010-0000-0000',
-    },
-
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
-      phoneNumber: '010-0000-0000',
-    },
-
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
-      phoneNumber: '010-0000-0000',
-    },
-
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
-      phoneNumber: '010-0000-0000',
-    },
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
-      phoneNumber: '010-0000-0000',
-    },
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
-      phoneNumber: '010-0000-0000',
-    },
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
-      phoneNumber: '010-0000-0000',
-    },
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
       phoneNumber: '010-0000-0000',
     },
   ]);

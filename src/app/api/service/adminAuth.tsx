@@ -8,10 +8,10 @@ interface AdminProps {
 export const adminLogin = async (credentials: AdminProps) => {
   try {
     const response = await adminAxios.post('/login', credentials);
-    const { accessToken, refreshToken } = response.data;
+    const tokens = response.data;
 
-    localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('accessToken', tokens.accessToken);
+    localStorage.setItem('refreshToken', tokens.refreshToken);
 
     return response.data;
   } catch (error) {

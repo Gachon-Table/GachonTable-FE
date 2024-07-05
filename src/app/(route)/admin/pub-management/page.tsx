@@ -19,12 +19,12 @@ export default function PubManagement() {
   ];
   const maxFields = 5;
 
-  // useEffect(() => {
-  //   console.log(isAuthenticated());
-  //   if (!isAuthenticated()) {
-  //     router.push('/admin/login');
-  //   }
-  // }, []);
+  useEffect(() => {
+    console.log(isAuthenticated());
+    if (!isAuthenticated()) {
+      router.push('/admin/login');
+    }
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-deep-cove pt-8">

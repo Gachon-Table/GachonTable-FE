@@ -25,11 +25,11 @@ export default function AdminLogin() {
     }
   };
 
-  // useEffect(() => {
-  //   if (isAuthenticated()) {
-  //     router.push('/admin/waiting-management');
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (isAuthenticated()) {
+      router.push('/admin/waiting-management');
+    }
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white">
