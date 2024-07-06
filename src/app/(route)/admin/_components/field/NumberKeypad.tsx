@@ -42,14 +42,14 @@ const NumberKeypad: React.FC<NumberKeypadProps> = ({ onClose }) => {
   const numbers = insertHyphens(value);
 
   return (
-    <div className="flex h-full w-full flex-col">
-      <div className="flex h-32 flex-col items-center">
+    <div className="flex h-screen flex-col">
+      <div className="flex h-1/5 flex-col items-center">
         <div className="mt-6 text-5xl font-bold">{value ? numbers : ''}</div>
         <p className="text-s mt-6 text-center text-gray-300">
           웨이팅 알림을 받을 수 있는 전화번호를 입력해주세요.
         </p>
       </div>
-      <div className="border-width-xs mt-4 grid h-[500px] w-full grid-cols-3 grid-rows-4 divide-x divide-y divide-gray-200 border border-gray-200">
+      <div className="border-width-xs mt-4 grid h-4/5 w-full grid-cols-3 grid-rows-4 divide-x divide-y divide-gray-200 border border-gray-200">
         {['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '←'].map(
           (item, index) => (
             <button
@@ -72,7 +72,7 @@ const NumberKeypad: React.FC<NumberKeypadProps> = ({ onClose }) => {
         )}
       </div>
       <button
-        className={`h-32 w-full px-4 text-4xl font-bold ${value.length === 11 ? 'bg-sunglo text-white' : 'bg-gray-300 text-gray-500'}`}
+        className={`h-1/5 w-full px-4 text-4xl font-bold ${value.length === 11 ? 'bg-sunglo text-white' : 'bg-gray-300 text-gray-500'}`}
         onClick={onClose}
       >
         방문 인원 수 입력

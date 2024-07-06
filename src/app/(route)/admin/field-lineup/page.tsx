@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import NumberKeypad from '../_components/field/NumberKeypad';
 import Information from '../_components/field/Information';
 import ParticipantsModal from '../_components/field/ParticipantsModal';
@@ -17,12 +17,12 @@ export default function FieldLineUp() {
   };
 
   return (
-    <div className="flex h-[768px] w-[1024px] flex-row items-center justify-center">
-      <div className="flex h-full w-1/2 flex-col items-center bg-deep-cove text-white">
+    <div className="flex flex-row items-center justify-center">
+      <div className="flex h-screen w-1/2 flex-col items-center bg-deep-cove text-white">
         <Information pubName={data.pubName} queueing={data.queueing} />
       </div>
 
-      <div className="flex h-full w-1/2 flex-col bg-white">
+      <div className="flex h-screen w-1/2 flex-col bg-white">
         <NumberKeypad onClose={onClose} />
       </div>
 
