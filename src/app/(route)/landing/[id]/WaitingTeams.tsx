@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 
-const WaitingTeams: React.FC = () => {
-  const [numberOfTeams] = useState(5);
+interface WaitingTeamsProps {
+  queueing: number;
+}
+
+const WaitingTeams: React.FC<WaitingTeamsProps> = ({ queueing }) => {
   const [peopleCount, setPeopleCount] = useState(1);
   const [showLoginPopup, setShowLoginPopup] = useState<boolean>(false); // 팝업 상태 관리
 
@@ -25,7 +28,7 @@ const WaitingTeams: React.FC = () => {
 
   return (
     <div className="w-full h-full max-h-screen mt-2 flex flex-col">
-      <div className="text-xl font-bold mb-10">현재 {numberOfTeams}팀이 웨이팅 중입니다.</div>
+      <div className="text-xl font-bold mb-10">현재 {queueing}팀이 웨이팅 중입니다.</div>
       <div className="flex flex-col justify-center items-center mt-2">
         <div className="mb-2">인원 수</div>
         <div className="flex items-center mb-20">
