@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -14,16 +14,17 @@ interface Store {
 
 interface ResponsiveTestProps {
   searchTerm: string;
+  filterStudentCard: boolean | null;
 }
 
-const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm }) => {
+const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStudentCard }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true); // 로그인 상태 관리
   const [showLoginPopup, setShowLoginPopup] = useState<boolean>(false); // 팝업 상태 관리
   const [stores, setStores] = useState<Store[]>([]); // 가게 정보 저장
   const [loading, setLoading] = useState<boolean>(true); // 로딩 상태 관리
   const [error, setError] = useState<string | null>(null); // 에러 상태 관리
 
-  // 주점목록 API
+  // 주점 목록 API
   useEffect(() => {
     axios.get('http://ec2-3-34-185-126.ap-northeast-2.compute.amazonaws.com:8080/pub/all')
       .then(response => {
@@ -50,11 +51,13 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm }) => {
     setShowLoginPopup(false);
   };
 
-  // 검색어에 따라 데이터를 필터링
-  const filteredStores = stores.filter(store =>
-    store.pubName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    store.oneLiner.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    store.menu.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredStores = stores.filter(store => {
+    if (filterStudentCard !== null) {
+      return store.studentCard === filterStudentCard;
+    }
+    return store;
+  }).filter(store => 
+    store.pubName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -93,7 +96,7 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm }) => {
                   </div>
                   <div className="w-80 bg-white flex justify-start mb-[1%] text-base items-start text-left">{store.oneLiner}</div>
                   <div className="w-12/12 bg-white flex justify-start mb-[0.5%] text-[10px] items-start text-left">{store.studentCard ? '학생증 필요' : '학생증 불필요'}</div>
-                  <div className="w-12/12 bg-white flex justify-start mb-[0.5%] text-[10px] items-start text-left">{store.menu}</div>
+                  <div className="w-12/12 bg-white flex justify-start mb-[0.5%] text-[10px] items-start text-left">{store.menu}</div> {/* 첫 번째 메뉴 이름만 표시 */}
                 </div>
                 <div>
                   {store.bookmark ? (

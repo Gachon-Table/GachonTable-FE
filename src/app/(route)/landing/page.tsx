@@ -5,10 +5,15 @@ import Navigation from '../_components/nav/Navigation';
 
 const LandingPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [filterStudentCard, setFilterStudentCard] = useState<boolean | null>(null);
+
+  const handleStudentCardFilter = () => {
+    setFilterStudentCard(prev => (prev === false ? null : false));
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <header className="fixed top-0 w-full max-w-[30rem] bg-white rounded-lg shadow-md text-center mt-1">
+      <header className="fixed top-0 w-full max-w-[30rem] bg-white rounded-lg shadow-md text-center">
         <div className="w-full h-[7.5vh] bg-white rounded-lg flex items-center justify-center">
           <div className="w-1/5 bg-white flex items-center justify-center rounded-lg">
             <div className="w-11 h-11 bg-gray-300 rounded-full"></div>
@@ -27,12 +32,17 @@ const LandingPage: React.FC = () => {
           <div className="w-full h-7 bg-white rounded-lg flex items-center justify-center gap-10">
             <div className="w-1/4 h-[5vh] rounded-xl border-2 border-black flex items-center justify-center">혼잡도 많은 순</div>
             <div className="w-1/4 h-[5vh] rounded-xl border-2 border-black flex items-center justify-center">혼잡도 적은 순</div>
-            <div className="w-1/4 h-[5vh] rounded-xl border-2 border-black flex items-center justify-center">학생증 불필요</div>
+            <div
+              className={`w-1/4 h-[5vh] rounded-xl border-2 flex items-center justify-center ${filterStudentCard === false ? 'border-blue-500' : 'border-black'}`}
+              onClick={handleStudentCardFilter}
+            >
+              학생증 불필요
+            </div>
           </div>
         </div>
       </header>
       <main className="flex flex-col items-center w-full max-w-2xl mt-[20vh] gap-6 h-full overflow-y-auto">
-        <ResponsiveTest searchTerm={searchTerm} />
+        <ResponsiveTest searchTerm={searchTerm} filterStudentCard={filterStudentCard} />
       </main>
       <Navigation />
     </div>
