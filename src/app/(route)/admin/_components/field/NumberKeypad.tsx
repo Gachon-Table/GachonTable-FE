@@ -1,12 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface NumberKeypadProps {
   onClose: () => void;
+  handlePhoneNumberChange: (phoneNumber: string) => void;
 }
 
-const NumberKeypad: React.FC<NumberKeypadProps> = ({ onClose }) => {
+const NumberKeypad: React.FC<NumberKeypadProps> = ({
+  onClose,
+  handlePhoneNumberChange,
+}) => {
   const [value, setValue] = useState('010');
   const maxLength = 11;
 
@@ -40,6 +44,10 @@ const NumberKeypad: React.FC<NumberKeypadProps> = ({ onClose }) => {
   };
 
   const numbers = insertHyphens(value);
+
+  useEffect(() => {
+    handlePhoneNumberChange(value);
+  }, [value, handlePhoneNumberChange]);
 
   return (
     <div className="flex h-screen flex-col">
