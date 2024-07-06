@@ -28,7 +28,7 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 mb-20">
       <header className="fixed top-0 w-full max-w-[30rem] bg-white rounded-lg shadow-md text-center">
         <div className="w-full h-[7.5vh] bg-white rounded-lg flex items-center justify-center">
           <div className="w-1/5 bg-white flex items-center justify-center rounded-lg">
@@ -67,7 +67,7 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </header>
-      <main className="flex flex-col items-center w-full max-w-2xl mt-[20vh] gap-6 h-full overflow-y-auto">
+      <main className="flex flex-col items-center w-full max-w-2xl mt-[18vh] gap-6 h-full overflow-y-auto">
         <ResponsiveTest
           searchTerm={searchTerm}
           filterStudentCard={filterStudentCard}
