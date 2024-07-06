@@ -1,15 +1,22 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { adminLogout } from '@/app/api/service/adminAuth';
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const router = useRouter();
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   const handleMenuClick = () => {
     setIsOpen(false);
+  };
+
+  const handleLogout = () => {
+    adminLogout();
+    router.push('/admin/login');
   };
 
   return (
@@ -61,6 +68,19 @@ const Dropdown = () => {
                 <span className="text-xl font-semibold">주점 관리</span>
               </div>
             </Link>
+            <div
+              onClick={handleLogout}
+              className="relative flex items-center space-x-4 px-4 py-2 pb-6 pt-4 hover:rounded-b-lg hover:bg-gray-100"
+            >
+              <img
+                src="/images/logout.png"
+                alt="로그아웃 아이콘"
+                className="h-5 tablet:h-6 laptop:h-7 desktop:h-8"
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-xl font-semibold">로그아웃</span>
+              </div>
+            </div>
           </div>
         )}
       </div>
