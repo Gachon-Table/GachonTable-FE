@@ -6,9 +6,25 @@ import Navigation from '../_components/nav/Navigation';
 const LandingPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStudentCard, setFilterStudentCard] = useState<boolean | null>(null);
+  const [sortByCongestion, setSortByCongestion] = useState(false);
+  const [sortByLowCongestion, setSortByLowCongestion] = useState(false);
 
   const handleStudentCardFilter = () => {
     setFilterStudentCard(prev => (prev === false ? null : false));
+  };
+
+  const handleSortByCongestion = () => {
+    // Toggle sorting by congestion
+    setSortByCongestion(prev => !prev);
+    // Ensure sorting by low congestion is off
+    setSortByLowCongestion(false);
+  };
+
+  const handleSortByLowCongestion = () => {
+    // Toggle sorting by low congestion
+    setSortByLowCongestion(prev => !prev);
+    // Ensure sorting by congestion is off
+    setSortByCongestion(false);
   };
 
   return (
@@ -30,10 +46,20 @@ const LandingPage: React.FC = () => {
         </div>
         <div className="w-full h-7 bg-white rounded-lg flex items-center justify-between mt-3 mb-3">
           <div className="w-full h-7 bg-white rounded-lg flex items-center justify-center gap-10">
-            <div className="w-1/4 h-[5vh] rounded-xl border-2 border-black flex items-center justify-center">혼잡도 많은 순</div>
-            <div className="w-1/4 h-[5vh] rounded-xl border-2 border-black flex items-center justify-center">혼잡도 적은 순</div>
             <div
-              className={`w-1/4 h-[5vh] rounded-xl border-2 flex items-center justify-center ${filterStudentCard === false ? 'border-blue-500' : 'border-black'}`}
+              className={`w-1/4 h-[5vh] rounded-xl border-2 flex items-center justify-center ${sortByCongestion ? 'border-red-500' : 'border-black'}`}
+              onClick={handleSortByCongestion}
+            >
+              혼잡도 많은 순
+            </div>
+            <div
+              className={`w-1/4 h-[5vh] rounded-xl border-2 flex items-center justify-center ${sortByLowCongestion ? 'border-red-500' : 'border-black'}`}
+              onClick={handleSortByLowCongestion}
+            >
+              혼잡도 낮은 순
+            </div>
+            <div
+              className={`w-1/4 h-[5vh] rounded-xl border-2 flex items-center justify-center ${filterStudentCard === false ? 'border-red-500' : 'border-black'}`}
               onClick={handleStudentCardFilter}
             >
               학생증 불필요
@@ -42,7 +68,12 @@ const LandingPage: React.FC = () => {
         </div>
       </header>
       <main className="flex flex-col items-center w-full max-w-2xl mt-[20vh] gap-6 h-full overflow-y-auto">
-        <ResponsiveTest searchTerm={searchTerm} filterStudentCard={filterStudentCard} />
+        <ResponsiveTest
+          searchTerm={searchTerm}
+          filterStudentCard={filterStudentCard}
+          sortByCongestion={sortByCongestion}
+          sortByLowCongestion={sortByLowCongestion}
+        />
       </main>
       <Navigation />
     </div>
