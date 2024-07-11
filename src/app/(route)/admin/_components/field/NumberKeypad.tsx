@@ -80,7 +80,7 @@ const NumberKeypad: React.FC<NumberKeypadProps> = ({
         )}
       </div>
       <button
-        className={`h-1/5 w-full px-4 text-4xl font-bold ${value.length === 11 ? 'bg-sunglo text-white' : 'bg-gray-300 text-gray-500'}`}
+        className={`h-1/5 w-full px-4 text-4xl font-bold ${value.length === 11 ? 'bg-point-yellow text-white' : 'bg-gray-300 text-gray-500'}`}
         onClick={onClose}
       >
         방문 인원 수 입력

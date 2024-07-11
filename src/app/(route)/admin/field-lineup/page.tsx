@@ -94,7 +94,7 @@ export default function FieldLineUp() {
   };
   return (
     <div className="flex flex-row items-center justify-center">
-      <div className="flex h-screen w-1/2 flex-col items-center bg-deep-cove text-white">
+      <div className="bg-main-blue flex h-screen w-1/2 flex-col items-center text-white">
         {pubData ? (
           <Information pubName={pubData.pubName} queueing={pubData.queueing} />
         ) : (

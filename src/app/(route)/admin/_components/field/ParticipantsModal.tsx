@@ -45,7 +45,7 @@ const ParticipantsModal: React.FC<ParticipantsModalProps> = ({
             {count}
           </div>
           <button
-            className="text-m rounded-[5px] border border-sunglo bg-white px-5 py-3 font-bold text-sunglo shadow-md hover:bg-sunglo hover:text-white"
+            className="text-m border-point-yellow text-point-yellow hover:bg-point-yellow rounded-[5px] border bg-white px-5 py-3 font-bold shadow-md hover:text-white"
             onClick={handleIncrement}
           >
             +
@@ -59,7 +59,7 @@ const ParticipantsModal: React.FC<ParticipantsModalProps> = ({
             취소
           </button>
           <button
-            className="mb-6 rounded-[5px] bg-sunglo px-[48px] py-3 text-sm font-semibold text-white"
+            className="bg-point-yellow mb-6 rounded-[5px] px-[48px] py-3 text-sm font-semibold text-white"
             onClick={onSubmit}
           >
             대기 시작

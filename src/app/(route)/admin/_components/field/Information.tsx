@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface InformationProps {
   pubName: string;
@@ -8,7 +9,13 @@ interface InformationProps {
 const Information: React.FC<InformationProps> = ({ pubName, queueing }) => {
   return (
     <div className="mt-14 flex flex-col items-center">
-      <img src="/images/logo3.png" alt="Logo" width={150} height={150} />
+      <Image
+        src="/images/logo-white.png"
+        alt="로고"
+        className="mb-10 size-40"
+        width={298}
+        height={283}
+      />
       <div className="mt-8 flex flex-col items-center text-center text-3xl font-light">
         <span>휴대폰 번호를 입력하시면 </span>
         <div className="mt-1 flex items-center">
@@ -22,10 +29,10 @@ const Information: React.FC<InformationProps> = ({ pubName, queueing }) => {
       <p className="mt-20 text-center text-4xl font-bold">{pubName}</p>
       <div className="flex flex-row items-center">
         <p className="text-5xl font-bold">현재 대기 </p>
-        <span className="mb-7 ml-3 text-[150px] font-extrabold text-sunglo">
+        <span className="text-point-yellow mb-7 ml-3 text-[150px] font-extrabold">
           {queueing}
         </span>
-        <p className=" text-center text-6xl font-bold text-sunglo">팀</p>
+        <p className=" text-point-yellow text-center text-6xl font-bold">팀</p>
       </div>
     </div>
   );
