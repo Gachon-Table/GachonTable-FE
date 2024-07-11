@@ -20,6 +20,7 @@ const config: Config = {
         'desktop': '1280px',
       },
       colors: {
+        'main-blue': '#3B4D9B',
         'tory-blue': '#014f9e',
         'dodger-blue': '#0096ff',
         'deep-cove': '#001140',
