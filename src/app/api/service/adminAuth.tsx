@@ -12,6 +12,7 @@ export const adminLogin = async (credentials: AdminProps) => {
 
     localStorage.setItem('accessToken', tokens.accessToken);
     localStorage.setItem('refreshToken', tokens.refreshToken);
+    localStorage.setItem('pubId', tokens.pubId);
 
     return response.data;
   } catch (error) {
