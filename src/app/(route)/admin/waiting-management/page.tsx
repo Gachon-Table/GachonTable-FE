@@ -1,12 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Dropdown from '../_components/Dropdown';
 import AlertModal from '../_components/AlertModal';
+import { isAuthenticated } from '@/app/api/service/adminAuth';
+import { useRouter } from 'next/navigation';
 
 export default function WaitingManagement() {
   const [callout, setCallout] = useState<boolean>(false); //고객호출
   const [beSeated, setBeSeated] = useState<boolean>(false); //착석완료
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      router.push('/admin/login');
+    }
+  }, []);
 
   interface User {
     name: string;
@@ -18,70 +27,10 @@ export default function WaitingManagement() {
 
   const [list, setList] = useState<User[]>([
     {
-      name: '이동훈',
+      name: '노정완',
       userId: 123123,
       headCount: 4,
       registerTime: '17:57',
-      phoneNumber: '010-0000-0000',
-    },
-
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
-      phoneNumber: '010-0000-0000',
-    },
-
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
-      phoneNumber: '010-0000-0000',
-    },
-
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
-      phoneNumber: '010-0000-0000',
-    },
-
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
-      phoneNumber: '010-0000-0000',
-    },
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
-      phoneNumber: '010-0000-0000',
-    },
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
-      phoneNumber: '010-0000-0000',
-    },
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
-      phoneNumber: '010-0000-0000',
-    },
-    {
-      name: '이근표',
-      userId: 143123,
-      headCount: 2,
-      registerTime: '18:01',
       phoneNumber: '010-0000-0000',
     },
   ]);
@@ -89,6 +38,10 @@ export default function WaitingManagement() {
   const handleCallout = () => setCallout(!callout);
 
   const handleBeSeated = () => setBeSeated(!beSeated);
+
+  const handleQueuePage = () => {
+    router.push('/admin/field-lineup');
+  };
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-start bg-deep-cove pt-8">
@@ -155,7 +108,10 @@ export default function WaitingManagement() {
       </div>
 
       <div className="flex w-11/12 max-w-screen-xl items-center justify-center space-x-2 pb-8 pt-5 tablet:space-x-2">
-        <button className="flex-1 rounded-lg bg-sunglo py-6 text-xl font-semibold text-white">
+        <button
+          className="flex-1 rounded-lg bg-sunglo py-6 text-xl font-semibold text-white"
+          onClick={handleQueuePage}
+        >
           현장 줄서기
         </button>
         <button className="flex-1 rounded-lg bg-sunglo py-6 text-xl font-semibold text-white">
