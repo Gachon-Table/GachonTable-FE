@@ -7,7 +7,7 @@ interface InformationProps {
 
 const Information: React.FC<InformationProps> = ({ pubName, queueing }) => {
   return (
-    <div className="mt-8 flex flex-col items-center">
+    <div className="mt-14 flex flex-col items-center">
       <img src="/images/logo3.png" alt="Logo" width={150} height={150} />
       <div className="mt-8 flex flex-col items-center text-center text-3xl font-light">
         <span>휴대폰 번호를 입력하시면 </span>

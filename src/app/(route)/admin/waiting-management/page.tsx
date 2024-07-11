@@ -39,6 +39,10 @@ export default function WaitingManagement() {
 
   const handleBeSeated = () => setBeSeated(!beSeated);
 
+  const handleQueuePage = () => {
+    router.push('/admin/field-lineup');
+  };
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-start bg-deep-cove pt-8">
       <div className="w-11/12 max-w-screen-xl pb-5">
@@ -104,7 +108,10 @@ export default function WaitingManagement() {
       </div>
 
       <div className="flex w-11/12 max-w-screen-xl items-center justify-center space-x-2 pb-8 pt-5 tablet:space-x-2">
-        <button className="flex-1 rounded-lg bg-sunglo py-6 text-xl font-semibold text-white">
+        <button
+          className="flex-1 rounded-lg bg-sunglo py-6 text-xl font-semibold text-white"
+          onClick={handleQueuePage}
+        >
           현장 줄서기
         </button>
         <button className="flex-1 rounded-lg bg-sunglo py-6 text-xl font-semibold text-white">

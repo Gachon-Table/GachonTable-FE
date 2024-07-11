@@ -1,11 +1,17 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface ParticipantsModalProps {
   onClose: () => void;
+  handleHeadCountChange: (headCount: number) => void;
+  onSubmit: () => void;
 }
 
-const ParticipantsModal: React.FC<ParticipantsModalProps> = ({ onClose }) => {
+const ParticipantsModal: React.FC<ParticipantsModalProps> = ({
+  onClose,
+  handleHeadCountChange,
+  onSubmit,
+}) => {
   const [count, setCount] = useState(1);
 
   const handleDecrement = () => {
@@ -15,6 +21,10 @@ const ParticipantsModal: React.FC<ParticipantsModalProps> = ({ onClose }) => {
   const handleIncrement = () => {
     setCount(count + 1);
   };
+
+  useEffect(() => {
+    handleHeadCountChange(count);
+  }, [count, handleHeadCountChange]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
@@ -48,7 +58,10 @@ const ParticipantsModal: React.FC<ParticipantsModalProps> = ({ onClose }) => {
           >
             취소
           </button>
-          <button className="mb-6 rounded-[5px] bg-sunglo px-[48px] py-3 text-sm font-semibold text-white">
+          <button
+            className="mb-6 rounded-[5px] bg-sunglo px-[48px] py-3 text-sm font-semibold text-white"
+            onClick={onSubmit}
+          >
             대기 시작
           </button>
         </div>
