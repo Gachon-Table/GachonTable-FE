@@ -4,12 +4,14 @@ interface AlertModalProps {
   message: string;
   button: string;
   onCancel: () => void;
+  onConfirm?: () => void;
 }
 
 const AlertModal: React.FC<AlertModalProps> = ({
   message,
   button,
   onCancel,
+  onConfirm,
 }) => {
   return (
     <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center">
@@ -25,7 +27,10 @@ const AlertModal: React.FC<AlertModalProps> = ({
           >
             취소
           </button>
-          <button className="bg-point-red rounded-lg px-5 py-3 text-sm font-light text-white shadow-md">
+          <button
+            className="bg-point-red rounded-lg px-5 py-3 text-sm font-light text-white shadow-md"
+            onClick={onConfirm}
+          >
             {message.substring(message.length - 2)}
           </button>
         </div>
