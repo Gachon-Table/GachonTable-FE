@@ -27,7 +27,7 @@ export default function PubManagement() {
   }, []);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-deep-cove pt-8">
+    <div className="bg-bg-white flex min-h-screen flex-col items-center justify-center pt-8">
       <div className="w-11/12 max-w-screen-xl pb-5">
         <Dropdown />
       </div>
