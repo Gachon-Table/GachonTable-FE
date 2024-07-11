@@ -21,7 +21,7 @@ interface WaitingRequest {
   headCount: number;
 }
 
-export default function FieldLineUp() {
+export default function OnsiteLineUp() {
   const [close, setClose] = useState<boolean>(true);
   const [tel, setTel] = useState<string>('');
   const [headCount, setHeadCount] = useState<number>(0);
