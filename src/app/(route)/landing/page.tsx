@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import ResponsiveTest from './ResponsiveTest';
 import Navigation from '../_components/nav/Navigation';
+import Footer from '../_components/footer/page';
 
 const LandingPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -75,6 +76,7 @@ const LandingPage: React.FC = () => {
           sortByLowCongestion={sortByLowCongestion}
         />
       </main>
+      <Footer />
       <Navigation />
     </div>
   );
