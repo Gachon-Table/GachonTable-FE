@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import AlertModal from '../_components/AlertModal';
 import { getWaitingList } from '@/app/api/service/getWaitingList';
+import { callUser } from '@/app/api/service/callUser';
+import { enterUser } from '@/app/api/service/enterUser';
 
 function formatTime(timeString: string): string {
   const date = new Date(timeString);
@@ -13,8 +15,11 @@ function formatTime(timeString: string): string {
 }
 
 export const WaitingList = () => {
-  const [callout, setCallout] = useState<boolean>(false); //고객호출
-  const [beSeated, setBeSeated] = useState<boolean>(false); //착석완료
+  const [callout, setCallout] = useState<boolean>(false);
+  const [beSeated, setBeSeated] = useState<boolean>(false);
+  const [selectedWaitingId, setSelectedWaitingId] = useState<number | null>(
+    null,
+  );
 
   interface User {
     username: string;
@@ -34,9 +39,53 @@ export const WaitingList = () => {
     },
   ]);
 
-  const handleCallout = () => setCallout(!callout);
+  const handleCallout = (waitingId: number) => {
+    setSelectedWaitingId(waitingId);
+    setCallout(!callout);
+  };
 
-  const handleBeSeated = () => setBeSeated(!beSeated);
+  const handleBeSeated = (waitingId: number) => {
+    setSelectedWaitingId(waitingId);
+    setBeSeated(!beSeated);
+  };
+
+  const handleEnterUser = async () => {
+    if (selectedWaitingId === null) return;
+    const credentials = {
+      waitingId: selectedWaitingId,
+    };
+
+    try {
+      await enterUser(credentials);
+      console.log('입장 완료 처리되었습니다.');
+      const updatedList = await getWaitingList();
+      setList(updatedList);
+    } catch (error) {
+      console.error('입장 완료 처리 중 오류 발생:', error);
+      alert('입장 완료 처리 중 오류가 발생했습니다.');
+    } finally {
+      setBeSeated(false);
+      setSelectedWaitingId(null);
+    }
+  };
+
+  const handleCallUser = async () => {
+    if (selectedWaitingId === null) return;
+
+    const credentials = {
+      waitingId: selectedWaitingId,
+    };
+
+    try {
+      await callUser(credentials);
+    } catch (error) {
+      console.error('호출 처리 중 오류 발생:', error);
+      alert('호출 처리 중 오류가 발생했습니다.');
+    } finally {
+      setCallout(false);
+      setSelectedWaitingId(null);
+    }
+  };
 
   // useEffect(() => {
   //   const fetchWaitingList = async () => {
@@ -77,14 +126,14 @@ export const WaitingList = () => {
             </div>
             <div className="flex items-center space-x-4">
               <button
-                onClick={handleCallout}
+                onClick={() => handleCallout(user.waitingId)}
                 className="h-16 w-20 rounded-xl font-medium text-[#5F6977] hover:bg-[#F2F4F6]"
               >
                 호출
               </button>
               <button
                 className="h-16 w-20 rounded-xl font-medium text-[#5F6977] hover:bg-[#F2F4F6]"
-                onClick={handleBeSeated}
+                onClick={() => handleBeSeated(user.waitingId)}
               >
                 완료
               </button>
@@ -93,18 +142,20 @@ export const WaitingList = () => {
           {idx !== list.length - 1 && <div className="mt-5" />}
         </div>
       ))}
-      {callout ? (
+      {callout && selectedWaitingId !== null ? (
         <AlertModal
           message={'고객 호출'}
           button={'호출'}
-          onCancel={handleCallout}
+          onCancel={() => setCallout(false)}
+          onConfirm={handleCallUser}
         />
       ) : null}
-      {beSeated ? (
+      {beSeated && selectedWaitingId !== null ? (
         <AlertModal
-          message={'착석 완료'}
+          message={'입장 완료'}
           button={'완료'}
-          onCancel={handleBeSeated}
+          onCancel={() => setBeSeated(false)}
+          onConfirm={handleEnterUser}
         />
       ) : null}
     </div>
