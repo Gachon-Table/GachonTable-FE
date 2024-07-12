@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, MouseEvent } from 'react';
-
+import Image from 'next/image';
 interface MenuItem {
   name: string;
   price: string;
@@ -16,7 +16,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
 }) => {
   const [fields, setFields] = useState<MenuItem[]>(initialFields);
 
-  const handleAddField = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleAddField = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (fields.length < maxFields) {
       setFields([...fields, { name: '', price: '' }]);
@@ -37,48 +37,59 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
   };
 
   return (
-    <form className="mx-auto my-5 h-[310px] max-w-md overflow-y-auto rounded-lg bg-white p-5 shadow-md">
-      {fields.map((field, index) => (
-        <div key={index} className="mb-4 flex flex-row">
-          <div
-            key={index}
-            className="mb-1 flex items-center overflow-hidden rounded-lg border"
-          >
-            <input
-              type="text"
-              name="name"
-              placeholder="메뉴 이름"
-              value={field.name}
-              onChange={(e) => handleInputChange(index, e)}
-              className={`${index === 0 ? 'w-2/5 p-4' : 'w-1/2 p-4'}`}
-            />
-            <input
-              type="text"
-              name="price"
-              placeholder="가격"
-              value={field.price}
-              onChange={(e) => handleInputChange(index, e)}
-              className={`${index === 0 ? 'w-3/5 p-4 pb-4 pl-5 pr-4 pt-4' : 'w-1/2 p-4'}`}
-            />
+    <form className="mx-auto my-3 flex h-[340px] max-w-md flex-col justify-between rounded-xl bg-white p-5">
+      <div className="h-[280px] overflow-y-auto ">
+        {fields.map((field, index) => (
+          <div key={index} className="mb-4 flex flex-row">
+            <div className="mb-1 flex w-full items-center justify-between space-x-2 overflow-hidden rounded-xl bg-[#EAEFFF] p-2 pr-4">
+              <input
+                type="text"
+                name="name"
+                placeholder="메뉴 이름"
+                value={field.name}
+                onChange={(e) => handleInputChange(index, e)}
+                className="w-1/2 rounded-xl bg-[#EAEFFF] p-2 focus:outline-none"
+              />
+              <div className="flex w-1/3 items-center space-x-1">
+                <input
+                  type="text"
+                  name="price"
+                  placeholder="가격"
+                  value={field.price}
+                  onChange={(e) => handleInputChange(index, e)}
+                  className="w-full rounded-xl bg-[#EAEFFF] p-2 text-right focus:outline-none"
+                />
+                <span className="whitespace-nowrap text-gray-600">원</span>
+              </div>
+              <div className="flex items-center pl-2">
+                <Image
+                  src="/images/delete-button.png"
+                  className="h-3.5 w-3.5 cursor-pointer"
+                  alt="Delete"
+                  width={20}
+                  height={20}
+                  onClick={() => handleRemoveField(index)}
+                />
+              </div>
+            </div>
           </div>
-          {index > 0 && (
-            <button
-              type="button"
-              className="ml-2 flex h-[56px] w-1/5 items-center justify-center rounded-md bg-gray-500 text-sm text-white transition duration-300 hover:bg-gray-800"
-              onClick={() => handleRemoveField(index)}
-            >
-              삭제
-            </button>
-          )}
-        </div>
-      ))}
-      <button
-        type="button"
-        className="h-[56px] w-full rounded-md bg-gray-500 px-4 text-white transition duration-300 hover:bg-gray-800"
+        ))}
+      </div>
+
+      <div
+        className="mt-5 flex h-12 w-20 cursor-pointer items-center justify-center self-center rounded-xl bg-main-blue"
         onClick={handleAddField}
       >
-        추가하기
-      </button>
+        <div className="relative h-3.5 w-3.5">
+          <Image
+            src="/images/add-button-white.png"
+            alt="Add Image"
+            layout="fill"
+            objectFit="contain"
+            className="cursor-pointer"
+          />
+        </div>
+      </div>
     </form>
   );
 };

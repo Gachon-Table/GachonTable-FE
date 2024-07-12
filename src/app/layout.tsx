@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
 
-  const isRowAlignment = pathname === '/admin/field-lineup';
+  const isRowAlignment = pathname === '/admin/onsite-lineup';
 
   return (
     <html lang="en">

@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Dropdown from '../_components/Dropdown';
-import ImageInputBox from '../_components/pubInput/ImageInputBox';
+import Navbar from '../_components/NavBar';
+import ImageUploader from '../_components/pubInput/ImageUploader';
 import StudentIdInputBox from '../_components/pubInput/StudentIdInputBox';
 import MenuInputBox from '../_components/pubInput/MenuInputBox';
 import { isAuthenticated } from '@/app/api/service/adminAuth';
@@ -27,21 +27,14 @@ export default function PubManagement() {
   }, []);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-deep-cove pt-8">
-      <div className="w-11/12 max-w-screen-xl pb-5">
-        <Dropdown />
-      </div>
-      <div className="h-[480px] w-11/12 max-w-screen-xl">
-        <ImageInputBox
-          contentImagesState={{
-            contentImages,
-            setContentImages,
-          }}
-        />
+    <div className="flex min-h-screen flex-col items-center justify-start bg-bg-white pt-2">
+      <Navbar />
+      <div className="h-[550px] w-10/12 max-w-screen-xl">
+        <ImageUploader />
         <StudentIdInputBox studentIdeState={{ studentId, setStudentId }} />
         <MenuInputBox initialFields={initialFields} maxFields={maxFields} />
       </div>
-      <button className="mb-8 mt-5 w-11/12 rounded-lg bg-sunglo py-6 text-xl font-semibold text-white">
+      <button className="mb-3 mt-5 w-10/12 rounded-xl bg-main-blue py-6 text-xl font-semibold text-white">
         저장하기
       </button>
     </div>
