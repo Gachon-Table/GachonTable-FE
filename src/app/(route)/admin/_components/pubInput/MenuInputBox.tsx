@@ -37,8 +37,8 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
   };
 
   return (
-    <form className="mx-auto my-5 flex h-[370px] max-w-md flex-col justify-between rounded-xl bg-white p-5">
-      <div className="h-[270px] overflow-y-auto ">
+    <form className="mx-auto my-3 flex h-[340px] max-w-md flex-col justify-between rounded-xl bg-white p-5">
+      <div className="h-[280px] overflow-y-auto ">
         {fields.map((field, index) => (
           <div key={index} className="mb-4 flex flex-row">
             <div className="mb-1 flex w-full items-center justify-between space-x-2 overflow-hidden rounded-xl bg-[#EAEFFF] p-2 pr-4">
@@ -77,7 +77,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
       </div>
 
       <div
-        className="bg-main-blue mt-4 flex h-10 w-20 cursor-pointer items-center justify-center self-center rounded-xl"
+        className="mt-5 flex h-12 w-20 cursor-pointer items-center justify-center self-center rounded-xl bg-main-blue"
         onClick={handleAddField}
       >
         <div className="relative h-3.5 w-3.5">

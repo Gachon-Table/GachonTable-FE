@@ -27,14 +27,14 @@ export default function PubManagement() {
   }, []);
 
   return (
-    <div className="bg-bg-white flex min-h-screen flex-col items-center justify-start pt-2">
+    <div className="flex min-h-screen flex-col items-center justify-start bg-bg-white pt-2">
       <Navbar />
-      <div className="h-[640px] w-10/12 max-w-screen-xl">
+      <div className="h-[550px] w-10/12 max-w-screen-xl">
         <ImageUploader />
         <StudentIdInputBox studentIdeState={{ studentId, setStudentId }} />
         <MenuInputBox initialFields={initialFields} maxFields={maxFields} />
       </div>
-      <button className="bg-main-blue mb-8 mt-5 w-10/12 rounded-xl py-6 text-xl font-semibold text-white">
+      <button className="mb-3 mt-5 w-10/12 rounded-xl bg-main-blue py-6 text-xl font-semibold text-white">
         저장하기
       </button>
     </div>

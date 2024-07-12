@@ -21,12 +21,12 @@ export const ImageUploader = () => {
   };
 
   return (
-    <div className="h-[150px] w-full overflow-hidden rounded-xl bg-white">
+    <div className="h-[130px] w-full overflow-hidden rounded-xl bg-white">
       <div className="ml-4 py-4 text-xs font-bold">대표 사진 및 메뉴</div>
       <div className="scrollbar-track-gray-100 ml-4 flex h-[100px] space-x-4 overflow-x-auto pb-4">
         <button
           onClick={handleAddImage}
-          className="flex h-[80px] w-[80px] flex-shrink-0 cursor-pointer items-center justify-center rounded-xl bg-[#EAEFFF]"
+          className="flex h-[70px] w-[70px] flex-shrink-0 cursor-pointer items-center justify-center rounded-xl bg-[#EAEFFF]"
         >
           <Image
             src="/images/add-button.png"
@@ -38,7 +38,7 @@ export const ImageUploader = () => {
         {images.map((image, index) => (
           <div
             key={index}
-            className="h-[80px] w-[80px] flex-shrink-0 overflow-hidden rounded-xl bg-[#EAEFFF]"
+            className="h-[70px] w-[70px] flex-shrink-0 overflow-hidden rounded-xl bg-[#EAEFFF]"
           >
             <img
               src={image}
