@@ -3,7 +3,26 @@ import React, { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import WaitingTeams from './WaitingTeams';
 import Navigation from '../../_components/nav/Navigation';
-import axios from 'axios';
+import userAxios from '@/app/api/axios/userAxios'; // Import userAxios
+
+// 인터페이스 정의
+interface Store {
+  pub: {
+    bookmark: boolean;
+    queueing: number;
+    pubName: string;
+    onLiner: string;
+    studentCard: boolean;
+    menu: string;
+  };
+  menu: MenuItem[];
+}
+
+interface MenuItem {
+  name: string;
+  price: number;
+  explanation: string;
+}
 
 const StoreDetailPage: React.FC = () => {
   const pathname = usePathname();
@@ -11,7 +30,7 @@ const StoreDetailPage: React.FC = () => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   // 상태 훅
-  const [store, setStore] = useState<any>(null); // 가능하면 더 구체적인 타입 사용
+  const [store, setStore] = useState<Store | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,7 +38,8 @@ const StoreDetailPage: React.FC = () => {
   useEffect(() => {
     const fetchStoreData = async () => {
       try {
-        const response = await axios.get(`http://ec2-3-34-185-126.ap-northeast-2.compute.amazonaws.com:8080/pub/${id}`);
+        // 사용자 정의 Axios 인스턴스를 사용합니다.
+        const response = await userAxios.get<Store>(`/pub/${id}`);
         setStore(response.data);
       } catch (err) {
         console.error('가게 데이터를 가져오는 중 오류 발생:', err);
@@ -107,7 +127,7 @@ const StoreDetailPage: React.FC = () => {
           <div className="w-1/2 text-lg flex justify-center items-center cursor-pointer" onClick={scrollToMenu}>메뉴</div>
         </div>
         <div className="mt-4">
-          <WaitingTeams queueing={store.pub.queueing} />
+          <WaitingTeams queueing={store.pub.queueing} pubId={parseInt(id as string, 10)} />
         </div>
         <div ref={menuRef} className="w-full mt-10 pt-10">
           <div className="text-2xl font-bold mb-10 mt-10 p-4">메뉴</div>
@@ -115,7 +135,7 @@ const StoreDetailPage: React.FC = () => {
             {store.menu.length === 0 ? (
               <p className="text-center text-gray-600">현재 등록되어있는 메뉴가 없습니다</p>
             ) : (
-              store.menu.map((menuItem: any) => (
+              store.menu.map((menuItem: MenuItem) => (
                 <div key={menuItem.name} className="border-t border-gray-200 mb-4 p-4">
                   <h2 className="text-xl font-bold">{menuItem.name}</h2>
                   <p className="text-gray-600 text-sm">{menuItem.price}원</p>

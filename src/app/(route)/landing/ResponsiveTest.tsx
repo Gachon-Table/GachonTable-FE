@@ -28,7 +28,8 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
 
   // 주점 목록 API 요청
   useEffect(() => {
-    axios.get('http://ec2-3-34-185-126.ap-northeast-2.compute.amazonaws.com:8080/pub/all')
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    axios.get(`${apiUrl}/pub/all`)
       .then(response => {
         console.log(response.data); // 받아온 데이터 콘솔에 출력
         setStores(response.data); // 받아온 데이터 상태에 저장
@@ -108,9 +109,9 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
                     </div>
                   </div>
                   <div className="w-80 bg-white flex justify-start text-base items-start text-left">대기인원 수 : {store.queueing}</div>
-                  <div className="w-80 bg-white flex justify-start mb-[1%] text-base items-start text-left">{store.oneLiner}</div>
+                  <div className="w-80 bg-white flex justify-start mb-[1%] text-xs items-start text-left">한줄 소개 : {store.oneLiner}</div>
                   <div className="w-12/12 bg-white flex justify-start mb-[0.5%] text-[10px] items-start text-left">{store.studentCard ? '학생증 필요' : '학생증 불필요'}</div>
-                  <div className="w-12/12 bg-white flex justify-start mb-[0.5%] text-[10px] items-start text-left">{store.menu}</div> {/* 첫 번째 메뉴 이름만 표시 */}
+                  <div className="w-12/12 bg-white flex justify-start mb-[0.5%] text-[10px] items-start text-left">대표 메뉴 : {store.menu}</div> {/* 첫 번째 메뉴 이름만 표시 */}
                 </div>
                 <div>
                   {store.bookmark ? (
