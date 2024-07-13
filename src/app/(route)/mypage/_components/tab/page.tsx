@@ -14,7 +14,6 @@ const Tab = ({ curTab, setFunc }: TabProps) => {
           setFunc('ing');
         }}
       >
-        <div>3</div>
         <div>줄서기 현황</div>
       </div>
       <div
@@ -23,7 +22,6 @@ const Tab = ({ curTab, setFunc }: TabProps) => {
           setFunc('ed');
         }}
       >
-        <div>3</div>
         <div>줄서기 내역</div>
       </div>
     </div>

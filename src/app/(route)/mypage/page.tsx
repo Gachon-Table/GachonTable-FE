@@ -1,5 +1,5 @@
 'use client';
-
+import React from 'react';
 import { useState } from 'react';
 import Waited from './_components/waited/page';
 import Waiting from './_components/waiting/page';
@@ -12,13 +12,18 @@ import AfterProfile from './_components/afterProfile/page';
 const Mypage = () => {
   const [curTab, setCurTab] = useState('ing');
   const { data: session } = useSession();
-
+  console.log(session?.accessToken)
   return (
     <div className="flex flex-col justify-center">
       {session ? <AfterProfile /> : <BeforeProfile />}
       <Tab curTab={curTab} setFunc={setCurTab} />
-      {curTab === 'ing' && <Waiting />}
-      {curTab === 'ed' && <Waited />}
+      {session?.accessToken ? (
+        curTab === 'ing' ? (
+          <Waiting />
+        ) : (
+          <Waited />
+        )
+      ) : null}
       <Navigation />
     </div>
   );

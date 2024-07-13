@@ -3,6 +3,10 @@ import React from 'react';
 import { signIn } from 'next-auth/react';
 
 const BeforeProfile = () => {
+  const loginProcess = () => {
+    localStorage.setItem('callbackPath', window.location.pathname);
+    signIn('kakao', { callbackUrl: '/login' });
+  }
   return (
     <div className="mr-[8rem] mt-[8rem] flex w-[100%] justify-evenly">
       <div className="flex h-full">
@@ -14,7 +18,7 @@ const BeforeProfile = () => {
           <br />
           로그인 후 이용해 주세요.
         </div>
-        <div onClick={() => signIn('kakao', { callbackUrl: '/login' })}>
+        <div onClick={loginProcess}>
           <Image
             src="/images/kakao_login_medium_wide.png"
             alt="kakao-login"
