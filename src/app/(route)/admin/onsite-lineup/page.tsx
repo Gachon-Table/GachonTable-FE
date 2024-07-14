@@ -13,6 +13,7 @@ interface PubData {
   pubId: number;
   pubName: string;
   queueing: number;
+  // pubStatus: boolean;
 }
 
 interface WaitingRequest {
