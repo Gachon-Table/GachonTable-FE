@@ -28,10 +28,10 @@ const AlertModal: React.FC<AlertModalProps> = ({
             취소
           </button>
           <button
-            className="bg-point-red rounded-lg px-5 py-3 text-sm font-light text-white shadow-md"
+            className="rounded-lg bg-point-red px-5 py-3 text-sm font-light text-white shadow-md"
             onClick={onConfirm}
           >
-            {message.substring(message.length - 2)}
+            {button}
           </button>
         </div>
       </div>
