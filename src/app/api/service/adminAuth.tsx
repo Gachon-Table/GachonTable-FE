@@ -1,4 +1,6 @@
 import adminAxios from '../axios/adminAxios';
+import { useRouter } from 'next/navigation';
+import { getWaitingList } from './getWaitingList';
 
 interface AdminProps {
   id: string;
@@ -23,8 +25,28 @@ export const adminLogin = async (credentials: AdminProps) => {
 export const adminLogout = () => {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
+  localStorage.removeItem('pubId');
+  const router = useRouter();
+  router.push('/admin/login');
 };
 
-export const isAuthenticated = () => {
-  return !!localStorage.getItem('accessToken');
+export const isAuthenticated = async (): Promise<boolean> => {
+  const accessToken = localStorage.getItem('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken');
+
+  if (!accessToken || !refreshToken) {
+    return false;
+  }
+
+  try {
+    await getWaitingList();
+    return true;
+  } catch (error) {
+    console.error('Authentication check failed:', error);
+
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('pubId');
+    return false;
+  }
 };

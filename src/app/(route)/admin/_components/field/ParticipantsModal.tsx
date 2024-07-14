@@ -35,17 +35,17 @@ const ParticipantsModal: React.FC<ParticipantsModalProps> = ({
         <div className="w-full border border-gray-300"></div>
         <div className="mb-6 mt-10 flex items-center justify-center">
           <button
-            className="rounded-[5px]  border border-gray-300 bg-white px-[22px] py-3 text-[17px] font-bold text-gray-300  shadow-md hover:bg-gray-100 hover:text-white"
+            className="rounded-md border border-gray-300 bg-white px-5 py-3 text-base font-bold text-gray-300  shadow-md hover:bg-gray-100 hover:text-white"
             onClick={handleDecrement}
             disabled={count <= 1}
           >
             -
           </button>
-          <div className="w-[90px] items-center justify-center border-y border-gray-300 py-3 text-center">
+          <div className="w-24 items-center justify-center border-y border-gray-300 py-3 text-center">
             {count}
           </div>
           <button
-            className="text-m border-point-yellow text-point-yellow hover:bg-point-yellow rounded-[5px] border bg-white px-5 py-3 font-bold shadow-md hover:text-white"
+            className="text-m rounded-md border border-point-yellow bg-white px-5 py-3 font-bold text-point-yellow shadow-md hover:bg-point-yellow hover:text-white"
             onClick={handleIncrement}
           >
             +
@@ -53,13 +53,13 @@ const ParticipantsModal: React.FC<ParticipantsModalProps> = ({
         </div>
         <div>
           <button
-            className="mb-6 mr-5 rounded-[5px] bg-gray-400 px-[55px] py-3 text-sm font-semibold text-white"
+            className="mb-6 mr-5 rounded-md bg-gray-400 px-16 py-3 text-sm font-semibold text-white"
             onClick={onClose}
           >
             취소
           </button>
           <button
-            className="bg-point-yellow mb-6 rounded-[5px] px-[48px] py-3 text-sm font-semibold text-white"
+            className="mb-6 rounded-md bg-point-yellow px-12 py-3 text-sm font-semibold text-white"
             onClick={onSubmit}
           >
             대기 시작

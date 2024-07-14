@@ -18,7 +18,7 @@ const BeforeProfile = () => {
           <br />
           로그인 후 이용해 주세요.
         </div>
-        <div onClick={loginProcess}>
+        <div className='cursor-pointer' onClick={loginProcess}>
           <Image
             src="/images/kakao_login_medium_wide.png"
             alt="kakao-login"
