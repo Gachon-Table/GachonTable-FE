@@ -1,4 +1,5 @@
 import adminAxios from '../axios/adminAxios';
+import { useRouter } from 'next/navigation';
 
 interface AdminProps {
   id: string;
@@ -23,6 +24,9 @@ export const adminLogin = async (credentials: AdminProps) => {
 export const adminLogout = () => {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
+  localStorage.removeItem('pubId');
+  const router = useRouter();
+  router.push('/admin/login');
 };
 
 export const isAuthenticated = () => {
