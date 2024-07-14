@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
+import { adminLogout } from '@/app/api/service/adminAuth';
 
 export const Navbar = () => {
   const pathname = usePathname;
@@ -21,26 +22,26 @@ export const Navbar = () => {
             <div className="flex flex-row space-x-1">
               <Link
                 href="/admin/waiting-management"
-                className={`${isActive('/admin/waiting-management') ? 'border-main-blue text-[#434343]' : 'hover:border-main-blue border-transparent text-[#969595] hover:text-[#434343]'} flex items-center border-b-2 px-2 py-2 text-sm font-medium`}
+                className={`${isActive('/admin/waiting-management') ? 'border-main-blue text-[#434343]' : 'border-transparent text-[#969595] hover:border-main-blue hover:text-[#434343]'} flex items-center border-b-2 px-2 py-2 text-sm font-medium`}
               >
                 대기 인원
               </Link>
               <Link
                 href="/admin/pub-management"
-                className={`${isActive('/admin/pub-management') ? 'border-main-blue text-[#434343]' : 'hover:border-main-blue border-transparent text-[#969595] hover:text-[#434343]'} flex items-center border-b-2 px-2 py-2 text-sm font-medium`}
+                className={`${isActive('/admin/pub-management') ? 'border-main-blue text-[#434343]' : 'border-transparent text-[#969595] hover:border-main-blue hover:text-[#434343]'} flex items-center border-b-2 px-2 py-2 text-sm font-medium`}
               >
                 주점 메뉴
               </Link>
               <Link
                 href="/admin/onsite-lineup"
-                className={`${isActive('/admin/onsite-lineup') ? 'border-main-blue text-[#434343]' : 'hover:border-main-blue border-transparent text-[#969595] hover:text-[#434343]'} flex items-center border-b-2 px-2 py-2 text-sm font-medium`}
+                className={`${isActive('/admin/onsite-lineup') ? 'border-main-blue text-[#434343]' : 'border-transparent text-[#969595] hover:border-main-blue hover:text-[#434343]'} flex items-center border-b-2 px-2 py-2 text-sm font-medium`}
               >
                 현장줄서기
               </Link>
               <div className="relative">
                 <button
                   onClick={toggleDropdown}
-                  className={`${isActive('/설정') ? 'border-main-blue text-[#434343]' : 'hover:border-main-blue border-transparent text-[#969595] hover:text-[#434343]'} flex items-center border-b-2 px-4 py-2 text-sm font-medium`}
+                  className={`${isActive('/설정') ? 'border-main-blue text-[#434343]' : 'border-transparent text-[#969595] hover:border-main-blue hover:text-[#434343]'} flex items-center border-b-2 px-4 py-2 text-sm font-medium`}
                 >
                   설 정
                 </button>
@@ -60,7 +61,7 @@ export const Navbar = () => {
                         대기마감
                       </a>
                       <a
-                        href="#"
+                        onClick={adminLogout}
                         className="block py-2 pl-2.5 text-[12px] font-medium text-[#969595] hover:text-[#434343]"
                         role="menuitem"
                       >
