@@ -9,13 +9,22 @@ export default function WaitingManagement() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!isAuthenticated()) {
-      router.push('/admin/login');
-    }
-  }, []);
+    const checkAuth = async () => {
+      try {
+        const authenticated = await isAuthenticated();
+        if (!authenticated) {
+          router.push('/admin/login');
+        }
+      } catch (error) {
+        console.error('Authentication check failed:', error);
+      }
+    };
+
+    checkAuth();
+  }, [router]);
 
   return (
-    <div className="bg-bg-white flex min-h-screen flex-col items-center justify-start pt-2">
+    <div className="flex min-h-screen flex-col items-center justify-start bg-bg-white pt-2">
       <Navbar />
       <WaitingList />
     </div>

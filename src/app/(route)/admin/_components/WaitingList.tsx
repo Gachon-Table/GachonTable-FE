@@ -93,13 +93,9 @@ export const WaitingList = () => {
   }, []);
 
   return (
-    <div className="mt-3 h-[690px] w-11/12 max-w-screen-xl overflow-y-auto rounded-lg p-5">
+    <div className="h-690 mt-3 w-11/12 max-w-screen-xl overflow-y-auto rounded-lg p-5">
       {!list || list.length === 0 ? (
-        <div className="flex h-full items-center justify-center">
-          <p className="text-md text-gray-500">
-            현재 대기 중인 고객이 없습니다.
-          </p>
-        </div>
+        <div className="flex h-screen items-center justify-center"></div>
       ) : (
         list.map((user, idx) => (
           <div key={idx}>

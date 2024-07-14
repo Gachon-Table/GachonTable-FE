@@ -37,8 +37,8 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
   };
 
   return (
-    <form className="mx-auto my-3 flex h-[340px] max-w-md flex-col justify-between rounded-xl bg-white p-5">
-      <div className="h-[280px] overflow-y-auto ">
+    <form className="mx-auto my-3 flex h-96 max-w-md flex-col justify-between rounded-xl bg-white p-5">
+      <div className="h-72 overflow-y-auto ">
         {fields.map((field, index) => (
           <div key={index} className="mb-4 flex flex-row">
             <div className="mb-1 flex w-full items-center justify-between space-x-2 overflow-hidden rounded-xl bg-[#EAEFFF] p-2 pr-4">

@@ -13,6 +13,7 @@ interface PubData {
   pubId: number;
   pubName: string;
   queueing: number;
+  // pubStatus: boolean;
 }
 
 interface WaitingRequest {
@@ -30,21 +31,26 @@ export default function OnsiteLineUp() {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const authenticated = await isAuthenticated();
-      if (!authenticated) {
-        router.push('/admin/login');
-      } else {
-        try {
-          const data = await pubInfo();
-          setPubData(data);
-        } catch (error) {
-          console.error('주점 정보를 가져오는데 실패했습니다:', error);
-          alert(
-            '주점 정보를 가져오는데 실패했습니다. 페이지를 새로고침 해주세요.',
-          );
+      try {
+        const authenticated = await isAuthenticated();
+        if (authenticated) {
+          try {
+            const data = await pubInfo();
+            setPubData(data);
+          } catch (error) {
+            console.error('주점 정보를 가져오는데 실패했습니다:', error);
+            alert(
+              '주점 정보를 가져오는데 실패했습니다. 페이지를 새로고침 해주세요.',
+            );
+          }
+        } else {
+          router.push('/admin/login');
         }
+      } catch (error) {
+        console.error('Authentication check failed:', error);
       }
     };
+
     checkAuth();
   }, [router]);
 
@@ -94,7 +100,7 @@ export default function OnsiteLineUp() {
   };
   return (
     <div className="flex flex-row items-center justify-center">
-      <div className="bg-main-blue flex h-screen w-1/2 flex-col items-center text-white">
+      <div className="flex h-screen w-1/2 flex-col items-center bg-main-blue text-white">
         {pubData ? (
           <Information pubName={pubData.pubName} queueing={pubData.queueing} />
         ) : (

@@ -43,10 +43,16 @@ const NumberKeypad: React.FC<NumberKeypadProps> = ({
     return parts.join('');
   };
 
+  const formatPhoneNumber = (number: string) => {
+    if (number.length !== 11) return number;
+    return `+82 ${number.slice(1, 3)}-${number.slice(3, 7)}-${number.slice(7)}`;
+  };
+
   const numbers = insertHyphens(value);
 
   useEffect(() => {
-    handlePhoneNumberChange(value);
+    const formattedNumber = formatPhoneNumber(value);
+    handlePhoneNumberChange(formattedNumber);
   }, [value, handlePhoneNumberChange]);
 
   return (

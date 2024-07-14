@@ -29,10 +29,10 @@ const Information: React.FC<InformationProps> = ({ pubName, queueing }) => {
       <p className="mt-20 text-center text-4xl font-bold">{pubName}</p>
       <div className="flex flex-row items-center">
         <p className="text-5xl font-bold">현재 대기 </p>
-        <span className="text-point-yellow mb-7 ml-3 text-[150px] font-extrabold">
+        <span className="mb-7 ml-3 text-9xl font-extrabold text-point-yellow">
           {queueing}
         </span>
-        <p className=" text-point-yellow text-center text-6xl font-bold">팀</p>
+        <p className=" text-center text-6xl font-bold text-point-yellow">팀</p>
       </div>
     </div>
   );
