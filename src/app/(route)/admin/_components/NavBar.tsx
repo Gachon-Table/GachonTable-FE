@@ -1,16 +1,56 @@
 'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import { adminLogout } from '@/app/api/service/adminAuth';
+import { handleStatus } from '@/app/api/service/handleStatus';
+import AlertModal from './AlertModal';
 
 export const Navbar = () => {
   const pathname = usePathname;
+  const router = useRouter();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [showStatusModal, setShowStatusModal] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const isActive = (path: string) => pathname?.() === path;
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleStatusClick = () => {
+    setShowStatusModal(true);
+    setIsDropdownOpen(false);
+  };
+
+  const handleLogoutClick = () => {
+    setShowLogoutModal(true);
+    setIsDropdownOpen(false);
+  };
+
+  const confirmStatus = async () => {
+    try {
+      await handleStatus();
+      // 상태 변경 성공 시 추가 작업 (예: 상태 업데이트, 메시지 표시 등)
+    } catch (error) {
+      console.error('대기 마감 처리 중 오류 발생:', error);
+      alert('대기 마감 처리 중 오류가 발생했습니다.');
+    } finally {
+      setShowStatusModal(false);
+    }
+  };
+
+  const confirmLogout = async () => {
+    try {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('pubId');
+      router.push('/admin/login');
+    } catch (error) {
+      console.error('로그아웃 처리 중 오류 발생:', error);
+      alert('로그아웃 처리 중 오류가 발생했습니다.');
+    } finally {
+      setShowLogoutModal(false);
+    }
   };
 
   return (
@@ -54,15 +94,15 @@ export const Navbar = () => {
                       aria-labelledby="options-menu"
                     >
                       <a
-                        href="#"
-                        className="block py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"
+                        onClick={handleStatusClick}
+                        className="block cursor-pointer py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"
                         role="menuitem"
                       >
                         대기마감
                       </a>
                       <a
-                        onClick={adminLogout}
-                        className="block py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"
+                        onClick={handleLogoutClick}
+                        className="block cursor-pointer py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"
                         role="menuitem"
                       >
                         로그아웃
@@ -76,6 +116,24 @@ export const Navbar = () => {
         </div>
         <div className="w-20 flex-grow border-t border-[#C2C2C2]" />
       </div>
+
+      {showStatusModal && (
+        <AlertModal
+          message="대기 마감"
+          button="마감"
+          onCancel={() => setShowStatusModal(false)}
+          onConfirm={confirmStatus}
+        />
+      )}
+
+      {showLogoutModal && (
+        <AlertModal
+          message="로그아웃"
+          button="로그아웃"
+          onCancel={() => setShowLogoutModal(false)}
+          onConfirm={confirmLogout}
+        />
+      )}
     </nav>
   );
 };
