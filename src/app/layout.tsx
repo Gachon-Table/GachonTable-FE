@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${noto.className} ${!isRowAlignment ? 'h-screen min-w-[360px] max-w-[500px]' : 'h-screen w-screen'}`}
+        className={`${noto.className} ${!isRowAlignment ? 'mx-auto h-screen min-w-[360px] max-w-[500px]' : 'h-screen w-screen'}`}
       >
         {children}
       </body>
