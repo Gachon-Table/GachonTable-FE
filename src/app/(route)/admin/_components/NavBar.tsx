@@ -55,14 +55,14 @@ export const Navbar = () => {
                     >
                       <a
                         href="#"
-                        className="block py-2 pl-2.5 text-[12px] font-medium text-[#969595] hover:text-[#434343]"
+                        className="block py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"
                         role="menuitem"
                       >
                         대기마감
                       </a>
                       <a
                         onClick={adminLogout}
-                        className="block py-2 pl-2.5 text-[12px] font-medium text-[#969595] hover:text-[#434343]"
+                        className="block py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"
                         role="menuitem"
                       >
                         로그아웃

@@ -36,6 +36,10 @@ const config: Config = {
       maxWidth: {
         '30rem': '30rem',// 하단 네비게이션바 width설정하기 위함
       },
+      height: {
+        '690': '43.125rem',
+        '550': '34.375rem',
+      }
     },
   },
   // plugins: [require("tailwind-scrollbar-hide")],
