@@ -20,11 +20,19 @@ export default function PubManagement() {
   const maxFields = 5;
 
   useEffect(() => {
-    console.log(isAuthenticated());
-    if (!isAuthenticated()) {
-      router.push('/admin/login');
-    }
-  }, []);
+    const checkAuth = async () => {
+      try {
+        const authenticated = await isAuthenticated();
+        if (!authenticated) {
+          router.push('/admin/login');
+        }
+      } catch (error) {
+        console.error('Authentication check failed:', error);
+      }
+    };
+
+    checkAuth();
+  }, [router]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-start bg-bg-white pt-2">

@@ -23,14 +23,26 @@ export default function AdminLogin() {
       router.push('/admin/waiting-management');
     } catch (error) {
       console.log(error);
+      alert('로그인 실패');
     }
   };
 
   useEffect(() => {
-    if (isAuthenticated()) {
-      router.push('/admin/waiting-management');
-    }
-  }, []);
+    const checkAuth = async () => {
+      try {
+        const authenticated = await isAuthenticated();
+        if (authenticated) {
+          router.push('/admin/waiting-management');
+        } else {
+          router.push('/admin/login');
+        }
+      } catch (error) {
+        console.error('Authentication check failed:', error);
+      }
+    };
+
+    checkAuth();
+  }, [router]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white">
@@ -80,7 +92,7 @@ export default function AdminLogin() {
         </div>
         <button
           onClick={handleLogin}
-          className="bg-main-blue w-full rounded-md py-3 font-light text-white transition-colors duration-300 hover:bg-blue-600 mobile:py-4"
+          className="w-full rounded-md bg-main-blue py-3 font-light text-white transition-colors duration-300 hover:bg-blue-600 mobile:py-4"
         >
           Login
         </button>
