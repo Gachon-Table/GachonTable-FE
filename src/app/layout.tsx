@@ -9,11 +9,6 @@ const noto = Noto_Sans_KR({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 });
 
-export const metadata = {
-  title: '라인업지',
-  description: '가천대학교 교내 축제 주점 원격 줄서기 서비스',
-};
-
 export default function RootLayout({
   children,
 }: {
