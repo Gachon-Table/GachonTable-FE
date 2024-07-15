@@ -1,15 +1,73 @@
-import React from 'react';
+'use client';
+
+import axios from 'axios';
+import { useSession } from 'next-auth/react';
+import React, { useEffect, useState } from 'react';
+
+interface WaitedItem {
+  waitingId: number;
+  pubName: string;
+  status: string;
+  enteredTime: string;
+}
 
 const Waited = () => {
+  const [waitedList, setWaitedList] = useState<WaitedItem[]>([]);
+  const { data: session } = useSession();
+
+  const waitedApi = async () => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) return;
+    try {
+      const result = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/waiting/history`,
+        { headers: { Authorization: `Bearer ${accessToken}` } },
+      );
+      setWaitedList(result.data);
+    } catch (error) {
+      console.error('Error fetching waited list:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (session) {
+      waitedApi();
+    }
+  }, [session]);
+
   return (
-    <div className="flex w-[100%] flex-col p-[1rem] border-b-[1px] h-[5rem]">
-      <div className="flex items-center justify-around">
-        <div>주점이름</div>
-        <div>
-          <div>방문 입장 시간 : 19:00</div>
-          <div>대기 소요 시간 : 1시간</div>
+    <div className="h-full">
+      {session ? (
+        waitedList.length > 0 ? (
+          <div className="mx-auto mt-[2rem] flex h-full w-[90%] flex-col gap-[2rem]">
+            {waitedList.map((element) => (
+              <div
+                key={element.waitingId}
+                className="rounded-[1rem] border border-t-0 px-[2rem] py-[1rem] shadow-md"
+              >
+                <div className="my-[0.5rem] inline-block rounded-[1rem] bg-[#7da4ff] px-[1rem] py-[0.2rem] text-white">
+                  {element.status}
+                </div>
+                <div className="text-[1.5rem] font-bold">{element.pubName}</div>
+                <div className="text-[1rem] font-semibold text-[#969595]">
+                  ID: {element.waitingId}
+                </div>
+                <div className="text-[1.2rem] font-bold text-[#3b4d9b]">
+                  방문 입장 시간: {element.enteredTime}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex h-full items-center justify-center text-[#D9D9D9]">
+            줄 서기 내역이 존재하지 않습니다.
+          </div>
+        )
+      ) : (
+        <div className="flex h-full items-center justify-center text-[#D9D9D9]">
+          로그인이 필요합니다.
         </div>
-      </div>
+      )}
     </div>
   );
 };

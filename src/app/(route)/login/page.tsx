@@ -1,5 +1,4 @@
 'use client';
-
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -11,15 +10,18 @@ const Login = () => {
   const LoginApi = async () => {
     if (session?.accessToken) {
       const loginToken = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/login`, null,
+        `${process.env.NEXT_PUBLIC_API_URL}/login`,
+        null,
         {
-          params: {token: session?.accessToken},
+          params: { token: session?.accessToken },
         },
       );
       localStorage.setItem('accessToken', loginToken.data.accessToken);
       localStorage.setItem('refreshToken', loginToken.data.refreshToken);
-      console.log(loginToken);
-      router.back();
+      const callbackPath = localStorage.getItem('callbackPath');
+      if (callbackPath) {
+        router.push(callbackPath);
+      }
     }
   };
   useEffect(() => {
