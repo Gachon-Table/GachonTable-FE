@@ -1,28 +1,34 @@
 import pubAxios from '../axios/pubAxios';
 
-interface PubData {
-  pubId: number;
-  pubName: string;
-  waitingCount: number;
-  openStatus: boolean;
+interface MenuItem {
+  menuName: string;
+  price: string;
+  oneLiner: string;
 }
 
-export const pubInfo = async (): Promise<PubData> => {
+interface PubResponse {
+  pub: {
+    pubId: number;
+    thumbnails?: string[];
+    pubName: string;
+    onLiner?: string;
+    studentCard?: boolean;
+    menu?: string;
+    waitingCount: number;
+    openStatus: boolean;
+  };
+  menu: MenuItem[];
+}
+
+export const pubInfo = async (): Promise<PubResponse> => {
   try {
     const pubId = localStorage.getItem('pubId');
     if (!pubId) {
-      throw new Error('pubId not found in localStorage');
+      throw new Error('주점이 존재하지 않습니다.');
     }
-    const response = await pubAxios.get(`/${pubId}`);
-    // const { pubId: id, pubName, waitingCount } = response.data.pub;
-    // return { pubId: id, pubName, waitingCount };
-    const { pubId: id, pubName, waitingCount, openStatus } = response.data.pub;
-    return {
-      pubId: Number(id),
-      pubName,
-      waitingCount,
-      openStatus: openStatus ?? true,
-    };
+    const response = await pubAxios.get<PubResponse>(`/${pubId}`);
+
+    return response.data;
   } catch (error) {
     console.error('주점 정보 가져오기 실패: ', error);
     throw error;
