@@ -9,20 +9,15 @@ const noto = Noto_Sans_KR({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 });
 
-export default function RootLayout({
-  children,
-  modal,
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-  modal: React.ReactNode;
-}) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ko">
       <body className={noto.className}>
-        <SessionProvider>
-          {children}
-          {modal}
-        </SessionProvider>
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   );
