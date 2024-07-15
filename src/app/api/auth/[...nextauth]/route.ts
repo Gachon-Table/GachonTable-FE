@@ -8,13 +8,11 @@ const handler = NextAuth({
       clientSecret: process.env.KAKAO_CLIENT_SECRET!,
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
     maxAge: 60 * 60 * 24 * 30,
   },
-  // jwt: {
-  //   secret: process.env.NEXTAUTH_URL
-  // },
   callbacks: {
     async jwt({ account, token }) {
       if (account) {
