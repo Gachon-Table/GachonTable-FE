@@ -15,7 +15,7 @@ const userAxios = axios.create({
 userAxios.interceptors.request.use(
     async (config) => {
         // 로컬 스토리지에서 AccessToken을 가져옵니다.
-        const accessToken = localStorage.getItem('accessToken'); // 키 값이 필요한 경우 조정하세요.
+        const accessToken = localStorage.getItem('accessToken');
         if (accessToken) {
             // 요청 헤더에 Authorization을 추가합니다.
             config.headers['Authorization'] = `Bearer ${accessToken}`;

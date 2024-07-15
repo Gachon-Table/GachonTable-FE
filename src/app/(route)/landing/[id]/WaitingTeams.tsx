@@ -1,119 +1,137 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import userAxios from '@/app/api/axios/userAxios'; // import 경로는 필요에 따라 조정하세요
-import { isUserAuthenticated } from '@/app/api/service/userAuth'; // import 경로는 필요에 따라 조정하세요
-import axios from 'axios'; // axios를 import 합니다
+import userAxios from '@/app/api/axios/userAxios';
+import { isUserAuthenticated } from '@/app/api/service/userAuth';
+import axios from 'axios';
+import PeopleCountPopup from './PeopleCountPopup';
+import ConfirmPopup from './ConfirmPopup';
 
 interface WaitingTeamsProps {
-  queueing: number; // 대기 중인 팀 수를 prop으로 받습니다
-  pubId: number; // pubId를 prop으로 받습니다
+  pubId: number;
+  studentCard: boolean;
 }
 
-const WaitingTeams: React.FC<WaitingTeamsProps> = ({ queueing, pubId }) => {
-  const [peopleCount, setPeopleCount] = useState(1); // 인원 수 상태를 관리합니다
-  const [showLoginPopup, setShowLoginPopup] = useState<boolean>(false); // 팝업 상태를 관리합니다
+const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId }) => {
+  const [peopleCount, setPeopleCount] = useState(1);
+  const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [showConfirmPopup, setShowConfirmPopup] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
   // 인원 수를 증가시키는 함수
   const incrementPeople = () => {
-    setPeopleCount(peopleCount + 1);
+    setPeopleCount(prevCount => prevCount + 1);
   };
 
   // 인원 수를 감소시키는 함수
   const decrementPeople = () => {
-    if (peopleCount > 1) {
-      setPeopleCount(peopleCount - 1);
-    }
+    setPeopleCount(prevCount => (prevCount > 1 ? prevCount - 1 : prevCount));
   };
 
   // 팝업을 여는 함수
   const openPopup = () => {
-    setShowLoginPopup(true);
+    setShowPopup(true);
   };
 
   // 팝업을 닫는 함수
   const closePopup = () => {
-    setShowLoginPopup(false);
+    setShowPopup(false);
+    setShowConfirmPopup(false);
   };
 
-  // 웨이팅 신청을 처리하는 함수
+  // 확인 팝업을 여는 함수
+  const openConfirmPopup = () => {
+    setShowConfirmPopup(true);
+    setShowPopup(false);
+  };
+
+  // 폼 제출 처리 함수
   const handleSubmit = async () => {
-    if (!isUserAuthenticated()) {
+    // 사용자가 인증된 상태인지 확인
+    if (!(await isUserAuthenticated())) {
       alert('로그인이 필요합니다.');
-      router.push('/login'); // 필요한 경우 경로를 조정하세요.// 인증되지 않은 경우 알림을 표시합니다
+      router.push('/login');
       return;
     }
 
+    setLoading(true);
     try {
+      // 로컬 스토리지에서 토큰을 가져옴 (다른 방법을 사용하고 있다면 이 부분을 조정해야 함)
+      const token = localStorage.getItem('accessToken'); // 실제 토큰 가져오기 방법으로 교체
+
+      // 요청 페이로드 준비
+      const payload = {
+        pubId,
+        headCount: peopleCount,
+      };
+
+      // 토큰과 요청 페이로드 로그 출력
+      console.log('Request token:', token);
+      console.log('Request payload:', payload);
+
+      // API 요청 전송
       const response = await userAxios.post(
-        '/waiting/remote', // API 엔드포인트
-        {
-          pubId,
-          headCount: peopleCount,
-        },
+        '/waiting/remote',
+        payload,
         {
           headers: {
             'Content-Type': 'application/json',
             'accept': '*/*',
+            'Authorization': `Bearer ${token}`, // Authorization 헤더에 토큰 포함
           },
         }
       );
-      console.log('Response data:', response.data); // 응답 데이터를 콘솔에 출력합니다
-      alert('웨이팅 신청이 완료되었습니다.'); // 웨이팅 신청 완료 알림을 표시합니다
-      closePopup(); // 요청 성공 후 팝업을 닫습니다
+
+      // 응답 데이터 로그 출력
+      console.log('Response data:', response.data);
+
+      closePopup();
     } catch (error) {
-      if (axios.isAxiosError(error)) { // axios 오류 확인
-        console.error('Error response:', error.response); // 오류 응답을 콘솔에 출력합니다
-        if (error.response?.status === 500) {
-          alert('서버 에러가 발생했습니다.'); // 500번 에러 처리
-        } else if (error.response?.status === 401) {
-          alert('인증 오류가 발생했습니다. 다시 로그인 해주세요.'); // 401번 에러 처리
+      if (axios.isAxiosError(error)) {
+        console.error('Error response:', error.response);
+        const status = error.response?.status;
+        if (status === 500) {
+          alert('서버 에러가 발생했습니다.');
+        } else if (status === 401) {
+          alert('인증 오류가 발생했습니다. 다시 로그인 해주세요.');
+        } else if (status === 404) {
+          alert('요청한 페이지를 찾을 수 없습니다.');
         } else {
-          alert(`오류가 발생했습니다: ${error.message}`); // 기타 오류 처리
+          alert(`오류가 발생했습니다: ${error.message}`);
         }
       } else {
-        console.error('웨이팅 신청 중 오류 발생: ', error); // 비axios 오류 처리
+        console.error('웨이팅 신청 중 오류 발생: ', error);
+        alert('예기치 못한 오류가 발생했습니다.');
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="w-full h-full max-h-screen mt-2 flex flex-col">
-      <div className="text-xl font-bold mb-10">현재 {queueing}팀이 웨이팅 중입니다.</div>
-      <div className="flex flex-col justify-center items-center mt-2">
-        <div className="mb-2">인원 수</div>
-        <div className="flex items-center mb-20">
-          <button
-            className="bg-gray-300 text-black font-bold py-2 px-4 rounded-l"
-            onClick={decrementPeople}
-          >
-            -
-          </button>
-          <div className="bg-white text-black py-2 px-4 border">{peopleCount}</div>
-          <button
-            className="bg-gray-300 text-black font-bold py-2 px-4 rounded-r"
-            onClick={incrementPeople}
-          >
-            +
-          </button>
-        </div>
-      </div>
-      <div onClick={openPopup} className="bg-gray-800 text-white flex justify-center items-center h-24 text-2xl font-bold cursor-pointer">
+    <div className="w-full max-w-[30rem] mx-auto h-full max-h-screen mt-2 flex flex-col">
+      <div
+        onClick={openPopup}
+        style={{ backgroundColor: '#3B4D9B' }}
+        className="text-white flex justify-center items-center h-20 text-2xl font-bold cursor-pointer rounded-lg"
+      >
         웨이팅 신청
       </div>
-      {showLoginPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-50">
-          <div className="absolute inset-0" onClick={closePopup}></div>
-          <div className="relative w-full max-w-md mx-auto bg-white text-black text-center rounded-lg shadow-lg border p-4">
-            <div className="text-black text-xl font-bold h-20 flex justify-center items-center">신청하시겠습니까?</div>
-            <div className="text-black text-xs h-10 flex justify-center items-center">신청 시 카카오톡으로 대기 현황을 알려 드려요!</div>
-            <div className="text-red-600 text-xs flex justify-center items-center">해당 주점은 학생증이 필수인 주점입니다!</div>
-            <div className="flex flex-row mt-5 h-16">
-              <div className="w-1/2 text-lg flex justify-center items-center border-r border-gray-300 cursor-pointer" onClick={closePopup}>취소</div>
-              <div className="w-1/2 text-lg flex justify-center items-center cursor-pointer" onClick={handleSubmit}>신청</div>
-            </div>
-          </div>
-        </div>
+      {showPopup && (
+        <PeopleCountPopup
+          peopleCount={peopleCount}
+          incrementPeople={incrementPeople}
+          decrementPeople={decrementPeople}
+          onClose={closePopup}
+          onConfirm={openConfirmPopup}
+        />
+      )}
+      {showConfirmPopup && (
+        <ConfirmPopup
+          onClose={closePopup}
+          onConfirm={handleSubmit}
+          //studentCard={studentCard}
+        />
       )}
     </div>
   );
