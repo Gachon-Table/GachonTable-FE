@@ -79,6 +79,18 @@ export const WaitingList = () => {
     }
   };
 
+  const handlePhoneCall = (phoneNumber: string) => {
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent,
+      )
+    ) {
+      window.location.href = `tel:${phoneNumber}`;
+    } else {
+      alert('이 기능은 모바일 기기에서만 사용할 수 있습니다.');
+    }
+  };
+
   useEffect(() => {
     const fetchWaitingList = async () => {
       try {
@@ -93,7 +105,7 @@ export const WaitingList = () => {
   }, []);
 
   return (
-    <div className="h-690 mt-3 w-11/12 max-w-screen-xl overflow-y-auto rounded-lg p-5">
+    <div className="mt-3 h-690 w-11/12 max-w-screen-xl overflow-y-auto rounded-lg p-5">
       {!list || list.length === 0 ? (
         <div className="flex h-screen items-center justify-center"></div>
       ) : (
@@ -108,11 +120,14 @@ export const WaitingList = () => {
                 <div>
                   <div className="text-2xl font-bold">{user.username}</div>
                   <div className="mt-1 flex items-center space-x-2">
-                    <span className="text-sm font-medium">
+                    <span className="text-xs font-medium">
                       {user.headCount}명
                     </span>
                     <div className="mt-1 h-5 border-l border-[#C2C2C2]" />
-                    <span className="cursor-pointer text-sm font-medium hover:underline">
+                    <span
+                      className="cursor-pointer text-sm font-medium hover:underline"
+                      onClick={() => handlePhoneCall(user.tel)}
+                    >
                       {user.tel.substring(user.tel.length - 4)}
                     </span>
                   </div>
