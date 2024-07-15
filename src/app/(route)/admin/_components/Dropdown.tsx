@@ -16,7 +16,7 @@ const Dropdown = () => {
 
   const handleLogout = () => {
     adminLogout();
-    router.push('/admin/login');
+    router.push('/admin');
   };
 
   return (

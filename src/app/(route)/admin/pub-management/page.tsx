@@ -24,7 +24,7 @@ export default function PubManagement() {
       try {
         const authenticated = await isAuthenticated();
         if (!authenticated) {
-          router.push('/admin/login');
+          router.push('/admin');
         }
       } catch (error) {
         console.error('Authentication check failed:', error);

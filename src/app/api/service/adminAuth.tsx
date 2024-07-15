@@ -27,7 +27,7 @@ export const adminLogout = () => {
   localStorage.removeItem('refreshToken');
   localStorage.removeItem('pubId');
   const router = useRouter();
-  router.push('/admin/login');
+  router.push('/admin');
 };
 
 export const isAuthenticated = async (): Promise<boolean> => {

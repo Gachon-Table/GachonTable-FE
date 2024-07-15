@@ -12,8 +12,8 @@ import { pubInfo } from '@/app/api/service/pubInfo';
 interface PubData {
   pubId: number;
   pubName: string;
-  queueing: number;
-  // pubStatus: boolean;
+  waitingCount: number;
+  openStatus: boolean;
 }
 
 interface WaitingRequest {
@@ -44,7 +44,7 @@ export default function OnsiteLineUp() {
             );
           }
         } else {
-          router.push('/admin/login');
+          router.push('/admin');
         }
       } catch (error) {
         console.error('Authentication check failed:', error);
@@ -102,7 +102,10 @@ export default function OnsiteLineUp() {
     <div className="flex flex-row items-center justify-center">
       <div className="flex h-screen w-1/2 flex-col items-center bg-main-blue text-white">
         {pubData ? (
-          <Information pubName={pubData.pubName} queueing={pubData.queueing} />
+          <Information
+            pubName={pubData.pubName}
+            queueing={pubData.waitingCount}
+          />
         ) : (
           <p>주점 정보를 불러오는 중...</p>
         )}
