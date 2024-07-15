@@ -10,10 +10,8 @@ import { submitWaitingRequest } from '@/app/api/service/onsiteWaiting';
 import { pubInfo } from '@/app/api/service/pubInfo';
 
 interface PubData {
-  pubId: number;
   pubName: string;
   waitingCount: number;
-  openStatus: boolean;
 }
 
 interface WaitingRequest {
@@ -35,8 +33,11 @@ export default function OnsiteLineUp() {
         const authenticated = await isAuthenticated();
         if (authenticated) {
           try {
-            const data = await pubInfo();
-            setPubData(data);
+            const response = await pubInfo();
+            setPubData({
+              pubName: response.pub.pubName,
+              waitingCount: response.pub.waitingCount,
+            });
           } catch (error) {
             console.error('주점 정보를 가져오는데 실패했습니다:', error);
             alert(
