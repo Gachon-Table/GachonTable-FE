@@ -1,7 +1,6 @@
 'use client';
 
 import axios from 'axios';
-import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 
 interface WaitedItem {
@@ -13,10 +12,14 @@ interface WaitedItem {
 
 const Waited = () => {
   const [waitedList, setWaitedList] = useState<WaitedItem[]>([]);
-  const { data: session } = useSession();
-
+  const [accessToken, setAccessToken] = useState<string | null>('');
+  useEffect(() => {
+    setAccessToken(localStorage.getItem('accessToken'));
+    if (accessToken) {
+      waitedApi();
+    }
+  }, []);
   const waitedApi = async () => {
-    const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) return;
     try {
       const result = await axios.get(
@@ -29,15 +32,9 @@ const Waited = () => {
     }
   };
 
-  useEffect(() => {
-    if (session) {
-      waitedApi();
-    }
-  }, [session]);
-
   return (
     <div className="h-full">
-      {session ? (
+      {accessToken ? (
         waitedList.length > 0 ? (
           <div className="mx-auto mt-[2rem] flex h-full w-[90%] flex-col gap-[2rem]">
             {waitedList.map((element) => (
@@ -71,7 +68,5 @@ const Waited = () => {
     </div>
   );
 };
-
-
 
 export default Waited;

@@ -1,6 +1,5 @@
 'use client';
 
-import { SessionProvider } from 'next-auth/react';
 import { Noto_Sans_KR } from 'next/font/google';
 import '../globals.css';
 
@@ -17,7 +16,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ko">
       <body className={noto.className}>
-        <SessionProvider>{children}</SessionProvider>
+        {children}
       </body>
     </html>
   );
