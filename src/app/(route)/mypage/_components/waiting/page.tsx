@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 interface WaitingItem {
   waitingId: number;
@@ -12,7 +13,12 @@ interface WaitingItem {
   order: number;
 }
 
-const Waiting = ({modal, setFunc}) => {
+interface WaitingProps {
+  modal: boolean;
+  setFunc: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Waiting = ({modal, setFunc}: WaitingProps) => {
   const [waitingList, setWaitingList] = useState<WaitingItem[]>([]);
   const { data: session } = useSession();
 
@@ -77,5 +83,8 @@ const Waiting = ({modal, setFunc}) => {
     </div>
   );
 };
-
+Waiting.propTypes = {
+  modal: PropTypes.bool.isRequired,
+  setFunc: PropTypes.func.isRequired,
+};
 export default Waiting;

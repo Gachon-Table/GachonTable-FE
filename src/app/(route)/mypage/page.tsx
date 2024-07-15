@@ -33,7 +33,11 @@ const Mypage = () => {
       </div>
       {session ? <AfterProfile /> : <BeforeProfile />}
       <Tab curTab={curTab} setFunc={setCurTab} />
-      {curTab === 'ing' ? <Waiting modal={modal} setFunc={setModal}/> : <Waited />}
+      {curTab === 'ing' ? (
+        <Waiting modal={modal} setFunc={setModal} />
+      ) : (
+        <Waited />
+      )}
       {modal && <CancelModal />}
     </div>
   );

@@ -72,4 +72,6 @@ const Waited = () => {
   );
 };
 
+
+
 export default Waited;
