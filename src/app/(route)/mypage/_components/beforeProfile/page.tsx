@@ -5,7 +5,7 @@ import Image from 'next/image';
 const BeforeProfile = () => {
   const loginProcess = () => {
     localStorage.setItem('callbackPath', window.location.pathname);
-    signIn('kakao', { callbackUrl: '/login' });
+    signIn('kakao', { callbackUrl: '/login', redirect: false});
   };
   return (
     <div className="mt-[4rem] flex w-[100%] justify-evenly">

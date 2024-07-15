@@ -18,6 +18,7 @@ const Login = () => {
       );
       localStorage.setItem('accessToken', loginToken.data.accessToken);
       localStorage.setItem('refreshToken', loginToken.data.refreshToken);
+      console.log("@@");
       const callbackPath = localStorage.getItem('callbackPath');
       if (callbackPath) {
         router.push(callbackPath);
