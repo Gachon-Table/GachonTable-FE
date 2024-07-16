@@ -49,7 +49,6 @@ const Mypage = () => {
         )}
         {modal && <CancelModal setModal={setModal} waitingId={id} />}
       </div>
-      <CancelModal setModal={setModal} waitingId={id} />
     </RootLayout>
   );
 };
