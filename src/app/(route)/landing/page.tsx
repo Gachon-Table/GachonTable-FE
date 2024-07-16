@@ -24,14 +24,11 @@ const LandingPage: React.FC = () => {
   };
 
   useEffect(() => {
-    // Check if the page has been refreshed before
     if (!localStorage.getItem('pageRefreshed')) {
-      // Set the flag to indicate the page has been refreshed
       localStorage.setItem('pageRefreshed', 'true');
-      // Force a page refresh
       window.location.reload();
     }
-  }, []); // Empty dependency array ensures this runs only once
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-white-100 mb-20 ">

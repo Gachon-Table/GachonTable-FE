@@ -67,6 +67,16 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
     setShowLoginPopup(false); // 팝업 닫기
   };
 
+
+  const loginProcess = () => {   //로그인로직
+    localStorage.setItem('callbackPath', window.location.pathname);
+    const REDIRECT_URI = `${window.location.protocol}//${window.location.host}/oauth`;
+    const CLIENT_ID = "a69eba9e5d96ac3b3e5ecc51206a4d51";
+    const code =
+      `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
+    window.location.href = code;
+  };
+
   const filteredStores = stores.filter(store => {
     if (filterStudentCard !== null) {
       return store.studentCard === filterStudentCard; // 학생증 필터링
@@ -149,7 +159,12 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
               </div>
               <p className="text-lg font-semibold mb-4">대기를 하려면 로그인이 필요해요!</p>
               <div className="w-3/5 flex items-center justify-center">
-                <img src="/images/kakao_login_medium_wide.png" alt="카카오 로그인" className="w-full h-11" />
+                <img
+                  src="/images/kakao_login_medium_wide.png"
+                  alt="카카오 로그인"
+                  className="w-full h-11"
+                  onClick={loginProcess}
+                />
               </div>
             </div>
           </div>
