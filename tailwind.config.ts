@@ -34,6 +34,7 @@ const config: Config = {
         'modal-rgba': 'rgba(0, 0, 0, 0.4)',
       },
       maxWidth: {
+        '31rem': '31rem',
         '30rem': '30rem',
         '28rem': '28rem',
       },

@@ -118,7 +118,7 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId }) => {
   };
 
   return (
-    <div className="w-full max-w-[30rem] mx-auto h-full max-h-screen mt-2 flex flex-col">
+    <div className="w-full max-w-[31rem] mx-auto h-full max-h-screen mt-2 flex flex-col">
       <div
         onClick={openPopup}
         style={{ backgroundColor: '#3B4D9B' }}
