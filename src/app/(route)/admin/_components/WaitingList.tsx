@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import AlertModal from '../_components/AlertModal';
 import { getWaitingList } from '@/app/api/service/getWaitingList';
-import { callUser } from '@/app/api/service/callUser';
-import { enterUser } from '@/app/api/service/enterUser';
+import adminAxios from '@/app/api/axios/adminAxios';
 
 function formatTime(timeString: string): string {
   const date = new Date(timeString);
@@ -42,42 +41,15 @@ export const WaitingList = () => {
   };
 
   const handleEnterUser = async () => {
-    if (selectedWaitingId === null) return;
-    const credentials = {
-      waitingId: selectedWaitingId,
-    };
-
-    try {
-      await enterUser(credentials);
-      console.log('입장 완료 처리되었습니다.');
-      const updatedList = await getWaitingList();
-      setList(updatedList);
-    } catch (error) {
-      console.error('입장 완료 처리 중 오류 발생:', error);
-      alert('입장 완료 처리 중 오류가 발생했습니다.');
-    } finally {
-      setBeSeated(false);
-      setSelectedWaitingId(null);
-    }
+    await adminAxios.patch('/enter', selectedWaitingId);
+    setBeSeated(false);
+    setSelectedWaitingId(null);
   };
 
   const handleCallUser = async () => {
-    if (selectedWaitingId === null) return;
-
-    const credentials = {
-      waitingId: selectedWaitingId,
-    };
-
-    try {
-      await callUser(credentials);
-      console.log(selectedWaitingId);
-    } catch (error) {
-      console.error('호출 처리 중 오류 발생:', error);
-      alert('호출 처리 중 오류가 발생했습니다.');
-    } finally {
-      setCallout(false);
-      setSelectedWaitingId(null);
-    }
+    await adminAxios.patch('/call', selectedWaitingId);
+    setCallout(false);
+    setSelectedWaitingId(null);
   };
 
   const handlePhoneCall = (phoneNumber: string) => {
