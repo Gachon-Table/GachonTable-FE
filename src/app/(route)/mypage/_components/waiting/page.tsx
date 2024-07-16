@@ -47,14 +47,14 @@ const Waiting = ({ modal, setFunc, setId }: WaitingProps) => {
     <div className="h-full">
       {accessToken ? (
         waitingList.length > 0 ? (
-          <div className="mx-auto mt-[2rem] flex w-[90%] flex-col gap-[2rem] overflow-y-auto">
+          <div className="mx-auto mt-[2rem] flex w-[90%] flex-col gap-[2rem]">
             {waitingList.map((element) => (
               <div
                 key={element.waitingId}
                 className="flex items-center justify-between rounded-[1rem] border border-t-0 px-[2rem] py-[1rem] shadow-md"
               >
                 <div>
-                  <div className="my-[0.5rem] inline-block rounded-[1rem] bg-[#7da4ff] px-[1rem] py-[0.2rem] text-white">
+                  <div className={`my-[0.5rem] inline-block rounded-[1rem] ${element.orderStatus == '대기 중' ? 'bg-[#7da4ff]' : 'bg-[#FF805A]' } px-[1rem] py-[0.2rem] text-white`}>
                     {element.orderStatus}
                   </div>
                   <div className="text-[1.5rem] font-bold">

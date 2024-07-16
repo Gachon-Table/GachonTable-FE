@@ -42,11 +42,13 @@ const Mypage = () => {
         </div>
         {accessToken ? <AfterProfile /> : <BeforeProfile />}
         <Tab curTab={curTab} setFunc={setCurTab} />
-        {curTab === 'ing' ? (
-          <Waiting modal={modal} setFunc={setModal} setId={setId} />
-        ) : (
-          <Waited />
-        )}
+        <div className='h-full overflow-y-auto'>
+          {curTab === 'ing' ? (
+            <Waiting modal={modal} setFunc={setModal} setId={setId} />
+          ) : (
+            <Waited />
+          )}
+        </div>
         {modal && <CancelModal setModal={setModal} waitingId={id} />}
       </div>
     </RootLayout>
