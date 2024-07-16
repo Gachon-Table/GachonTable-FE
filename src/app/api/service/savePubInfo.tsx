@@ -15,7 +15,7 @@ interface PubProps {
 
 export const savePubInfo = async (credentials: PubProps) => {
   try {
-    const response = await pubAxios.post('/manage', credentials);
+    const response = await pubAxios.patch('/manage', credentials);
 
     return response.data;
   } catch (error) {
