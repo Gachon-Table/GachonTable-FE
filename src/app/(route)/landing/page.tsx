@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ResponsiveTest from './ResponsiveTest';
 import Footer from '../_components/footer/page';
 
@@ -22,6 +22,16 @@ const LandingPage: React.FC = () => {
     setSortByLowCongestion(prev => !prev);
     setSortByCongestion(false);
   };
+
+  useEffect(() => {
+    // Check if the page has been refreshed before
+    if (!localStorage.getItem('pageRefreshed')) {
+      // Set the flag to indicate the page has been refreshed
+      localStorage.setItem('pageRefreshed', 'true');
+      // Force a page refresh
+      window.location.reload();
+    }
+  }, []); // Empty dependency array ensures this runs only once
 
   return (
     <div className="flex flex-col min-h-screen bg-white-100 mb-20 ">
