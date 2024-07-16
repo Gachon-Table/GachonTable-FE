@@ -33,10 +33,10 @@ const Waited = () => {
   };
 
   return (
-    <div className="h-full">
+    <div className="h-full py-[2rem]">
       {accessToken ? (
         waitedList.length > 0 ? (
-          <div className="mx-auto mt-[2rem] flex h-full w-[90%] flex-col gap-[2rem]">
+          <div className="mx-auto flex h-full w-[90%] flex-col gap-[2rem]">
             {waitedList.map((element) => (
               <div
                 key={element.waitingId}
