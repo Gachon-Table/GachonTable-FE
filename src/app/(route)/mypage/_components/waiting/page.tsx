@@ -61,7 +61,7 @@ const Waiting = ({ modal, setFunc, setId }: WaitingProps) => {
                     {element.pubName}
                   </div>
                   <div className="text-[1rem] font-semibold text-[#969595]">
-                    ID: {element.waitingId.substring(0, 9)}
+                    ID: {element.waitingId.substring(0, 8)}
                   </div>
                   <div className="mt-[1rem] text-[1rem] font-semibold text-[#969595]">
                     대기 시작 시간: {element.createdAt.substring(11, 19)}
