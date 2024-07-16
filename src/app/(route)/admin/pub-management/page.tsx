@@ -8,7 +8,7 @@ import StudentIdInputBox from '../_components/pubInput/StudentIdInputBox';
 import MenuInputBox from '../_components/pubInput/MenuInputBox';
 import { isAuthenticated } from '@/app/api/service/adminAuth';
 import { getPubInfo } from '@/app/api/service/getPubInfo';
-import { savePubInfo } from '@/app/api/service/savePubInfo';
+import pubAxios from '@/app/api/axios/pubAxios';
 
 interface MenuItem {
   menuName: string;
@@ -67,11 +67,14 @@ export default function PubManagement() {
     };
 
     try {
-      await savePubInfo(updatedPubData);
-      console.log(updatedPubData);
+      const response = await pubAxios.patch('/manage', updatedPubData);
+      if (response.status === 200) {
+        console.log('정보 업데이트 성공');
+        alert('저장되었습니다.');
+        return response.data;
+      }
     } catch (error) {
-      console.error('주점 정보 업데이트 실패:', error);
-      alert('주점 정보 업데이트에 실패했습니다. 다시 시도해주세요.');
+      console.log('정보 업데이트 실패: ', error);
     }
   };
 
