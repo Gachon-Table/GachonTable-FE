@@ -18,7 +18,7 @@ const Waited = () => {
     if (accessToken) {
       waitedApi();
     }
-  }, [accessToken]);
+  }, [accessToken, waitedList]);
   const waitedApi = async () => {
     if (!accessToken) return;
     try {

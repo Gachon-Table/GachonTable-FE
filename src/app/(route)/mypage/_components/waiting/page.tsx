@@ -26,7 +26,7 @@ const Waiting = ({ modal, setFunc, setId }: WaitingProps) => {
     if (accessToken) {
       waitingApi();
     }
-  }, [accessToken]);
+  }, [accessToken, waitingList]);
 
   const waitingApi = async () => {
     if (!accessToken) return;
