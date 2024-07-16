@@ -39,7 +39,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
       const { Location } = await s3.upload(params).promise();
       return Location;
     } catch (error) {
-      console.error('Error uploading to S3:', error);
+      console.error('이미지 업로드 실패:', error);
       throw error;
     }
   };
@@ -54,7 +54,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
         const imageUrl = await uploadToS3(file);
         setImages((prev) => [...prev, imageUrl]);
       } catch (error) {
-        console.error('Failed to upload image:', error);
+        console.error('이미지 업로드 실패:', error);
       } finally {
         setIsUploading(false);
       }
