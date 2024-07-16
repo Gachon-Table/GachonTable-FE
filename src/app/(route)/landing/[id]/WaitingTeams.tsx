@@ -5,6 +5,7 @@ import { isUserAuthenticated } from '@/app/api/service/userAuth';
 import axios from 'axios';
 import PeopleCountPopup from './PeopleCountPopup';
 import ConfirmPopup from './ConfirmPopup';
+import SuccessPopup from './SuccessPopup';
 
 interface WaitingTeamsProps {
   pubId: number;
@@ -16,6 +17,8 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId }) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [showConfirmPopup, setShowConfirmPopup] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null); // 에러 상태 추가
+  const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false); // 성공 팝업 상태 추가
   const router = useRouter();
 
   // 인원 수를 증가시키는 함수
@@ -37,6 +40,8 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId }) => {
   const closePopup = () => {
     setShowPopup(false);
     setShowConfirmPopup(false);
+    setError(null); // 에러 상태 초기화
+    setShowSuccessPopup(false); // 성공 팝업 상태 초기화
   };
 
   // 확인 팝업을 여는 함수
@@ -55,6 +60,8 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId }) => {
     }
 
     setLoading(true);
+    setError(null); // 에러 초기화
+
     try {
       // 로컬 스토리지에서 토큰을 가져옴 (다른 방법을 사용하고 있다면 이 부분을 조정해야 함)
       const token = localStorage.getItem('accessToken'); // 실제 토큰 가져오기 방법으로 교체
@@ -85,23 +92,25 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId }) => {
       // 응답 데이터 로그 출력
       console.log('Response data:', response.data);
       console.log("예약 성공");
-      closePopup();
+      setShowSuccessPopup(true); // 성공 팝업 표시
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error('Error response:', error.response);
         const status = error.response?.status;
         if (status === 500) {
-          alert('서버 에러가 발생했습니다.');
+          setError('서버 에러가 발생했습니다.');
         } else if (status === 401) {
-          alert('인증 오류가 발생했습니다. 다시 로그인 해주세요.');
+          setError('인증 오류가 발생했습니다. 다시 로그인 해주세요.');
         } else if (status === 404) {
-          alert('요청한 페이지를 찾을 수 없습니다.');
+          setError('요청한 페이지를 찾을 수 없습니다.');
+        } else if (status === 403) {
+          setError('같은 지점에 웨이팅을 하였거나 4개 이상 웨이팅을 하실 수 없습니다.');
         } else {
-          alert(`오류가 발생했습니다: ${error.message}`);
+          setError(`오류가 발생했습니다: ${error.message}`);
         }
       } else {
         console.error('웨이팅 신청 중 오류 발생: ', error);
-        alert('예기치 못한 오류가 발생했습니다.');
+        setError('예기치 못한 오류가 발생했습니다.');
       }
     } finally {
       setLoading(false);
@@ -113,7 +122,7 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId }) => {
       <div
         onClick={openPopup}
         style={{ backgroundColor: '#3B4D9B' }}
-        className={`text-white flex justify-center items-center h-20 text-2xl font-bold cursor-pointer rounded-lg ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}// 로딩 중일 때 버튼 비활성화
+        className={`text-white flex justify-center items-center h-20 text-2xl font-bold cursor-pointer rounded-lg ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
       >
         {loading ? '로딩 중...' : '웨이팅 신청'}
       </div>
@@ -131,6 +140,19 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId }) => {
           onClose={closePopup}
           onConfirm={handleSubmit}
           //studentCard={studentCard}
+        />
+      )}
+      {error && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-4 rounded-lg shadow-lg">
+            <p>{error}</p>
+            <button onClick={closePopup} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">닫기</button>
+          </div>
+        </div>
+      )}
+      {showSuccessPopup && (
+        <SuccessPopup
+          onClose={closePopup}
         />
       )}
     </div>

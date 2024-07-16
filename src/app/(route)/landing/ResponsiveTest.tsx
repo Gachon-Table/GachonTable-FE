@@ -32,6 +32,12 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
       const loggedIn = await isUserAuthenticated();
       setIsLoggedIn(loggedIn);
 
+      //로그인 에러로 인한 임시 로직
+      // const token = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLshLHshK0yIiwidWlkIjoiODFlNTJiZjUtYTZlOS00MzI3LTg0MDQtYjc2NDU5YTRiNjY0Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyMTEyNjI0NH0.BM5qXS-2D5m1EDvuvGoQAYjQhxNckUQLBfLfIbd1KaMD4TYyVPTPN7qhXh-8zUjE"
+      // const token2 = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLshLHshK0yIiwidWlkIjoiODFlNTJiZjUtYTZlOS00MzI3LTg0MDQtYjc2NDU5YTRiNjY0Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyMjMxNDIzOH0.2SL-XFwjJkXCxkyqUUcDTZbjhKuJ8bvhxxdIj0BCxWtTPQLGKzwSxDSiJrp8DwRw"
+      // const accessToken = localStorage.setItem("accessToken", token);
+      // const refreshToken = localStorage.setItem("refreshToken", token2);
+
       // 주점 목록 API 요청
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
       axios.get(`${apiUrl}/pub/all`)
