@@ -34,7 +34,8 @@ const config: Config = {
         'modal-rgba': 'rgba(0, 0, 0, 0.4)',
       },
       maxWidth: {
-        '30rem': '30rem',// 하단 네비게이션바 width설정하기 위함
+        '30rem': '30rem',
+        '28rem': '28rem',
       },
       height: {
         '4/10': '40%', // height: 30%
