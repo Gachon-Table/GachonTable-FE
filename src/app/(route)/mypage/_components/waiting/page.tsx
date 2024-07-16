@@ -32,7 +32,7 @@ const Waiting = ({ modal, setFunc, setId }: WaitingProps) => {
     if (!accessToken) return;
     try {
       const result = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/waiting/order`,
+        `${process.env.NEXT_PUBLIC_API_URL}/waiting/status`,
         { headers: { Authorization: `Bearer ${accessToken}` } },
       );
       setWaitingList(result.data);
