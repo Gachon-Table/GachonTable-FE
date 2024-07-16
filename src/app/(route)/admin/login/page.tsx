@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { adminLogin, isAuthenticated } from '@/app/api/service/adminAuth';
 
@@ -22,22 +23,36 @@ export default function AdminLogin() {
       router.push('/admin/waiting-management');
     } catch (error) {
       console.log(error);
+      alert('로그인 실패');
     }
   };
 
   useEffect(() => {
-    if (isAuthenticated()) {
-      router.push('/admin/waiting-management');
-    }
-  }, []);
+    const checkAuth = async () => {
+      try {
+        const authenticated = await isAuthenticated();
+        if (authenticated) {
+          router.push('/admin/waiting-management');
+        } else {
+          router.push('/admin/login');
+        }
+      } catch (error) {
+        console.error('Authentication check failed:', error);
+      }
+    };
+
+    checkAuth();
+  }, [router]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white">
-      <div className="mb-8">
-        <img
-          src="/images/logo2.png"
-          alt="캐릭터 로고"
-          className="mobile:h-[360px]"
+      <div className="mb-10 flex flex-col items-center">
+        <Image
+          src="/images/logo-blue.png"
+          alt="로고"
+          className="mb-10 size-40"
+          width={298}
+          height={283}
         />
         <div className="text-center text-3xl font-bold text-tory-blue mobile:text-3xl tablet:text-3xl laptop:text-4xl desktop:text-5xl">
           관리자 로그인
@@ -77,7 +92,7 @@ export default function AdminLogin() {
         </div>
         <button
           onClick={handleLogin}
-          className="w-full rounded-md bg-blue-500 py-3 font-light text-white transition-colors duration-300 hover:bg-blue-600 mobile:py-4"
+          className="w-full rounded-md bg-main-blue py-3 font-light text-white transition-colors duration-300 hover:bg-blue-600 mobile:py-4"
         >
           Login
         </button>

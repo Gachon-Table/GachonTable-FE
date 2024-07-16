@@ -8,8 +8,11 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:next/recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "prettier",
+    "next",
+    "next/core-web-vitals"
   ],
   "overrides": [],
   "parser": "@typescript-eslint/parser",
@@ -17,10 +20,16 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "react/react-in-jsx-scope": "off", //jsx파일에서 React를 import 하지 않아도 됨.
     "no-unused-vars": "off", //타입스크립트 사용시 interface의 변수명을 eslint가 잡지 않도록 함.
-    "@typescript-eslint/no-unused-vars": "warn" //대신 사용하지 않는 변수는 @typescript/eslint를 통해 잡아줌.
+    "@typescript-eslint/no-unused-vars": "warn", //대신 사용하지 않는 변수는 @typescript/eslint를 통해 잡아줌.
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }

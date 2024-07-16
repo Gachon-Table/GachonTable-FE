@@ -43,10 +43,16 @@ const NumberKeypad: React.FC<NumberKeypadProps> = ({
     return parts.join('');
   };
 
+  const formatPhoneNumber = (number: string) => {
+    if (number.length !== 11) return number;
+    return `+82 ${number.slice(1, 3)}-${number.slice(3, 7)}-${number.slice(7)}`;
+  };
+
   const numbers = insertHyphens(value);
 
   useEffect(() => {
-    handlePhoneNumberChange(value);
+    const formattedNumber = formatPhoneNumber(value);
+    handlePhoneNumberChange(formattedNumber);
   }, [value, handlePhoneNumberChange]);
 
   return (
@@ -80,7 +86,7 @@ const NumberKeypad: React.FC<NumberKeypadProps> = ({
         )}
       </div>
       <button
-        className={`h-1/5 w-full px-4 text-4xl font-bold ${value.length === 11 ? 'bg-sunglo text-white' : 'bg-gray-300 text-gray-500'}`}
+        className={`h-1/5 w-full px-4 text-4xl font-bold ${value.length === 11 ? 'bg-point-yellow text-white' : 'bg-gray-300 text-gray-500'}`}
         onClick={onClose}
       >
         방문 인원 수 입력

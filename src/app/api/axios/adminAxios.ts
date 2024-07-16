@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
 import { adminLogout } from '../service/adminAuth';
 
 const adminAxios = axios.create({
@@ -28,9 +27,21 @@ adminAxios.interceptors.request.use(
     (response) => response,
     async (error) => {
       if (error.response?.status === 401) {
-        adminLogout();
-        const router = useRouter();
-        router.push('/admin/login');
+        const refreshToken = localStorage.getItem('refreshToken');
+        
+        try {
+          const response = await adminAxios.post('/refresh', { refreshToken });
+          const { accessToken, refreshToken: newRefreshToken } = response.data;
+          
+          localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem('refreshToken', newRefreshToken);
+          
+          error.config.headers['Authorization'] = `Bearer ${accessToken}`;
+          return adminAxios(error.config);
+        } catch (refreshError) {
+          adminLogout();
+          return Promise.reject(refreshError);
+        }
       }
       return Promise.reject(error);
     }

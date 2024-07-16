@@ -15,28 +15,27 @@ function StudentIdInputBox({ studentIdeState }: Props) {
   };
 
   return (
-    <div className="mt-5 flex w-full max-w-md cursor-pointer flex-row">
+    <div className="h-18 relative mt-3 flex w-full max-w-md cursor-pointer flex-row overflow-hidden rounded-xl bg-white">
       <div
-        className={`flex w-1/2 flex-row items-center justify-center rounded-l-md  p-5 text-center ${studentId ? 'bg-gray-300' : 'bg-white'}`}
+        className={`absolute left-0 top-0 h-full w-1/2 rounded-xl bg-main-blue transition-all duration-300 ease-in-out ${
+          studentId ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      ></div>
+      <div
+        className={`z-10 flex w-1/2 flex-row items-center justify-center rounded-xl p-5 text-center font-medium transition-colors duration-300 ease-in-out ${
+          studentId ? 'text-white' : 'text-black'
+        }`}
         onClick={handleClick}
       >
-        <img
-          src="/images/id-icon.png"
-          alt="학생증 아이콘"
-          className="mr-2 h-5"
-        />
-        <span>학생증 필요</span>
+        학생증 필요
       </div>
       <div
-        className={`flex w-1/2 flex-row items-center justify-center rounded-r-md  p-5 text-center ${studentId ? 'bg-white' : 'bg-gray-300'}`}
+        className={`z-10 flex w-1/2 flex-row items-center justify-center rounded-xl p-5 text-center font-medium transition-colors duration-300 ease-in-out ${
+          studentId ? 'text-black' : 'text-white'
+        }`}
         onClick={handleClick}
       >
-        <img
-          src="/images/no-id-icon.png"
-          alt="학생증 아이콘"
-          className="mr-2 h-5"
-        />
-        <span>학생증 불필요</span>
+        학생증 불필요
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ interface PubData {
   pubId: number;
   pubName: string;
   queueing: number;
+  // pubStatus: boolean;
 }
 
 export const pubInfo = async (): Promise<PubData> => {
@@ -15,6 +16,13 @@ export const pubInfo = async (): Promise<PubData> => {
     const response = await pubAxios.get(`/${pubId}`);
     const { pubId: id, pubName, queueing } = response.data.pub;
     return { pubId: id, pubName, queueing };
+    // const { pubId: id, pubName, queueing, pubStatus } = response.data.pub;
+    // return {
+    //   pubId: Number(id),
+    //   pubName,
+    //   queueing,
+    //   pubStatus: pubStatus ?? true
+    // };
   } catch (error) {
     console.error('주점 정보 가져오기 실패: ', error);
     throw error;

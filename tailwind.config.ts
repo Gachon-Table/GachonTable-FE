@@ -20,6 +20,12 @@ const config: Config = {
         'desktop': '1280px',
       },
       colors: {
+        'main-blue': '#3B4D9B',
+        'bg-white': '#F2F4F6',
+        'point-yellow': '#FFD479',
+        'point-blue': '#EAEFFF',
+        'point-red': '#E87567',
+        'point-grey':'#EFEFF0',
         'tory-blue': '#014f9e',
         'dodger-blue': '#0096ff',
         'deep-cove': '#001140',
@@ -32,7 +38,9 @@ const config: Config = {
       },
       height: {
         '3/10': '30%', // height: 30%
-      },
+        '690': '43.125rem',
+        '550': '34.375rem',
+      }
     },
   },
   // plugins: [require("tailwind-scrollbar-hide")],

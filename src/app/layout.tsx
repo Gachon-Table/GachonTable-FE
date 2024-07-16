@@ -16,12 +16,12 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
 
-  const isRowAlignment = pathname === '/admin/field-lineup';
+  const isRowAlignment = pathname === '/admin/onsite-lineup';
 
   return (
     <html lang="en">
       <body
-        className={`${noto.className} ${!isRowAlignment ? 'h-screen mobile:mx-auto mobile:max-w-[480px]' : 'h-screen w-screen'}`}
+        className={`${noto.className} ${!isRowAlignment ? 'mx-auto h-screen min-w-[360px] max-w-[500px]' : 'h-screen w-screen'}`}
       >
         {children}
       </body>
