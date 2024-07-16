@@ -17,6 +17,7 @@ const Oauth = () => {
       );
       localStorage.setItem('accessToken', result.data.accessToken);
       localStorage.setItem('refreshToken', result.data.refreshToken);
+      localStorage.setItem('userName', result.data.userName);
       const callbackPath = localStorage.getItem('callbackPath');
       if (callbackPath) {
         router.push(callbackPath);
@@ -24,7 +25,6 @@ const Oauth = () => {
     };
     loginProcess();
   }, [code]);
-  console.log(code);
   return <div></div>;
 };
 

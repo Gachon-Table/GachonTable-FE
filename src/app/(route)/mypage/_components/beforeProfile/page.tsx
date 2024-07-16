@@ -10,7 +10,6 @@ const BeforeProfile = () => {
       `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
     window.location.href = code;
   };
-  console.log(process.env.KAKAO_CLIENT_ID);
   return (
     <div className="mt-[4rem] flex w-[100%] justify-evenly">
       <div className="mt-2 flex flex-col items-center gap-6 text-gray-400">
