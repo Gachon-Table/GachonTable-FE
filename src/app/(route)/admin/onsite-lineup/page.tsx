@@ -7,7 +7,7 @@ import Information from '../_components/field/Information';
 import ParticipantsModal from '../_components/field/ParticipantsModal';
 import { isAuthenticated } from '@/app/api/service/adminAuth';
 import { submitWaitingRequest } from '@/app/api/service/onsiteWaiting';
-import { pubInfo } from '@/app/api/service/pubInfo';
+import { getPubInfo } from '@/app/api/service/getPubInfo';
 
 interface PubData {
   pubName: string;
@@ -33,7 +33,7 @@ export default function OnsiteLineUp() {
         const authenticated = await isAuthenticated();
         if (authenticated) {
           try {
-            const response = await pubInfo();
+            const response = await getPubInfo();
             setPubData({
               pubName: response.pub.pubName,
               waitingCount: response.pub.waitingCount,

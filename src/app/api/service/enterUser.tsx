@@ -1,7 +1,7 @@
 import adminAxios from '../axios/adminAxios';
 
 interface userProps {
-  waitingId: number;
+  waitingId: string;
 }
 
 export const enterUser = async (credentials: userProps) => {

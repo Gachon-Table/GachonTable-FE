@@ -1,9 +1,9 @@
 // import adminAxios from '../axios/adminAxios';
-// import { pubInfo } from './pubInfo';
+// import { getPubInfo } from './getPubInfo';
 
 // export const handleStatus = async () => {
 //   try {
-//     const data = await pubInfo();
+//     const data = await getPubInfo();
 //     const newStatus = !data.pubStatus;
 //     const response = await adminAxios.patch('/status', {
 //       openStatus: newStatus,

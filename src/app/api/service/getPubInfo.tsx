@@ -20,7 +20,7 @@ interface PubResponse {
   menu: MenuItem[];
 }
 
-export const pubInfo = async (): Promise<PubResponse> => {
+export const getPubInfo = async (): Promise<PubResponse> => {
   try {
     const pubId = localStorage.getItem('pubId');
     if (!pubId) {
