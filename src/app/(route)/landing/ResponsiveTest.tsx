@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { isUserAuthenticated } from '@/app/api/service/userAuth'; // 로그인 상태 확인 함수
 
 interface Store {
   pubId: number;
@@ -20,29 +21,42 @@ interface ResponsiveTestProps {
 }
 
 const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStudentCard, sortByCongestion, sortByLowCongestion }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true); // 로그인 상태 관리
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // 로그인 상태 관리
   const [showLoginPopup, setShowLoginPopup] = useState<boolean>(false); // 로그인 팝업 표시 상태 관리
   const [stores, setStores] = useState<Store[]>([]); // 가게 정보 저장
   const [loading, setLoading] = useState<boolean>(true); // 로딩 상태 관리
   const [error, setError] = useState<string | null>(null); // 에러 상태 관리
 
-  // 주점 목록 API 요청
   useEffect(() => {
-    axios.get('http://ec2-3-34-185-126.ap-northeast-2.compute.amazonaws.com:8080/pub/all')
-      .then(response => {
-        console.log(response.data); // 받아온 데이터 콘솔에 출력
-        setStores(response.data); // 받아온 데이터 상태에 저장
-      })
-      .catch(error => {
-        console.error("데이터를 가져오는 중 오류 발생: ", error);
-        setError("데이터를 가져오는 중 오류가 발생했습니다."); // 에러 메시지 설정
-      })
-      .finally(() => {
-        setLoading(false); // 로딩 완료
-      });
+    const checkLoginStatus = async () => {
+      const loggedIn = await isUserAuthenticated();
+      setIsLoggedIn(loggedIn);
+
+      //로그인 에러로 인한 임시 로직
+      // const token = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLshLHshK0yIiwidWlkIjoiODFlNTJiZjUtYTZlOS00MzI3LTg0MDQtYjc2NDU5YTRiNjY0Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyMTEyNjI0NH0.BM5qXS-2D5m1EDvuvGoQAYjQhxNckUQLBfLfIbd1KaMD4TYyVPTPN7qhXh-8zUjE"
+      // const token2 = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLshLHshK0yIiwidWlkIjoiODFlNTJiZjUtYTZlOS00MzI3LTg0MDQtYjc2NDU5YTRiNjY0Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyMjMxNDIzOH0.2SL-XFwjJkXCxkyqUUcDTZbjhKuJ8bvhxxdIj0BCxWtTPQLGKzwSxDSiJrp8DwRw"
+      // const accessToken = localStorage.setItem("accessToken", token);
+      // const refreshToken = localStorage.setItem("refreshToken", token2);
+
+      // 주점 목록 API 요청
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      axios.get(`${apiUrl}/pub/all`)
+        .then(response => {
+          setStores(response.data); // 받아온 데이터 상태에 저장
+        })
+        .catch(error => {
+          console.error("데이터를 가져오는 중 오류 발생: ", error);
+          setError("데이터를 가져오는 중 오류가 발생했습니다."); // 에러 메시지 설정
+        })
+        .finally(() => {
+          setLoading(false); // 로딩 완료
+        });
+    };
+
+    checkLoginStatus();
   }, []);
 
-  const handleStoreClick = (e: React.MouseEvent<HTMLAnchorElement>, pubId: number) => {
+  const handleStoreClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (!isLoggedIn) {
       e.preventDefault(); // 페이지 이동 방지
       setShowLoginPopup(true); // 로그인 팝업 표시
@@ -58,7 +72,7 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
       return store.studentCard === filterStudentCard; // 학생증 필터링
     }
     return true;
-  }).filter(store => 
+  }).filter(store =>
     store.pubName.toLowerCase().includes(searchTerm.toLowerCase()) // 검색어 필터링
   );
 
@@ -90,34 +104,29 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
       ) : (
         sortedStores.map((store: Store) => (
           <a
-            href={`/landing/${store.pubId}`}
+            href={isLoggedIn ? `/landing/${store.pubId}` : '#'}
             key={store.pubId}
-            onClick={(e) => handleStoreClick(e, store.pubId)}
-            className="w-full h-1/10 bg-white flex flex-row"
+            onClick={(e) => handleStoreClick(e)}
+            className="w-full h-1/10 bg-white flex flex-row p-4 border-b border-gray-300"
           >
             <div className="w-full h-1/10 bg-white flex flex-row">
-              <img src='/images/storeImage.png' alt='가게사진' className="w-28 h-28 mr-2" />
+              <img src='/images/storeImage.png' alt='가게사진' className="w-28 h-28 mr-2 rounded-2xl" />
               <div className="w-4/5 bg-white flex flex-row justify-between">
                 <div>
                   <div className="w-11/12 bg-white flex items-center text-center justify-start text-[20px]">
-                    <div className="font-bold text-lg">{store.pubName}</div>
-                    <div className="ml-2">
-                      {store.people === "많음" && <img src="/images/manypeople.png" alt="많은 사람" className="w-4 h-4 mr-1" />}
-                      {store.people === "보통" && <img src="/images/normalpeople.png" alt="보통 사람" className="w-4 h-4 mr-1" />}
-                      {store.people === "적음" && <img src="/images/nonepeople.png" alt="적은 사람" className="w-4 h-4 mr-1" />}
+                    <div className="font-bold text-xl">{store.pubName}</div>
+                  </div>
+                  <div className="w-80 bg-white flex justify-start mb-[1%] text-sm items-start text-left">{store.oneLiner}</div>
+                  <div className="flex items-center mt-3">
+                    <div
+                      className={`min-w-[2rem] px-2 h-6 flex items-center justify-center rounded-full text-[10px] font-bold text-white ${store.studentCard ? 'bg-red-500' : 'bg-blue-500'}`}
+                    >
+                      {store.studentCard ? '학생증 필요' : '학생증 불필요'}
                     </div>
                   </div>
-                  <div className="w-80 bg-white flex justify-start text-base items-start text-left">대기인원 수 : {store.queueing}</div>
-                  <div className="w-80 bg-white flex justify-start mb-[1%] text-base items-start text-left">{store.oneLiner}</div>
-                  <div className="w-12/12 bg-white flex justify-start mb-[0.5%] text-[10px] items-start text-left">{store.studentCard ? '학생증 필요' : '학생증 불필요'}</div>
-                  <div className="w-12/12 bg-white flex justify-start mb-[0.5%] text-[10px] items-start text-left">{store.menu}</div> {/* 첫 번째 메뉴 이름만 표시 */}
-                </div>
-                <div>
-                  {store.bookmark ? (
-                    <img src="/images/clickbookmark.png" alt="북마크됨" className="w-7 h-7" />
-                  ) : (
-                    <img src="/images/nonebookmark.png" alt="북마크안됨" className="w-7 h-7" />
-                  )}
+                  <div className="w-80 bg-white flex justify-end text-xs items-start text-right font-bold mt-2">
+                    현재&nbsp;<span style={{ color: '#FF805A' }}>{store.queueing}</span>명이 대기하고 있어요
+                  </div>
                 </div>
               </div>
             </div>
@@ -126,11 +135,23 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
       )}
 
       {showLoginPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-50">
-          <div className="absolute inset-0" onClick={closePopup}></div>
-          <div className="bg-white p-8 rounded shadow-md z-10">
-            <p>로그인이 필요합니다.</p>
-            <button onClick={closePopup} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">닫기</button>
+        <div
+          className="fixed inset-0 flex items-end justify-center bg-black bg-opacity-50 z-50"
+          onClick={closePopup} // 팝업 외부를 클릭하면 닫히도록 설정
+        >
+          <div
+            className="w-full max-w-md bg-white p-6 rounded-t-xl shadow-lg"
+            onClick={(e) => e.stopPropagation()} // 팝업 내부 클릭 이벤트 전파 방지
+          >
+            <div className="flex flex-col items-center">
+              <div className="w-1/5 flex items-center justify-center mb-4">
+                <img src="/images/popuplogo.png" alt="Logo" className="w-11 h-11" />
+              </div>
+              <p className="text-lg font-semibold mb-4">대기를 하려면 로그인이 필요해요!</p>
+              <div className="w-3/5 flex items-center justify-center">
+                <img src="/images/kakao_login_medium_wide.png" alt="카카오 로그인" className="w-full h-11" />
+              </div>
+            </div>
           </div>
         </div>
       )}

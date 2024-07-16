@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from 'react';
 import ResponsiveTest from './ResponsiveTest';
-import Navigation from '../_components/nav/Navigation';
 import Footer from '../_components/footer/page';
 
 const LandingPage: React.FC = () => {
@@ -15,52 +14,51 @@ const LandingPage: React.FC = () => {
   };
 
   const handleSortByCongestion = () => {
-    // Toggle sorting by congestion
     setSortByCongestion(prev => !prev);
-    // Ensure sorting by low congestion is off
     setSortByLowCongestion(false);
   };
 
   const handleSortByLowCongestion = () => {
-    // Toggle sorting by low congestion
     setSortByLowCongestion(prev => !prev);
-    // Ensure sorting by congestion is off
     setSortByCongestion(false);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 mb-20">
-      <header className="fixed top-0 w-full max-w-[30rem] bg-white rounded-lg shadow-md text-center">
-        <div className="w-full h-[7.5vh] bg-white rounded-lg flex items-center justify-center">
-          <div className="w-1/5 bg-white flex items-center justify-center rounded-lg">
-            <div className="w-11 h-11 bg-gray-300 rounded-full"></div>
-          </div>
-          <div className="w-4/5 h-full bg-white flex items-center justify-center rounded-lg">
+    <div className="flex flex-col min-h-screen bg-white-100 mb-20 ">
+      <header className="fixed top-0 w-full max-w-[30rem] bg-white rounded-lg text-center z-10 ">
+        <div className="w-full h-[7.5vh] bg-white rounded-lg flex items-center justify-between px-2 md:px-4 border-black">
+          <a href="/landing" className="w-1/5 flex items-center justify-center rounded-lg">
+            <img src="/images/logo.png" alt="Logo" className="w-11 h-11 rounded-full" />
+          </a>
+          <div className="w-3/5 h-full flex items-center justify-center rounded-lg">
             <input
               type="text"
-              className="w-4/5 h-10 bg-gray-200 rounded-full border-none px-4"
+              className="w-full h-10 bg-gray-200 rounded-full border-none px-4"
               placeholder="Search..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
+          <a href="/mypage" className="w-1/5 flex items-center justify-center rounded-lg">
+            <img src="/images/mypage.png" alt="My Page" className="w-11 h-11 rounded-full" />
+          </a>
         </div>
         <div className="w-full h-7 bg-white rounded-lg flex items-center justify-between mt-3 mb-3">
           <div className="w-full h-7 bg-white rounded-lg flex items-center justify-center gap-10">
             <div
-              className={`w-1/4 h-[5vh] rounded-xl border-2 flex items-center justify-center ${sortByCongestion ? 'border-red-500' : 'border-black'}`}
+              className={`w-1/4 h-[5vh] font-bold flex items-center justify-center border-b-4 cursor-pointer ${sortByCongestion ? 'border-blue-800 text-black' : 'border-gray-400 text-gray-600'}`}
               onClick={handleSortByCongestion}
             >
-              혼잡도 많은 순
+              대기 많은 순
             </div>
             <div
-              className={`w-1/4 h-[5vh] rounded-xl border-2 flex items-center justify-center ${sortByLowCongestion ? 'border-red-500' : 'border-black'}`}
+              className={`w-1/4 h-[5vh] font-bold flex items-center justify-center border-b-4 cursor-pointer ${sortByLowCongestion ? 'border-blue-800 text-black' : 'border-gray-400 text-gray-600'}`}
               onClick={handleSortByLowCongestion}
             >
-              혼잡도 낮은 순
+              대기 낮은 순
             </div>
             <div
-              className={`w-1/4 h-[5vh] rounded-xl border-2 flex items-center justify-center ${filterStudentCard === false ? 'border-red-500' : 'border-black'}`}
+              className={`w-1/4 h-[5vh] font-bold flex items-center justify-center border-b-4 cursor-pointer ${filterStudentCard === false ? 'border-blue-800 text-black' : 'border-gray-400 text-gray-600'}`}
               onClick={handleStudentCardFilter}
             >
               학생증 불필요
@@ -68,7 +66,7 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </header>
-      <main className="flex flex-col items-center w-full max-w-2xl mt-[18vh] gap-6 h-full overflow-y-auto">
+      <main className="flex flex-col items-start w-full max-w-2xl mt-[18vh] gap-6 flex-grow overflow-y-auto">
         <ResponsiveTest
           searchTerm={searchTerm}
           filterStudentCard={filterStudentCard}
@@ -77,7 +75,6 @@ const LandingPage: React.FC = () => {
         />
       </main>
       <Footer />
-      <Navigation />
     </div>
   );
 };
