@@ -13,7 +13,7 @@ const CancelModal = ({ waitingId, setModal }: CancelModalProps) => {
   }, [accessToken]);
 
   const handleCancel = async () => {
-    await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/waiting/order`, {
+    await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/waiting/cancel`, {
       waitingId,
       headers: { Authorization: `Bearer ${accessToken}` },
     });

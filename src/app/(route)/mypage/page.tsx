@@ -13,7 +13,7 @@ import RootLayout from '../../layout';
 
 const Mypage = () => {
   const [curTab, setCurTab] = useState('ing');
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
   const [id, setId] = useState('');
   const router = useRouter();
   const [accessToken, setAccessToken] = useState<string | null>('');

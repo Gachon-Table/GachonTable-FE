@@ -8,7 +8,6 @@ const BeforeProfile = () => {
     const CLIENT_ID = "a69eba9e5d96ac3b3e5ecc51206a4d51";
     const code =
       `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
-    console.log(code);
     window.location.href = code;
   };
   console.log(process.env.KAKAO_CLIENT_ID);
