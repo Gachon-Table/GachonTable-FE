@@ -42,7 +42,7 @@ const Mypage = () => {
         </div>
         {accessToken ? <AfterProfile /> : <BeforeProfile />}
         <Tab curTab={curTab} setFunc={setCurTab} />
-        <div className='h-full overflow-y-auto'>
+        <div className='h-full overflow-y-auto py-[2rem]'>
           {curTab === 'ing' ? (
             <Waiting modal={modal} setFunc={setModal} setId={setId} />
           ) : (
