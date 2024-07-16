@@ -27,17 +27,16 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
   const [loading, setLoading] = useState<boolean>(true); // 로딩 상태 관리
   const [error, setError] = useState<string | null>(null); // 에러 상태 관리
 
-
   useEffect(() => {
     const checkLoginStatus = async () => {
       const loggedIn = await isUserAuthenticated();
       setIsLoggedIn(loggedIn);
 
       //로그인 에러로 인한 임시 로직
-      // const token = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLshLHshK0yIiwidWlkIjoiODFlNTJiZjUtYTZlOS00MzI3LTg0MDQtYjc2NDU5YTRiNjY0Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyMTEyNjI0NH0.BM5qXS-2D5m1EDvuvGoQAYjQhxNckUQLBfLfIbd1KaMD4TYyVPTPN7qhXh-8zUjE"
-      // const token2 = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLshLHshK0yIiwidWlkIjoiODFlNTJiZjUtYTZlOS00MzI3LTg0MDQtYjc2NDU5YTRiNjY0Iiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyMjMxNDIzOH0.2SL-XFwjJkXCxkyqUUcDTZbjhKuJ8bvhxxdIj0BCxWtTPQLGKzwSxDSiJrp8DwRw"
-      // const accessToken = localStorage.setItem("accessToken", token);
-      // const refreshToken = localStorage.setItem("refreshToken", token2);
+      //const token = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLshLHshK00IiwidWlkIjoiNzFlZjc2ODUtNDdkNy00YjNlLTgzMzctYTUwNGZhMTdkNTNjIiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyMTEyOTY3NH0.hCIJd4s-XFOizjhjhSwzdQOr0U2qPnrlOp6al8pYXfKsin8JtZUMLhZs7mycbv-m"
+      //const token2 = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLshLHshK00IiwidWlkIjoiNzFlZjc2ODUtNDdkNy00YjNlLTgzMzctYTUwNGZhMTdkNTNjIiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyMjMxNzY2NH0.y4SQQftfKsIjT9_BYVcxsL82qelcxpYbphi__q_fTeiNvz67f7Q267KnDcMSm4x2"
+      //const accessToken = localStorage.setItem("accessToken", token);
+      //const refreshToken = localStorage.setItem("refreshToken", token2);
 
       // 주점 목록 API 요청
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -67,6 +66,7 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
   const closePopup = () => {
     setShowLoginPopup(false); // 팝업 닫기
   };
+
 
   const loginProcess = () => {   //로그인로직
     localStorage.setItem('callbackPath', window.location.pathname);
@@ -100,15 +100,15 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
   return (
     <>
       {loading ? (
-        <div className="flex justify-center items-center h-screen p-4">
+        <div className="flex justify-center items-center h-screen">
           <p>로딩 중...</p>
         </div>
       ) : error ? (
-        <div className="flex justify-center items-center h-screen p-4">
+        <div className="flex justify-center items-center h-screen">
           <p>{error}</p>
         </div>
       ) : sortedStores.length === 0 ? (
-        <div className="flex justify-center items-center h-screen p-4">
+        <div className="flex justify-center items-center h-screen">
           <p>현재 주점이 없습니다</p>
         </div>
       ) : (
@@ -119,20 +119,22 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
             onClick={(e) => handleStoreClick(e)}
             className="flex flex-col w-full bg-white p-4 border-b border-gray-300 mb-4 rounded-lg"
           >
-            <div className="flex flex-row sm:flex-row items-center">
-              <img src='/images/storeImage.png' alt='가게사진' className="w-28 h-28 sm:w-28 sm:h-28 mr-4 rounded-2xl" />
-              <div className="flex flex-col flex-grow">
-                <div className="text-lg font-bold mb-1">{store.pubName}</div>
+            <div className="flex flex-row items-center">
+              <img src='/images/storeImage.png' alt='가게사진' className="w-28 h-28 mr-2 rounded-2xl" />
+              <div className="flex flex-col w-full">
+                <div className="text-xl font-bold mb-2">{store.pubName}</div>
                 <div className="text-sm mb-2">{store.oneLiner}</div>
-                <div className="flex items-center mb-2">
+                <div className="flex items-center mt-3">
                   <div
                     className={`min-w-[2rem] px-2 h-6 flex items-center justify-center rounded-full text-[10px] font-bold text-white ${store.studentCard ? 'bg-red-500' : 'bg-blue-500'}`}
                   >
                     {store.studentCard ? '학생증 필요' : '학생증 불필요'}
                   </div>
                 </div>
-                <div className="bg-white flex justify-end text-xs items-start text-right font-bold mt-2">
-                  현재&nbsp;<span style={{ color: '#FF805A' }}>{store.queueing}</span>명이 대기하고 있어요
+                <div className="flex justify-end mt-2">
+                  <div className="text-xs font-bold text-right">
+                    현재&nbsp;<span className="text-[#FF805A]">{store.queueing}</span>명이 대기하고 있어요
+                  </div>
                 </div>
               </div>
             </div>
@@ -142,11 +144,11 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
 
       {showLoginPopup && (
         <div
-          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+          className="fixed inset-0 flex items-end justify-center bg-black bg-opacity-50 z-50"
           onClick={closePopup} // 팝업 외부를 클릭하면 닫히도록 설정
         >
           <div
-            className="w-full max-w-md bg-white p-6 rounded-xl shadow-lg"
+            className="w-full max-w-md bg-white p-6 rounded-t-xl shadow-lg"
             onClick={(e) => e.stopPropagation()} // 팝업 내부 클릭 이벤트 전파 방지
           >
             <div className="flex flex-col items-center">
@@ -158,7 +160,7 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
                 <img
                   src="/images/kakao_login_medium_wide.png"
                   alt="카카오 로그인"
-                  className="w-full h-11 cursor-pointer"
+                  className="w-full h-11"
                   onClick={loginProcess}
                 />
               </div>
