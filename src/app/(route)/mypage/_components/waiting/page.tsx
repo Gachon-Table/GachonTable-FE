@@ -10,6 +10,7 @@ interface WaitingItem {
   pubName: string;
   orderStatus: string;
   order: number;
+  createdAt: string;
 }
 
 interface WaitingProps {
@@ -46,7 +47,7 @@ const Waiting = ({ modal, setFunc, setId }: WaitingProps) => {
     <div className="h-full">
       {accessToken ? (
         waitingList.length > 0 ? (
-          <div className="mx-auto mt-[2rem] flex w-[90%] flex-col gap-[2rem]">
+          <div className="mx-auto mt-[2rem] flex w-[90%] flex-col gap-[2rem] overflow-y-auto">
             {waitingList.map((element) => (
               <div
                 key={element.waitingId}
@@ -60,7 +61,10 @@ const Waiting = ({ modal, setFunc, setId }: WaitingProps) => {
                     {element.pubName}
                   </div>
                   <div className="text-[1rem] font-semibold text-[#969595]">
-                    ID: {element.waitingId}
+                    ID: {element.waitingId.substring(0, 9)}
+                  </div>
+                  <div className="mt-[1rem] text-[1rem] font-semibold text-[#969595]">
+                    대기 시작 시간: {element.createdAt.substring(11, 19)}
                   </div>
                   <div className="text-[1.2rem] font-bold text-[#3b4d9b]">
                     대기순번: {element.order}
