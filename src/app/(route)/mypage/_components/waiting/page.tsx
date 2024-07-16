@@ -4,7 +4,6 @@ import axios from 'axios';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import CancelModal from '../cancelModal/page';
 
 interface WaitingItem {
   waitingId: string;
