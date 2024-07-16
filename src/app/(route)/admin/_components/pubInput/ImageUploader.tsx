@@ -1,23 +1,68 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
+import AWS from 'aws-sdk';
 
-export const ImageUploader = () => {
-  const [images, setImages] = useState<string[]>([]);
+AWS.config.update({
+  accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
+  secretAccessKey: process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY,
+  region: 'ap-northeast-2',
+});
+
+const s3 = new AWS.S3();
+
+interface ImageUploaderProps {
+  images: string[];
+  setImages: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+export const ImageUploader: React.FC<ImageUploaderProps> = ({
+  images,
+  setImages,
+}) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleAddImage = () => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const uploadToS3 = async (file: File): Promise<string> => {
+    const fileName = `menus/${Date.now()}-${file.name}`;
+    const params = {
+      Bucket: 'gachontable',
+      Key: fileName,
+      Body: file,
+      ContentType: file.type,
+    };
+
+    try {
+      const { Location } = await s3.upload(params).promise();
+      return Location;
+    } catch (error) {
+      console.error('이미지 업로드 실패:', error);
+      throw error;
+    }
+  };
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImages((prev) => [...prev, reader.result as string]);
-      };
-      reader.readAsDataURL(file);
+      setIsUploading(true);
+      try {
+        const imageUrl = await uploadToS3(file);
+        setImages((prev) => [...prev, imageUrl]);
+      } catch (error) {
+        console.error('이미지 업로드 실패:', error);
+      } finally {
+        setIsUploading(false);
+      }
     }
+  };
+
+  const handleDeleteImage = (index: number) => {
+    setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -27,6 +72,7 @@ export const ImageUploader = () => {
         <button
           onClick={handleAddImage}
           className="flex h-16 w-16 flex-shrink-0 cursor-pointer items-center justify-center rounded-xl bg-[#EAEFFF]"
+          disabled={isUploading}
         >
           <Image
             src="/images/add-button.png"
@@ -38,13 +84,19 @@ export const ImageUploader = () => {
         {images.map((image, index) => (
           <div
             key={index}
-            className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl bg-[#EAEFFF]"
+            className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl bg-[#EAEFFF]"
           >
             <img
               src={image}
               alt={`Uploaded ${index + 1}`}
               className="h-full w-full object-cover"
             />
+            <button
+              onClick={() => handleDeleteImage(index)}
+              className="absolute right-1 top-1 flex h-3 w-3 items-center justify-center rounded-full bg-main-blue text-white"
+            >
+              <span className="text-[7px] font-medium">X</span>
+            </button>
           </div>
         ))}
       </div>

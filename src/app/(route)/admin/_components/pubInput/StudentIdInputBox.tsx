@@ -1,19 +1,17 @@
 import React from 'react';
 
-interface Props {
-  studentIdeState: {
-    studentId: boolean;
-    setStudentId: React.Dispatch<React.SetStateAction<boolean>>;
-  };
+interface StudentIdInputBoxProps {
+  studentId: boolean;
+  setStudentId: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function StudentIdInputBox({ studentIdeState }: Props) {
-  const { studentId, setStudentId } = studentIdeState;
-
+function StudentIdInputBox({
+  studentId,
+  setStudentId,
+}: StudentIdInputBoxProps) {
   const handleClick = () => {
     setStudentId(!studentId);
   };
-
   return (
     <div className="h-18 relative mt-3 flex w-full max-w-md cursor-pointer flex-row overflow-hidden rounded-xl bg-white">
       <div

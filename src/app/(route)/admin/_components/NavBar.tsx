@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-// import { handleStatus } from '@/app/api/service/handleStatus';
+import { handleStatus } from '@/app/api/service/handleStatus';
 import AlertModal from './AlertModal';
 
 export const Navbar = () => {
@@ -28,16 +28,15 @@ export const Navbar = () => {
   };
 
   const confirmStatus = async () => {
-    // try {
-    //   await handleStatus();
-    //   // 상태 변경 성공 시 추가 작업 (예: 상태 업데이트, 메시지 표시 등)
-    // } catch (error) {
-    //   console.error('대기 마감 처리 중 오류 발생:', error);
-    //   alert('대기 마감 처리 중 오류가 발생했습니다.');
-    // } finally {
-    //   setShowStatusModal(false);
-    // }
-    alert('대기 마감되었습니다.');
+    try {
+      await handleStatus();
+      alert('대기 마감되었습니다.');
+    } catch (error) {
+      console.error('대기 마감 처리 중 오류 발생:', error);
+      alert('대기 마감 처리 중 오류가 발생했습니다.');
+    } finally {
+      setShowStatusModal(false);
+    }
   };
 
   const confirmLogout = async () => {

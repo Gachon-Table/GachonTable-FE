@@ -16,15 +16,7 @@ export default function AdminLogin() {
       password: password,
     };
 
-    try {
-      const data = await adminLogin(credentials);
-      console.log('로그인 성공 : ', data);
-      alert('로그인 성공');
-      router.push('/admin/waiting-management');
-    } catch (error) {
-      console.log(error);
-      alert('로그인 실패');
-    }
+    await adminLogin(credentials);
   };
 
   useEffect(() => {
@@ -34,7 +26,7 @@ export default function AdminLogin() {
         if (authenticated) {
           router.push('/admin/waiting-management');
         } else {
-          router.push('/admin/login');
+          router.push('/admin');
         }
       } catch (error) {
         console.error('Authentication check failed:', error);

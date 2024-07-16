@@ -7,13 +7,11 @@ import Information from '../_components/field/Information';
 import ParticipantsModal from '../_components/field/ParticipantsModal';
 import { isAuthenticated } from '@/app/api/service/adminAuth';
 import { submitWaitingRequest } from '@/app/api/service/onsiteWaiting';
-import { pubInfo } from '@/app/api/service/pubInfo';
+import { getPubInfo } from '@/app/api/service/getPubInfo';
 
 interface PubData {
-  pubId: number;
   pubName: string;
-  queueing: number;
-  // pubStatus: boolean;
+  waitingCount: number;
 }
 
 interface WaitingRequest {
@@ -35,8 +33,11 @@ export default function OnsiteLineUp() {
         const authenticated = await isAuthenticated();
         if (authenticated) {
           try {
-            const data = await pubInfo();
-            setPubData(data);
+            const response = await getPubInfo();
+            setPubData({
+              pubName: response.pub.pubName,
+              waitingCount: response.pub.waitingCount,
+            });
           } catch (error) {
             console.error('주점 정보를 가져오는데 실패했습니다:', error);
             alert(
@@ -44,7 +45,7 @@ export default function OnsiteLineUp() {
             );
           }
         } else {
-          router.push('/admin/login');
+          router.push('/admin');
         }
       } catch (error) {
         console.error('Authentication check failed:', error);
@@ -87,7 +88,6 @@ export default function OnsiteLineUp() {
     try {
       const data = await submitWaitingRequest(waitingRequest);
       console.log(data);
-      alert('웨이팅이 성공적으로 등록되었습니다!');
       setClose(true);
 
       setTimeout(() => {
@@ -102,7 +102,10 @@ export default function OnsiteLineUp() {
     <div className="flex flex-row items-center justify-center">
       <div className="flex h-screen w-1/2 flex-col items-center bg-main-blue text-white">
         {pubData ? (
-          <Information pubName={pubData.pubName} queueing={pubData.queueing} />
+          <Information
+            pubName={pubData.pubName}
+            queueing={pubData.waitingCount}
+          />
         ) : (
           <p>주점 정보를 불러오는 중...</p>
         )}
