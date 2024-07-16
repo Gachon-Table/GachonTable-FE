@@ -64,7 +64,7 @@ export const WaitingList = () => {
   const handleCallUser = async () => {
     const credentials = { waitingId: selectedWaitingId };
     try {
-      const response = await adminAxios.patch('/call', { credentials });
+      const response = await adminAxios.patch('/call', credentials);
       if (response.status === 200) {
         console.log('호출에 성공하였습니다.');
         alert('호출 성공');
