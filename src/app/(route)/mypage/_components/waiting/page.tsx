@@ -36,6 +36,7 @@ const Waiting = ({ modal, setFunc, setId }: WaitingProps) => {
         { headers: { Authorization: `Bearer ${accessToken}` } },
       );
       setWaitingList(result.data);
+      console.log(waitingList);
     } catch (error) {
       console.error('Error fetching waiting list:', error);
     }
