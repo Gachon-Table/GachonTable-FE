@@ -20,6 +20,10 @@ const Mypage = () => {
   useEffect(() => {
     setAccessToken(localStorage.getItem('accessToken'));
   }, []);
+  useEffect(() => {
+    localStorage.removeItem('pageRefreshed');
+    setAccessToken(localStorage.getItem('accessToken'));
+  }, []);
   return (
     <RootLayout>
       <div className="flex h-full flex-col">
@@ -43,7 +47,7 @@ const Mypage = () => {
         ) : (
           <Waited />
         )}
-        {modal && <CancelModal setModal={setModal} waitingId={id}/>}
+        {modal && <CancelModal setModal={setModal} waitingId={id} />}
       </div>
     </RootLayout>
   );
