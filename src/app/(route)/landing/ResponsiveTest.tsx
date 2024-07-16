@@ -134,7 +134,7 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
                     {store.studentCard ? '학생증 필요' : '학생증 불필요'}
                   </div>
                 </div>
-                <div className="flex justify-end mt-2">
+                <div className="flex justify-end mt-2 mr-4">
                   <div className="text-xs font-bold text-right">
                     현재&nbsp;<span className="text-[#FF805A]">{store.queueing}</span>명이 대기하고 있어요
                   </div>

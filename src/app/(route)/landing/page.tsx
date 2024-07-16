@@ -31,8 +31,8 @@ const LandingPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-white-100 mb-20 ">
-      <header className="fixed top-0 w-full max-w-[30rem] bg-white rounded-lg text-center z-10 ">
+    <div className="flex flex-col min-h-screen bg-white-100 mb-20">
+      <header className="fixed top-0 w-full max-w-[30rem] bg-white rounded-lg text-center z-10">
         <div className="w-full h-[7.5vh] bg-white rounded-lg flex items-center justify-between px-2 md:px-4 border-black">
           <a href="/landing" className="w-1/5 flex items-center justify-center rounded-lg">
             <img src="/images/logo.png" alt="Logo" className="w-11 h-11 rounded-full" />
@@ -73,7 +73,7 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </header>
-      <main className="flex flex-col items-start w-full max-w-2xl mt-[18vh] gap-6 flex-grow overflow-y-auto">
+      <main className="flex flex-col items-start w-full max-w-[28rem] mt-[18vh] mx-auto gap-6 flex-grow overflow-y-auto">
         <ResponsiveTest
           searchTerm={searchTerm}
           filterStudentCard={filterStudentCard}
