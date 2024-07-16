@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 
 const Oauth = () => {
   const params = useSearchParams();
@@ -28,4 +28,12 @@ const Oauth = () => {
   return <div></div>;
 };
 
-export default Oauth;
+const OauthWrapper = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Oauth />
+    </Suspense>
+  );
+};
+
+export default OauthWrapper;
