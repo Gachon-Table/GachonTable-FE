@@ -47,7 +47,7 @@ const Waiting = ({ modal, setFunc, setId }: WaitingProps) => {
     <div className="h-full">
       {accessToken ? (
         waitingList.length > 0 ? (
-          <div className="mx-auto mt-[2rem] flex w-[90%] flex-col gap-[2rem]">
+          <div className="mx-auto flex w-[90%] flex-col gap-[2rem]">
             {waitingList.map((element) => (
               <div
                 key={element.waitingId}
