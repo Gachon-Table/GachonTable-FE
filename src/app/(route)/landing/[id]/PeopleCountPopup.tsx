@@ -25,7 +25,7 @@ const PeopleCountPopup: React.FC<PeopleCountPopupProps> = ({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-[30rem] mx-auto bg-white text-black text-center rounded-lg shadow-lg border pt-12 flex flex-col justify-between h-2/5"
+        className="relative w-full max-w-[30rem] mx-auto bg-white text-black text-center rounded-lg shadow-lg border pt-12 flex flex-col justify-between h-3/10" // here we use the new custom class h-3/10
         onClick={stopPropagation}
         style={{
           boxShadow: '0px -4px 8px rgba(0, 0, 0, 0.2)',

@@ -8,7 +8,7 @@ import userAxios from '@/app/api/axios/userAxios'; // Import userAxios
 interface Store {
   pub: {
     bookmark: boolean;
-    queueing: number;
+    waitingCount: number;
     pubName: string;
     onLiner: string;
     studentCard: boolean;
@@ -92,7 +92,7 @@ const StoreDetailPage: React.FC = () => {
         {/* 가게 정보 텍스트 */}
         <div>
           <div className="w-80 bg-white flex justify-start text-xs items-start font-bold mt-2">
-            현재&nbsp;<span style={{ color: '#FF805A' }}>{store.pub.queueing}</span>명이 대기하고 있어요
+            현재&nbsp;<span style={{ color: '#FF805A' }}>{store.pub.waitingCount}</span>명이 대기하고 있어요
           </div>
           <h1 className="text-2xl font-bold mb-4">{store.pub.pubName}</h1>
           <p>{store.pub.onLiner}</p>

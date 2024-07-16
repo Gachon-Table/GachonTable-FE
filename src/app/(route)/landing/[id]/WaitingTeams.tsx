@@ -84,7 +84,7 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId }) => {
 
       // 응답 데이터 로그 출력
       console.log('Response data:', response.data);
-
+      console.log("예약 성공");
       closePopup();
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -113,9 +113,9 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId }) => {
       <div
         onClick={openPopup}
         style={{ backgroundColor: '#3B4D9B' }}
-        className="text-white flex justify-center items-center h-20 text-2xl font-bold cursor-pointer rounded-lg"
+        className={`text-white flex justify-center items-center h-20 text-2xl font-bold cursor-pointer rounded-lg ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}// 로딩 중일 때 버튼 비활성화
       >
-        웨이팅 신청
+        {loading ? '로딩 중...' : '웨이팅 신청'}
       </div>
       {showPopup && (
         <PeopleCountPopup

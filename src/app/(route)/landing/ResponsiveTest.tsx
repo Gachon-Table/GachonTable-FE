@@ -36,7 +36,6 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
       axios.get(`${apiUrl}/pub/all`)
         .then(response => {
-          console.log(response.data); // 받아온 데이터 콘솔에 출력
           setStores(response.data); // 받아온 데이터 상태에 저장
         })
         .catch(error => {
@@ -51,7 +50,7 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
     checkLoginStatus();
   }, []);
 
-  const handleStoreClick = (e: React.MouseEvent<HTMLAnchorElement>, pubId: number) => {
+  const handleStoreClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (!isLoggedIn) {
       e.preventDefault(); // 페이지 이동 방지
       setShowLoginPopup(true); // 로그인 팝업 표시
@@ -101,7 +100,7 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
           <a
             href={isLoggedIn ? `/landing/${store.pubId}` : '#'}
             key={store.pubId}
-            onClick={(e) => handleStoreClick(e, store.pubId)}
+            onClick={(e) => handleStoreClick(e)}
             className="w-full h-1/10 bg-white flex flex-row p-4 border-b border-gray-300"
           >
             <div className="w-full h-1/10 bg-white flex flex-row">
@@ -110,11 +109,6 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
                 <div>
                   <div className="w-11/12 bg-white flex items-center text-center justify-start text-[20px]">
                     <div className="font-bold text-xl">{store.pubName}</div>
-                    <div className="ml-2">
-                      {store.people === "많음" && <img src="/images/manypeople.png" alt="많은 사람" className="w-4 h-4 mr-1" />}
-                      {store.people === "보통" && <img src="/images/normalpeople.png" alt="보통 사람" className="w-4 h-4 mr-1" />}
-                      {store.people === "적음" && <img src="/images/nonepeople.png" alt="적은 사람" className="w-4 h-4 mr-1" />}
-                    </div>
                   </div>
                   <div className="w-80 bg-white flex justify-start mb-[1%] text-sm items-start text-left">{store.oneLiner}</div>
                   <div className="flex items-center mt-3">

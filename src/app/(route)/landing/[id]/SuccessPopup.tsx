@@ -9,8 +9,8 @@ const SuccessPopup: React.FC<SuccessPopupProps> = ({ onClose }) => {
   const router = useRouter();
 
   const handleConfirm = () => {
-    onClose(); // Close the popup
-    router.push('/landing'); // Redirect to /landing using Next.js router
+    onClose();
+    router.push('/landing');
   };
 
   return (
