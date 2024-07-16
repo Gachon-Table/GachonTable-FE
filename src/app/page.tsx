@@ -1,14 +1,17 @@
-// src/app/page.tsx
-import React from 'react';
+"use client"
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import './globals.css';
 
 const HomePage: React.FC = () => {
-  return (
-    <div>
-      <h1>Welcome to My Next.js App</h1>
-      <p>This is the home page.</p>
-    </div>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+
+    router.push('/landing');
+  }, [router]);
+
+  return null; 
 };
 
 export default HomePage;
