@@ -12,12 +12,11 @@ export const adminLogin = async (credentials: AdminProps) => {
     const response = await adminAxios.post('/login', credentials);
     if (response.status === 200) {
       const tokens = response.data;
-      const router = useRouter();
       localStorage.setItem('accessToken', tokens.accessToken);
       localStorage.setItem('refreshToken', tokens.refreshToken);
       localStorage.setItem('pubId', tokens.pubId);
       alert('로그인 성공');
-      router.push('/admin/waiting-management');
+      return true;
     } else {
       alert('로그인 실패');
     }

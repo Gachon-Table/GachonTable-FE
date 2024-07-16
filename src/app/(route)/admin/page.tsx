@@ -16,7 +16,10 @@ export default function AdminLogin() {
       password: password,
     };
 
-    await adminLogin(credentials);
+    const loginSuccess = await adminLogin(credentials);
+    if (loginSuccess) {
+      router.push('/admin/waiting-management');
+    }
   };
 
   useEffect(() => {

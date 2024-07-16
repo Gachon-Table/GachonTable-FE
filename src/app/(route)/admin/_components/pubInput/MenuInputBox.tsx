@@ -21,7 +21,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
   const handleAddField = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (menuItems.length < maxFields) {
-      setMenuItems([...menuItems, { menuName: '', oneLiner: '', price: '' }]);
+      setMenuItems([...menuItems, { menuName: '', price: '', oneLiner: '' }]);
     }
   };
 
