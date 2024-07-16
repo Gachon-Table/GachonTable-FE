@@ -23,7 +23,7 @@ const CancelModal = ({ waitingId, setModal }: CancelModalProps) => {
   return (
     <div className="absolute my-auto h-full w-full max-w-[500px]">
       <div className="flex h-full w-full items-center justify-center" onClick={() => setModal(false)}>
-        <div onClick={(e) => {e.stopPropagation()}} className="flex h-[20%] w-[80%] flex-col items-center justify-center gap-2 rounded-[0.5rem] border-2 border-gray-300">
+        <div onClick={(e) => {e.stopPropagation()}} className="flex h-[20%] w-[80%] flex-col items-center justify-center gap-2 rounded-[0.5rem] border-2 border-gray-300 py-4">
           <div className="text-xl font-bold">줄서기 취소 하시겠습니까?</div>
           <div className="text-gray-400">
             맞는지 확인 후 확인 버튼을 눌러 주세요
