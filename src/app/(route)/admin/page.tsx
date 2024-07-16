@@ -17,6 +17,9 @@ export default function AdminLogin() {
     };
 
     await adminLogin(credentials);
+    setTimeout(() => {
+      window.location.reload();
+    }, 50);
   };
 
   useEffect(() => {
