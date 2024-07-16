@@ -44,7 +44,7 @@ export const Navbar = () => {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('pubId');
-      router.push('/admin/login');
+      router.push('/admin');
     } catch (error) {
       console.error('로그아웃 처리 중 오류 발생:', error);
       alert('로그아웃 처리 중 오류가 발생했습니다.');
