@@ -1,63 +1,78 @@
-import React, { useState, ChangeEvent, MouseEvent } from 'react';
+import React, { ChangeEvent, MouseEvent } from 'react';
 import Image from 'next/image';
+
 interface MenuItem {
-  name: string;
+  menuName: string;
+  oneLiner: string;
   price: string;
 }
 
 interface MenuInputBoxProps {
-  initialFields?: MenuItem[];
+  menuItems: MenuItem[];
+  setMenuItems: React.Dispatch<React.SetStateAction<MenuItem[]>>;
   maxFields?: number;
 }
 
 const MenuInputBox: React.FC<MenuInputBoxProps> = ({
-  initialFields = [{ name: '', price: '' }],
+  menuItems,
+  setMenuItems,
   maxFields = 10,
 }) => {
-  const [fields, setFields] = useState<MenuItem[]>(initialFields);
-
   const handleAddField = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
-    if (fields.length < maxFields) {
-      setFields([...fields, { name: '', price: '' }]);
+    if (menuItems.length < maxFields) {
+      setMenuItems([...menuItems, { menuName: '', oneLiner: '', price: '' }]);
     }
   };
 
   const handleRemoveField = (index: number) => {
-    setFields(fields.filter((_, i) => i !== index));
+    setMenuItems(menuItems.filter((_, i) => i !== index));
   };
 
   const handleInputChange = (
     index: number,
     event: ChangeEvent<HTMLInputElement>,
   ) => {
-    const values = [...fields];
-    values[index][event.target.name as keyof MenuItem] = event.target.value;
-    setFields(values);
+    const { name, value } = event.target;
+    setMenuItems((prevItems) =>
+      prevItems.map((item, i) =>
+        i === index ? { ...item, [name]: value } : item,
+      ),
+    );
   };
 
   return (
     <form className="mx-auto my-3 flex h-96 max-w-md flex-col justify-between rounded-xl bg-white p-5">
       <div className="h-72 overflow-y-auto ">
-        {fields.map((field, index) => (
+        {menuItems.map((menu, index) => (
           <div key={index} className="mb-4 flex flex-row">
             <div className="mb-1 flex w-full items-center justify-between space-x-2 overflow-hidden rounded-xl bg-[#EAEFFF] p-2 pr-4">
-              <input
-                type="text"
-                name="name"
-                placeholder="메뉴 이름"
-                value={field.name}
-                onChange={(e) => handleInputChange(index, e)}
-                className="w-1/2 rounded-xl bg-[#EAEFFF] p-2 focus:outline-none"
-              />
-              <div className="flex w-1/3 items-center space-x-1">
+              <div className="flex flex-col p-2">
+                <input
+                  type="text"
+                  name="menuName"
+                  placeholder="메뉴 이름"
+                  value={menu.menuName}
+                  onChange={(e) => handleInputChange(index, e)}
+                  className="w-1/2 bg-[#EAEFFF] font-bold focus:outline-none"
+                />
+                <input
+                  type="text"
+                  name="oneLiner"
+                  placeholder="한줄 소개"
+                  value={menu.oneLiner}
+                  onChange={(e) => handleInputChange(index, e)}
+                  className=" bg-[#EAEFFF] text-xs focus:outline-none"
+                />
+              </div>
+              <div className="flex items-center space-x-1">
                 <input
                   type="text"
                   name="price"
                   placeholder="가격"
-                  value={field.price}
+                  value={menu.price}
                   onChange={(e) => handleInputChange(index, e)}
-                  className="w-full rounded-xl bg-[#EAEFFF] p-2 text-right focus:outline-none"
+                  className="w-full bg-[#EAEFFF] p-2 text-right focus:outline-none"
                 />
                 <span className="whitespace-nowrap text-gray-600">원</span>
               </div>
