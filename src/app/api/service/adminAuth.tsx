@@ -10,13 +10,17 @@ interface AdminProps {
 export const adminLogin = async (credentials: AdminProps) => {
   try {
     const response = await adminAxios.post('/login', credentials);
-    const tokens = response.data;
-
-    localStorage.setItem('accessToken', tokens.accessToken);
-    localStorage.setItem('refreshToken', tokens.refreshToken);
-    localStorage.setItem('pubId', tokens.pubId);
-
-    return response.data;
+    if (response.status === 200) {
+      const tokens = response.data;
+      const router = useRouter();
+      localStorage.setItem('accessToken', tokens.accessToken);
+      localStorage.setItem('refreshToken', tokens.refreshToken);
+      localStorage.setItem('pubId', tokens.pubId);
+      alert('로그인 성공');
+      router.push('/admin/waiting-management');
+    } else {
+      alert('로그인 실패');
+    }
   } catch (error) {
     console.log('로그인 실패: ', error);
   }
@@ -42,7 +46,7 @@ export const isAuthenticated = async (): Promise<boolean> => {
     await getWaitingList();
     return true;
   } catch (error) {
-    console.error('Authentication check failed:', error);
+    console.error('로그인 유효성 검증 실패:', error);
 
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
