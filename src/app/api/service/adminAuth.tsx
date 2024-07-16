@@ -16,6 +16,7 @@ export const adminLogin = async (credentials: AdminProps) => {
       localStorage.setItem('refreshToken', tokens.refreshToken);
       localStorage.setItem('pubId', tokens.pubId);
       alert('로그인 성공');
+      return true;
     } else {
       alert('로그인 실패');
     }
