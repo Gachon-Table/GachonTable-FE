@@ -1,14 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
-import AWS from 'aws-sdk';
-
-AWS.config.update({
-  accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
-  secretAccessKey: process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY,
-  region: 'ap-northeast-2',
-});
-
-const s3 = new AWS.S3();
+import { uploadToS3 } from './UploadUtils';
 
 interface ImageUploaderProps {
   images: string[];
@@ -24,24 +16,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
 
   const handleAddImage = () => {
     fileInputRef.current?.click();
-  };
-
-  const uploadToS3 = async (file: File): Promise<string> => {
-    const fileName = `menus/${Date.now()}-${file.name}`;
-    const params = {
-      Bucket: 'gachontable',
-      Key: fileName,
-      Body: file,
-      ContentType: file.type,
-    };
-
-    try {
-      const { Location } = await s3.upload(params).promise();
-      return Location;
-    } catch (error) {
-      console.error('이미지 업로드 실패:', error);
-      throw error;
-    }
   };
 
   const handleFileChange = async (
@@ -74,12 +48,16 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
           className="flex h-16 w-16 flex-shrink-0 cursor-pointer items-center justify-center rounded-xl bg-[#EAEFFF]"
           disabled={isUploading}
         >
-          <Image
-            src="/images/add-button.png"
-            alt="Add Image"
-            width={24}
-            height={24}
-          />
+          {isUploading ? (
+            <span className="text-xs">업로드 중...</span>
+          ) : (
+            <Image
+              src="/images/add-button.png"
+              alt="Add Image"
+              width={24}
+              height={24}
+            />
+          )}
         </button>
         {images.map((image, index) => (
           <div
