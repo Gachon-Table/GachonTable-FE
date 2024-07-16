@@ -13,6 +13,7 @@ interface Store {
     onLiner: string;
     studentCard: boolean;
     menu: string;
+    instagramUrl: string; // Add this line
   };
   menu: MenuItem[];
 }
@@ -104,8 +105,17 @@ const StoreDetailPage: React.FC = () => {
         </div>
         {/* 메뉴 & 전화 카테고리 */}
         <div className="border-b border-gray-300 flex flex-row mt-5 h-16">
-          <div className="w-1/2 text-lg flex justify-center items-center border-r border-gray-300 mb-2">인스타그램</div>
-          <div className="w-1/2 text-lg flex justify-center items-center cursor-pointer mb-2" onClick={scrollToMenu}>메뉴</div>
+          <a
+            href={store.pub.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-1/2 text-lg flex justify-center items-center border-r border-gray-300 mb-2"
+          >
+            인스타그램
+          </a>
+          <div className="w-1/2 text-lg flex justify-center items-center cursor-pointer mb-2" onClick={scrollToMenu}>
+            메뉴
+          </div>
         </div>
         <div ref={menuRef} className="w-full mt-5 mb-20">
           <div className="text-2xl font-bold mb-5 mt-5 p-4">메뉴</div>
@@ -127,7 +137,6 @@ const StoreDetailPage: React.FC = () => {
         <nav className=" mobile:mx-auto border-none bg-transparent fixed bottom-0 left-0 right-0 ">
           <nav className="mx-auto w-full max-w-[30rem] flex justify-evenly ">
             <WaitingTeams
-              //queueing={store.pub.queueing}
               pubId={parseInt(id as string, 10)}
               studentCard={store.pub.studentCard}
             />
