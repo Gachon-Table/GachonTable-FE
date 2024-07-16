@@ -135,7 +135,7 @@ const StoreDetailPage: React.FC = () => {
         </div>
         {/* studentCard 값을 WaitingTeams 컴포넌트에 전달 */}
         <nav className=" mobile:mx-auto border-none bg-transparent fixed bottom-0 left-0 right-0 ">
-          <nav className="mx-auto w-full max-w-[30rem] flex justify-evenly ">
+          <nav className="mx-auto w-full max-w-[31rem] flex justify-evenly ">
             <WaitingTeams
               pubId={parseInt(id as string, 10)}
               studentCard={store.pub.studentCard}
