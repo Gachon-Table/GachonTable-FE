@@ -17,7 +17,7 @@ function formatTime(timeString: string): string {
 export const WaitingList = () => {
   const [callout, setCallout] = useState<boolean>(false);
   const [beSeated, setBeSeated] = useState<boolean>(false);
-  const [selectedWaitingId, setSelectedWaitingId] = useState<number | null>(
+  const [selectedWaitingId, setSelectedWaitingId] = useState<string | null>(
     null,
   );
 
@@ -26,17 +26,17 @@ export const WaitingList = () => {
     time: string;
     headCount: number;
     tel: string;
-    waitingId: number;
+    waitingId: string;
   }
 
   const [list, setList] = useState<User[]>([]);
 
-  const handleCallout = (waitingId: number) => {
+  const handleCallout = (waitingId: string) => {
     setSelectedWaitingId(waitingId);
     setCallout(!callout);
   };
 
-  const handleBeSeated = (waitingId: number) => {
+  const handleBeSeated = (waitingId: string) => {
     setSelectedWaitingId(waitingId);
     setBeSeated(!beSeated);
   };
@@ -70,6 +70,7 @@ export const WaitingList = () => {
 
     try {
       await callUser(credentials);
+      console.log(selectedWaitingId);
     } catch (error) {
       console.error('호출 처리 중 오류 발생:', error);
       alert('호출 처리 중 오류가 발생했습니다.');
@@ -96,7 +97,6 @@ export const WaitingList = () => {
       try {
         const waitingList = await getWaitingList();
         setList(waitingList);
-        console.log(`총 ${waitingList.length}개의 대기열이 있습니다.`);
       } catch (error) {
         console.error('대기열 조회 중 오류 발생:', error);
       }
