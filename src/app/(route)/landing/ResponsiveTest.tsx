@@ -34,7 +34,7 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
 
       //로그인 에러로 인한 임시 로직
       //const token = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLshLHshK00IiwidWlkIjoiNzFlZjc2ODUtNDdkNy00YjNlLTgzMzctYTUwNGZhMTdkNTNjIiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyMTEyOTY3NH0.hCIJd4s-XFOizjhjhSwzdQOr0U2qPnrlOp6al8pYXfKsin8JtZUMLhZs7mycbv-m"
-      //const token2 = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLshLHshK00IiwidWlkIjoiNzFlZjc2ODUtNDdkNy00YjNlLTgzMzctYTUwNGZhMTdkNTNjIiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyMjMxNzY2NH0.y4SQQftfKsIjT9_BYVcxsL82qelcxpYbphi__q_fTeiNvz67f7Q267KnDcMSm4x2"
+      //const token2 = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLshLHshK00IiwidWlkIjoiNzFlZjc2ODUtNDdkNy00YjNlLTgzMzctYTUwNGZhMTdkNTNjIiwicm9zZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyMjMxNzY2NH0.y4SQQftfKsIjT9_BYVcxsL82qelcxpYbphi__q_fTeiNvz67f7Q267KnDcMSm4x2"
       //const accessToken = localStorage.setItem("accessToken", token);
       //const refreshToken = localStorage.setItem("refreshToken", token2);
 
@@ -66,7 +66,6 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
   const closePopup = () => {
     setShowLoginPopup(false); // 팝업 닫기
   };
-
 
   const loginProcess = () => {   //로그인로직
     localStorage.setItem('callbackPath', window.location.pathname);
@@ -100,7 +99,7 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
   return (
     <>
       {loading ? (
-        <div className="flex justify-center items-center h-screen">
+        <div className="w-full flex justify-center items-center h-screen font-bold">
           <p>로딩 중...</p>
         </div>
       ) : error ? (
@@ -108,8 +107,8 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
           <p>{error}</p>
         </div>
       ) : sortedStores.length === 0 ? (
-        <div className="flex justify-center items-center h-screen">
-          <p>현재 주점이 없습니다</p>
+        <div className="w-full flex justify-center items-center h-screen font-bold">
+          현재 주점이 없습니다
         </div>
       ) : (
         sortedStores.map((store: Store) => (
@@ -117,10 +116,14 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
             href={isLoggedIn ? `/landing/${store.pubId}` : '#'}
             key={store.pubId}
             onClick={(e) => handleStoreClick(e)}
-            className="flex flex-col w-full bg-white p-4 border-b border-gray-300 mb-4 rounded-lg"
+            className="flex flex-col w-full bg-white p-4 border-b border-gray-300 rounded-lg"
           >
             <div className="flex flex-row items-center">
-              <img src='/images/storeImage.png' alt='가게사진' className="w-28 h-28 mr-2 rounded-2xl" />
+              <img
+                src='/images/storeImage.png'
+                alt='가게사진'
+                className="w-28 h-28 mr-2 rounded-2xl -mt-4"
+              />
               <div className="flex flex-col w-full">
                 <div className="text-xl font-bold mb-2">{store.pubName}</div>
                 <div className="text-sm mb-2">{store.oneLiner}</div>
