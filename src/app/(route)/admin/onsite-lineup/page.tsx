@@ -88,7 +88,6 @@ export default function OnsiteLineUp() {
     try {
       const data = await submitWaitingRequest(waitingRequest);
       console.log(data);
-      alert('웨이팅이 성공적으로 등록되었습니다!');
       setClose(true);
 
       setTimeout(() => {
