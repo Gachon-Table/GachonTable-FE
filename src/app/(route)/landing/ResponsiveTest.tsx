@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { isUserAuthenticated } from '@/app/api/service/userAuth'; // 로그인 상태 확인 함수
+import Image from 'next/image';
 
 interface Store {
   pubId: number;
@@ -33,8 +34,8 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
       setIsLoggedIn(loggedIn);
 
       //로그인 에러로 인한 임시 로직
-      //const token = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLshLHshK00IiwidWlkIjoiNzFlZjc2ODUtNDdkNy00YjNlLTgzMzctYTUwNGZhMTdkNTNjIiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyMTEyOTY3NH0.hCIJd4s-XFOizjhjhSwzdQOr0U2qPnrlOp6al8pYXfKsin8JtZUMLhZs7mycbv-m"
-      //const token2 = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLshLHshK00IiwidWlkIjoiNzFlZjc2ODUtNDdkNy00YjNlLTgzMzctYTUwNGZhMTdkNTNjIiwicm9zZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyMjMxNzY2NH0.y4SQQftfKsIjT9_BYVcxsL82qelcxpYbphi__q_fTeiNvz67f7Q267KnDcMSm4x2"
+      //const token = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLquYDsiLIxMjMiLCJ1aWQiOiJkNGU4MWNmYi1kNzEwLTQ2YTgtOTcwNC1lZjFmYWY1YzFmNGEiLCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzIxMjAxMzkwfQ.Sk1NsrJZXx8iN-IyDs0sU-itoA03c1x0RKl34_8TnZJDBtU0SHtnW4iDOafruXE4"
+      //const token2 = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLquYDsiLIxMjMiLCJ1aWQiOiJkNGU4MWNmYi1kNzEwLTQ2YTgtOTcwNC1lZjFmYWY1YzFmNGEiLCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzIyMzg5MzgxfQ.06J0HJRM2bXkrZ0Z6zs0Pou3eX0gPo8R6kXlE1RHAwDg51tsX0YqzNiuVhPOCitE"
       //const accessToken = localStorage.setItem("accessToken", token);
       //const refreshToken = localStorage.setItem("refreshToken", token2);
 
@@ -159,14 +160,13 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
                 <img src="/images/popuplogo.png" alt="Logo" className="w-11 h-11" />
               </div>
               <p className="text-lg font-semibold mb-4">대기를 하려면 로그인이 필요해요!</p>
-              <div className="w-3/5 flex items-center justify-center">
-                <img
-                  src="/images/kakao_login_medium_wide.png"
-                  alt="카카오 로그인"
-                  className="w-full h-11"
-                  onClick={loginProcess}
-                />
-              </div>
+              <button
+                className="flex items-center gap-[1rem] rounded-[2rem] bg-[#fee500] px-[1rem] py-[1rem] font-bold text-black"
+                onClick={loginProcess}
+              >
+                <Image src="/images/kakao.png" width={18} height={58} alt="kakao" />
+                <div>카카오로 3초 만에 시작하기</div>
+              </button>
             </div>
           </div>
         </div>
