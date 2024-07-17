@@ -14,6 +14,7 @@ interface Store {
     studentCard: boolean;
     menu: string;
     instagramUrl: string; // Add this line
+    openStatus: boolean; // Add this line
   };
   menu: MenuItem[];
 }
@@ -133,12 +134,13 @@ const StoreDetailPage: React.FC = () => {
             )}
           </div>
         </div>
-        {/* studentCard 값을 WaitingTeams 컴포넌트에 전달 */}
+        {/* studentCard와 openStatus 값을 WaitingTeams 컴포넌트에 전달 */}
         <nav className=" mobile:mx-auto border-none bg-transparent fixed bottom-0 left-0 right-0 ">
           <nav className="mx-auto w-full max-w-[31rem] flex justify-evenly ">
             <WaitingTeams
               pubId={parseInt(id as string, 10)}
               studentCard={store.pub.studentCard}
+              openStatus={store.pub.openStatus} // Pass openStatus here
             />
           </nav>
         </nav>
