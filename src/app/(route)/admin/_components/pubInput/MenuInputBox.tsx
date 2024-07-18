@@ -74,7 +74,6 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                   onChange={(e) => handleInputChange(index, e)}
                   className="w-full bg-[#EAEFFF] p-2 text-right focus:outline-none"
                 />
-                <span className="whitespace-nowrap text-gray-600">원</span>
               </div>
               <div className="flex items-center pl-2">
                 <Image
