@@ -8,6 +8,7 @@ import AlertModal from './AlertModal';
 export const Navbar = () => {
   const pathname = usePathname;
   const router = useRouter();
+  const [openStatus, setOpenStatus] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showStatusModal, setShowStatusModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -29,8 +30,13 @@ export const Navbar = () => {
 
   const confirmStatus = async () => {
     try {
-      await handleStatus();
-      alert('대기 마감되었습니다.');
+      const status = await handleStatus();
+      setOpenStatus(status);
+      if (openStatus) {
+        alert('대기 오픈되었습니다!');
+      } else {
+        alert('대기 마감되었습니다!');
+      }
     } catch (error) {
       console.error('대기 마감 처리 중 오류 발생:', error);
       alert('대기 마감 처리 중 오류가 발생했습니다.');
@@ -93,13 +99,23 @@ export const Navbar = () => {
                       aria-orientation="vertical"
                       aria-labelledby="options-menu"
                     >
-                      <a
-                        onClick={handleStatusClick}
-                        className="block cursor-pointer py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"
-                        role="menuitem"
-                      >
-                        대기마감
-                      </a>
+                      {openStatus ? (
+                        <a
+                          onClick={handleStatusClick}
+                          className="block cursor-pointer py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"
+                          role="menuitem"
+                        >
+                          대기마감
+                        </a>
+                      ) : (
+                        <a
+                          onClick={handleStatusClick}
+                          className="block cursor-pointer py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"
+                          role="menuitem"
+                        >
+                          대기오픈
+                        </a>
+                      )}
                       <a
                         onClick={handleLogoutClick}
                         className="block cursor-pointer py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"

@@ -11,7 +11,7 @@ export const handleStatus = async () => {
 
     if (response.status === 200) {
       console.log('상태 변경 성공');
-      return response.data;
+      return newStatus;
     } else {
       throw new Error('상태 변경 실패');
     }
