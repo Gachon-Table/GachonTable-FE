@@ -2,12 +2,14 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import { handleStatus } from '@/app/api/service/handleStatus';
 import AlertModal from './AlertModal';
+import { getPubInfo } from '@/app/api/service/getPubInfo';
+import adminAxios from '@/app/api/axios/adminAxios';
 
 export const Navbar = () => {
   const pathname = usePathname;
   const router = useRouter();
+  const [openStatus, setOpenStatus] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showStatusModal, setShowStatusModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -29,11 +31,25 @@ export const Navbar = () => {
 
   const confirmStatus = async () => {
     try {
-      await handleStatus();
-      alert('대기 마감되었습니다.');
+      const data = await getPubInfo();
+      const newStatus = !data.pub.openStatus;
+      setOpenStatus(newStatus);
+      const credentials = {
+        openStatus: newStatus,
+      };
+
+      const response = await adminAxios.patch('/status', credentials);
+
+      if (response.status === 200) {
+        if (openStatus) {
+          alert('대기 오픈되었습니다!');
+        } else {
+          alert('대기 마감되었습니다!');
+        }
+      }
     } catch (error) {
-      console.error('대기 마감 처리 중 오류 발생:', error);
-      alert('대기 마감 처리 중 오류가 발생했습니다.');
+      console.error('대기 상태 변경 실패: ', error);
+      throw error;
     } finally {
       setShowStatusModal(false);
     }
@@ -93,13 +109,23 @@ export const Navbar = () => {
                       aria-orientation="vertical"
                       aria-labelledby="options-menu"
                     >
-                      <a
-                        onClick={handleStatusClick}
-                        className="block cursor-pointer py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"
-                        role="menuitem"
-                      >
-                        대기마감
-                      </a>
+                      {openStatus ? (
+                        <a
+                          onClick={handleStatusClick}
+                          className="block cursor-pointer py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"
+                          role="menuitem"
+                        >
+                          대기마감
+                        </a>
+                      ) : (
+                        <a
+                          onClick={handleStatusClick}
+                          className="block cursor-pointer py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"
+                          role="menuitem"
+                        >
+                          대기오픈
+                        </a>
+                      )}
                       <a
                         onClick={handleLogoutClick}
                         className="block cursor-pointer py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"

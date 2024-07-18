@@ -8,6 +8,7 @@ import ParticipantsModal from '../_components/field/ParticipantsModal';
 import { isAuthenticated } from '@/app/api/service/adminAuth';
 import { submitWaitingRequest } from '@/app/api/service/onsiteWaiting';
 import { getPubInfo } from '@/app/api/service/getPubInfo';
+import ErrorModal from '../_components/ErrorModal';
 
 interface PubData {
   pubName: string;
@@ -25,6 +26,7 @@ export default function OnsiteLineUp() {
   const [tel, setTel] = useState<string>('');
   const [headCount, setHeadCount] = useState<number>(0);
   const [pubData, setPubData] = useState<PubData | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -70,12 +72,12 @@ export default function OnsiteLineUp() {
   const handleWaitingRequest = async () => {
     const pubIdString = localStorage.getItem('pubId');
     if (pubIdString === null) {
-      alert('pubId가 없습니다. 로그인을 다시 해주세요.');
+      setError('pubId가 없습니다. 로그인을 다시 해주세요.');
       return;
     }
     const pubId = parseInt(pubIdString, 10);
     if (isNaN(pubId)) {
-      alert('유효하지 않은 pubId입니다.');
+      setError('유효하지 않은 pubId입니다.');
       return;
     }
 
@@ -86,18 +88,41 @@ export default function OnsiteLineUp() {
     };
 
     try {
-      const data = await submitWaitingRequest(waitingRequest);
-      console.log(data);
-      setClose(true);
+      const response = await submitWaitingRequest(waitingRequest);
+      const data = response.data;
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 300);
+      if (data.httpStatus === 412) {
+        if (data.code === 'WAITING_ALREADY_EXIST') {
+          setClose(true);
+          setError('한 주점에 하나의 웨이팅 신청만 가능합니다.');
+        } else if (data.code === 'WAITING_OVER_COUNT') {
+          setClose(true);
+          setError('예약 가능한 주점의 최대 개수를 초과했습니다.');
+        } else {
+          setClose(true);
+          setError(`오류가 발생했습니다: ${data.message}`);
+        }
+      } else if (data.status === true) {
+        console.log(data.message);
+        setClose(true);
+        alert('대기 등록되었습니다!');
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 300);
+      } else {
+        setError('웨이팅 등록에 실패했습니다.\n다시 시도해주세요.');
+      }
     } catch (error) {
-      alert('웨이팅 등록에 실패했습니다. 다시 시도해주세요.');
-      console.log(error);
+      setError('웨이팅 등록 중 오류가 발생했습니다.\n다시 시도해주세요.');
+      console.error(error);
     }
   };
+
+  const closeErrorModal = () => {
+    setError(null);
+  };
+
   return (
     <div className="flex flex-row items-center justify-center">
       <div className="flex h-screen w-1/2 flex-col items-center bg-main-blue text-white">
@@ -125,6 +150,8 @@ export default function OnsiteLineUp() {
           onSubmit={handleWaitingRequest}
         />
       )}
+
+      {error && <ErrorModal message={error} onClose={closeErrorModal} />}
     </div>
   );
 }

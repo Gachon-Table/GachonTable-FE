@@ -5,13 +5,14 @@ export const handleStatus = async () => {
   try {
     const data = await getPubInfo();
     const newStatus = !data.pub.openStatus;
+
     const response = await adminAxios.patch('/status', {
       openStatus: newStatus,
     });
 
     if (response.status === 200) {
       console.log('상태 변경 성공');
-      return response.data;
+      return newStatus;
     } else {
       throw new Error('상태 변경 실패');
     }
