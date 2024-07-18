@@ -5,6 +5,7 @@ export const handleStatus = async () => {
   try {
     const data = await getPubInfo();
     const newStatus = !data.pub.openStatus;
+
     const response = await adminAxios.patch('/status', {
       openStatus: newStatus,
     });

@@ -2,8 +2,9 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import { handleStatus } from '@/app/api/service/handleStatus';
 import AlertModal from './AlertModal';
+import { getPubInfo } from '@/app/api/service/getPubInfo';
+import adminAxios from '@/app/api/axios/adminAxios';
 
 export const Navbar = () => {
   const pathname = usePathname;
@@ -30,16 +31,25 @@ export const Navbar = () => {
 
   const confirmStatus = async () => {
     try {
-      const status = await handleStatus();
-      setOpenStatus(status);
-      if (openStatus) {
-        alert('대기 오픈되었습니다!');
-      } else {
-        alert('대기 마감되었습니다!');
+      const data = await getPubInfo();
+      const newStatus = !data.pub.openStatus;
+      setOpenStatus(newStatus);
+      const credentials = {
+        openStatus: newStatus,
+      };
+
+      const response = await adminAxios.patch('/status', credentials);
+
+      if (response.status === 200) {
+        if (openStatus) {
+          alert('대기 오픈되었습니다!');
+        } else {
+          alert('대기 마감되었습니다!');
+        }
       }
     } catch (error) {
-      console.error('대기 마감 처리 중 오류 발생:', error);
-      alert('대기 마감 처리 중 오류가 발생했습니다.');
+      console.error('대기 상태 변경 실패: ', error);
+      throw error;
     } finally {
       setShowStatusModal(false);
     }
