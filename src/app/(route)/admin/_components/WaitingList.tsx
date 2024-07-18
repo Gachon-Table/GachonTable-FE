@@ -131,15 +131,16 @@ export const WaitingList = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
                 <button
                   onClick={() => handleCallout(user.waitingId)}
-                  className="h-16 w-20 rounded-xl font-medium text-[#5F6977] hover:bg-[#F2F4F6]"
+                  className="h-12 w-14 rounded-xl text-sm font-medium text-[#5F6977] hover:bg-[#F2F4F6]"
                 >
                   호출
                 </button>
+                <div className="h-6 border-r bg-gray-200"></div>
                 <button
-                  className="h-16 w-20 rounded-xl font-medium text-[#5F6977] hover:bg-[#F2F4F6]"
+                  className="h-12 w-14 rounded-xl text-sm font-medium text-[#5F6977] hover:bg-[#F2F4F6]"
                   onClick={() => handleBeSeated(user.waitingId)}
                 >
                   완료
