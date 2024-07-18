@@ -93,10 +93,13 @@ export default function OnsiteLineUp() {
 
       if (data.httpStatus === 412) {
         if (data.code === 'WAITING_ALREADY_EXIST') {
-          setError('한 주점에 하나의 웨이팅 신청만 가능합니다');
+          setClose(true);
+          setError('한 주점에 하나의 웨이팅 신청만 가능합니다.');
         } else if (data.code === 'WAITING_OVER_COUNT') {
+          setClose(true);
           setError('예약 가능한 주점의 최대 개수를 초과했습니다.');
         } else {
+          setClose(true);
           setError(`오류가 발생했습니다: ${data.message}`);
         }
       } else if (data.status === true) {
@@ -108,10 +111,10 @@ export default function OnsiteLineUp() {
           window.location.reload();
         }, 300);
       } else {
-        setError('웨이팅 등록에 실패했습니다. 다시 시도해주세요.');
+        setError('웨이팅 등록에 실패했습니다.\n다시 시도해주세요.');
       }
     } catch (error) {
-      setError('웨이팅 등록 중 오류가 발생했습니다. 다시 시도해주세요.');
+      setError('웨이팅 등록 중 오류가 발생했습니다.\n다시 시도해주세요.');
       console.error(error);
     }
   };
