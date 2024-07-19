@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AlertModal from './AlertModal';
 import { getPubInfo } from '@/app/api/service/getPubInfo';
 import adminAxios from '@/app/api/axios/adminAxios';
@@ -9,7 +9,7 @@ import adminAxios from '@/app/api/axios/adminAxios';
 export const Navbar = () => {
   const pathname = usePathname;
   const router = useRouter();
-  const [openStatus, setOpenStatus] = useState(true);
+  const [openStatus, setOpenStatus] = useState<boolean | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showStatusModal, setShowStatusModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -31,9 +31,7 @@ export const Navbar = () => {
 
   const confirmStatus = async () => {
     try {
-      const data = await getPubInfo();
-      const newStatus = !data.pub.openStatus;
-      setOpenStatus(newStatus);
+      const newStatus = !openStatus;
       const credentials = {
         openStatus: newStatus,
       };
@@ -41,7 +39,8 @@ export const Navbar = () => {
       const response = await adminAxios.patch('/status', credentials);
 
       if (response.status === 200) {
-        if (openStatus) {
+        setOpenStatus(newStatus);
+        if (newStatus) {
           alert('대기 오픈되었습니다!');
         } else {
           alert('대기 마감되었습니다!');
@@ -49,7 +48,6 @@ export const Navbar = () => {
       }
     } catch (error) {
       console.error('대기 상태 변경 실패: ', error);
-      throw error;
     } finally {
       setShowStatusModal(false);
     }
@@ -68,6 +66,18 @@ export const Navbar = () => {
       setShowLogoutModal(false);
     }
   };
+
+  useEffect(() => {
+    const fetchPubInfo = async () => {
+      try {
+        const data = await getPubInfo();
+        setOpenStatus(data.pub.openStatus);
+      } catch (error) {
+        console.error('주점 정보 가져오기 실패:', error);
+      }
+    };
+    fetchPubInfo();
+  }, []);
 
   return (
     <nav>
@@ -109,21 +119,13 @@ export const Navbar = () => {
                       aria-orientation="vertical"
                       aria-labelledby="options-menu"
                     >
-                      {openStatus ? (
+                      {openStatus !== null && (
                         <a
                           onClick={handleStatusClick}
                           className="block cursor-pointer py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"
                           role="menuitem"
                         >
-                          대기마감
-                        </a>
-                      ) : (
-                        <a
-                          onClick={handleStatusClick}
-                          className="block cursor-pointer py-2 pl-2.5 text-xs font-medium text-[#969595] hover:text-[#434343]"
-                          role="menuitem"
-                        >
-                          대기오픈
+                          {openStatus ? '대기마감' : '대기오픈'}
                         </a>
                       )}
                       <a
