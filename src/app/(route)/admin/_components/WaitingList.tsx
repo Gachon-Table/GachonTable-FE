@@ -49,15 +49,27 @@ export const WaitingList = () => {
     try {
       const response = await adminAxios.patch('/enter', credentials);
       if (response.status === 200) {
-        console.log('입장에 성공하였습니다.');
-        alert('입장 성공');
+        console.log('입장에 완료하였습니다.');
+        alert('입장 완료');
+
+        // 대기 리스트를 새로 불러오는 함수 호출
+        await fetchWaitingList();
       }
     } catch (error) {
       console.error('입장 실패: ', error);
-      throw error;
+      alert('입장 처리 중 오류가 발생했습니다.');
     } finally {
       setBeSeated(false);
       setSelectedWaitingId(null);
+    }
+  };
+
+  const fetchWaitingList = async () => {
+    try {
+      const waitingList = await getWaitingList();
+      setList(waitingList);
+    } catch (error) {
+      console.error('대기열 조회 중 오류 발생:', error);
     }
   };
 
@@ -91,15 +103,9 @@ export const WaitingList = () => {
   };
 
   useEffect(() => {
-    const fetchWaitingList = async () => {
-      try {
-        const waitingList = await getWaitingList();
-        setList(waitingList);
-      } catch (error) {
-        console.error('대기열 조회 중 오류 발생:', error);
-      }
-    };
     fetchWaitingList();
+    const intervalId = setInterval(fetchWaitingList, 10000);
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
