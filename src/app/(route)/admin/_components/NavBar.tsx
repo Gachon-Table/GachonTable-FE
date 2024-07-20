@@ -147,8 +147,8 @@ export const Navbar = () => {
 
       {showStatusModal && (
         <AlertModal
-          message="대기 마감"
-          button="마감"
+          message={openStatus ? '대기 마감' : '대기 오픈'}
+          button={openStatus ? '마감' : '오픈'}
           onCancel={() => setShowStatusModal(false)}
           onConfirm={confirmStatus}
         />
