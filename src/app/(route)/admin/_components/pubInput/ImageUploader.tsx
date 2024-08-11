@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
-import { uploadToS3 } from '@/app/api/s3-upload/uploadTos3';
+import { uploadToS3 } from '@/app/api/s3-upload/uploadToS3';
 
 interface ImageUploaderProps {
   images: string[];
