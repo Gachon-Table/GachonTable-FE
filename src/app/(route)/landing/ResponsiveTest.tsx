@@ -12,6 +12,7 @@ interface Store {
   menu: string;
   bookmark: boolean;
   queueing: number;
+  thumbnails: string[]; // 썸네일 이미지 배열
 }
 
 interface ResponsiveTestProps {
@@ -120,11 +121,17 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
             className="flex flex-col w-full bg-white p-4 border-b border-gray-300 rounded-lg"
           >
             <div className="flex flex-row items-center">
-              <img
-                src='/images/storeImage.png'
-                alt='가게사진'
-                className="w-28 h-28 mr-2 rounded-2xl -mt-4"
-              />
+              <div className="w-36 h-28 mr-2 rounded-2xl -mt-4 overflow-hidden">
+                <img
+                  src={
+                    store.thumbnails.length > 0
+                      ? store.thumbnails[0] // 첫 번째 썸네일 이미지 사용
+                      : '/images/storeImage.png' // 썸네일이 없을 경우 기본 이미지 사용
+                  }
+                  alt='가게사진'
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <div className="flex flex-col w-full">
                 <div className="text-xl font-bold mb-2">{store.pubName}</div>
                 <div className="text-sm mb-2">{store.oneLiner}</div>
@@ -161,11 +168,9 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
               </div>
               <p className="text-lg font-semibold mb-4">대기를 하려면 로그인이 필요해요!</p>
               <button
-                className="flex items-center gap-[1rem] rounded-[2rem] bg-[#fee500] px-[1rem] py-[1rem] font-bold text-black"
                 onClick={loginProcess}
               >
-                <Image src="/images/kakao.png" width={18} height={58} alt="kakao" />
-                <div>카카오로 3초 만에 시작하기</div>
+                <Image src="/images/kakaologin2.png" width={270} height={200} alt="kakao" />
               </button>
             </div>
           </div>
