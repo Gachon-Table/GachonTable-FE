@@ -19,11 +19,10 @@ const BeforeProfile = () => {
           로그인 후 이용해 주세요.
         </div>
         <button
-          className="flex items-center gap-[1rem] rounded-[2rem] bg-[#fee500] px-[1rem] py-[1rem] font-bold text-black"
+          className="flex items-center gap-[1rem] w-full rounded-[2rem] "
           onClick={loginProcess}
         >
-          <Image src="/images/kakao.png" width={18} height={58} alt="kakao" />
-          <div>카카오로 3초 만에 시작하기</div>
+          <Image src="/images/kakao_login_medium_wide.png" width={300} height={1} alt="kakao" />
         </button>
       </div>
     </div>
