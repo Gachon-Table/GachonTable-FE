@@ -1,5 +1,6 @@
 import React, { ChangeEvent, MouseEvent } from 'react';
 import Image from 'next/image';
+import { DeleteRed } from '@/app/assets';
 
 interface MenuItem {
   menuName: string;
@@ -46,7 +47,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
       <div className="h-72 overflow-y-auto ">
         {menuItems.map((menu, index) => (
           <div key={index} className="mb-4 flex flex-row">
-            <div className="mb-1 flex w-full items-center justify-between space-x-2 overflow-hidden rounded-xl bg-[#EAEFFF] p-2 pr-4">
+            <div className="mb-1 flex w-full items-center justify-between space-x-2 overflow-auto rounded-xl bg-[#EAEFFF] p-2 pr-4">
               <div className="flex flex-col p-2">
                 <input
                   type="text"
@@ -75,16 +76,10 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                   className="w-full bg-[#EAEFFF] p-2 text-right focus:outline-none"
                 />
               </div>
-              <div className="flex items-center pl-2">
-                <Image
-                  src="/images/delete-button.png"
-                  className="h-3.5 w-3.5 cursor-pointer"
-                  alt="Delete"
-                  width={20}
-                  height={20}
-                  onClick={() => handleRemoveField(index)}
-                />
-              </div>
+              <DeleteRed
+                classname="cursor-pointer"
+                onClick={() => handleRemoveField(index)}
+              />
             </div>
           </div>
         ))}

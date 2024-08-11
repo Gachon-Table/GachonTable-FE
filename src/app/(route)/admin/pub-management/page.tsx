@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '../_components/NavBar';
@@ -59,12 +58,16 @@ export default function PubManagement() {
   }, [router]);
 
   const handleSave = async () => {
+    const cleanedImages = contentImages.map((url) => url.split('?')[0]);
+
     const updatedPubData = {
-      thumbnails: contentImages,
+      thumbnails: cleanedImages,
       oneLiner: oneLiner,
       studentCard: studentId,
       menuRequests: menuItems,
     };
+
+    console.log('최종 전송할 thumbnails 배열:', updatedPubData.thumbnails);
 
     try {
       const response = await pubAxios.patch('/manage', updatedPubData);
@@ -75,6 +78,7 @@ export default function PubManagement() {
       }
     } catch (error) {
       console.log('정보 업데이트 실패: ', error);
+      console.log(updatedPubData);
     }
   };
 
