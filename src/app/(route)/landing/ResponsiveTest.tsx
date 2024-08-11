@@ -72,7 +72,7 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({ searchTerm, filterStude
   const loginProcess = () => {   //로그인로직
     localStorage.setItem('callbackPath', window.location.pathname);
     const REDIRECT_URI = `${window.location.protocol}//${window.location.host}/oauth`;
-    const CLIENT_ID = "a69eba9e5d96ac3b3e5ecc51206a4d51";
+    const CLIENT_ID = process.env.KAKAO_CLIENT_ID;
     const code =
       `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
     window.location.href = code;
