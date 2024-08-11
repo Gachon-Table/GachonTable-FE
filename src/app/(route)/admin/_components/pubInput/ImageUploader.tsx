@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
-import { uploadToS3 } from './UploadUtils';
+import { uploadToS3 } from '@/app/api/s3-upload/uploadTos3';
 
 interface ImageUploaderProps {
   images: string[];
@@ -25,9 +25,14 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
     if (file) {
       setIsUploading(true);
       try {
-        const imageUrl = await uploadToS3(file);
+        let imageUrl = await uploadToS3(file);
+
+        imageUrl = imageUrl.split('?')[0];
+
         setImages((prev) => [...prev, imageUrl]);
+        console.log('업로드된 이미지 URL:', imageUrl);
       } catch (error) {
+        alert('이미지 업로드 실패');
         console.error('이미지 업로드 실패:', error);
       } finally {
         setIsUploading(false);
