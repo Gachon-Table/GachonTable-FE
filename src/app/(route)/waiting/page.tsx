@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import React, { useEffect, useState } from 'react';
 import Header from './_components/Header';
 import AlertBox from './_components/AlertBox';
 import DetailBox from './_components/DetailBox';
-import CancleButton from './_components/CancleButton';
-import CancelModal from './_components/CancleModal';
+import CancelButton from './_components/CancelButton';
+import CancelModal from './_components/CancelModal';
 
 interface WaitingProps {
   waitingId?: string;
@@ -46,7 +47,7 @@ const Waiting = () => {
           order={waitingState.order}
           createdAt={waitingState.createdAt}
         />
-        <CancleButton handleCancle={() => setModal(!modal)} />
+        <CancelButton handleCancle={() => setModal(!modal)} />
       </div>
       {modal && waitingState.waitingId && (
         <CancelModal setModal={setModal} waitingId={waitingState.waitingId} />
