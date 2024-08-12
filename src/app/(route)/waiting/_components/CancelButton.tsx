@@ -4,7 +4,7 @@ interface buttonProp {
   handleCancle: () => void;
 }
 
-const CancleButton = ({ handleCancle }: buttonProp) => {
+const CancelButton = ({ handleCancle }: buttonProp) => {
   return (
     <button
       onClick={handleCancle}
@@ -15,4 +15,4 @@ const CancleButton = ({ handleCancle }: buttonProp) => {
   );
 };
 
-export default CancleButton;
+export default CancelButton;
