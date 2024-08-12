@@ -13,7 +13,7 @@ const CancelModal = ({ waitingId, setModal }: CancelModalProps) => {
   //   }, [accessToken]);
 
   const handleCancel = async () => {
-    //웨이팅 취소 로직 (기존꺼인지는 모름)
+    //웨이팅 취소 로직 (기존 취소 api인지는 모름)
     await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/waiting/cancel`, {
       waitingId,
     });
