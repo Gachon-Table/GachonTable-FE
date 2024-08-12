@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect, useState } from 'react';
 import Header from './_components/Header';
 import AlertBox from './_components/AlertBox';
@@ -8,19 +9,21 @@ import CancelModal from './_components/CancleModal';
 interface WaitingProps {
   waitingId?: string;
   pubName: string;
-  orderStatus: string;
-  order: number;
+  orderStatus?: string;
+  headCount: number;
+  order: number; //대기 순번: 취소상태 시 -1 반환
   createdAt: string;
 }
 
 const Waiting = () => {
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(true);
   const [waitingState, setWaitingState] = useState<WaitingProps>({
     waitingId: '',
-    pubName: '',
+    pubName: '컴퓨터공학과 주점',
     orderStatus: '',
+    headCount: 0,
     order: 0,
-    createdAt: '',
+    createdAt: '2024/08/12 4:44',
   });
 
   const getWaiting = () => {
@@ -39,7 +42,7 @@ const Waiting = () => {
         <AlertBox />
         <DetailBox
           pubName={waitingState.pubName}
-          orderStatus={waitingState.orderStatus}
+          headCount={waitingState.headCount}
           order={waitingState.order}
           createdAt={waitingState.createdAt}
         />
