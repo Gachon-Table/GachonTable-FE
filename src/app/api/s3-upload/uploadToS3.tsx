@@ -1,6 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
-import { GetObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import {
+  GetObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 const Bucket = process.env.NEXT_PUBLIC_AWS_BUCKET;
 const s3 = new S3Client({
@@ -16,7 +20,7 @@ export async function uploadToS3(file: File): Promise<string> {
   try {
     const fileExtension = file.name.split('.').pop();
     const Key = `menus/${uuidv4()}.${fileExtension}`;
-    const Body = await file.arrayBuffer() as Buffer;
+    const Body = (await file.arrayBuffer()) as Buffer;
 
     await s3.send(
       new PutObjectCommand({
@@ -24,16 +28,16 @@ export async function uploadToS3(file: File): Promise<string> {
         Key,
         Body,
         ContentType: file.type,
-      })
+      }),
     );
-    
+
     const imgUrl = await getSignedUrl(
       s3,
       new GetObjectCommand({
         Bucket,
         Key,
       }),
-      { expiresIn: 3600 }
+      { expiresIn: 3600 },
     );
 
     return imgUrl;
