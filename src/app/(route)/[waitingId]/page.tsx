@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import Header from './_components/Header';
 import AlertBox from './_components/AlertBox';
 import DetailBox from './_components/DetailBox';
 import CancelButton from './_components/CancelButton';
 import CancelModal from './_components/CancelModal';
+import { getWaitingInfo } from '@/app/api/service/getWaitingInfo';
 
 interface WaitingProps {
   waitingId?: string;
@@ -16,25 +18,49 @@ interface WaitingProps {
   createdAt: string;
 }
 
-const Waiting = () => {
+const WaitingInfo = () => {
+  const router = useRouter();
+  const { waitingId } = router.query;
+
   const [modal, setModal] = useState(true);
   const [waitingState, setWaitingState] = useState<WaitingProps>({
     waitingId: '',
-    pubName: '컴퓨터공학과 주점',
+    pubName: '',
     orderStatus: '',
     headCount: 0,
     order: 0,
-    createdAt: '2024/08/12 4:44',
+    createdAt: '',
   });
 
-  const getWaiting = () => {
-    //알림톡 웨이팅 현황 조회 api
-    // setWaitingState(res);
+  const getWaiting = async () => {
+    if (!waitingId || Array.isArray(waitingId)) {
+      console.error('waitigId가 유효하지 않습니다.');
+      alert('유효하지 않은 경로입니다.');
+      router.push('/');
+    }
+
+    try {
+      const response = await getWaitingInfo(waitingId as string);
+      const data: WaitingProps = await response;
+
+      setWaitingState({
+        waitingId: data.waitingId,
+        pubName: data.pubName,
+        orderStatus: data.orderStatus,
+        headCount: data.headCount,
+        order: data.order,
+        createdAt: data.createdAt,
+      });
+    } catch (error) {
+      console.error('웨이팅 현황 조회 실패');
+      alert('조회 실패');
+      router.push('/');
+    }
   };
 
   useEffect(() => {
     getWaiting();
-  }, []);
+  }, [waitingId]);
 
   return (
     <div className="flex flex-col items-center">
@@ -55,4 +81,4 @@ const Waiting = () => {
     </div>
   );
 };
-export default Waiting;
+export default WaitingInfo;
