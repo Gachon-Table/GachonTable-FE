@@ -24,7 +24,7 @@ export async function uploadToS3(file: File): Promise<string> {
 
     await s3.send(
       new PutObjectCommand({
-        Bucket,
+        Bucket: Bucket,
         Key,
         Body,
         ContentType: file.type,
@@ -34,7 +34,7 @@ export async function uploadToS3(file: File): Promise<string> {
     const imgUrl = await getSignedUrl(
       s3,
       new GetObjectCommand({
-        Bucket,
+        Bucket: Bucket,
         Key,
       }),
       { expiresIn: 3600 },
