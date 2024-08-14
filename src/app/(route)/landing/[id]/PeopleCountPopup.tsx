@@ -25,12 +25,12 @@ const PeopleCountPopup: React.FC<PeopleCountPopupProps> = ({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-[31rem] mx-auto bg-white text-black text-center rounded-lg shadow-lg border pt-8 flex flex-col justify-between"
+        className="relative w-full max-w-[31rem] mx-auto bg-white text-black text-center rounded-lg shadow-lg border pt-8 flex flex-col"
         onClick={stopPropagation}
         style={{
           boxShadow: '0px -4px 8px rgba(0, 0, 0, 0.2)',
           zIndex: 10,
-
+          boxSizing: 'border-box',
         }}
       >
         <div className="flex flex-col items-center">
@@ -55,14 +55,14 @@ const PeopleCountPopup: React.FC<PeopleCountPopupProps> = ({
             </button>
           </div>
         </div>
-        <div>
-          <div
+        <div className="w-full">
+          <button
             onClick={onConfirm}
-            style={{ backgroundColor: '#3B4D9B' }}
-            className="text-white flex justify-center items-center h-20 text-2xl font-bold cursor-pointer "
+            style={{ backgroundColor: '#3B4D9B', border: 'none' }}
+            className="text-white text-2xl font-bold cursor-pointer w-full h-20 rounded-b-lg"
           >
             신청하기
-          </div>
+          </button>
         </div>
       </div>
     </div>

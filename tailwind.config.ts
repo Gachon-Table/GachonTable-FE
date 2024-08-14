@@ -25,7 +25,7 @@ const config: Config = {
         'point-yellow': '#FFD479',
         'point-blue': '#EAEFFF',
         'point-red': '#E87567',
-        'point-grey':'#EFEFF0',
+        'point-grey': '#EFEFF0',
         'tory-blue': '#014f9e',
         'dodger-blue': '#0096ff',
         'deep-cove': '#001140',
@@ -42,7 +42,16 @@ const config: Config = {
         '4/10': '40%', // height: 30%
         '690': '43.125rem',
         '550': '34.375rem',
-      }
+      },
+      keyframes: {
+        slide: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+      },
+      animation: {
+        slide: 'slide 2s ease-in-out infinite',
+      },
     },
   },
   // plugins: [require("tailwind-scrollbar-hide")],

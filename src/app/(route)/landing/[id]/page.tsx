@@ -2,20 +2,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import WaitingTeams from './WaitingTeams';
-import userAxios from '@/app/api/axios/userAxios'; // Import userAxios
+import userAxios from '@/app/api/axios/userAxios';
 import { LeftArrow } from '@/app/assets';
 
-// 인터페이스 정의
 interface Store {
   pub: {
-    bookmark: boolean;
     waitingCount: number;
     pubName: string;
-    onLiner: string;
+    oneLiner: string;
     studentCard: boolean;
     menu: string;
-    instagramUrl: string; // Add this line
-    openStatus: boolean; // Add this line
+    instagramUrl: string;
+    openStatus: boolean;
+    thumbnails: string[];
   };
   menu: MenuItem[];
 }
@@ -31,20 +30,19 @@ const StoreDetailPage: React.FC = () => {
   const id = pathname.split('/').pop();
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // 상태 훅
   const [store, setStore] = useState<Store | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
 
-  // API에서 가게 데이터 가져오기
   useEffect(() => {
     const fetchStoreData = async () => {
       try {
         const response = await userAxios.get<Store>(`/pub/${id}`);
         setStore(response.data);
       } catch (err) {
-        console.error('가게 데이터를 가져오는 중 오류 발생:', err);
-        setError('데이터를 가져오는 중 오류가 발생했습니다.');
+        console.error('Error fetching store data:', err);
+        setError('An error occurred while fetching data.');
       } finally {
         setLoading(false);
       }
@@ -53,17 +51,28 @@ const StoreDetailPage: React.FC = () => {
     fetchStoreData();
   }, [id]);
 
-  // 메뉴 섹션으로 스크롤
   const scrollToMenu = () => {
     if (menuRef.current) {
       menuRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
+  useEffect(() => {
+    if (store && store.pub.thumbnails.length > 1) {
+      const intervalId = setInterval(() => {
+        setCurrentImageIndex((prevIndex) =>
+          prevIndex === store.pub.thumbnails.length - 1 ? 0 : prevIndex + 1
+        );
+      }, 2000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [store]);
+
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center">
-        로딩 중...
+        Loading...
       </div>
     );
   }
@@ -77,21 +86,39 @@ const StoreDetailPage: React.FC = () => {
   if (!store) {
     return (
       <div className="flex h-screen items-center justify-center">
-        가게를 찾을 수 없습니다
+        Store not found
       </div>
     );
   }
 
   return (
     <div className="flex min-h-screen flex-col">
-      {/* 상단 이미지와 뒤로가기 버튼을 포함한 컨테이너 */}
       <div className="relative h-64 w-full sm:h-80 md:h-96">
-        {/* 여기에 thumbnails 이미지 배열 가져와서 넣어주세요. */}
-        <img
-          src="/images/place.png"
-          alt="Place"
-          className="h-full w-full object-cover"
-        />
+        <div className="relative h-full w-full overflow-hidden">
+          <div
+            className="absolute flex h-full w-full transition-transform duration-500 ease-in-out"
+            style={{
+              transform: `translateX(-${currentImageIndex * 100}%)`,
+            }}
+          >
+            {store.pub.thumbnails.length > 0 ? (
+              store.pub.thumbnails.map((thumbnail, index) => (
+                <img
+                  key={index}
+                  src={thumbnail}
+                  alt={`Slide ${index}`}
+                  className="w-full flex-shrink-0 object-cover"
+                />
+              ))
+            ) : (
+              <img
+                src="/images/place.png"
+                alt="Place"
+                className="w-full flex-shrink-0 object-cover"
+              />
+            )}
+          </div>
+        </div>
         <div className="z-9999 absolute left-4 top-4">
           <a href={'/landing'}>
             <LeftArrow />
@@ -99,7 +126,6 @@ const StoreDetailPage: React.FC = () => {
         </div>
       </div>
       <div className="mx-auto w-full max-w-2xl flex-1 overflow-auto rounded-bl-[40px] rounded-br-[40px] border bg-white p-6">
-        {/* 가게 정보 텍스트 */}
         <div>
           <div className="mt-2 flex w-80 items-start justify-start bg-white text-xs font-bold">
             현재&nbsp;
@@ -107,7 +133,7 @@ const StoreDetailPage: React.FC = () => {
             명이 대기하고 있어요
           </div>
           <h1 className="mb-4 text-2xl font-bold">{store.pub.pubName}</h1>
-          <p>{store.pub.onLiner}</p>
+          <p>{store.pub.oneLiner}</p>
           <div className="mt-3 flex items-center">
             <div
               className={`flex h-6 min-w-[2rem] items-center justify-center rounded-full px-2 text-xs text-white ${store.pub.studentCard ? 'bg-red-500' : 'bg-blue-500'}`}
@@ -116,7 +142,6 @@ const StoreDetailPage: React.FC = () => {
             </div>
           </div>
         </div>
-        {/* 메뉴 & 전화 카테고리 */}
         <div className="mt-5 flex h-16 flex-row border-b border-gray-300">
           <a
             href={store.pub.instagramUrl}
@@ -156,13 +181,12 @@ const StoreDetailPage: React.FC = () => {
             )}
           </div>
         </div>
-        {/* studentCard와 openStatus 값을 WaitingTeams 컴포넌트에 전달 */}
-        <nav className=" fixed bottom-0 left-0 right-0 border-none bg-transparent mobile:mx-auto ">
+        <nav className="fixed bottom-0 left-0 right-0 border-none bg-transparent mobile:mx-auto ">
           <nav className="mx-auto flex w-full max-w-[31rem] justify-evenly ">
             <WaitingTeams
               pubId={parseInt(id as string, 10)}
               studentCard={store.pub.studentCard}
-              openStatus={store.pub.openStatus} // Pass openStatus here
+              openStatus={store.pub.openStatus}
             />
           </nav>
         </nav>
