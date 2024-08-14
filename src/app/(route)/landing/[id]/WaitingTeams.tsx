@@ -16,7 +16,7 @@ interface WaitingTeamsProps {
 
 const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
   const [peopleCount, setPeopleCount] = useState(1);
-  const [showPopup, setShowPopup] = useState<boolean>(true);
+  const [showPopup, setShowPopup] = useState<boolean>(false);
   const [showConfirmPopup, setShowConfirmPopup] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
