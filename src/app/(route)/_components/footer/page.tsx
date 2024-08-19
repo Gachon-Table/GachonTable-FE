@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 const Footer = () => {
   const router = useRouter();
   return (
-    <div className="flex h-52 flex-col space-y-2.5 bg-[#f9f9f9] px-5 py-9 text-[11px] font-light text-[#8f8f8f]">
+    <div className="flex h-52 flex-col space-y-2.5 bg-[#f9f9f9] px-5 py-9 text-[11px] text-[#8f8f8f]">
       <p className="text-[#666666]">참숯한우천국</p>
       <div className="space-y-2.5">
         <p>
@@ -25,7 +25,7 @@ const Footer = () => {
       </div>
       <div>
         <button
-          className="cursor-pointer font-medium text-[#666666]"
+          className="cursor-pointer font-semibold text-[#666666]"
           onClick={() => router.push('/privacy-policy')}
         >
           개인정보 처리방침
