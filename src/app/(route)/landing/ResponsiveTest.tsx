@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { isUserAuthenticated } from '@/app/api/service/userAuth'; // 로그인 상태 확인 함수
-import { KakaoLogin, Logo } from '@/app/assets';
 
 interface Store {
   pubId: number;
@@ -28,61 +26,26 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({
   sortByCongestion,
   sortByLowCongestion,
 }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // 로그인 상태 관리
-  const [showLoginPopup, setShowLoginPopup] = useState<boolean>(false); // 로그인 팝업 표시 상태 관리
   const [stores, setStores] = useState<Store[]>([]); // 가게 정보 저장
   const [loading, setLoading] = useState<boolean>(true); // 로딩 상태 관리
   const [error, setError] = useState<string | null>(null); // 에러 상태 관리
 
   useEffect(() => {
-    const checkLoginStatus = async () => {
-      const loggedIn = await isUserAuthenticated();
-      setIsLoggedIn(loggedIn);
-
-      //로그인 에러로 인한 임시 로직
-      //const token = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLquYDsiLIxMjMiLCJ1aWQiOiJkNGU4MWNmYi1kNzEwLTQ2YTgtOTcwNC1lZjFmYWY1YzFmNGEiLCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzIxMjAxMzkwfQ.Sk1NsrJZXx8iN-IyDs0sU-itoA03c1x0RKl34_8TnZJDBtU0SHtnW4iDOafruXE4"
-      //const token2 = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiLquYDsiLIxMjMiLCJ1aWQiOiJkNGU4MWNmYi1kNzEwLTQ2YTgtOTcwNC1lZjFmYWY1YzFmNGEiLCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzIyMzg5MzgxfQ.06J0HJRM2bXkrZ0Z6zs0Pou3eX0gPo8R6kXlE1RHAwDg51tsX0YqzNiuVhPOCitE"
-      //const accessToken = localStorage.setItem("accessToken", token);
-      //const refreshToken = localStorage.setItem("refreshToken", token2);
-
-      // 주점 목록 API 요청
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      axios
-        .get(`${apiUrl}/pub/all`)
-        .then((response) => {
-          setStores(response.data); // 받아온 데이터 상태에 저장
-        })
-        .catch((error) => {
-          console.error('데이터를 가져오는 중 오류 발생: ', error);
-          setError('데이터를 가져오는 중 오류가 발생했습니다.'); // 에러 메시지 설정
-        })
-        .finally(() => {
-          setLoading(false); // 로딩 완료
-        });
+    const fetchStores = async () => {
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const response = await axios.get(`${apiUrl}/pub/all`);
+        setStores(response.data); // 받아온 데이터 상태에 저장
+      } catch (error) {
+        console.error('데이터를 가져오는 중 오류 발생: ', error);
+        setError('데이터를 가져오는 중 오류가 발생했습니다.'); // 에러 메시지 설정
+      } finally {
+        setLoading(false); // 로딩 완료
+      }
     };
 
-    checkLoginStatus();
+    fetchStores();
   }, []);
-
-  const handleStoreClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!isLoggedIn) {
-      e.preventDefault(); // 페이지 이동 방지
-      setShowLoginPopup(true); // 로그인 팝업 표시
-    }
-  };
-
-  const closePopup = () => {
-    setShowLoginPopup(false); // 팝업 닫기
-  };
-
-  const loginProcess = () => {
-    //로그인로직
-    localStorage.setItem('callbackPath', window.location.pathname);
-    const REDIRECT_URI = `${window.location.protocol}//${window.location.host}/oauth`;
-    const CLIENT_ID = process.env.KAKAO_CLIENT_ID;
-    const code = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
-    window.location.href = code;
-  };
 
   const filteredStores = stores
     .filter((store) => {
@@ -91,8 +54,8 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({
       }
       return true;
     })
-    .filter(
-      (store) => store.pubName.toLowerCase().includes(searchTerm.toLowerCase()), // 검색어 필터링
+    .filter((store) =>
+      store.pubName.toLowerCase().includes(searchTerm.toLowerCase()), // 검색어 필터링
     );
 
   // 정렬 로직
@@ -123,9 +86,8 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({
       ) : (
         sortedStores.map((store: Store) => (
           <a
-            href={isLoggedIn ? `/landing/${store.pubId}` : '#'}
+            href={`/landing/${store.pubId}`}
             key={store.pubId}
-            onClick={(e) => handleStoreClick(e)}
             className="flex w-full flex-col rounded-lg border-b border-gray-300 bg-white p-4"
           >
             <div className="flex flex-row items-center">
@@ -161,28 +123,6 @@ const ResponsiveTest: React.FC<ResponsiveTestProps> = ({
             </div>
           </a>
         ))
-      )}
-
-      {showLoginPopup && (
-        <div
-          className="fixed inset-0 z-50 flex items-end justify-center bg-black bg-opacity-50"
-          onClick={closePopup} // 팝업 외부를 클릭하면 닫히도록 설정
-        >
-          <div
-            className="w-full max-w-md rounded-t-xl bg-white p-6 shadow-lg"
-            onClick={(e) => e.stopPropagation()} // 팝업 내부 클릭 이벤트 전파 방지
-          >
-            <div className="flex flex-col items-center">
-              <Logo className="mb-4" />
-              <p className="mb-4 text-lg font-semibold">
-                대기를 하려면 로그인이 필요해요!
-              </p>
-              <button className="cursor-pointer" onClick={loginProcess}>
-                <KakaoLogin />
-              </button>
-            </div>
-          </div>
-        </div>
       )}
     </>
   );

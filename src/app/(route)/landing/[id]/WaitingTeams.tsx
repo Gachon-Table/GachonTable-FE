@@ -6,11 +6,12 @@ import axios from 'axios';
 import PeopleCountPopup from './PeopleCountPopup';
 import ConfirmPopup from './ConfirmPopup';
 import SuccessPopup from './SuccessPopup';
+import { KakaoLogin, Logo } from '@/app/assets';
 
 interface WaitingTeamsProps {
   pubId: number;
   studentCard: boolean;
-  openStatus: boolean; // Add this line
+  openStatus: boolean;
 }
 
 const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
@@ -20,30 +21,44 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
+  const [showLoginPopup, setShowLoginPopup] = useState<boolean>(false); // 로그인 팝업 표시 상태 관리
   const router = useRouter();
 
-  const incrementPeople = () => {
-    setPeopleCount(prevCount => prevCount + 1);
-  };
+  const incrementPeople = () => setPeopleCount(prevCount => prevCount + 1);
+  const decrementPeople = () => setPeopleCount(prevCount => (prevCount > 1 ? prevCount - 1 : prevCount));
 
-  const decrementPeople = () => {
-    setPeopleCount(prevCount => (prevCount > 1 ? prevCount - 1 : prevCount));
-  };
-
-  const openPopup = () => {
-    setShowPopup(true);
-  };
+  const openPopup = () => setShowPopup(true);
 
   const closePopup = () => {
     setShowPopup(false);
     setShowConfirmPopup(false);
     setError(null);
     setShowSuccessPopup(false);
+    setShowLoginPopup(false);
   };
 
   const openConfirmPopup = () => {
     setShowConfirmPopup(true);
     setShowPopup(false);
+  };
+
+  const handleStoreClick = async (e: React.MouseEvent<HTMLDivElement>) => {
+    const loggedIn = await isUserAuthenticated();
+
+    if (!loggedIn) {
+      e.preventDefault();
+      setShowLoginPopup(true);
+    } else {
+      openPopup();
+    }
+  };
+
+  const loginProcess = () => {
+    localStorage.setItem('callbackPath', window.location.pathname);
+    const REDIRECT_URI = `${window.location.protocol}//${window.location.host}/oauth`;
+    const CLIENT_ID = process.env.KAKAO_CLIENT_ID;
+    const code = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
+    window.location.href = code;
   };
 
   const handleSubmit = async () => {
@@ -64,38 +79,29 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
         headCount: peopleCount,
       };
 
-      const response = await userAxios.post(
-        '/waiting/remote',
-        payload,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'accept': '*/*',
-            'Authorization': `Bearer ${token}`,
-          },
-        }
-      );
-
-      console.log('Response data:', response.data);
+      const response = await userAxios.post('/waiting/remote', payload, {
+        headers: {
+          'Content-Type': 'application/json',
+          accept: '*/*',
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       const { httpStatus, code, message } = response.data;
 
-      // 응답 데이터의 상태 코드가 412인지 확인하고 예외 처리
       if (httpStatus === 412) {
         if (code === 'WAITING_OVER_COUNT') {
           setError('예약 가능한 주점의 최대 개수를 초과했습니다.');
         } else if (code === 'WAITING_ALREADY_EXIST') {
-          setError('한 주점에 하나의 웨이팅 신청만 가능합니다');
+          setError('한 주점에 하나의 웨이팅 신청만 가능합니다.');
         } else {
           setError(`오류가 발생했습니다: ${message}`);
         }
       } else {
-        // 성공적인 응답을 받은 경우에만 성공 팝업을 표시
         setShowSuccessPopup(true);
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error('Error response:', error.response);
         const status = error.response?.status;
 
         if (status === 500) {
@@ -108,11 +114,10 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
           setError('권한이 존재하지 않습니다.');
         } else if (status === 503) {
           setError('관리자에게 문의해주세요.');
-        }else {
+        } else {
           setError(`오류가 발생했습니다: ${error.message}`);
         }
       } else {
-        console.error('웨이팅 신청 중 오류 발생: ', error);
         setError('예기치 못한 오류가 발생했습니다.');
       }
     } finally {
@@ -123,12 +128,13 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
   return (
     <div className="w-full max-w-[31rem] mx-auto h-full max-h-screen mt-2 flex flex-col">
       <div
-        onClick={() => openStatus && !loading && openPopup()} // Conditionally call openPopup
+        onClick={(e) => handleStoreClick(e)}
         style={{ backgroundColor: openStatus ? '#3B4D9B' : '#969595' }}
         className={`text-white flex justify-center items-center h-20 text-2xl font-bold cursor-pointer ${loading || !openStatus ? 'cursor-not-allowed' : ''}`}
       >
         {loading ? '로딩 중...' : openStatus ? '웨이팅 신청' : '오픈 준비중이에요'}
       </div>
+
       {showPopup && (
         <PeopleCountPopup
           peopleCount={peopleCount}
@@ -138,12 +144,14 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
           onConfirm={openConfirmPopup}
         />
       )}
+
       {showConfirmPopup && (
         <ConfirmPopup
           onClose={closePopup}
           onConfirm={handleSubmit}
         />
       )}
+
       {error && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded-lg shadow-lg">
@@ -154,10 +162,29 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
           </div>
         </div>
       )}
+
       {showSuccessPopup && (
-        <SuccessPopup
-          onClose={closePopup}
-        />
+        <SuccessPopup onClose={closePopup} />
+      )}
+
+      {showLoginPopup && (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center bg-black bg-opacity-50"
+          onClick={closePopup} // 팝업 외부를 클릭하면 닫히도록 설정
+        >
+          <div
+            className="w-full max-w-md rounded-t-xl bg-white p-6 shadow-lg"
+            onClick={(e) => e.stopPropagation()} // 팝업 내부 클릭 이벤트 전파 방지
+          >
+            <div className="flex flex-col items-center">
+              <Logo className="mb-4" />
+              <p className="mb-4 text-lg font-semibold">대기를 하려면 로그인이 필요해요!</p>
+              <button className="cursor-pointer" onClick={loginProcess}>
+                <KakaoLogin />
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
