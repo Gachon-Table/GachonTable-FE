@@ -16,7 +16,7 @@ const BackButton = () => {
 
   return (
     <BackIcon
-      className=" mt-5 cursor-pointer justify-start"
+      className="my-5 cursor-pointer justify-start"
       onClick={handleBackButton}
     />
   );

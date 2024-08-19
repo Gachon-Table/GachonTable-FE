@@ -4,7 +4,7 @@ import BackButton from '../_components/BackButton';
 
 export default function privacyPolicy() {
   return (
-    <div className="mb-10">
+    <div className="px-5 pb-10 pt-2 shadow-2xl shadow-gray-200">
       <BackButton />
       <div className="mb-10 mt-5 flex items-center justify-center">
         <p className="text-lg font-bold">개인정보 처리방침</p>
