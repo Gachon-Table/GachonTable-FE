@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -94,7 +95,7 @@ const PubList = ({
           <div
             key={store.pubId}
             onClick={() => {
-              router.push(`/landing/${store.pubId}`);
+              router.push(`/pub/${store.pubId}`);
             }}
             className={`flex w-full cursor-pointer flex-col justify-center bg-white px-9 py-5 ${
               index !== sortedStores.length - 1
@@ -135,28 +136,6 @@ const PubList = ({
           </div>
         ))
       )}
-
-      {/* {showLoginPopup && (
-        <div
-          className="fixed inset-0 z-50 flex items-end justify-center bg-black bg-opacity-50"
-          onClick={closePopup} 
-        >
-          <div
-            className="w-full max-w-md rounded-t-xl bg-white p-6 shadow-lg"
-            onClick={(e) => e.stopPropagation()} 
-          >
-            <div className="flex flex-col items-center">
-              <Logo className="mb-4" />
-              <p className="mb-4 text-lg font-semibold">
-                대기를 하려면 로그인이 필요해요!
-              </p>
-              <button className="cursor-pointer" onClick={loginProcess}>
-                <KakaoLogin />
-              </button>
-            </div>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 };

@@ -21,11 +21,12 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
-  const [showLoginPopup, setShowLoginPopup] = useState<boolean>(false); // 로그인 팝업 표시 상태 관리
+  const [showLoginPopup, setShowLoginPopup] = useState<boolean>(false);
   const router = useRouter();
 
-  const incrementPeople = () => setPeopleCount(prevCount => prevCount + 1);
-  const decrementPeople = () => setPeopleCount(prevCount => (prevCount > 1 ? prevCount - 1 : prevCount));
+  const incrementPeople = () => setPeopleCount((prevCount) => prevCount + 1);
+  const decrementPeople = () =>
+    setPeopleCount((prevCount) => (prevCount > 1 ? prevCount - 1 : prevCount));
 
   const openPopup = () => setShowPopup(true);
 
@@ -43,10 +44,11 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
   };
 
   const handleStoreClick = async (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
     const loggedIn = await isUserAuthenticated();
 
     if (!loggedIn) {
-      e.preventDefault();
       setShowLoginPopup(true);
     } else {
       openPopup();
@@ -126,13 +128,19 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
   };
 
   return (
-    <div className="w-full max-w-[31rem] mx-auto h-full max-h-screen mt-2 flex flex-col">
+    <div className="mx-auto mt-2 flex h-full max-h-screen w-full max-w-[480px] flex-col">
       <div
         onClick={(e) => handleStoreClick(e)}
         style={{ backgroundColor: openStatus ? '#3B4D9B' : '#969595' }}
-        className={`text-white flex justify-center items-center h-20 text-2xl font-bold cursor-pointer ${loading || !openStatus ? 'cursor-not-allowed' : ''}`}
+        className={`flex h-20 cursor-pointer items-center justify-center text-2xl font-bold text-white ${
+          loading || !openStatus ? 'cursor-not-allowed' : ''
+        }`}
       >
-        {loading ? '로딩 중...' : openStatus ? '웨이팅 신청' : '오픈 준비중이에요'}
+        {loading
+          ? '로딩 중...'
+          : openStatus
+            ? '웨이팅 신청'
+            : '오픈 준비중이에요'}
       </div>
 
       {showPopup && (
@@ -146,39 +154,42 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
       )}
 
       {showConfirmPopup && (
-        <ConfirmPopup
-          onClose={closePopup}
-          onConfirm={handleSubmit}
-        />
+        <ConfirmPopup onClose={closePopup} onConfirm={handleSubmit} />
       )}
 
       {error && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="rounded-lg bg-white p-8 shadow-lg">
             <p>{error}</p>
-            <div className="flex justify-center mt-6">
-              <button onClick={closePopup} style={{ backgroundColor: '#3B4D9B' }} className="px-4 py-2 text-white rounded">닫기</button>
+            <div className="mt-6 flex justify-center">
+              <button
+                onClick={closePopup}
+                style={{ backgroundColor: '#3B4D9B' }}
+                className="rounded px-4 py-2 text-white"
+              >
+                닫기
+              </button>
             </div>
           </div>
         </div>
       )}
 
-      {showSuccessPopup && (
-        <SuccessPopup onClose={closePopup} />
-      )}
+      {showSuccessPopup && <SuccessPopup onClose={closePopup} />}
 
       {showLoginPopup && (
         <div
           className="fixed inset-0 z-50 flex items-end justify-center bg-black bg-opacity-50"
-          onClick={closePopup} // 팝업 외부를 클릭하면 닫히도록 설정
+          onClick={closePopup}
         >
           <div
-            className="w-full max-w-md rounded-t-xl bg-white p-6 shadow-lg"
-            onClick={(e) => e.stopPropagation()} // 팝업 내부 클릭 이벤트 전파 방지
+            className="w-full max-w-[480px] rounded-t-xl bg-white p-6 shadow-lg"
+            onClick={(e) => e.stopPropagation()}
           >
             <div className="flex flex-col items-center">
               <Logo className="mb-4" />
-              <p className="mb-4 text-lg font-semibold">대기를 하려면 로그인이 필요해요!</p>
+              <p className="mb-4 text-lg font-semibold">
+                대기를 하려면 로그인이 필요해요!
+              </p>
               <button className="cursor-pointer" onClick={loginProcess}>
                 <KakaoLogin />
               </button>
