@@ -5,7 +5,6 @@ import WaitingTeams from './WaitingTeams';
 import { getPubInfoForUser } from '@/app/api/service/getPubInfo';
 import { LeftArrow } from '@/app/assets';
 
-// 인터페이스 정의
 interface Store {
   pub: {
     instagramUrl: string;
@@ -35,6 +34,7 @@ const StoreDetailPage: React.FC = () => {
   const [store, setStore] = useState<Store | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
 
   useEffect(() => {
     const fetchStoreData = async () => {
@@ -43,8 +43,8 @@ const StoreDetailPage: React.FC = () => {
         setStore(response);
         console.log(response);
       } catch (err) {
-        console.error('가게 데이터를 가져오는 중 오류 발생:', err);
-        setError('데이터를 가져오는 중 오류가 발생했습니다.');
+        console.error('Error fetching store data:', err);
+        setError('An error occurred while fetching data.');
       } finally {
         setLoading(false);
       }
@@ -59,10 +59,22 @@ const StoreDetailPage: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (store && store.pub.thumbnails.length > 1) {
+      const intervalId = setInterval(() => {
+        setCurrentImageIndex((prevIndex) =>
+          prevIndex === store.pub.thumbnails.length - 1 ? 0 : prevIndex + 1,
+        );
+      }, 2000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [store]);
+
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center">
-        로딩 중...
+        Loading...
       </div>
     );
   }
@@ -76,7 +88,7 @@ const StoreDetailPage: React.FC = () => {
   if (!store) {
     return (
       <div className="flex h-screen items-center justify-center">
-        가게를 찾을 수 없습니다
+        Store not found
       </div>
     );
   }
@@ -93,6 +105,31 @@ const StoreDetailPage: React.FC = () => {
             className="h-full w-full object-cover"
           />
         ))}
+        {/* <div className="relative h-full w-full overflow-hidden">
+          <div
+            className="absolute flex h-full w-full transition-transform duration-500 ease-in-out"
+            style={{
+              transform: `translateX(-${currentImageIndex * 100}%)`,
+            }}
+          >
+            {store.pub.thumbnails.length > 0 ? (
+              store.pub.thumbnails.map((thumbnail, index) => (
+                <img
+                  key={index}
+                  src={thumbnail}
+                  alt={`Slide ${index}`}
+                  className="w-full flex-shrink-0 object-cover"
+                />
+              ))
+            ) : (
+              <img
+                src="/images/place.png"
+                alt="Place"
+                className="w-full flex-shrink-0 object-cover"
+              />
+            )}
+          </div>
+        </div> */}
         <div className="z-9999 absolute left-4 top-4">
           <a href={'/landing'}>
             <LeftArrow />
@@ -116,7 +153,6 @@ const StoreDetailPage: React.FC = () => {
             </div>
           </div>
         </div>
-
         <div className="mt-5 flex h-16 flex-row border-b border-gray-300">
           <a
             href={store.pub.instagramUrl}
@@ -156,13 +192,12 @@ const StoreDetailPage: React.FC = () => {
             )}
           </div>
         </div>
-        {/* studentCard와 openStatus 값을 WaitingTeams 컴포넌트에 전달 */}
-        <nav className=" fixed bottom-0 left-0 right-0 border-none bg-transparent mobile:mx-auto ">
+        <nav className="fixed bottom-0 left-0 right-0 border-none bg-transparent mobile:mx-auto ">
           <nav className="mx-auto flex w-full max-w-[31rem] justify-evenly ">
             <WaitingTeams
               pubId={parseInt(id as string, 10)}
               studentCard={store.pub.studentCard}
-              openStatus={store.pub.openStatus} // Pass openStatus here
+              openStatus={store.pub.openStatus}
             />
           </nav>
         </nav>
