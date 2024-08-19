@@ -8,7 +8,6 @@ import Tab from './_components/tab/page';
 import { useRouter } from 'next/navigation';
 import CancelModal from './_components/cancelModal/page';
 import AfterProfile from './_components/afterProfile/page';
-import RootLayout from '../../layout';
 import { LeftArrow } from '@/app/assets';
 
 const Mypage = () => {
@@ -25,27 +24,25 @@ const Mypage = () => {
     setAccessToken(localStorage.getItem('accessToken'));
   }, []);
   return (
-    <RootLayout>
-      <div className="flex h-full flex-col">
-        <div className="ml-[2rem] mt-[2rem] flex items-center gap-[1rem]">
-          <LeftArrow
-            className="cursor-pointer"
-            onClick={() => router.push('/')}
-          />
-          <div className="text-[2rem] font-bold">마이 웨이팅</div>
-        </div>
-        {accessToken ? <AfterProfile /> : <BeforeProfile />}
-        <Tab curTab={curTab} setFunc={setCurTab} />
-        <div className="h-full overflow-y-auto py-[2rem]">
-          {curTab === 'ing' ? (
-            <Waiting modal={modal} setFunc={setModal} setId={setId} />
-          ) : (
-            <Waited />
-          )}
-        </div>
-        {modal && <CancelModal setModal={setModal} waitingId={id} />}
+    <div className="flex h-screen flex-col">
+      <div className="ml-[2rem] mt-[2rem] flex items-center gap-[1rem]">
+        <LeftArrow
+          className="cursor-pointer"
+          onClick={() => router.push('/')}
+        />
+        <div className="text-[2rem] font-bold">마이 웨이팅</div>
       </div>
-    </RootLayout>
+      {accessToken ? <AfterProfile /> : <BeforeProfile />}
+      <Tab curTab={curTab} setFunc={setCurTab} />
+      <div className="h-full overflow-y-auto py-[2rem]">
+        {curTab === 'ing' ? (
+          <Waiting modal={modal} setFunc={setModal} setId={setId} />
+        ) : (
+          <Waited />
+        )}
+      </div>
+      {modal && <CancelModal setModal={setModal} waitingId={id} />}
+    </div>
   );
 };
 export default Mypage;
