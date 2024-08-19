@@ -1,6 +1,7 @@
 'use client';
-
 import { Noto_Sans_KR } from 'next/font/google';
+import { usePathname } from 'next/navigation';
+import React from 'react';
 import '../globals.css';
 
 const noto = Noto_Sans_KR({
@@ -8,14 +9,20 @@ const noto = Noto_Sans_KR({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 });
 
-interface RootLayoutProps {
+export default function RootLayout({
+  children,
+}: {
   children: React.ReactNode;
-}
+}) {
+  const pathname = usePathname();
 
-export default function RootLayout({ children }: RootLayoutProps) {
+  const isRowAlignment = pathname === '/admin/onsite-lineup';
+
   return (
-    <html lang="ko">
-      <body className={noto.className}>
+    <html lang="en">
+      <body
+        className={`${noto.className} ${!isRowAlignment ? 'mx-auto h-screen min-w-[360px] max-w-[480px]' : 'h-screen w-screen'}`}
+      >
         {children}
       </body>
     </html>

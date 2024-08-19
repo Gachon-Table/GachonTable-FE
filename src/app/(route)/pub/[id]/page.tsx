@@ -1,20 +1,22 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import WaitingTeams from './WaitingTeams';
-import userAxios from '@/app/api/axios/userAxios';
+import WaitingTeams from '../../_components/pub/WaitingTeams';
+import { getPubInfoForUser } from '@/app/api/service/getPubInfo';
 import { LeftArrow } from '@/app/assets';
+import { useRouter } from 'next/navigation';
 
 interface Store {
   pub: {
-    waitingCount: number;
-    pubName: string;
-    oneLiner: string;
-    studentCard: boolean;
-    menu: string;
     instagramUrl: string;
+    menu: string;
+    oneLiner: string;
     openStatus: boolean;
+    pubId: string;
+    pubName: string;
+    studentCard: boolean;
     thumbnails: string[];
+    waitingCount: number;
   };
   menu: MenuItem[];
 }
@@ -26,6 +28,7 @@ interface MenuItem {
 }
 
 const StoreDetailPage: React.FC = () => {
+  const router = useRouter();
   const pathname = usePathname();
   const id = pathname.split('/').pop();
   const menuRef = useRef<HTMLDivElement>(null);
@@ -38,8 +41,9 @@ const StoreDetailPage: React.FC = () => {
   useEffect(() => {
     const fetchStoreData = async () => {
       try {
-        const response = await userAxios.get<Store>(`/pub/${id}`);
-        setStore(response.data);
+        const response = await getPubInfoForUser(id as string);
+        setStore(response);
+        console.log(response);
       } catch (err) {
         console.error('Error fetching store data:', err);
         setError('An error occurred while fetching data.');
@@ -61,9 +65,9 @@ const StoreDetailPage: React.FC = () => {
     if (store && store.pub.thumbnails.length > 1) {
       const intervalId = setInterval(() => {
         setCurrentImageIndex((prevIndex) =>
-          prevIndex === store.pub.thumbnails.length - 1 ? 0 : prevIndex + 1
+          prevIndex === store.pub.thumbnails.length - 1 ? 0 : prevIndex + 1,
         );
-      }, 2000);
+      }, 5000);
 
       return () => clearInterval(intervalId);
     }
@@ -92,11 +96,11 @@ const StoreDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="min-w-screen flex min-h-screen flex-col">
       <div className="relative h-64 w-full sm:h-80 md:h-96">
         <div className="relative h-full w-full overflow-hidden">
           <div
-            className="absolute flex h-full w-full transition-transform duration-500 ease-in-out"
+            className="absolute flex h-full w-full transition-transform duration-1000 ease-in-out"
             style={{
               transform: `translateX(-${currentImageIndex * 100}%)`,
             }}
@@ -118,31 +122,32 @@ const StoreDetailPage: React.FC = () => {
               />
             )}
           </div>
-        </div>
-        <div className="z-9999 absolute left-4 top-4">
-          <a href={'/landing'}>
-            <LeftArrow />
-          </a>
+          <div className="z-9999 absolute left-4 top-4">
+            <LeftArrow
+              className="cursor-pointer fill-white"
+              onClick={() => router.push('/')}
+            />
+          </div>
         </div>
       </div>
       <div className="mx-auto w-full max-w-2xl flex-1 overflow-auto rounded-bl-[40px] rounded-br-[40px] border bg-white p-6">
         <div>
-          <div className="mt-2 flex w-80 items-start justify-start bg-white text-xs font-bold">
+          <div className="mt-2 flex w-80 items-start justify-start bg-white pl-0.5 text-xs font-bold">
             현재&nbsp;
             <span style={{ color: '#FF805A' }}>{store.pub.waitingCount}</span>
             명이 대기하고 있어요
           </div>
-          <h1 className="mb-4 text-2xl font-bold">{store.pub.pubName}</h1>
-          <p>{store.pub.oneLiner}</p>
+          <h1 className="mb-2 text-2xl font-bold">{store.pub.pubName}</h1>
+          <p className="text-sm">{store.pub.oneLiner}</p>
           <div className="mt-3 flex items-center">
             <div
-              className={`flex h-6 min-w-[2rem] items-center justify-center rounded-full px-2 text-xs text-white ${store.pub.studentCard ? 'bg-red-500' : 'bg-blue-500'}`}
+              className={`items-center justify-center rounded-full px-2.5 py-1 text-[8px] font-medium text-white ${store.pub.studentCard ? 'bg-[#E87567]' : 'bg-[#3B4D9B]'}`}
             >
               {store.pub.studentCard ? '학생증 필요' : '학생증 불필요'}
             </div>
           </div>
         </div>
-        <div className="mt-5 flex h-16 flex-row border-b border-gray-300">
+        <div className="mt-5 flex h-16 flex-row border-b border-[#EFEFF0]">
           <a
             href={store.pub.instagramUrl}
             target="_blank"
@@ -158,22 +163,26 @@ const StoreDetailPage: React.FC = () => {
             메뉴
           </div>
         </div>
-        <div ref={menuRef} className="mb-20 mt-5 w-full">
-          <div className="mb-5 mt-5 p-4 text-2xl font-bold">메뉴</div>
+        <div ref={menuRef} className="mb-20 mt-5 w-full px-4">
+          <div className="mb-5 mt-5 text-2xl font-bold">메뉴</div>
           <div className="flex flex-col">
             {store.menu.length === 0 ? (
               <p className="text-center text-gray-600">
                 현재 등록되어있는 메뉴가 없습니다
               </p>
             ) : (
-              store.menu.map((menuItem: MenuItem) => (
+              store.menu.map((menuItem: MenuItem, index) => (
                 <div
                   key={menuItem.menuName}
-                  className="mb-4 border-b border-gray-300 p-4"
+                  className={`mb-4 ${
+                    index !== store.menu.length - 1
+                      ? 'border-b-[0.7px] border-[#C2C2C2]'
+                      : ''
+                  }`}
                 >
                   <h2 className="text-xl font-bold">{menuItem.menuName}</h2>
-                  <p className="my-2 text-base">{menuItem.price}원</p>
-                  <p className="my-2 text-sm text-gray-800">
+                  <p className="mb-3 mt-1 text-sm">{menuItem.price}원</p>
+                  <p className="mb-5 text-sm text-[#7D7D7D]">
                     {menuItem.oneLiner}
                   </p>
                 </div>
