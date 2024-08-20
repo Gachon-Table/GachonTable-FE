@@ -58,18 +58,15 @@ export default function privacyPolicy() {
           </thead>
           <tbody>
             <tr className="text-[10px] text-[#424242]">
-              <td rowSpan={2} className="border border-black p-1">
-                회원 관리
-              </td>
+              <td className="border border-black p-1">회원 관리</td>
               <td className="border border-black p-1">
                 타사 계정을 이용한 회원 식별, 회원제 서비스 제공, 휴대전화번호
                 인증
               </td>
               <td className="border border-black p-1">
-                *수집하는 개인정보 : 휴대전화번호, 이름
-                <br />
-                *회사가 제 3자로부터 제공받은 개인정보
-                <br />- 카카오 : 카카오 ID, 이름
+                *수집하는 개인정보 : 이름(필수), 휴대전화번호(필수) <br />
+                *회사가 제3자로부터 제공받은 개인정보 <br />- 카카오 :
+                이름(필수), 카카오 ID(필수)
               </td>
               <td className="border border-black p-1">
                 목적달성(회원 탈퇴 등) 후 지체없이 파기 (단, 관련법령 및
@@ -77,6 +74,9 @@ export default function privacyPolicy() {
               </td>
             </tr>
             <tr className="text-[10px] text-[#424242]">
+              <td rowSpan={3} className="border border-black p-1">
+                서비스 이용
+              </td>
               <td className="border border-black p-1">
                 서비스 진행상황 안내, 계약 이행, 약관 변경 고지
               </td>
@@ -86,27 +86,16 @@ export default function privacyPolicy() {
               </td>
             </tr>
             <tr className="text-[10px] text-[#424242]">
-              <td rowSpan={3} className="border border-black p-1">
-                서비스 이용
-              </td>
-              <td className="border border-black p-1">
-                휴대전화 본인인증 서비스 제공을 위한 이용자 식별, 본인인증
-              </td>
-              <td className="border border-black p-1">
-                - 회사가 제3자로부터 제공받은 개인정보: 휴대전화번호, CI, DI
-              </td>
-              <td rowSpan={2} className="border border-black p-1">
-                목적달성(회원 탈퇴 등) 후 지체없이 파기 (단, 관련법령에 따라
-                보관되는 정보는 예외)
-              </td>
-            </tr>
-            <tr className="text-[10px] text-[#424242]">
               <td className="border border-black p-1">
                 회원관리, 불법 및 부정이용 방지, 서비스 이용 기록의 통계 및
                 분석, 서비스 개선, 신규 서비스 개발
               </td>
               <td className="border border-black p-1">
                 수집한 모든 개인정보 항목, 자동 수집 정보
+              </td>
+              <td className="border border-black p-1">
+                목적달성(회원 탈퇴 등) 후 지체없이 파기 (단, 관련법령에 따라
+                보관되는 정보는 예외)
               </td>
             </tr>
             <tr className="text-[10px] text-[#424242]">
