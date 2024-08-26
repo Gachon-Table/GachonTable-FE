@@ -1,9 +1,9 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import WaitingTeams from '../../_components/pub/WaitingTeams';
-import { getPubInfoForUser } from '@/app/api/service/getPubInfo';
-import { LeftArrow } from '@/app/assets';
+import WaitingTeams from '../_components/WaitingTeams';
+import { getPubInfoForUser } from '@/app/api/service/user/getPubInfoForUser';
+import { LeftArrow } from 'public';
 import { useRouter } from 'next/navigation';
 
 interface Store {

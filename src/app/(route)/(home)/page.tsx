@@ -1,9 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import PubList from './(route)/_components/pub/PubList';
-import { LogoCircle, User } from '@/app/assets';
+import PubList from '../pub/_components/PubList';
+import { LogoCircle, User } from 'public';
 import { useRouter } from 'next/navigation';
-import Footer from './(route)/_components/footer/page';
+import { Footer } from '@/app/common/Footer';
 
 const Landing: React.FC = () => {
   const router = useRouter();

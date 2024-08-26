@@ -1,6 +1,6 @@
 import React, { ChangeEvent, MouseEvent } from 'react';
 import Image from 'next/image';
-import { DeleteRed } from '@/app/assets';
+import { DeleteRed } from 'public';
 
 interface MenuItem {
   menuName: string;

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import userAxios from '@/app/api/axios/userAxios';
-import { isUserAuthenticated } from '@/app/api/service/userAuth';
+import { isUserAuthenticated } from '@/app/api/service/user/userAuth';
 import axios from 'axios';
 import PeopleCountPopup from './PeopleCountPopup';
 import ConfirmPopup from './ConfirmPopup';
 import SuccessPopup from './SuccessPopup';
-import { KakaoLogin, Logo } from '@/app/assets';
+import { KakaoLogin, Logo } from 'public';
 
 interface WaitingTeamsProps {
   pubId: number;

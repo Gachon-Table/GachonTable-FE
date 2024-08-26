@@ -1,9 +1,8 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { adminLogin, isAuthenticated } from '@/app/api/service/adminAuth';
+import { adminLogin, isAuthenticated } from '@/app/api/service/admin/adminAuth';
 
 export default function AdminLogin() {
   const [id, setId] = useState('');
@@ -49,12 +48,12 @@ export default function AdminLogin() {
           width={298}
           height={283}
         />
-        <div className="text-center text-3xl font-bold text-tory-blue mobile:text-3xl tablet:text-3xl laptop:text-4xl desktop:text-5xl">
+        <div className="tablet:text-3xl laptop:text-4xl desktop:text-5xl text-center text-3xl font-bold text-tory-blue mobile:text-3xl">
           관리자 로그인
         </div>
       </div>
 
-      <div className="w-full max-w-xs mobile:max-w-sm tablet:max-w-md laptop:max-w-lg desktop:max-w-xl">
+      <div className="tablet:max-w-md laptop:max-w-lg desktop:max-w-xl w-full max-w-xs mobile:max-w-sm">
         <div className="mb-4">
           <label
             htmlFor="id"

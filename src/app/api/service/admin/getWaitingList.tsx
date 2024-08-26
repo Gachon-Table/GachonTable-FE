@@ -1,4 +1,4 @@
-import adminAxios from '../axios/adminAxios';
+import adminAxios from '../../axios/adminAxios';
 
 export const getWaitingList = async () => {
   try {

@@ -1,13 +1,12 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import NumberKeypad from '../_components/field/NumberKeypad';
 import Information from '../_components/field/Information';
 import ParticipantsModal from '../_components/field/ParticipantsModal';
-import { isAuthenticated } from '@/app/api/service/adminAuth';
-import { submitWaitingRequest } from '@/app/api/service/onsiteWaiting';
-import { getPubInfo } from '@/app/api/service/getPubInfo';
+import { isAuthenticated } from '@/app/api/service/admin/adminAuth';
+import { submitWaitingRequest } from '@/app/api/service/admin/onsiteWaiting';
+import { getPubInfo } from '@/app/api/service/admin/getPubInfo';
 import ErrorModal from '../_components/ErrorModal';
 
 interface PubData {

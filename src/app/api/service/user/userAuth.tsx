@@ -1,4 +1,4 @@
-import userAxios from '../axios/userAxios'; // 경로는 필요에 따라 조정하세요
+import userAxios from '../../axios/userAxios'; // 경로는 필요에 따라 조정하세요
 
 interface UserProps {
   id: string;

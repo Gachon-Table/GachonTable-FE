@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import BackButton from '../_components/BackButton';
+import BackButton from '../../common/BackButton';
 
 export default function privacyPolicy() {
   return (

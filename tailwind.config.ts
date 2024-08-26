@@ -14,10 +14,7 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       screens: {
-        'mobile': '480px',
-        'tablet': '768px',
-        'laptop': '1024px',
-        'desktop': '1280px',
+        'mobile': '375px',
       },
       colors: {
         'main-blue': '#3B4D9B',
@@ -39,7 +36,7 @@ const config: Config = {
         '28rem': '28rem',
       },
       height: {
-        '4/10': '40%', // height: 30%
+        '4/10': '40%', 
         '690': '43.125rem',
         '550': '34.375rem',
       },

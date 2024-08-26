@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { BackIcon } from '@/app/assets';
+import { BackIcon } from 'public';
 
 const BackButton = () => {
   const router = useRouter();

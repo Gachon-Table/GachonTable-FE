@@ -6,7 +6,7 @@ interface RouteLayoutProps {
 
 const RouteLayout: React.FC<RouteLayoutProps> = ({ children }) => {
   return (
-    <div className="shadow-2xl shadow-gray-200">
+    <div>
       <main>{children}</main>
     </div>
   );
