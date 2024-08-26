@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertIcon } from '@/app/assets';
+import { AlertIcon } from 'public';
 
 const AlertBox = () => {
   return (

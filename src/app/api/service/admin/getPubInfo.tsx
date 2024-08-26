@@ -1,4 +1,4 @@
-import pubAxios from '../axios/pubAxios';
+import pubAxios from '../../axios/pubAxios';
 
 interface MenuItem {
   menuName: string;
@@ -27,17 +27,6 @@ export const getPubInfo = async (): Promise<PubResponse> => {
       throw new Error('주점이 존재하지 않습니다.');
     }
     const response = await pubAxios.get<PubResponse>(`/${pubId}`);
-
-    return response.data;
-  } catch (error) {
-    console.error('주점 정보 가져오기 실패: ', error);
-    throw error;
-  }
-};
-
-export const getPubInfoForUser = async (pubId: string) => {
-  try {
-    const response = await pubAxios.get(`/${pubId}`);
 
     return response.data;
   } catch (error) {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { userLogout } from '../service/userAuth'; // 경로는 필요에 따라 조정하세요
+import { userLogout } from '../service/user/userAuth'; // 경로는 필요에 따라 조정하세요
 
 // axios 인스턴스를 생성합니다.
 const userAxios = axios.create({

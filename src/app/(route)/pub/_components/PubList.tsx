@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import { isUserAuthenticated } from '@/app/api/service/userAuth';
+import { isUserAuthenticated } from '@/app/api/service/user/userAuth';
 
 interface Store {
   pubId: number;

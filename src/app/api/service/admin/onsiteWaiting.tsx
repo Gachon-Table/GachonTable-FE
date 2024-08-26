@@ -1,4 +1,4 @@
-import waitingAxios from '../axios/waitingAxios';
+import waitingAxios from '../../axios/waitingAxios';
 
 interface WaitingRequest {
   pubId: number;

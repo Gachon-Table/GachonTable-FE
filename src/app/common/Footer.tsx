@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { useRouter } from 'next/navigation';
-const Footer = () => {
+export const Footer = () => {
   const router = useRouter();
   return (
     <div className="flex h-52 flex-col space-y-2.5 bg-[#f9f9f9] px-5 py-9 text-[11px] text-[#8f8f8f]">
@@ -34,5 +34,3 @@ const Footer = () => {
     </div>
   );
 };
-
-export default Footer;

@@ -19,7 +19,7 @@ interface WaitingProps {
   setId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Waiting = ({ modal, setFunc, setId }: WaitingProps) => {
+const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
   const [waitingList, setWaitingList] = useState<WaitingItem[]>([]);
   const [accessToken, setAccessToken] = useState<string | null>('');
   useEffect(() => {
@@ -54,7 +54,9 @@ const Waiting = ({ modal, setFunc, setId }: WaitingProps) => {
                 className="flex items-center justify-between rounded-[1rem] border border-t-0 px-[2rem] py-[1rem] shadow-md"
               >
                 <div>
-                  <div className={`my-[0.5rem] inline-block rounded-[1rem] ${element.orderStatus == '대기 중' ? 'bg-[#7da4ff]' : 'bg-[#FF805A]' } px-[1rem] py-[0.2rem] text-white`}>
+                  <div
+                    className={`my-[0.5rem] inline-block rounded-[1rem] ${element.orderStatus == '대기 중' ? 'bg-[#7da4ff]' : 'bg-[#FF805A]'} px-[1rem] py-[0.2rem] text-white`}
+                  >
                     {element.orderStatus}
                   </div>
                   <div className="text-[1.5rem] font-bold">
@@ -78,7 +80,7 @@ const Waiting = ({ modal, setFunc, setId }: WaitingProps) => {
                   className="h-[15px] cursor-pointer"
                   onClick={() => {
                     setFunc(!modal);
-                    setId(element.waitingId)
+                    setId(element.waitingId);
                   }}
                 />
               </div>
@@ -90,7 +92,6 @@ const Waiting = ({ modal, setFunc, setId }: WaitingProps) => {
           </div>
         )
       ) : (
-        
         <div className="flex h-full items-center justify-center text-[#D9D9D9]">
           로그인이 필요합니다.
         </div>
@@ -98,8 +99,8 @@ const Waiting = ({ modal, setFunc, setId }: WaitingProps) => {
     </div>
   );
 };
-Waiting.propTypes = {
+WaitingList.propTypes = {
   modal: PropTypes.bool.isRequired,
   setFunc: PropTypes.func.isRequired,
 };
-export default Waiting;
+export default WaitingList;

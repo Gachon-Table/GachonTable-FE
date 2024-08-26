@@ -5,8 +5,8 @@ import Navbar from '../_components/NavBar';
 import ImageUploader from '../_components/pubInput/ImageUploader';
 import StudentIdInputBox from '../_components/pubInput/StudentIdInputBox';
 import MenuInputBox from '../_components/pubInput/MenuInputBox';
-import { isAuthenticated } from '@/app/api/service/adminAuth';
-import { getPubInfo } from '@/app/api/service/getPubInfo';
+import { isAuthenticated } from '@/app/api/service/admin/adminAuth';
+import { getPubInfo } from '@/app/api/service/admin/getPubInfo';
 import pubAxios from '@/app/api/axios/pubAxios';
 
 interface MenuItem {

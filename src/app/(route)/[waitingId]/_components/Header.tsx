@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogoCircle } from '@/app/assets';
+import { LogoCircle } from 'public';
 
 const Header = () => {
   return (

@@ -1,9 +1,8 @@
 'use client';
-
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { adminLogout } from '@/app/api/service/adminAuth';
+import { adminLogout } from '@/app/api/service/admin/adminAuth';
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +47,7 @@ const Dropdown = () => {
               <img
                 src="/images/waiting-management.png"
                 alt="대기 인원 관리 아이콘"
-                className="h-5 tablet:h-6 laptop:h-7 desktop:h-8"
+                className="tablet:h-6 laptop:h-7 desktop:h-8 h-5"
               />
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="text-xl font-semibold">대기 인원 관리</span>
@@ -62,7 +61,7 @@ const Dropdown = () => {
               <img
                 src="/images/pub-management.png"
                 alt="주점 관리 아이콘"
-                className="h-5 tablet:h-6 laptop:h-7 desktop:h-8"
+                className="tablet:h-6 laptop:h-7 desktop:h-8 h-5"
               />
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="text-xl font-semibold">주점 관리</span>
@@ -75,7 +74,7 @@ const Dropdown = () => {
               <img
                 src="/images/logout.png"
                 alt="로그아웃 아이콘"
-                className="h-5 tablet:h-6 laptop:h-7 desktop:h-8"
+                className="tablet:h-6 laptop:h-7 desktop:h-8 h-5"
               />
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="text-xl font-semibold">로그아웃</span>

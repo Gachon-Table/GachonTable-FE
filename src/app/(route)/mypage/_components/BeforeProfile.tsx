@@ -1,5 +1,5 @@
 import React from 'react';
-import { KakaoLoginRound } from '@/app/assets';
+import { KakaoLoginRound } from 'public';
 
 const BeforeProfile = () => {
   const loginProcess = () => {

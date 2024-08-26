@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import Navbar from '../_components/NavBar';
-import { isAuthenticated } from '@/app/api/service/adminAuth';
+import { isAuthenticated } from '@/app/api/service/admin/adminAuth';
 import { WaitingList } from '../_components/WaitingList';
 import { useRouter } from 'next/navigation';
 

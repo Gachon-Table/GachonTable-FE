@@ -1,5 +1,4 @@
 'use client';
-
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
@@ -10,7 +9,7 @@ interface WaitedItem {
   enteredTime: string;
 }
 
-const Waited = () => {
+const WaitedList = () => {
   const [waitedList, setWaitedList] = useState<WaitedItem[]>([]);
   const [accessToken, setAccessToken] = useState<string | null>('');
   useEffect(() => {
@@ -42,7 +41,9 @@ const Waited = () => {
                 key={element.waitingId}
                 className="rounded-[1rem] border border-t-0 px-[2rem] py-[1rem] shadow-md"
               >
-                <div className={`my-[0.5rem] inline-block rounded-[1rem] ${element.status == 'CANCELED' ? 'bg-[#ff805a]' : 'bg-[#7da4ff]'} px-[1rem] py-[0.2rem] text-white`}>
+                <div
+                  className={`my-[0.5rem] inline-block rounded-[1rem] ${element.status == 'CANCELED' ? 'bg-[#ff805a]' : 'bg-[#7da4ff]'} px-[1rem] py-[0.2rem] text-white`}
+                >
                   {element.status == 'CANCELED' ? '대기 취소' : '입장 완료'}
                 </div>
                 <div className="text-[1.5rem] font-bold">{element.pubName}</div>
@@ -53,7 +54,10 @@ const Waited = () => {
                   {element.enteredTime.substring(0, 10)}
                 </div>
                 <div className="text-[1.2rem] font-bold text-[#3b4d9b]">
-                  {element.status == 'CANCELED' ? '취소 시간' : '방문 입장 시간:'} {element.enteredTime.substring(11, 19)}
+                  {element.status == 'CANCELED'
+                    ? '취소 시간'
+                    : '방문 입장 시간:'}{' '}
+                  {element.enteredTime.substring(11, 19)}
                 </div>
               </div>
             ))}
@@ -72,4 +76,4 @@ const Waited = () => {
   );
 };
 
-export default Waited;
+export default WaitedList;

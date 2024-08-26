@@ -1,14 +1,13 @@
 'use client';
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import Waited from './_components/waited/page';
-import Waiting from './_components/waiting/page';
-import BeforeProfile from './_components/beforeProfile/page';
-import Tab from './_components/tab/page';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import CancelModal from './_components/cancelModal/page';
-import AfterProfile from './_components/afterProfile/page';
-import { LeftArrow } from '@/app/assets';
+import { LeftArrow } from 'public';
+import AfterProfile from './_components/AfterProfile';
+import BeforeProfile from './_components/BeforeProfile';
+import CancelModal from './_components/CancelModal';
+import Tab from './_components/Tab';
+import WaitedList from './_components/WaitedList';
+import WaitingList from './_components/WaitingList';
 
 const Mypage = () => {
   const [curTab, setCurTab] = useState('ing');
@@ -36,9 +35,9 @@ const Mypage = () => {
       <Tab curTab={curTab} setFunc={setCurTab} />
       <div className="h-full overflow-y-auto py-[2rem]">
         {curTab === 'ing' ? (
-          <Waiting modal={modal} setFunc={setModal} setId={setId} />
+          <WaitingList modal={modal} setFunc={setModal} setId={setId} />
         ) : (
-          <Waited />
+          <WaitedList />
         )}
       </div>
       {modal && <CancelModal setModal={setModal} waitingId={id} />}

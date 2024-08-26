@@ -1,4 +1,4 @@
-import adminAxios from '../axios/adminAxios';
+import adminAxios from '../../axios/adminAxios';
 import { getPubInfo } from './getPubInfo';
 
 export const handleStatus = async () => {

@@ -1,4 +1,4 @@
-import pubAxios from '../axios/pubAxios';
+import pubAxios from '../../axios/pubAxios';
 
 interface MenuItem {
   menuName: string;
