@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import AlertModal from './AlertModal';
-import { getPubInfo } from '@/app/api/service/getPubInfo';
+import { getPubInfo } from '@/app/api/service/admin/getPubInfo';
 import adminAxios from '@/app/api/axios/adminAxios';
 
 export const Navbar = () => {

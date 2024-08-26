@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import AlertModal from '../_components/AlertModal';
-import { getWaitingList } from '@/app/api/service/getWaitingList';
+import { getWaitingList } from '@/app/api/service/admin/getWaitingList';
 import adminAxios from '@/app/api/axios/adminAxios';
 
 function formatTime(timeString: string): string {
