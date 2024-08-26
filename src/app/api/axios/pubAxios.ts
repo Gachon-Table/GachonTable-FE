@@ -1,6 +1,6 @@
 import axios from 'axios';
 import adminAxios from './adminAxios';
-import { adminLogout } from '../service/adminAuth';
+import { adminLogout } from '../service/admin/adminAuth';
 
 const pubAxios = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_API_URL}/pub`,
