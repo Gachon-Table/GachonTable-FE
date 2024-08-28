@@ -58,13 +58,13 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
   const loginProcess = () => {
     localStorage.setItem('callbackPath', window.location.pathname);
     const REDIRECT_URI = `${window.location.protocol}//${window.location.host}/oauth`;
-    const CLIENT_ID = process.env.KAKAO_CLIENT_ID;
+    const CLIENT_ID = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
     const code = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
     window.location.href = code;
   };
 
   const handleSubmit = async () => {
-    if (!(await isUserAuthenticated())) {
+    if (!isUserAuthenticated()) {
       alert('로그인이 필요합니다.');
       router.push('/login');
       return;
