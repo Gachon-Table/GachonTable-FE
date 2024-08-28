@@ -15,8 +15,8 @@ interface WaitingProps {
   createdAt: string;
 }
 const DetailBox = ({ pubName, headCount, order, createdAt }: WaitingProps) => {
-  const formattedCreatedAt = divideCreatedAt(createdAt);
-  const [hour, minute, second] = formattedCreatedAt[1].split(':');
+  // const formattedCreatedAt = divideCreatedAt(createdAt);
+  // const [hour, minute, second] = formattedCreatedAt[1].split(':');
   return (
     <div className="flex w-80 flex-row space-x-7 rounded-2xl bg-[#F7F8F9] p-5">
       <div className="flex flex-col space-y-3.5">
@@ -33,8 +33,9 @@ const DetailBox = ({ pubName, headCount, order, createdAt }: WaitingProps) => {
         <div className="flex flex-col">
           <span className="text-xs font-light text-[#A1A19F]">예약시간</span>
           <span className="text-sm font-light">
-            {formattedCreatedAt[0]}&nbsp;
-            {hour}:{minute}
+            {/* {formattedCreatedAt[0]}&nbsp;
+            {hour}:{minute} */}
+            {createdAt}
           </span>
         </div>
       </div>
