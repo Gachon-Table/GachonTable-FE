@@ -64,7 +64,7 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
   };
 
   const handleSubmit = async () => {
-    if (!isUserAuthenticated()) {
+    if (!(await isUserAuthenticated())) {
       alert('로그인이 필요합니다.');
       router.push('/login');
       return;

@@ -5,11 +5,9 @@ const BeforeProfile = () => {
   const loginProcess = () => {
     localStorage.setItem('callbackPath', window.location.pathname);
 
-    console.log('callbackPath:', localStorage.getItem('callbackPath'));
-
-    // const REDIRECT_URI = `${window.location.protocol}//${window.location.host}/oauth`;
-    const REDIRECT_URI = `https://www.lupg.me/oauth`;
+    const REDIRECT_URI = `${window.location.protocol}//${window.location.host}/oauth`;
     const CLIENT_ID = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
+
     const code = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
     window.location.href = code;
   };
