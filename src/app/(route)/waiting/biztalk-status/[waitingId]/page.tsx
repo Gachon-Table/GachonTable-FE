@@ -27,18 +27,12 @@ const WaitingInfo = () => {
     waitingId: '',
     pubName: '',
     orderStatus: '',
-    headCount: 0,
     order: 0,
     createdAt: '',
+    headCount: 0,
   });
 
   const getWaiting = async () => {
-    if (!waitingId || Array.isArray(waitingId)) {
-      console.error('waitigId가 유효하지 않습니다.');
-      alert('유효하지 않은 경로입니다.');
-      router.push('/');
-    }
-
     try {
       const response = await getWaitingInfo(waitingId as string);
       const data: WaitingProps = await response;
@@ -59,7 +53,13 @@ const WaitingInfo = () => {
   };
 
   useEffect(() => {
-    getWaiting();
+    if (!waitingId || Array.isArray(waitingId)) {
+      console.error('waitingId가 유효하지 않습니다.');
+      alert('유효하지 않은 경로입니다.');
+      router.push('/');
+    } else {
+      getWaiting();
+    }
   }, [waitingId]);
 
   return (
