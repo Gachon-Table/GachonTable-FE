@@ -1,14 +1,15 @@
 'use client';
-import { Noto_Sans_KR } from 'next/font/google';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import './globals.css';
+import localFont from 'next/font/local';
 
-const noto = Noto_Sans_KR({
-  subsets: ['latin'], // 또는 preload: false
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+const pretendard = localFont({
+  src: './fonts/PretendardVariable.woff2',
+  display: 'swap',
+  weight: '45 920',
+  variable: '--font-pretendard',
 });
-
 export default function RootLayout({
   children,
 }: {
@@ -21,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${noto.className} ${!isRowAlignment ? 'mx-auto h-screen min-w-[360px] max-w-[500px]' : 'h-screen w-screen'}`}
+        className={`${pretendard.variable} font-pretendard ${!isRowAlignment ? 'mx-auto h-screen min-w-[360px] max-w-[500px]' : 'h-screen w-screen'}`}
       >
         {children}
       </body>
