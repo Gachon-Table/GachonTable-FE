@@ -1,9 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+'use client';
 import React from 'react';
 
-const divideCreatedAt = (createdAt: string) => {
+const divideCreatedAt = (createdAt: string | undefined) => {
+  if (!createdAt || !createdAt.includes('T')) {
+    return 'Invalid date';
+  }
+
   const [date, timePart] = createdAt.split('T');
-  return [date, timePart];
+  const [hours, minutes] = timePart.split(':');
+
+  return `${date} ${hours}:${minutes}`;
 };
 
 interface WaitingProps {
@@ -17,6 +24,9 @@ interface WaitingProps {
 const DetailBox = ({ pubName, headCount, order, createdAt }: WaitingProps) => {
   // const formattedCreatedAt = divideCreatedAt(createdAt);
   // const [hour, minute, second] = formattedCreatedAt[1].split(':');
+  const formattedCreatedAt = createdAt
+    ? divideCreatedAt(createdAt)
+    : 'Loading...';
   return (
     <div className="flex w-80 flex-row space-x-7 rounded-2xl bg-[#F7F8F9] p-5">
       <div className="flex flex-col space-y-3.5">
@@ -35,7 +45,7 @@ const DetailBox = ({ pubName, headCount, order, createdAt }: WaitingProps) => {
           <span className="text-sm font-light">
             {/* {formattedCreatedAt[0]}&nbsp;
             {hour}:{minute} */}
-            {createdAt}
+            {formattedCreatedAt}
           </span>
         </div>
       </div>

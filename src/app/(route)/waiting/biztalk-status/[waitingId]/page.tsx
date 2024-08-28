@@ -22,7 +22,7 @@ const WaitingInfo = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
   const [waitingState, setWaitingState] = useState<WaitingProps>({
     waitingId: '',
     pubName: '',
@@ -80,7 +80,7 @@ const WaitingInfo = () => {
           order={waitingState.order}
           createdAt={waitingState.createdAt}
         />
-        <CancelButton handleCancle={() => setModal(!modal)} />
+        <CancelButton handleCancel={() => setModal(!modal)} />
       </div>
       {modal && waitingState.waitingId && (
         <CancelModal setModal={setModal} waitingId={waitingState.waitingId} />
