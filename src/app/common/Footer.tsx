@@ -20,7 +20,7 @@ export const Footer = () => {
           사업자 등록 번호: <span className="text-[#666666]">488-28-01237</span>
         </p>
         <p>
-          개인정보담장: <span className="text-[#666666]">tisckd@naver.com</span>
+          개인정보담당: <span className="text-[#666666]">tisckd@naver.com</span>
         </p>
       </div>
       <div>

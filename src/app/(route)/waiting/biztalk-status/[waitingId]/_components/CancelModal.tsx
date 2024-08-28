@@ -25,7 +25,7 @@ const CancelModal = ({ waitingId, setModal }: CancelModalProps) => {
           onClick={(e) => {
             e.stopPropagation();
           }}
-          className="flex w-4/6 flex-col items-center justify-center gap-2 rounded-2xl bg-[#FEFEFF] py-4 shadow-md shadow-gray-300/50"
+          className="flex flex-col items-center justify-center gap-2 rounded-2xl bg-[#FEFEFF] px-5 py-4 shadow-md shadow-gray-300/50"
         >
           <div className="text-md font-medium">줄서기 취소 하시겠습니까?</div>
           <div className="text-sm font-light text-[#52575C]">

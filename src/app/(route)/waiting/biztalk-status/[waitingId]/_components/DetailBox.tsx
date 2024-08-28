@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 
 interface WaitingProps {
@@ -9,8 +10,18 @@ interface WaitingProps {
   createdAt: string;
 }
 const DetailBox = ({ pubName, headCount, order, createdAt }: WaitingProps) => {
+  const divideCreatedAt = (createdAt: string) => {
+    const [date, timePart] = createdAt.split('T');
+    const [hours, minutes] = timePart.split(':');
+    const time = `${hours}:${minutes}`;
+
+    return `${date} ${time}`;
+  };
+
+  const formattedCreatedAt = divideCreatedAt(createdAt);
+
   return (
-    <div className="flex w-80 flex-row space-x-10 rounded-2xl bg-[#F7F8F9] p-5">
+    <div className="flex w-80 flex-row space-x-7 rounded-2xl bg-[#F7F8F9] p-5">
       <div className="flex flex-col space-y-3.5">
         <div className="flex flex-col">
           <span className="text-xs font-light text-[#A1A19F]">주점</span>
@@ -24,15 +35,14 @@ const DetailBox = ({ pubName, headCount, order, createdAt }: WaitingProps) => {
 
         <div className="flex flex-col">
           <span className="text-xs font-light text-[#A1A19F]">예약시간</span>
-          <span className="text-sm font-light">{createdAt}</span>
+          <span className="text-sm font-light">{formattedCreatedAt}</span>
         </div>
       </div>
       <div className="pt-4">
         <div className="h-28 border-l border-[#E7E7E7]" />
       </div>
-      <div className="pt-3.5">
-        <span className="pl-3 text-xs font-light text-[#A1A19F]">내 순서</span>
-        {/* order가 취소된 상태면 ? "취소된 웨이팅입니다." :  {orderStatus} 번째*/}
+      <div className="mt-7 flex flex-col items-center pl-5 ">
+        <div className="text-xs font-light text-[#202010]">내 순서</div>
         {order === -1 ? (
           <div className="mt-5 text-sm">취소된 웨이팅입니다.</div>
         ) : (

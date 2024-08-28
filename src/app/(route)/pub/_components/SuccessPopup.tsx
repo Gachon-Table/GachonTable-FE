@@ -10,17 +10,21 @@ const SuccessPopup: React.FC<SuccessPopupProps> = ({ onClose }) => {
 
   const handleConfirm = () => {
     onClose();
-    router.push('/landing');
+    router.push('/');
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-300 bg-opacity-50">
-      <div className="relative w-full max-w-md mx-auto bg-white text-black text-center rounded-lg shadow-lg border p-4">
-        <div className="text-black text-xl font-bold h-10 flex justify-center items-center">신청이 완료되었습니다!</div>
-        <div className="text-black text-base h-10 flex justify-center items-center">확인을 눌러 홈으로 돌아가세요.</div>
-        <div className="flex flex-row justify-center mt-4 gap-4 h-12">
+      <div className="relative mx-auto w-full max-w-md rounded-lg border bg-white p-4 text-center text-black shadow-lg">
+        <div className="flex h-10 items-center justify-center text-xl font-bold text-black">
+          신청이 완료되었습니다!
+        </div>
+        <div className="flex h-10 items-center justify-center text-base text-black">
+          확인을 눌러 홈으로 돌아가세요.
+        </div>
+        <div className="mt-4 flex h-12 flex-row justify-center gap-4">
           <div
-            className="w-1/5 text-lg flex justify-center items-center cursor-pointer bg-red-600 text-white rounded py-2"
+            className="flex w-1/5 cursor-pointer items-center justify-center rounded bg-red-600 py-2 text-lg text-white"
             onClick={handleConfirm}
           >
             확인

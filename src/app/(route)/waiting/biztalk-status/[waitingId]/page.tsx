@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import Header from './_components/Header';
 import AlertBox from './_components/AlertBox';
@@ -20,7 +20,7 @@ interface WaitingProps {
 
 const WaitingInfo = () => {
   const router = useRouter();
-  const { waitingId } = router.query;
+  const pathname = usePathname();
 
   const [modal, setModal] = useState(true);
   const [waitingState, setWaitingState] = useState<WaitingProps>({
@@ -31,6 +31,13 @@ const WaitingInfo = () => {
     createdAt: '',
     headCount: 0,
   });
+
+  const extractWaitingId = () => {
+    const pathParts = pathname.split('/');
+    return pathParts[pathParts.length - 1];
+  };
+
+  const waitingId = extractWaitingId();
 
   const getWaiting = async () => {
     try {
@@ -53,7 +60,7 @@ const WaitingInfo = () => {
   };
 
   useEffect(() => {
-    if (!waitingId || Array.isArray(waitingId)) {
+    if (!waitingId) {
       console.error('waitingId가 유효하지 않습니다.');
       alert('유효하지 않은 경로입니다.');
       router.push('/');
