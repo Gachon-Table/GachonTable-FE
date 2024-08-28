@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 
+const divideCreatedAt = (createdAt: string) => {
+  const [date, timePart] = createdAt.split('T');
+  return [date, timePart];
+};
+
 interface WaitingProps {
   waitingId?: string;
   pubName: string;
@@ -10,16 +15,8 @@ interface WaitingProps {
   createdAt: string;
 }
 const DetailBox = ({ pubName, headCount, order, createdAt }: WaitingProps) => {
-  const divideCreatedAt = (createdAt: string) => {
-    const [date, timePart] = createdAt.split('T');
-    const [hours, minutes] = timePart.split(':');
-    const time = `${hours}:${minutes}`;
-
-    return `${date} ${time}`;
-  };
-
   const formattedCreatedAt = divideCreatedAt(createdAt);
-
+  const [hour, minute, second] = formattedCreatedAt[1].split(':');
   return (
     <div className="flex w-80 flex-row space-x-7 rounded-2xl bg-[#F7F8F9] p-5">
       <div className="flex flex-col space-y-3.5">
@@ -35,7 +32,10 @@ const DetailBox = ({ pubName, headCount, order, createdAt }: WaitingProps) => {
 
         <div className="flex flex-col">
           <span className="text-xs font-light text-[#A1A19F]">예약시간</span>
-          <span className="text-sm font-light">{formattedCreatedAt}</span>
+          <span className="text-sm font-light">
+            {formattedCreatedAt[0]}&nbsp;
+            {hour}:{minute}
+          </span>
         </div>
       </div>
       <div className="pt-4">
