@@ -16,6 +16,7 @@ interface PubResponse {
     menu?: string;
     waitingCount: number;
     openStatus: boolean;
+    waitingStatus: boolean;
   };
   menu: MenuItem[];
 }

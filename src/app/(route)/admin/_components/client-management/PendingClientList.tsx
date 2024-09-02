@@ -1,9 +1,13 @@
+'use client';
 import React, { useState } from 'react';
 import {
   PendingClientItemProps,
   PendingClientItem,
 } from '@/app/(route)/admin/_components/client-management/PendingClientItem';
 import { TableInputToastModal } from '@/app/(route)/admin/_components/client-management/TableInputToastModal';
+import AlertModal from '@/app/(route)/admin/_components/AlertModal';
+import { patchCallClient } from '@/app/api/service/admin/patchCallClient';
+import { patchEnterClient } from '@/app/api/service/admin/patchEnterClient';
 
 export interface PendingClientListProps {
   pendingClientList: PendingClientItemProps[];
@@ -13,9 +17,38 @@ export const PendingClientList = ({
   pendingClientList,
 }: PendingClientListProps) => {
   const [isTableModalOpen, setIsTableModalOpen] = useState(false);
+  const [isCallModalOpen, setIsCallModalOpen] = useState(false);
+  const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
+
+  const handleCallClick = (waitingId: string) => {
+    setSelectedClientId(waitingId);
+    setIsCallModalOpen(true);
+  };
 
   const handleTableInputModal = () => {
     setIsTableModalOpen(true);
+  };
+
+  const handleEnterClient = async (tableNumber: number) => {
+    if (selectedClientId) {
+      try {
+        await patchEnterClient(selectedClientId, tableNumber);
+        setIsTableModalOpen(false);
+      } catch (error) {
+        console.error('입장 처리 중 오류 발생:', error);
+      }
+    }
+  };
+
+  const handleCallClient = async () => {
+    if (selectedClientId) {
+      try {
+        await patchCallClient(selectedClientId);
+        setIsCallModalOpen(false);
+      } catch (error) {
+        console.error('고객 호출 중 오류 발생:', error);
+      }
+    }
   };
 
   return (
@@ -29,15 +62,28 @@ export const PendingClientList = ({
               headCount={client.headCount}
               tel={client.tel}
               waitingStatus={client.waitingStatus}
+              waitingId={client.waitingId}
+              handleCallUser={() => handleCallClick(client.waitingId as string)}
               handleTableInputModal={handleTableInputModal}
             />
           </div>
         ))}
       </div>
-      {isTableModalOpen && (
+      {isTableModalOpen && selectedClientId && (
         <TableInputToastModal
           onCancel={() => setIsTableModalOpen(false)}
-          onSubmit={handleTableInputModal}
+          onSubmit={handleEnterClient}
+        />
+      )}
+      {isCallModalOpen && selectedClientId && (
+        <AlertModal
+          message={`${
+            pendingClientList.find(
+              (client) => client.waitingId === selectedClientId,
+            )?.username
+          } 고객을 호출하시겠습니까?`}
+          onCancel={() => setIsCallModalOpen(false)}
+          onConfirm={handleCallClient}
         />
       )}
     </>
