@@ -1,8 +1,8 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { adminLogin, isAuthenticated } from '@/app/api/service/admin/adminAuth';
+import { Logo } from 'public';
 
 export default function AdminLogin() {
   const [id, setId] = useState('');
@@ -39,56 +39,55 @@ export default function AdminLogin() {
   }, [router]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-white">
-      <div className="mb-10 flex flex-col items-center">
-        <Image
-          src="/images/logo-blue.png"
-          alt="로고"
-          className="mb-10 size-40"
-          width={298}
-          height={283}
-        />
-        <div className="tablet:text-3xl laptop:text-4xl desktop:text-5xl text-center text-3xl font-bold text-tory-blue mobile:text-3xl">
-          관리자 로그인
+    <div className=" flex min-h-screen flex-col items-center justify-between bg-white">
+      <div className="tablet:max-w-md laptop:max-w-lg desktop:max-w-xl mt-36 w-full max-w-xs mobile:max-w-sm">
+        <div className="mb-[53px] flex flex-col items-center">
+          <Logo />
+          <div className="tablet:text-3xl laptop:text-4xl desktop:text-5xl text-gy-700 mt-9 text-center text-2xl font-bold">
+            관리자 로그인
+          </div>
         </div>
-      </div>
 
-      <div className="tablet:max-w-md laptop:max-w-lg desktop:max-w-xl w-full max-w-xs mobile:max-w-sm">
-        <div className="mb-4">
+        <div className="mb-6">
           <label
             htmlFor="id"
-            className="mb-2 block font-extralight text-tory-blue"
+            className="text-gy-600 mb-[6px] block text-sm font-medium"
           >
-            ID
+            아이디
           </label>
           <input
             id="id"
             type="text"
+            placeholder="아이디를 입력해주세요"
             value={id}
             onChange={(e) => setId(e.target.value)}
-            className="w-full rounded-md border border-tory-blue px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 mobile:py-4"
+            className="border-gy-0 focus:border-gy-0 w-full rounded-md border bg-[#F4F4F4] py-4 pl-4 pr-[71px] focus:outline-none focus:ring-2"
           />
         </div>
-        <div className="mb-6">
+        <div>
           <label
             htmlFor="password"
-            className="mb-2 block font-extralight text-tory-blue"
+            className="text-gy-600 mb-[6px] block text-sm font-medium"
           >
-            Password
+            비밀번호
           </label>
           <input
             id="password"
             type="password"
+            placeholder="비밀번호를 입력해주세요"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-md border border-tory-blue px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 mobile:py-4"
+            className="border-gy-0 focus:border-gy-0 w-full rounded-md border bg-[#F4F4F4] py-4 pl-4 pr-[71px] focus:outline-none focus:ring-2"
           />
         </div>
+      </div>
+
+      <div className="tablet:max-w-md laptop:max-w-lg desktop:max-w-xl mb-8 w-full max-w-xs mobile:max-w-sm">
         <button
           onClick={handleLogin}
-          className="w-full rounded-md bg-main-blue py-3 font-light text-white transition-colors duration-300 hover:bg-blue-600 mobile:py-4"
+          className="h-[64px] w-full rounded-md bg-primary-400 px-6 py-[22px] text-lg font-bold leading-6 text-white transition-colors duration-300 hover:bg-blue-600"
         >
-          Login
+          로그인
         </button>
       </div>
     </div>

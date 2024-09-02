@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -13,13 +13,13 @@ const config: Config = {
         pretendard: ['var(--font-pretendard)'],
       },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic':
+          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       screens: {
-        'mobile': '414px',
-      }, 
+        mobile: '414px',
+      },
       colors: {
         // 새로운 컬러 팔레트
         'primary-400': '#1043A4',
@@ -58,8 +58,8 @@ const config: Config = {
         'tory-blue': '#014f9e',
         'dodger-blue': '#0096ff',
         'deep-cove': '#001140',
-        'sunglo': '#de6868',
-        'gallery': '#efeff0',
+        sunglo: '#de6868',
+        gallery: '#efeff0',
         'modal-rgba': 'rgba(0, 0, 0, 0.4)',
       },
       boxShadow: {
@@ -71,7 +71,7 @@ const config: Config = {
         '28rem': '28rem',
       },
       height: {
-        '4/10': '40%', 
+        '4/10': '40%',
         '690': '43.125rem',
         '550': '34.375rem',
       },
@@ -97,97 +97,98 @@ const config: Config = {
         letterSpacing: '-0.025em',
       },
 
-      '.font-h2': {
-        '@apply font-default font-bold': {},
-        fontSize: '22px',      
-        lineHeight: '30px',    
-        letterSpacing: '-0.025em',
-      },
+        '.font-h2': {
+          '@apply font-default font-bold': {},
+          fontSize: '22px',
+          lineHeight: '30px',
+          letterSpacing: '-0.025em',
+        },
 
-      '.font-h3': {
-        '@apply font-default font-semibold': {},
-        fontSize: '20px',    
-        lineHeight: '28px',    
-        letterSpacing: '-0.02em',
-      },
+        '.font-h3': {
+          '@apply font-default font-semibold': {},
+          fontSize: '20px',
+          lineHeight: '28px',
+          letterSpacing: '-0.02em',
+        },
 
-      '.font-h4': {
-        '@apply font-default font-semibold': {},
-        fontSize: '18px',      
-        lineHeight: '26px',    
-        letterSpacing: '-0.01em',
-      },
+        '.font-h4': {
+          '@apply font-default font-semibold': {},
+          fontSize: '18px',
+          lineHeight: '26px',
+          letterSpacing: '-0.01em',
+        },
 
-      '.font-b1-normal-semibold': {
-        '@apply font-default font-semibold': {},
-        fontSize: '16px',     
-        lineHeight: '24px',    
-        letterSpacing: '-0.01em',
-      },
+        '.font-b1-normal-semibold': {
+          '@apply font-default font-semibold': {},
+          fontSize: '16px',
+          lineHeight: '24px',
+          letterSpacing: '-0.01em',
+        },
 
-      '.font-b1-normal-medium': {
-        '@apply font-default font-medium': {},
-        fontSize: '16px',     
-        lineHeight: '24px',    
-        letterSpacing: '-0.01em',
-      },
+        '.font-b1-normal-medium': {
+          '@apply font-default font-medium': {},
+          fontSize: '16px',
+          lineHeight: '24px',
+          letterSpacing: '-0.01em',
+        },
 
-      '.font-b1-long': {
-        '@apply font-default font-regular': {},
-        fontSize: '16px',      
-        lineHeight: '26px',    
-        letterSpacing: '-0.01em',
-      },
+        '.font-b1-long': {
+          '@apply font-default font-regular': {},
+          fontSize: '16px',
+          lineHeight: '26px',
+          letterSpacing: '-0.01em',
+        },
 
-      '.font-b2-normal-semibold': {
-        '@apply font-default font-semibold': {},
-        fontSize: '14px',      
-        lineHeight: '20px',   
-        letterSpacing: '-0.005em',
-      },
+        '.font-b2-normal-semibold': {
+          '@apply font-default font-semibold': {},
+          fontSize: '14px',
+          lineHeight: '20px',
+          letterSpacing: '-0.005em',
+        },
 
-      '.font-b2-normal-medium': {
-        '@apply font-default font-medium': {},
-        fontSize: '14px',      
-        lineHeight: '20px',    
-        letterSpacing: '-0.005em',
-      },
+        '.font-b2-normal-medium': {
+          '@apply font-default font-medium': {},
+          fontSize: '14px',
+          lineHeight: '20px',
+          letterSpacing: '-0.005em',
+        },
 
-      '.font-b2-long': {
-        '@apply font-default font-regular': {},
-        fontSize: '14px',     
-        lineHeight: '22px',    
-        letterSpacing: '-0.005em',
-      },
+        '.font-b2-long': {
+          '@apply font-default font-regular': {},
+          fontSize: '14px',
+          lineHeight: '22px',
+          letterSpacing: '-0.005em',
+        },
 
-      '.font-c1-semibold': {
-        '@apply font-default font-semibold': {},
-        fontSize: '12px',     
-        lineHeight: '18px',    
-        letterSpacing: '0',
-      },
+        '.font-c1-semibold': {
+          '@apply font-default font-semibold': {},
+          fontSize: '12px',
+          lineHeight: '18px',
+          letterSpacing: '0',
+        },
 
-      '.font-c1-medium': {
-        '@apply font-default font-medium': {},
-        fontSize: '12px',      
-        lineHeight: '18px',    
-        letterSpacing: '0',
-      },
+        '.font-c1-medium': {
+          '@apply font-default font-medium': {},
+          fontSize: '12px',
+          lineHeight: '18px',
+          letterSpacing: '0',
+        },
 
-      '.font-c2-semibold': {
-        '@apply font-default font-semibold': {},
-        fontSize: '11px',      
-        lineHeight: '16px',  
-        letterSpacing: '0',
-      },
+        '.font-c2-semibold': {
+          '@apply font-default font-semibold': {},
+          fontSize: '11px',
+          lineHeight: '16px',
+          letterSpacing: '0',
+        },
 
-      '.font-c2-medium': {
-        '@apply font-default font-medium': {},
-        fontSize: '11px',      
-        lineHeight: '16px',    
-        letterSpacing: '0',
-      },
-    });
-  },],
+        '.font-c2-medium': {
+          '@apply font-default font-medium': {},
+          fontSize: '11px',
+          lineHeight: '16px',
+          letterSpacing: '0',
+        },
+      });
+    },
+  ],
 };
 export default config;

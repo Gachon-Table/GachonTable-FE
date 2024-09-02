@@ -13,7 +13,7 @@ const AlertModal: React.FC<AlertModalProps> = ({
 }) => {
   return (
     <>
-      <div className="fixed left-0 top-0 z-40 h-full w-full bg-black opacity-30"></div>
+      <div className="gy-30 fixed left-0 top-0 z-40 h-full w-full bg-black"></div>
 
       <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center">
         <div className="flex flex-col items-center justify-center rounded-md bg-white p-6 px-4 pb-4 pt-8">
@@ -21,7 +21,7 @@ const AlertModal: React.FC<AlertModalProps> = ({
           <div className="gap-5">
             <div className="mt-5 flex items-center justify-center gap-[7px]">
               <button
-                className="h-[46px] w-[136px] rounded-md bg-opacity-100 px-[14px] py-[13px] font-semibold text-opacity-700 hover:bg-gray-100"
+                className="bg-gy-100 text-gy-700 h-[46px] w-[136px] rounded-md px-[14px] py-[13px] font-semibold hover:bg-gray-100"
                 onClick={onCancel}
               >
                 취소

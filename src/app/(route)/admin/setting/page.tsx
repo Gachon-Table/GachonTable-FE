@@ -26,6 +26,56 @@ export default function Setting() {
   const clickHandler = () => {
     alert('click');
   };
+
+  //   const confirmStatus = async () => {
+  //     try {
+  //       const newStatus = !openStatus;
+  //       const credentials = {
+  //         openStatus: newStatus,
+  //       };
+
+  //       const response = await adminAxios.patch('/status', credentials);
+
+  //       if (response.status === 200) {
+  //         setOpenStatus(newStatus);
+  //         if (newStatus) {
+  //           alert('대기 오픈되었습니다!');
+  //         } else {
+  //           alert('대기 마감되었습니다!');
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error('대기 상태 변경 실패: ', error);
+  //     } finally {
+  //       setShowStatusModal(false);
+  //     }
+  //   };
+
+  //   const confirmLogout = async () => {
+  //     try {
+  //       localStorage.removeItem('accessToken');
+  //       localStorage.removeItem('refreshToken');
+  //       localStorage.removeItem('pubId');
+  //       router.push('/admin');
+  //     } catch (error) {
+  //       console.error('로그아웃 처리 중 오류 발생:', error);
+  //       alert('로그아웃 처리 중 오류가 발생했습니다.');
+  //     } finally {
+  //       setShowLogoutModal(false);
+  //     }
+  //   };
+
+  //   useEffect(() => {
+  //     const fetchPubInfo = async () => {
+  //       try {
+  //         const data = await getPubInfo();
+  //         setOpenStatus(data.pub.openStatus);
+  //       } catch (error) {
+  //         console.error('주점 정보 가져오기 실패:', error);
+  //       }
+  //     };
+  //     fetchPubInfo();
+  //   }, []);
   return (
     <div>
       <div className="flex min-h-screen flex-col items-center space-y-6 bg-bg-white">
