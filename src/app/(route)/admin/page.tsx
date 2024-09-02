@@ -17,7 +17,7 @@ export default function AdminLogin() {
 
     const loginSuccess = await adminLogin(credentials);
     if (loginSuccess) {
-      router.push('/admin/waiting-management');
+      router.push('/admin/client-management');
     }
   };
 
@@ -26,7 +26,7 @@ export default function AdminLogin() {
       try {
         const authenticated = await isAuthenticated();
         if (authenticated) {
-          router.push('/admin/waiting-management');
+          router.push('/admin/client-management');
         } else {
           router.push('/admin');
         }
@@ -43,7 +43,7 @@ export default function AdminLogin() {
       <div className="tablet:max-w-md laptop:max-w-lg desktop:max-w-xl mt-36 w-full max-w-xs mobile:max-w-sm">
         <div className="mb-[53px] flex flex-col items-center">
           <Logo />
-          <div className="tablet:text-3xl laptop:text-4xl desktop:text-5xl text-gy-700 mt-9 text-center text-2xl font-bold">
+          <div className="tablet:text-3xl laptop:text-4xl desktop:text-5xl mt-9 text-center text-2xl font-bold text-gy-700">
             관리자 로그인
           </div>
         </div>
@@ -51,7 +51,7 @@ export default function AdminLogin() {
         <div className="mb-6">
           <label
             htmlFor="id"
-            className="text-gy-600 mb-[6px] block text-sm font-medium"
+            className="mb-[6px] block text-sm font-medium text-gy-600"
           >
             아이디
           </label>
@@ -61,13 +61,13 @@ export default function AdminLogin() {
             placeholder="아이디를 입력해주세요"
             value={id}
             onChange={(e) => setId(e.target.value)}
-            className="border-gy-0 focus:border-gy-0 w-full rounded-md border bg-[#F4F4F4] py-4 pl-4 pr-[71px] focus:outline-none focus:ring-2"
+            className="w-full rounded-md border border-gy-0 bg-[#F4F4F4] py-4 pl-4 pr-[71px] focus:border-gy-0 focus:outline-none focus:ring-2"
           />
         </div>
         <div>
           <label
             htmlFor="password"
-            className="text-gy-600 mb-[6px] block text-sm font-medium"
+            className="mb-[6px] block text-sm font-medium text-gy-600"
           >
             비밀번호
           </label>
@@ -77,7 +77,7 @@ export default function AdminLogin() {
             placeholder="비밀번호를 입력해주세요"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="border-gy-0 focus:border-gy-0 w-full rounded-md border bg-[#F4F4F4] py-4 pl-4 pr-[71px] focus:outline-none focus:ring-2"
+            className="w-full rounded-md border border-gy-0 bg-[#F4F4F4] py-4 pl-4 pr-[71px] focus:border-gy-0 focus:outline-none focus:ring-2"
           />
         </div>
       </div>
@@ -85,7 +85,7 @@ export default function AdminLogin() {
       <div className="tablet:max-w-md laptop:max-w-lg desktop:max-w-xl mb-8 w-full max-w-xs mobile:max-w-sm">
         <button
           onClick={handleLogin}
-          className="h-[64px] w-full rounded-md bg-primary-400 px-6 py-[22px] text-lg font-bold leading-6 text-white transition-colors duration-300 hover:bg-blue-600"
+          className="h-[64px] w-full rounded-md bg-primary-400 px-6 py-[22px] text-lg font-bold leading-6 text-white"
         >
           로그인
         </button>

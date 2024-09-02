@@ -1,5 +1,5 @@
 'use client';
-import { usePathname } from 'next/navigation';
+// import { usePathname } from 'next/navigation';
 import React from 'react';
 import './globals.css';
 import localFont from 'next/font/local';
@@ -15,14 +15,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
-  const isRowAlignment = pathname === '/admin/onsite-lineup';
+  // const isRowAlignment = pathname === '/admin/onsite-lineup';
 
   return (
     <html lang="en">
       <body
-        className={`${pretendard.variable} font-pretendard ${!isRowAlignment ? 'mx-auto h-screen min-w-[360px] max-w-[500px]' : 'h-screen w-screen'}`}
+        className={`${pretendard.variable} mx-auto max-w-[414px] font-pretendard`}
       >
         {children}
       </body>

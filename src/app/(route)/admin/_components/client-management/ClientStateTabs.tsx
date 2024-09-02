@@ -10,11 +10,11 @@ export const ClientStateTabs = ({
   onClick,
 }: TabProps) => {
   return (
-    <div className="bg-gy-200 mb-6 flex space-x-1.5 overflow-hidden rounded-md p-1.5">
+    <div className="mb-6 flex space-x-1.5 rounded-md bg-gy-200 p-1.5">
       <div
         className={`flex cursor-pointer items-center justify-center rounded px-[33px] py-1.5 font-semibold transition-colors duration-300 ${
           selectedValue === '대기 고객'
-            ? 'text-gy-700 bg-wt'
+            ? 'bg-wt text-gy-700'
             : 'bg-gy-200 text-gy-400'
         }`}
         onClick={() => onClick?.('대기 고객')}
@@ -27,7 +27,7 @@ export const ClientStateTabs = ({
       <div
         className={`cursor-pointer rounded px-[33px] py-1.5 text-center transition-colors duration-300 font-b1-normal-semibold ${
           selectedValue === '이용 고객'
-            ? 'text-gy-700 bg-wt'
+            ? 'bg-wt text-gy-700'
             : 'bg-gy-200 text-gy-400'
         }`}
         onClick={() => onClick?.('이용 고객')}
