@@ -3,7 +3,7 @@ import { Delete } from 'public';
 
 export interface TableInputToastModalProps {
   onCancel: () => void;
-  onSubmit: (tableNumber: number | null) => void;
+  onSubmit: (tableNumber: number) => void; // 'tableNumber'는 이제 'number'만 허용
 }
 
 export const TableInputToastModal = ({
@@ -40,13 +40,13 @@ export const TableInputToastModal = ({
       ></div>
       <div className="relative z-50 rounded-t-[20px] bg-wt px-4 pb-4 pt-8">
         <div className="mb-4 font-h3">테이블 번호를 지정해주세요.</div>
-        <div className="bg-gy-0 mb-6 rounded-lg px-[15px] py-3 ">
+        <div className="mb-6 rounded-lg bg-gy-0 px-[15px] py-3 ">
           <input
             ref={inputRef}
             type="text"
             value={tableNumber === null ? '' : tableNumber}
             onChange={handleChange}
-            className="bg-gy-0 w-full font-h2 focus:outline-none"
+            className="w-full bg-gy-0 font-h2 focus:outline-none"
             aria-label="테이블 번호 입력"
           />
           {tableNumber !== null && (
@@ -60,7 +60,11 @@ export const TableInputToastModal = ({
         </div>
 
         <button
-          className={`rounded-md bg-primary-400 px-6 py-[19px] ${tableNumber === null ? 'cursor-not-allowed opacity-50' : ''}`}
+          className={`rounded-md bg-primary-400 px-6 py-[19px] ${
+            tableNumber === null || tableNumber <= 0
+              ? 'cursor-not-allowed opacity-50'
+              : ''
+          }`}
           onClick={handleSubmit}
           disabled={tableNumber === null || tableNumber <= 0}
         >

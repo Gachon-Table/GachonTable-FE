@@ -1,15 +1,23 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Navbar from '@/app/(route)/admin/_components/NavBar';
 import AlertModal from '@/app/(route)/admin/_components/AlertModal';
 import { ClouserCard } from '@/app/(route)/admin/_components/setting/ClosureCard';
 import { LogoutButton } from '@/app/(route)/admin/_components/setting/LogoutButton';
 import { WaitingClose, PubClose } from 'public';
+import { patchPubStatus } from '@/app/api/service/admin/patchPubStatus';
+import { patchWaitingStatus } from '@/app/api/service/admin/patchWaitingStatus';
+import { getPubInfo } from '@/app/api/service/admin/getPubInfo';
 
 export default function Setting() {
+  const router = useRouter();
   const [isWaitModalOpen, setIsWaitModalOpen] = useState(false);
   const [isPubModalOpen, setIsPubModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+  const [pubOpenStatus, setPubOpenStatus] = useState(false);
+  const [waitingOpenStatus, setWaitingOpenStatus] = useState(false);
 
   const handleWaitingClouserClick = () => {
     setIsWaitModalOpen(true);
@@ -23,74 +31,60 @@ export default function Setting() {
     setIsLogoutModalOpen(true);
   };
 
-  const clickHandler = () => {
-    alert('click');
+  const confirmLogout = async () => {
+    try {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('pubId');
+      router.push('/admin');
+    } catch (error) {
+      console.error('로그아웃 처리 중 오류 발생:', error);
+      alert('로그아웃 실패');
+    } finally {
+      setIsLogoutModalOpen(false);
+    }
   };
 
-  //   const confirmStatus = async () => {
-  //     try {
-  //       const newStatus = !openStatus;
-  //       const credentials = {
-  //         openStatus: newStatus,
-  //       };
+  const handleConfirmWaiting = async () => {
+    await patchWaitingStatus(
+      waitingOpenStatus,
+      setWaitingOpenStatus,
+      setIsWaitModalOpen,
+    );
+  };
 
-  //       const response = await adminAxios.patch('/status', credentials);
+  const handleConfirmPub = async () => {
+    await patchPubStatus(pubOpenStatus, setPubOpenStatus, setIsPubModalOpen);
+  };
 
-  //       if (response.status === 200) {
-  //         setOpenStatus(newStatus);
-  //         if (newStatus) {
-  //           alert('대기 오픈되었습니다!');
-  //         } else {
-  //           alert('대기 마감되었습니다!');
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error('대기 상태 변경 실패: ', error);
-  //     } finally {
-  //       setShowStatusModal(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchPubInfo = async () => {
+      try {
+        const data = await getPubInfo();
+        setPubOpenStatus(data.pub.openStatus);
+        setWaitingOpenStatus(data.pub.waitingStatus);
+      } catch (error) {
+        console.error('주점 정보 가져오기 실패:', error);
+      }
+    };
+    fetchPubInfo();
+  }, []);
 
-  //   const confirmLogout = async () => {
-  //     try {
-  //       localStorage.removeItem('accessToken');
-  //       localStorage.removeItem('refreshToken');
-  //       localStorage.removeItem('pubId');
-  //       router.push('/admin');
-  //     } catch (error) {
-  //       console.error('로그아웃 처리 중 오류 발생:', error);
-  //       alert('로그아웃 처리 중 오류가 발생했습니다.');
-  //     } finally {
-  //       setShowLogoutModal(false);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     const fetchPubInfo = async () => {
-  //       try {
-  //         const data = await getPubInfo();
-  //         setOpenStatus(data.pub.openStatus);
-  //       } catch (error) {
-  //         console.error('주점 정보 가져오기 실패:', error);
-  //       }
-  //     };
-  //     fetchPubInfo();
-  //   }, []);
   return (
     <div>
-      <div className="flex min-h-screen flex-col items-center space-y-6 bg-bg-white">
+      <div className="flex min-h-screen flex-col items-center bg-bg-white">
         <Navbar />
-        <div className="flex flex-row space-x-3">
+        <div className="mb-6 flex flex-row space-x-3">
           <ClouserCard
-            label={'대기 마감'}
+            label={waitingOpenStatus ? '대기 마감' : '대기 오픈'}
             icon={<WaitingClose />}
-            buttonLabel={'대기 오픈하기'}
+            buttonLabel={waitingOpenStatus ? '대기 마감하기' : '대기 오픈하기'}
             onClick={handleWaitingClouserClick}
           />
           <ClouserCard
-            label={'점포 마감'}
+            label={pubOpenStatus ? '점포 마감' : '점포 오픈'}
             icon={<PubClose />}
-            buttonLabel={'점포 오픈하기'}
+            buttonLabel={pubOpenStatus ? '점포 마감하기' : '점포 오픈하기'}
             onClick={handlePubClouserClick}
           />
         </div>
@@ -99,17 +93,17 @@ export default function Setting() {
 
       {isWaitModalOpen && (
         <AlertModal
-          message="대기를 마감할까요?"
+          message={`대기를 ${waitingOpenStatus ? '마감' : '오픈'}할까요?`}
           onCancel={() => setIsWaitModalOpen(false)}
-          onConfirm={clickHandler}
+          onConfirm={handleConfirmWaiting}
         />
       )}
 
       {isPubModalOpen && (
         <AlertModal
-          message="점포를 마감할까요?"
+          message={`점포를 ${pubOpenStatus ? '마감' : '오픈'}할까요?`}
           onCancel={() => setIsPubModalOpen(false)}
-          onConfirm={clickHandler}
+          onConfirm={handleConfirmPub}
         />
       )}
 
@@ -117,7 +111,7 @@ export default function Setting() {
         <AlertModal
           message="로그아웃 하시겠습니까?"
           onCancel={() => setIsLogoutModalOpen(false)}
-          onConfirm={clickHandler}
+          onConfirm={confirmLogout}
         />
       )}
     </div>

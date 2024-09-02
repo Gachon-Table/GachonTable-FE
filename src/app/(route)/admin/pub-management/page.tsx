@@ -83,7 +83,7 @@ export default function PubManagement() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-start bg-bg-white pt-2">
+    <div className="flex min-h-screen flex-col items-center justify-start bg-bg-white">
       <Navbar />
       <div className="h-550 w-10/12 max-w-screen-xl">
         <ImageUploader images={contentImages} setImages={setContentImages} />

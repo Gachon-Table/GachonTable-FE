@@ -8,6 +8,7 @@ export interface PendingClientItemProps {
   tel?: string;
   waitingId?: string;
   waitingStatus?: string;
+  handleCallUser?: () => void;
   handleTableInputModal?: () => void;
 }
 
@@ -17,6 +18,7 @@ export const PendingClientItem = ({
   headCount,
   tel,
   waitingStatus,
+  handleCallUser,
   handleTableInputModal,
 }: PendingClientItemProps) => {
   const isDisabled = waitingStatus === 'AVAILABLE';
@@ -41,7 +43,7 @@ export const PendingClientItem = ({
   };
 
   return (
-    <div className="shadow-client-item border-gy-100 flex flex-col space-y-4 rounded-lg border bg-wt p-5">
+    <div className="flex flex-col space-y-4 rounded-lg border border-gy-100 bg-wt p-5 shadow-client-item">
       <div className="flex w-[342px] flex-row justify-between">
         <div className="flex flex-row items-center space-x-1 font-h4">
           <div className="text-gy-800">{index}번</div>
@@ -50,7 +52,7 @@ export const PendingClientItem = ({
             {username}({headCount}명)
           </div>
         </div>
-        <div className="text-gy-500 flex flex-row items-center">
+        <div className="flex flex-row items-center text-gy-500">
           <span
             className="cursor-pointer underline font-b2-normal-semibold"
             onClick={() => tel && handlePhoneCall(tel)}
@@ -65,6 +67,7 @@ export const PendingClientItem = ({
         <button
           className={`rounded-md px-7 py-3 ${callButtonStyle}`}
           disabled={isDisabled}
+          onClick={handleCallUser}
         >
           <span className="block w-[108px] text-center font-b2-normal-semibold">
             {callButtonText}

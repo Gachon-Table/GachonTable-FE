@@ -6,127 +6,34 @@ import { useRouter } from 'next/navigation';
 import { ClientStateTabs } from '@/app/(route)/admin/_components/client-management/ClientStateTabs';
 import { PendingClientList } from '@/app/(route)/admin/_components/client-management/PendingClientList';
 import { ServedClientList } from '@/app/(route)/admin/_components/client-management/ServedClientList';
+import { getWaitingList } from '@/app/api/service/admin/getWaitingList';
+import { getSeatingList } from '@/app/api/service/admin/getSeatingList';
 
 export default function WaitingManagement() {
   const router = useRouter();
   const [selectedValue, setSelectedValue] = useState<'대기 고객' | '이용 고객'>(
     '대기 고객',
   );
+  const [pendingClientList, setPendingClientList] = useState([]);
+  const [servedClientList, setServedClientList] = useState([]);
 
-  const pendingClientList = [
-    {
-      username: '노정완',
-      time: '2024-09-02T21:09:07.93427',
-      headCount: 2,
-      tel: '010-3952-0517',
-      waitingId: 'ed526d59-da74-49f4-8579-a2da2551b6c4',
-      waitingStatus: 'WAITING',
-    },
-    {
-      username: '노정완',
-      time: '2024-09-02T21:09:07.93427',
-      headCount: 2,
-      tel: '010-3952-0517',
-      waitingId: 'ed526d59-da74-49f4-8579-a2da2551b6c4',
-      waitingStatus: 'WAITING',
-    },
-    {
-      username: '노정완',
-      time: '2024-09-02T21:09:07.93427',
-      headCount: 2,
-      tel: '010-3952-0517',
-      waitingId: 'ed526d59-da74-49f4-8579-a2da2551b6c4',
-      waitingStatus: 'WAITING',
-    },
-    {
-      username: '노정완',
-      time: '2024-09-02T21:09:07.93427',
-      headCount: 2,
-      tel: '010-3952-0517',
-      waitingId: 'ed526d59-da74-49f4-8579-a2da2551b6c4',
-      waitingStatus: 'WAITING',
-    },
-    {
-      username: '노정완',
-      time: '2024-09-02T21:09:07.93427',
-      headCount: 2,
-      tel: '010-3952-0517',
-      waitingId: 'ed526d59-da74-49f4-8579-a2da2551b6c4',
-      waitingStatus: 'WAITING',
-    },
-    {
-      username: '노정완',
-      time: '2024-09-02T21:09:07.93427',
-      headCount: 2,
-      tel: '010-3952-0517',
-      waitingId: 'ed526d59-da74-49f4-8579-a2da2551b6c4',
-      waitingStatus: 'WAITING',
-    },
-    {
-      username: '노정완',
-      time: '2024-09-02T21:09:07.93427',
-      headCount: 2,
-      tel: '010-3952-0517',
-      waitingId: 'ed526d59-da74-49f4-8579-a2da2551b6c4',
-      waitingStatus: 'WAITING',
-    },
-    {
-      username: '노정완',
-      time: '2024-09-02T21:09:07.93427',
-      headCount: 2,
-      tel: '010-3952-0517',
-      waitingId: 'ed526d59-da74-49f4-8579-a2da2551b6c4',
-      waitingStatus: 'WAITING',
-    },
-  ];
+  const fetchWaitingList = async () => {
+    try {
+      const waitingList = await getWaitingList();
+      setPendingClientList(waitingList);
+    } catch (error) {
+      console.error('대기열 조회 중 오류 발생:', error);
+    }
+  };
 
-  const servedClientList = [
-    {
-      tableNum: 1,
-      exitTime: '17:57',
-      waitingId: '노정완',
-    },
-    {
-      tableNum: 1,
-      exitTime: '17:57',
-      waitingId: '노정완',
-    },
-    {
-      tableNum: 1,
-      exitTime: '17:57',
-      waitingId: '노정완',
-    },
-    {
-      tableNum: 1,
-      exitTime: '17:57',
-      waitingId: '노정완',
-    },
-    {
-      tableNum: 1,
-      exitTime: '17:57',
-      waitingId: '노정완',
-    },
-    {
-      tableNum: 1,
-      exitTime: '17:57',
-      waitingId: '노정완',
-    },
-    {
-      tableNum: 1,
-      exitTime: '17:57',
-      waitingId: '노정완',
-    },
-    {
-      tableNum: 1,
-      exitTime: '17:57',
-      waitingId: '노정완',
-    },
-    {
-      tableNum: 1,
-      exitTime: '17:57',
-      waitingId: '노정완',
-    },
-  ];
+  const fetchSeatingList = async () => {
+    try {
+      const seatingList = await getSeatingList();
+      setServedClientList(seatingList);
+    } catch (error) {
+      console.error('대기열 조회 중 오류 발생:', error);
+    }
+  };
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -136,15 +43,28 @@ export default function WaitingManagement() {
           router.push('/admin');
         }
       } catch (error) {
-        console.error('Authentication check failed:', error);
+        console.error('인증 실패:', error);
       }
     };
 
     checkAuth();
   }, [router]);
 
+  useEffect(() => {
+    if (selectedValue === '대기 고객') {
+      fetchWaitingList();
+    } else if (selectedValue === '이용 고객') {
+      fetchSeatingList();
+    }
+  }, [selectedValue]);
+
+  useEffect(() => {
+    fetchWaitingList();
+    fetchSeatingList();
+  }, []);
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-start bg-bg-white pt-2">
+    <div className="flex min-h-screen flex-col items-center bg-gy-0">
       <Navbar />
       <ClientStateTabs
         selectedValue={selectedValue}

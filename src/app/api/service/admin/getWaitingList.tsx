@@ -3,7 +3,7 @@ import adminAxios from '../../axios/adminAxios';
 export const getWaitingList = async () => {
   try {
     const response = await adminAxios.get('/waitings');
-    const waitingList = response.data.waitingInfoList;
+    const waitingList = response.data.waitingInfos;
     console.log(waitingList);
     return waitingList;
   } catch (error) {
