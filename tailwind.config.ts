@@ -18,7 +18,7 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       screens: {
-        'mobile': '375px',
+        'mobile': '414px',
       }, 
       colors: {
         // 새로운 컬러 팔레트
@@ -36,16 +36,16 @@ const config: Config = {
         'blue-200': '#E6F2FF',
         'wt': '#FFFFFF',
         'bk': '#0F0F0F',
-        'opacity-0': '#F4F4F4',
-        'opacity-100': '#EEEEEE',
-        'opacity-200': '#CCCCCC',
-        'opacity-300': '#B2B2B2',
-        'opacity-400': '#939393',
-        'opacity-500': '#797979',
-        'opacity-600': '#626262',
-        'opacity-700': '#3E3E3E',
-        'opacity-800': '#2A2A2A',
-        'opacity-900': '#1B1B1B',
+        'gy-0': '#F4F4F4',
+        'gy-100': '#EEEEEE',
+        'gy-200': '#DFDFDF',
+        'gy-300': '#B2B2B2',
+        'gy-400': '#939393',
+        'gy-500': '#797979',
+        'gy-600': '#626262',
+        'gy-700': '#3E3E3E',
+        'gy-800': '#2A2A2A',
+        'gy-900': '#1B1B1B',
         'kakao': '#FEE500',
 
         // 이전 컬러팔레트 ;;
@@ -61,6 +61,9 @@ const config: Config = {
         'sunglo': '#de6868',
         'gallery': '#efeff0',
         'modal-rgba': 'rgba(0, 0, 0, 0.4)',
+      },
+      boxShadow: {
+        'client-item': '0px 4px 7px 0px rgba(0, 0, 0, 0.05)',
       },
       maxWidth: {
         '31rem': '31rem',
@@ -85,6 +88,8 @@ const config: Config = {
   },
   plugins: [({ addUtilities }: any) => {
     addUtilities({
+      '.font-default': {
+      },
       '.font-h1': {
         '@apply font-default font-bold': {},
         fontSize: '24px',     

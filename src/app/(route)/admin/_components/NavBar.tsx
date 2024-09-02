@@ -148,7 +148,6 @@ export const Navbar = () => {
       {showStatusModal && (
         <AlertModal
           message={openStatus ? '대기 마감' : '대기 오픈'}
-          button={openStatus ? '마감' : '오픈'}
           onCancel={() => setShowStatusModal(false)}
           onConfirm={confirmStatus}
         />
@@ -157,7 +156,6 @@ export const Navbar = () => {
       {showLogoutModal && (
         <AlertModal
           message="로그아웃"
-          button="로그아웃"
           onCancel={() => setShowLogoutModal(false)}
           onConfirm={confirmLogout}
         />
