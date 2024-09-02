@@ -1,6 +1,5 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { adminLogin, isAuthenticated } from '@/app/api/service/admin/adminAuth';
 import { Logo } from 'public';

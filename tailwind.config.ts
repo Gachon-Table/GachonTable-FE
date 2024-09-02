@@ -34,11 +34,11 @@ const config: Config = {
         'yellow-200': '#FFF8E0',
         'blue-400': '#4666F1',
         'blue-200': '#E6F2FF',
-        wt: '#FFFFFF',
-        bk: '#0F0F0F',
+        'wt': '#FFFFFF',
+        'bk': '#0F0F0F',
         'gy-0': '#F4F4F4',
         'gy-100': '#EEEEEE',
-        'gy-200': '#CCCCCC',
+        'gy-200': '#DFDFDF',
         'gy-300': '#B2B2B2',
         'gy-400': '#939393',
         'gy-500': '#797979',
@@ -46,7 +46,7 @@ const config: Config = {
         'gy-700': '#3E3E3E',
         'gy-800': '#2A2A2A',
         'gy-900': '#1B1B1B',
-        kakao: '#FEE500',
+        'kakao': '#FEE500',
 
         // 이전 컬러팔레트 ;;
         'main-blue': '#3B4D9B',
@@ -61,6 +61,9 @@ const config: Config = {
         sunglo: '#de6868',
         gallery: '#efeff0',
         'modal-rgba': 'rgba(0, 0, 0, 0.4)',
+      },
+      boxShadow: {
+        'client-item': '0px 4px 7px 0px rgba(0, 0, 0, 0.05)',
       },
       maxWidth: {
         '31rem': '31rem',
@@ -83,15 +86,16 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    ({ addUtilities }: any) => {
-      addUtilities({
-        '.font-h1': {
-          '@apply font-default font-bold': {},
-          fontSize: '24px',
-          lineHeight: '32px',
-          letterSpacing: '-0.025em',
-        },
+  plugins: [({ addUtilities }: any) => {
+    addUtilities({
+      '.font-default': {
+      },
+      '.font-h1': {
+        '@apply font-default font-bold': {},
+        fontSize: '24px',     
+        lineHeight: '32px',    
+        letterSpacing: '-0.025em',
+      },
 
         '.font-h2': {
           '@apply font-default font-bold': {},
