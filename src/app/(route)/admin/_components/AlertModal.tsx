@@ -2,40 +2,41 @@ import React from 'react';
 
 interface AlertModalProps {
   message: string;
-  button: string;
   onCancel: () => void;
   onConfirm?: () => void;
 }
 
 const AlertModal: React.FC<AlertModalProps> = ({
   message,
-  button,
   onCancel,
   onConfirm,
 }) => {
   return (
-    <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center">
-      <div className="flex flex-col items-center justify-center rounded-lg bg-gray-200 p-6 shadow-lg">
-        <div className="text-lg font-medium">{message}하시겠습니까?</div>
-        <div className="mt-2 text-sm font-light">
-          맞는지 확인 후 {button} 버튼을 눌러주세요.
-        </div>
-        <div className="mt-4 flex items-center justify-center space-x-4">
-          <button
-            className="rounded-lg bg-white px-5 py-3 text-sm font-light shadow-md hover:bg-gray-100"
-            onClick={onCancel}
-          >
-            취소
-          </button>
-          <button
-            className="rounded-lg bg-point-red px-5 py-3 text-sm font-light text-white shadow-md"
-            onClick={onConfirm}
-          >
-            {button}
-          </button>
+    <>
+      <div className="gy-30 fixed left-0 top-0 z-40 h-full w-full bg-black"></div>
+
+      <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center">
+        <div className="flex flex-col items-center justify-center rounded-md bg-white p-6 px-4 pb-4 pt-8">
+          <div className="text-lg font-bold">{message}</div>
+          <div className="gap-5">
+            <div className="mt-5 flex items-center justify-center gap-[7px]">
+              <button
+                className="bg-gy-100 text-gy-700 h-[46px] w-[136px] rounded-md px-[14px] py-[13px] font-semibold hover:bg-gray-100"
+                onClick={onCancel}
+              >
+                취소
+              </button>
+              <button
+                className="h-[46px] w-[136px] rounded-md bg-primary-400 px-[14px] py-[13px] font-semibold text-white"
+                onClick={onConfirm}
+              >
+                확인
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
