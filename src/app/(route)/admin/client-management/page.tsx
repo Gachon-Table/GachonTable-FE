@@ -9,13 +9,14 @@ import { ServedClientList } from '@/app/(route)/admin/_components/client-managem
 import { getWaitingList } from '@/app/api/service/admin/getWaitingList';
 import { getSeatingList } from '@/app/api/service/admin/getSeatingList';
 
-export default function WaitingManagement() {
+export default function ClientManagement() {
   const router = useRouter();
   const [selectedValue, setSelectedValue] = useState<'대기 고객' | '이용 고객'>(
     '대기 고객',
   );
   const [pendingClientList, setPendingClientList] = useState([]);
   const [servedClientList, setServedClientList] = useState([]);
+  const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
 
   const fetchWaitingList = async () => {
     try {
@@ -78,6 +79,8 @@ export default function WaitingManagement() {
         <PendingClientList
           pendingClientList={pendingClientList}
           refreshPendingClientList={refreshPendingClientList}
+          onClickItem={setSelectedClientId}
+          selectedClientId={selectedClientId}
         />
       ) : (
         <ServedClientList servedClientList={servedClientList} />

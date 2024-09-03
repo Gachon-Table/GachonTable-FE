@@ -12,18 +12,21 @@ import { patchEnterClient } from '@/app/api/service/admin/patchEnterClient';
 export interface PendingClientListProps {
   pendingClientList: PendingClientItemProps[];
   refreshPendingClientList: () => void;
+  onClickItem: (clientId: string) => void;
+  selectedClientId: string | null;
 }
 
 export const PendingClientList = ({
   pendingClientList,
   refreshPendingClientList,
+  onClickItem,
+  selectedClientId,
 }: PendingClientListProps) => {
   const [isTableModalOpen, setIsTableModalOpen] = useState(false);
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
-  const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
 
   const handleCallClick = (waitingId: string) => {
-    setSelectedClientId(waitingId);
+    onClickItem(waitingId);
     setIsCallModalOpen(true);
   };
 
