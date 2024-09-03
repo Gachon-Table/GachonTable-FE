@@ -8,16 +8,13 @@ import { PendingClientList } from '@/app/(route)/admin/_components/client-manage
 import { ServedClientList } from '@/app/(route)/admin/_components/client-management/ServedClientList';
 import { getWaitingList } from '@/app/api/service/admin/getWaitingList';
 import { getSeatingList } from '@/app/api/service/admin/getSeatingList';
-
-export default function ClientManagement() {
+export default function WaitingManagement() {
   const router = useRouter();
   const [selectedValue, setSelectedValue] = useState<'대기 고객' | '이용 고객'>(
     '대기 고객',
   );
   const [pendingClientList, setPendingClientList] = useState([]);
   const [servedClientList, setServedClientList] = useState([]);
-  const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
-
   const fetchWaitingList = async () => {
     try {
       const waitingList = await getWaitingList();
@@ -26,13 +23,12 @@ export default function ClientManagement() {
       console.error('대기열 조회 중 오류 발생:', error);
     }
   };
-
   const fetchSeatingList = async () => {
     try {
       const seatingList = await getSeatingList();
       setServedClientList(seatingList);
     } catch (error) {
-      console.error('이용 고객 조회 중 오류 발생:', error);
+      console.error('대기열 조회 중 오류 발생:', error);
     }
   };
 
@@ -51,10 +47,8 @@ export default function ClientManagement() {
         console.error('인증 실패:', error);
       }
     };
-
     checkAuth();
   }, [router]);
-
   useEffect(() => {
     if (selectedValue === '대기 고객') {
       fetchWaitingList();
@@ -62,12 +56,10 @@ export default function ClientManagement() {
       fetchSeatingList();
     }
   }, [selectedValue]);
-
   useEffect(() => {
     fetchWaitingList();
     fetchSeatingList();
   }, []);
-
   return (
     <div className="flex min-h-screen flex-col items-center bg-gy-0">
       <Navbar />
@@ -79,8 +71,6 @@ export default function ClientManagement() {
         <PendingClientList
           pendingClientList={pendingClientList}
           refreshPendingClientList={refreshPendingClientList}
-          onClickItem={setSelectedClientId}
-          selectedClientId={selectedClientId}
         />
       ) : (
         <ServedClientList servedClientList={servedClientList} />
