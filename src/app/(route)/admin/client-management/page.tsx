@@ -1,4 +1,3 @@
-'use client';
 import React, { useEffect, useState } from 'react';
 import Navbar from '../_components/NavBar';
 import { isAuthenticated } from '@/app/api/service/admin/adminAuth';
@@ -31,8 +30,12 @@ export default function WaitingManagement() {
       const seatingList = await getSeatingList();
       setServedClientList(seatingList);
     } catch (error) {
-      console.error('대기열 조회 중 오류 발생:', error);
+      console.error('이용 고객 조회 중 오류 발생:', error);
     }
+  };
+
+  const refreshPendingClientList = () => {
+    fetchWaitingList();
   };
 
   useEffect(() => {
@@ -71,7 +74,10 @@ export default function WaitingManagement() {
         onClick={setSelectedValue}
       />
       {selectedValue === '대기 고객' ? (
-        <PendingClientList pendingClientList={pendingClientList} />
+        <PendingClientList
+          pendingClientList={pendingClientList}
+          refreshPendingClientList={refreshPendingClientList}
+        />
       ) : (
         <ServedClientList servedClientList={servedClientList} />
       )}

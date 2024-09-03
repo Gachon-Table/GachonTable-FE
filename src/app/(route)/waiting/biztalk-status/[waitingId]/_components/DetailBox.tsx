@@ -54,8 +54,12 @@ const DetailBox = ({ pubName, headCount, order, createdAt }: WaitingProps) => {
       </div>
       <div className="mt-7 flex flex-col items-center pl-5 ">
         <div className="text-xs font-light text-[#202010]">내 순서</div>
-        {order === -1 ? (
-          <div className="mt-5 text-sm">취소된 웨이팅입니다.</div>
+        {order < 0 ? (
+          order === -1 ? (
+            <div className="mt-5 text-xs">취소된 웨이팅입니다.</div>
+          ) : (
+            <div className="mt-5 text-xs">입장 완료된 웨이팅입니다.</div>
+          )
         ) : (
           <div className="mt-5 text-sm">
             <span className="text-3xl font-medium">{order}</span> 번째

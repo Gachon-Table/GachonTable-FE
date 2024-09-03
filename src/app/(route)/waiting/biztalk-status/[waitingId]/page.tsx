@@ -80,7 +80,10 @@ const WaitingInfo = () => {
           order={waitingState.order}
           createdAt={waitingState.createdAt}
         />
-        <CancelButton handleCancel={() => setModal(!modal)} />
+        <CancelButton
+          handleCancel={() => setModal(!modal)}
+          order={waitingState.order}
+        />
       </div>
       {modal && waitingState.waitingId && (
         <CancelModal setModal={setModal} waitingId={waitingState.waitingId} />

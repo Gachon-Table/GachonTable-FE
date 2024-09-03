@@ -1,4 +1,3 @@
-'use client';
 import React, { useState } from 'react';
 import {
   PendingClientItemProps,
@@ -11,10 +10,12 @@ import { patchEnterClient } from '@/app/api/service/admin/patchEnterClient';
 
 export interface PendingClientListProps {
   pendingClientList: PendingClientItemProps[];
+  refreshPendingClientList: () => void;
 }
 
 export const PendingClientList = ({
   pendingClientList,
+  refreshPendingClientList,
 }: PendingClientListProps) => {
   const [isTableModalOpen, setIsTableModalOpen] = useState(false);
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
@@ -34,6 +35,7 @@ export const PendingClientList = ({
       try {
         await patchEnterClient(selectedClientId, tableNumber);
         setIsTableModalOpen(false);
+        refreshPendingClientList();
       } catch (error) {
         console.error('입장 처리 중 오류 발생:', error);
       }
@@ -45,6 +47,7 @@ export const PendingClientList = ({
       try {
         await patchCallClient(selectedClientId);
         setIsCallModalOpen(false);
+        refreshPendingClientList();
       } catch (error) {
         console.error('고객 호출 중 오류 발생:', error);
       }
