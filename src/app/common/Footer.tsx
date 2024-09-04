@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { useRouter } from 'next/navigation';
+
 export const Footer = () => {
   const router = useRouter();
   return (
@@ -26,7 +27,7 @@ export const Footer = () => {
       <div>
         <button
           className="cursor-pointer font-semibold text-[#666666]"
-          onClick={() => router.push('/privacy-policy')}
+          onClick={() => router.push('/policy/privacy')}
         >
           개인정보 처리방침
         </button>

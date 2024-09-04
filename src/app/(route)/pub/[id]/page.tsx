@@ -3,8 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import WaitingTeams from '../_components/WaitingTeams';
 import { getPubInfoForUser } from '@/app/api/service/user/getPubInfoForUser';
-import { LeftArrow } from 'public';
-import { useRouter } from 'next/navigation';
+import { PageHeader } from '@/app/common/PageHeader';
 
 interface Store {
   pub: {
@@ -28,7 +27,6 @@ interface MenuItem {
 }
 
 const StoreDetailPage: React.FC = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const id = pathname.split('/').pop();
   const menuRef = useRef<HTMLDivElement>(null);
@@ -122,12 +120,7 @@ const StoreDetailPage: React.FC = () => {
               />
             )}
           </div>
-          <div className="z-9999 absolute left-4 top-4">
-            <LeftArrow
-              className="cursor-pointer fill-white"
-              onClick={() => router.push('/')}
-            />
-          </div>
+          <PageHeader isDetailPage={true} />
         </div>
       </div>
       <div className="mx-auto w-full max-w-2xl flex-1 overflow-auto rounded-bl-[40px] rounded-br-[40px] border bg-white p-6">

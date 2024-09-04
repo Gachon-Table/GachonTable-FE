@@ -5,7 +5,7 @@ import {
   PendingClientItem,
 } from '@/app/(route)/admin/_components/client-management/PendingClientItem';
 import { TableInputToastModal } from '@/app/(route)/admin/_components/client-management/TableInputToastModal';
-import AlertModal from '@/app/(route)/admin/_components/AlertModal';
+import AlertModal from '@/app/common/AlertModal';
 import { patchCallClient } from '@/app/api/service/admin/patchCallClient';
 import { patchEnterClient } from '@/app/api/service/admin/patchEnterClient';
 
@@ -86,6 +86,7 @@ export const PendingClientList = ({
       )}
       {isCallModalOpen && selectedClientId && (
         <AlertModal
+          hasSubmessage={false}
           message={`${
             pendingClientList.find(
               (client) => client.waitingId === selectedClientId,
