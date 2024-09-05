@@ -1,16 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import BackButton from '../../common/BackButton';
+import { PageHeader } from '@/app/common/PageHeader';
 
 export default function privacyPolicy() {
   return (
-    <div className="px-5 pb-10 pt-2 shadow-2xl shadow-gray-200">
-      <BackButton />
-      <div className="mb-10 mt-5 flex items-center justify-center">
-        <p className="text-lg font-bold">개인정보 처리방침</p>
-      </div>
-
-      <div className="space-y-5">
+    <div className="pb-10 pt-2 shadow-2xl shadow-gy-100">
+      <PageHeader title={'개인정보 처리방침'} />
+      <div className="space-y-5 px-5">
         <p className="text-[10px]">
           참숯한우천국(이하 "회사"라 한다)은 정보통신망 이용촉진 및 정보보호
           등에 관한 법률, 개인정보보호법 등 관련 법령에 따라 이용자의 개인정보를

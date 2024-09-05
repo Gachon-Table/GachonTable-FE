@@ -2,22 +2,33 @@ import React from 'react';
 
 interface AlertModalProps {
   message: string;
+  hasSubmessage: boolean;
+  submessage?: string;
   onCancel: () => void;
   onConfirm?: () => void;
 }
 
 const AlertModal: React.FC<AlertModalProps> = ({
   message,
+  hasSubmessage,
+  submessage,
   onCancel,
   onConfirm,
 }) => {
   return (
     <>
-      <div className="fixed left-0 top-0 z-40 h-full w-full bg-black opacity-30"></div>
+      <div className="fixed left-0 top-0 z-40 h-full w-full bg-bk/30"></div>
 
       <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center">
         <div className="flex flex-col items-center justify-center rounded-md bg-white p-6 px-4 pb-4 pt-8">
-          <div className="text-lg font-bold">{message}</div>
+          <div className="block w-[279px] text-center text-gy-900 font-h4">
+            {message}
+          </div>
+          {hasSubmessage && (
+            <div className="block w-[279px] text-center text-gy-600 font-b2-normal-semibold">
+              {submessage}
+            </div>
+          )}
           <div className="gap-5">
             <div className="mt-5 flex items-center justify-center gap-[7px]">
               <button

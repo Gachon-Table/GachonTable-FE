@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/app/(route)/admin/_components/NavBar';
-import AlertModal from '@/app/(route)/admin/_components/AlertModal';
+import AlertModal from '@/app/common/AlertModal';
 import { ClouserCard } from '@/app/(route)/admin/_components/setting/ClosureCard';
 import { LogoutButton } from '@/app/(route)/admin/_components/setting/LogoutButton';
 import { WaitingClose, PubClose } from 'public';
@@ -93,6 +93,7 @@ export default function Setting() {
 
       {isWaitModalOpen && (
         <AlertModal
+          hasSubmessage={false}
           message={`대기를 ${waitingOpenStatus ? '마감' : '오픈'}할까요?`}
           onCancel={() => setIsWaitModalOpen(false)}
           onConfirm={handleConfirmWaiting}
@@ -101,6 +102,7 @@ export default function Setting() {
 
       {isPubModalOpen && (
         <AlertModal
+          hasSubmessage={false}
           message={`점포를 ${pubOpenStatus ? '마감' : '오픈'}할까요?`}
           onCancel={() => setIsPubModalOpen(false)}
           onConfirm={handleConfirmPub}
@@ -109,6 +111,7 @@ export default function Setting() {
 
       {isLogoutModalOpen && (
         <AlertModal
+          hasSubmessage={false}
           message="로그아웃 하시겠습니까?"
           onCancel={() => setIsLogoutModalOpen(false)}
           onConfirm={confirmLogout}

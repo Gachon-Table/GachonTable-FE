@@ -3,10 +3,11 @@ import { useRouter } from 'next/navigation';
 import userAxios from '@/app/api/axios/userAxios';
 import { isUserAuthenticated } from '@/app/api/service/user/userAuth';
 import axios from 'axios';
-import PeopleCountPopup from './PeopleCountPopup';
-import ConfirmPopup from './ConfirmPopup';
+// import ConfirmPopup from './ConfirmPopup';
 import SuccessPopup from './SuccessPopup';
-import { KakaoLogin, Logo } from 'public';
+import AlertModal from '@/app/common/AlertModal';
+import { LoginToastModal } from '@/app/(route)/(home)/_components/LoginToastModal';
+import { VisitorCountToastModal } from '@/app/(route)/(home)/_components/VisitorCountToastModal';
 
 interface WaitingTeamsProps {
   pubId: number;
@@ -15,32 +16,24 @@ interface WaitingTeamsProps {
 }
 
 const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
-  const [peopleCount, setPeopleCount] = useState(1);
-  const [showPopup, setShowPopup] = useState<boolean>(false);
-  const [showConfirmPopup, setShowConfirmPopup] = useState<boolean>(false);
+  const [headCount, setHeadCount] = useState(0);
+  const [isVisitorModalOpen, setIsVisitorModalOpen] = useState(false);
+  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
-  const [showLoginPopup, setShowLoginPopup] = useState<boolean>(false);
   const router = useRouter();
 
-  const incrementPeople = () => setPeopleCount((prevCount) => prevCount + 1);
-  const decrementPeople = () =>
-    setPeopleCount((prevCount) => (prevCount > 1 ? prevCount - 1 : prevCount));
-
-  const openPopup = () => setShowPopup(true);
-
-  const closePopup = () => {
-    setShowPopup(false);
-    setShowConfirmPopup(false);
-    setError(null);
-    setShowSuccessPopup(false);
-    setShowLoginPopup(false);
+  const handleHeadCountChange = (count: number) => {
+    setHeadCount(count);
   };
 
-  const openConfirmPopup = () => {
-    setShowConfirmPopup(true);
-    setShowPopup(false);
+  const closePopup = () => {
+    setIsVisitorModalOpen(false);
+    setError(null);
+    setShowSuccessPopup(false);
   };
 
   const handleStoreClick = async (e: React.MouseEvent<HTMLDivElement>) => {
@@ -49,9 +42,9 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
     const loggedIn = await isUserAuthenticated();
 
     if (!loggedIn) {
-      setShowLoginPopup(true);
+      setIsLoginModalOpen(true);
     } else {
-      openPopup();
+      setIsVisitorModalOpen(true);
     }
   };
 
@@ -78,7 +71,7 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
 
       const payload = {
         pubId,
-        headCount: peopleCount,
+        headCount: headCount,
       };
 
       const response = await userAxios.post('/waiting/remote', payload, {
@@ -143,20 +136,32 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
             : '오픈 준비중이에요'}
       </div>
 
-      {showPopup && (
-        <PeopleCountPopup
-          peopleCount={peopleCount}
-          incrementPeople={incrementPeople}
-          decrementPeople={decrementPeople}
-          onClose={closePopup}
-          onConfirm={openConfirmPopup}
+      {isVisitorModalOpen && (
+        <VisitorCountToastModal
+          onClose={() => setIsVisitorModalOpen(false)}
+          handleHeadCountChange={handleHeadCountChange}
+          onSubmit={handleSubmit}
         />
       )}
 
-      {showConfirmPopup && (
-        <ConfirmPopup onClose={closePopup} onConfirm={handleSubmit} />
+      {isLoginModalOpen && (
+        <LoginToastModal
+          onClose={() => setIsLoginModalOpen(false)}
+          onSubmit={loginProcess}
+        />
       )}
 
+      {isAlertModalOpen && (
+        <AlertModal
+          message={`${headCount}명 방문 예정인가요?`}
+          hasSubmessage={true}
+          submessage={'신청 시 카카오톡으로 대기 현황을 알려드려요!'}
+          onCancel={() => setIsAlertModalOpen(false)}
+          onConfirm={handleSubmit}
+        />
+      )}
+
+      {/* 옛날 코드 다 수정해야함..ㅋ */}
       {error && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="rounded-lg bg-white p-8 shadow-lg">
@@ -175,28 +180,6 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
       )}
 
       {showSuccessPopup && <SuccessPopup onClose={closePopup} />}
-
-      {showLoginPopup && (
-        <div
-          className="fixed inset-0 z-50 flex items-end justify-center bg-black bg-opacity-50"
-          onClick={closePopup}
-        >
-          <div
-            className="w-full max-w-[480px] rounded-t-xl bg-white p-6 shadow-lg"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex flex-col items-center">
-              <Logo className="mb-4" />
-              <p className="mb-4 text-lg font-semibold">
-                대기를 하려면 로그인이 필요해요!
-              </p>
-              <button className="cursor-pointer" onClick={loginProcess}>
-                <KakaoLogin />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

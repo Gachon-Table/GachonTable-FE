@@ -1,9 +1,10 @@
+'use client';
 import React, { useEffect, useRef, useState, ChangeEvent } from 'react';
 import { Delete } from 'public';
 
 export interface TableInputToastModalProps {
   onCancel: () => void;
-  onSubmit: (tableNumber: number) => void; // 'tableNumber'는 이제 'number'만 허용
+  onSubmit: (tableNumber: number) => void;
 }
 
 export const TableInputToastModal = ({
@@ -34,10 +35,7 @@ export const TableInputToastModal = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center">
-      <div
-        className="fixed inset-0 bg-black opacity-50"
-        onClick={onCancel}
-      ></div>
+      <div className="fixed inset-0 bg-bk/30" onClick={onCancel}></div>
       <div className="relative z-50 rounded-t-[20px] bg-wt px-4 pb-4 pt-8">
         <div className="mb-4 font-h3">테이블 번호를 지정해주세요.</div>
         <div className="mb-6 rounded-lg bg-gy-0 px-[15px] py-3 ">

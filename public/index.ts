@@ -13,3 +13,5 @@ export { default as PubClose } from './icons/pub-close.svg';
 export { default as Logout } from './icons/logout.svg';
 export { default as Delete } from './icons/delete.svg';
 export { default as Search } from './icons/search-icon.svg';
+export { default as Minus } from './icons/minus-icon.svg';
+export { default as Plus } from './icons/plus-icon.svg';
