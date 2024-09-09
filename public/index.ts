@@ -5,7 +5,7 @@ export { default as KakaoLogin } from './icons/kakao-login.svg';
 export { default as KakaoLoginRound } from './icons/kakao-login-round.svg';
 export { default as Logo } from './icons/logo.svg';
 export { default as LeftArrow } from './icons/left-arrow.svg';
-export { default as BackIcon } from './icons/back-button.svg';
+export { default as BackButton } from './icons/back-button.svg';
 export { default as User } from './icons/user.svg';
 export { default as Phone } from './icons/phone.svg';
 export { default as WaitingClose } from './icons/waiting-close.svg';
