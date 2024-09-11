@@ -1,4 +1,5 @@
 import React from 'react';
+import { patchWaitingCancel } from '@/app/api/service/user/patchWaitingCancel';
 
 interface AlertModalProps {
   message: string;
@@ -6,15 +7,26 @@ interface AlertModalProps {
   submessage?: string;
   onCancel: () => void;
   onConfirm?: () => void;
+  waitingId?: string;
 }
 
-const AlertModal: React.FC<AlertModalProps> = ({
+const AlertModal = ({
   message,
   hasSubmessage,
   submessage,
   onCancel,
   onConfirm,
-}) => {
+  waitingId,
+}: AlertModalProps) => {
+  const handleConfirm = async () => {
+    if (waitingId) {
+      patchWaitingCancel(waitingId);
+    }
+    if (onConfirm) {
+      onConfirm();
+    }
+  };
+
   return (
     <>
       <div className="fixed left-0 top-0 z-40 h-full w-full bg-bk/30"></div>
@@ -39,7 +51,7 @@ const AlertModal: React.FC<AlertModalProps> = ({
               </button>
               <button
                 className="h-[46px] w-[136px] rounded-md bg-primary-400 px-[14px] py-[13px] font-semibold text-white"
-                onClick={onConfirm}
+                onClick={handleConfirm}
               >
                 확인
               </button>

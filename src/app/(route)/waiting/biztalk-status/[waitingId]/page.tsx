@@ -2,11 +2,12 @@
 'use client';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import Header from './_components/Header';
+import { PageHeader } from '@/app/common/PageHeader';
+import { Home } from 'public';
+import AlertModal from '@/app/common/AlertModal';
 import AlertBox from './_components/AlertBox';
 import DetailBox from './_components/DetailBox';
 import CancelButton from './_components/CancelButton';
-import CancelModal from './_components/CancelModal';
 import { getWaitingInfo } from '@/app/api/service/getWaitingInfo';
 
 interface WaitingProps {
@@ -22,7 +23,7 @@ const WaitingInfo = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const [modal, setModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [waitingState, setWaitingState] = useState<WaitingProps>({
     waitingId: '',
     pubName: '',
@@ -71,7 +72,7 @@ const WaitingInfo = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <Header />
+      <PageHeader icon={<Home />} title={'마이 웨이팅'} />
       <div className="mt-12 space-y-4">
         <AlertBox />
         <DetailBox
@@ -81,12 +82,18 @@ const WaitingInfo = () => {
           createdAt={waitingState.createdAt}
         />
         <CancelButton
-          handleCancel={() => setModal(!modal)}
+          handleCancel={() => setIsModalOpen(false)}
           order={waitingState.order}
         />
       </div>
-      {modal && waitingState.waitingId && (
-        <CancelModal setModal={setModal} waitingId={waitingState.waitingId} />
+      {isModalOpen && waitingState.waitingId && (
+        <AlertModal
+          message={'대기를 취소하시겠습니까?'}
+          hasSubmessage={true}
+          submessage={'확인 후 확인 버튼을 눌러주세요.'}
+          onCancel={() => setIsModalOpen(false)}
+          waitingId={waitingState.waitingId}
+        />
       )}
     </div>
   );
