@@ -10,9 +10,9 @@ const CancelButton = ({ handleCancel, order }: buttonProp) => {
     <button
       onClick={handleCancel}
       disabled={order < 0}
-      className="w-80 cursor-pointer rounded-2xl bg-[#3B4D9B] p-5 text-sm font-medium text-white"
+      className="cursor-pointer rounded-md bg-primary-400 px-6 py-[19px] text-sm text-white font-h4"
     >
-      취소하기
+      <span className="block w-[334px] text-center">대기 취소하기</span>
     </button>
   );
 };
