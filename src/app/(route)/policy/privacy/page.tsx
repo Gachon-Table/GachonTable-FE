@@ -6,7 +6,7 @@ export default function privacyPolicy() {
   return (
     <div className="pb-10 pt-2 shadow-2xl shadow-gy-100">
       <PageHeader title={'개인정보 처리방침'} />
-      <div className="space-y-5 px-5">
+      <div className="space-y-5 px-5 text-gy-700">
         <p className="text-[10px]">
           참숯한우천국(이하 "회사"라 한다)은 정보통신망 이용촉진 및 정보보호
           등에 관한 법률, 개인정보보호법 등 관련 법령에 따라 이용자의 개인정보를

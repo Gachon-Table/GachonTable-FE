@@ -33,7 +33,7 @@ const Oauth = () => {
 
 const OauthWrapper = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense>
       <Oauth />
     </Suspense>
   );

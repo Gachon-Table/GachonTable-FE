@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import React from 'react';
+import { Divider } from '@/app/common/Divider';
 
 const divideCreatedAt = (createdAt: string | undefined) => {
   if (!createdAt || !createdAt.includes('T')) {
@@ -22,49 +23,55 @@ interface WaitingProps {
   createdAt: string;
 }
 const DetailBox = ({ pubName, headCount, order, createdAt }: WaitingProps) => {
-  // const formattedCreatedAt = divideCreatedAt(createdAt);
-  // const [hour, minute, second] = formattedCreatedAt[1].split(':');
   const formattedCreatedAt = createdAt
     ? divideCreatedAt(createdAt)
     : 'Loading...';
   return (
-    <div className="flex w-80 flex-row space-x-7 rounded-2xl bg-[#F7F8F9] p-5">
-      <div className="flex flex-col space-y-3.5">
-        <div className="flex flex-col">
-          <span className="text-xs font-light text-[#A1A19F]">주점</span>
-          <span className="text-sm font-light">{pubName}</span>
-        </div>
-
-        <div className="flex flex-col">
-          <span className="text-xs font-light text-[#A1A19F]">인원</span>
-          <span className="text-sm font-light">{headCount}명</span>
-        </div>
-
-        <div className="flex flex-col">
-          <span className="text-xs font-light text-[#A1A19F]">예약시간</span>
-          <span className="text-sm font-light">
-            {/* {formattedCreatedAt[0]}&nbsp;
-            {hour}:{minute} */}
-            {formattedCreatedAt}
-          </span>
-        </div>
-      </div>
-      <div className="pt-4">
-        <div className="h-28 border-l border-[#E7E7E7]" />
-      </div>
-      <div className="mt-7 flex flex-col items-center pl-5 ">
-        <div className="text-xs font-light text-[#202010]">내 순서</div>
-        {order < 0 ? (
-          order === -1 ? (
-            <div className="mt-5 text-xs">취소된 웨이팅입니다.</div>
-          ) : (
-            <div className="mt-5 text-xs">입장 완료된 웨이팅입니다.</div>
-          )
-        ) : (
-          <div className="mt-5 text-sm">
-            <span className="text-3xl font-medium">{order}</span> 번째
+    <div className="flex flex-col items-center rounded-md bg-gy-0 p-6">
+      <div className="text-gray-800 font-h4">{pubName}</div>
+      <Divider
+        orientation={'width'}
+        length={334}
+        borderColor={'border-gy-100'}
+        borderWeight={2}
+      />
+      <div className="flex flex-row space-x-[51px]">
+        <div className="flex flex-col space-y-[6px]">
+          <div className="flex flex-row space-x-2">
+            <span className="text-gy-400 font-b1-normal-semibold">인원</span>
+            <span className="text-gy-800 font-b1-normal-semibold">
+              {headCount}명
+            </span>
           </div>
-        )}
+
+          <div className="flex flex-row space-x-2">
+            <span className="text-gy-400 font-b1-normal-semibold">시간</span>
+            <span className="text-gy-800 font-b1-normal-semibold">
+              {formattedCreatedAt}
+            </span>
+          </div>
+        </div>
+        <Divider length={76} borderColor={'border-gy-100'} borderWeight={2} />
+        <div className="flex flex-col items-center space-x-1">
+          {order < 0 ? (
+            order === -1 ? (
+              <div className="text-gy-400 font-b1-normal-semibold">
+                대기 취소
+              </div>
+            ) : (
+              <div className="text-gy-400 font-b1-normal-semibold">
+                입장 완료
+              </div>
+            )
+          ) : (
+            <>
+              <div className="text-gy-400 font-b1-normal-semibold">내 순서</div>
+              <div className="text-gy-800 font-b1-normal-semibold">
+                <span className="text-[32px]">{order}</span> 번째
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
