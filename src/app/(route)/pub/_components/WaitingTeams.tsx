@@ -121,18 +121,17 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
   };
 
   return (
-    <div className="mx-auto mt-2 flex h-full max-h-screen w-full max-w-[480px] flex-col">
+    <div className="mt-2 flex h-full w-full flex-col px-4">
       <div
         onClick={(e) => handleStoreClick(e)}
-        style={{ backgroundColor: openStatus ? '#3B4D9B' : '#969595' }}
-        className={`flex h-20 cursor-pointer items-center justify-center text-2xl font-bold text-white ${
-          loading || !openStatus ? 'cursor-not-allowed' : ''
-        }`}
+        className={`mb-6 flex h-16 w-full cursor-pointer items-center justify-center rounded-md  text-wt font-h4
+        ${openStatus ? 'bg-primary-400' : 'bg-gy-400'}
+        ${loading || !openStatus ? 'cursor-not-allowed' : ''}`}
       >
         {loading
           ? '로딩 중...'
           : openStatus
-            ? '웨이팅 신청'
+            ? '웨이팅 신청하기'
             : '오픈 준비중이에요'}
       </div>
 
