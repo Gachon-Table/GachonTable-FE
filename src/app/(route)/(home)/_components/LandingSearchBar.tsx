@@ -15,9 +15,15 @@ const LandingSearchBar: React.FC<LandingSearchBarProps> = ({
   const router = useRouter();
 
   return (
-    <div className="flex items-center gap-3 p-4">
-      <LogoCircle className="cursor-pointer" onClick={() => router.push('/')} />
-      <div className="flex w-[270px] items-center rounded-full bg-gy-100 py-2 pl-4 pr-6">
+    <div className="flex w-full items-center justify-between gap-3 p-4">
+      <div className="flex-shrink-0">
+        <LogoCircle
+          className="cursor-pointer"
+          onClick={() => router.push('/')}
+        />
+      </div>
+
+      <div className="flex w-full max-w-[270px] flex-grow items-center rounded-full bg-gy-100 py-2 pl-4 pr-6">
         <Search className="mr-2 text-gy-400" />
         <input
           type="text"
@@ -27,7 +33,13 @@ const LandingSearchBar: React.FC<LandingSearchBarProps> = ({
           onChange={onSearchChange}
         />
       </div>
-      <User className="cursor-pointer" onClick={() => router.push('/mypage')} />
+
+      <div className="flex-shrink-0">
+        <User
+          className="cursor-pointer"
+          onClick={() => router.push('/mypage')}
+        />
+      </div>
     </div>
   );
 };
