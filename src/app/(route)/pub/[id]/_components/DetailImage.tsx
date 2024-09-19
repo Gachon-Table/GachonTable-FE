@@ -1,4 +1,5 @@
 import { PageHeader } from '@/app/common/PageHeader';
+import { BackButtonWT } from 'public';
 import React, { useEffect, useState } from 'react';
 
 interface DetailImageProps {
@@ -46,7 +47,7 @@ const DetailImage: React.FC<DetailImageProps> = ({ thumbnails }) => {
             />
           )}
         </div>
-        <PageHeader isDetailPage={true} />
+        <PageHeader icon={<BackButtonWT />} isDetailPage={true} />
       </div>
     </div>
   );
