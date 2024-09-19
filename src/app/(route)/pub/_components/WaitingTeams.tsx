@@ -44,6 +44,10 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
   const handleStoreClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
 
+    if (!waitingStatus) {
+      return;
+    }
+
     const loggedIn = await isUserAuthenticated();
 
     if (!loggedIn) {
@@ -126,11 +130,11 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
   };
 
   return (
-    <div className="mt-2 flex h-full w-[382px] flex-col p-4">
+    <div className="mt-2 flex h-full w-[382px] flex-col">
       <div
         onClick={(e) => handleStoreClick(e)}
-        className={`mb-6 flex h-16 w-full cursor-pointer items-center justify-center rounded-md  text-wt font-h4
-  ${openStatus && waitingStatus ? 'bg-primary-400' : 'bg-gy-400'}
+        className={`mb-6 flex h-16 w-full items-center justify-center rounded-md  text-wt font-h4
+  ${openStatus && waitingStatus ? 'cursor-pointer bg-primary-400' : 'cursor-not-allowed bg-gy-400'}
   ${loading || !openStatus || !waitingStatus ? 'cursor-not-allowed' : ''}`}
       >
         {loading
