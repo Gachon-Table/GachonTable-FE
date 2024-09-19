@@ -89,7 +89,10 @@ const PubList = ({
           <p>{error}</p>
         </div>
       ) : sortedStores.length === 0 ? (
-        <div className="h-screen w-full font-bold">현재 주점이 없습니다</div>
+        <div className="mt-[260px] flex h-full flex-col items-center justify-center text-center text-gy-400 font-b1-normal-medium">
+          <p>검색 결과가 없어요.</p>
+          <p>다른 주점을 검색해보세요.</p>
+        </div>
       ) : (
         sortedStores.map((store: Store, index: number) => (
           <div
