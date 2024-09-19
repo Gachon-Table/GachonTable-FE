@@ -102,7 +102,7 @@ const PubList = ({
             }`}
           >
             <div className="flex flex-row items-center">
-              <div className="relative mr-3 h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl">
+              <div className="relative mr-3 h-20 w-20 flex-shrink-0 overflow-hidden rounded-[6px]">
                 <img
                   src={
                     store.thumbnails.length > 0
