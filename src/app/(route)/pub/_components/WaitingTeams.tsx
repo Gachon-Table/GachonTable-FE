@@ -13,9 +13,14 @@ interface WaitingTeamsProps {
   pubId: number;
   studentCard: boolean;
   openStatus: boolean;
+  waitingStatus: boolean;
 }
 
-const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
+const WaitingTeams: React.FC<WaitingTeamsProps> = ({
+  pubId,
+  openStatus,
+  waitingStatus,
+}) => {
   const [headCount, setHeadCount] = useState(0);
   const [isVisitorModalOpen, setIsVisitorModalOpen] = useState(false);
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
@@ -121,17 +126,19 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({ pubId, openStatus }) => {
   };
 
   return (
-    <div className="mt-2 flex h-full w-full flex-col px-4">
+    <div className="mt-2 flex h-full w-[382px] flex-col p-4">
       <div
         onClick={(e) => handleStoreClick(e)}
         className={`mb-6 flex h-16 w-full cursor-pointer items-center justify-center rounded-md  text-wt font-h4
-        ${openStatus ? 'bg-primary-400' : 'bg-gy-400'}
-        ${loading || !openStatus ? 'cursor-not-allowed' : ''}`}
+  ${openStatus && waitingStatus ? 'bg-primary-400' : 'bg-gy-400'}
+  ${loading || !openStatus || !waitingStatus ? 'cursor-not-allowed' : ''}`}
       >
         {loading
           ? '로딩 중...'
           : openStatus
-            ? '웨이팅 신청하기'
+            ? waitingStatus
+              ? '웨이팅 신청하기'
+              : '대기 마감되었어요'
             : '오픈 준비중이에요'}
       </div>
 
