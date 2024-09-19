@@ -17,3 +17,4 @@ export { default as Plus } from './icons/plus-icon.svg';
 export { default as Search } from './icons/search-icon.svg';
 export { default as Instagram } from './icons/instagram.svg';
 export { default as Home } from './icons/home.svg';
+export { default as BackButtonWT } from './icons/back-button-wt.svg';
