@@ -97,14 +97,12 @@ const PubList = ({
             onClick={() => {
               router.push(`/pub/${store.pubId}`);
             }}
-            className={`flex w-full cursor-pointer flex-col justify-center bg-white px-9 py-5 ${
-              index !== sortedStores.length - 1
-                ? 'border-b border-[#F2F4F6]'
-                : ''
+            className={` flex w-full cursor-pointer flex-col justify-center gap-3 bg-wt p-4 ${
+              index !== sortedStores.length - 1 ? 'border-b border-gy-100' : ''
             }`}
           >
             <div className="flex flex-row items-center">
-              <div className="relative mr-3 h-24 w-24 flex-shrink-0 overflow-hidden rounded-2xl">
+              <div className="relative mr-3 h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl">
                 <img
                   src={
                     store.thumbnails.length > 0
@@ -115,20 +113,15 @@ const PubList = ({
                 />
               </div>
               <div className="flex w-full flex-col">
-                <div className="text-md font-bold">{store.pubName}</div>
-                <div className="text-sm">{store.oneLiner}</div>
-                <div className="mt-3 flex items-center">
-                  <div
-                    className={`items-center justify-center rounded-full px-2.5 py-1 text-[8px] font-medium text-white ${store.studentCard ? 'bg-[#E87567]' : 'bg-[#3B4D9B]'}`}
-                  >
-                    {store.studentCard ? '학생증 필요' : '학생증 불필요'}
-                  </div>
+                <div className="text-gy-900 font-h4">{store.pubName}</div>
+                <div className="text-gy-700 font-b2-normal-semibold">
+                  {store.oneLiner}
                 </div>
-                <div className="mr-2 mt-2 flex justify-end">
-                  <div className="text-right text-xs font-bold">
+                <div className="mt-2 flex">
+                  <div className="text-right text-gy-600 font-c1-semibold ">
                     현재&nbsp;
-                    <span className="text-[#FF805A]">{store.queueing}</span>명이
-                    대기하고 있어요
+                    <span className="text-red-400">{store.queueing}</span>명이
+                    대기 중
                   </div>
                 </div>
               </div>
