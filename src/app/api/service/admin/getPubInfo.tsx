@@ -1,10 +1,5 @@
 import pubAxios from '../../axios/pubAxios';
-
-interface MenuItem {
-  menuName: string;
-  price: string;
-  oneLiner: string;
-}
+import { MenuItemProps } from '@/app/(route)/admin/_components/menu-management/MenuInputBox';
 
 interface PubResponse {
   pub: {
@@ -18,7 +13,7 @@ interface PubResponse {
     openStatus: boolean;
     waitingStatus: boolean;
   };
-  menu: MenuItem[];
+  menu: MenuItemProps[];
 }
 
 export const getPubInfo = async (): Promise<PubResponse> => {

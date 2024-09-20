@@ -1,16 +1,11 @@
 import pubAxios from '../../axios/pubAxios';
-
-interface MenuItem {
-  menuName: string;
-  price: string;
-  oneLiner: string;
-}
+import { MenuItemProps } from '@/app/(route)/admin/_components/menu-management/MenuInputBox';
 
 interface PubProps {
   thumbnails: string[];
   oneLiner: string;
   studentCard: boolean;
-  menuRequests: MenuItem[];
+  menuRequests: MenuItemProps[];
 }
 
 export const savePubInfo = async (credentials: PubProps) => {
