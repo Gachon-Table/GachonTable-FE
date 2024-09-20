@@ -8,7 +8,8 @@ import { PendingClientList } from '@/app/(route)/admin/_components/client-manage
 import { ServedClientList } from '@/app/(route)/admin/_components/client-management/ServedClientList';
 import { getWaitingList } from '@/app/api/service/admin/getWaitingList';
 import { getSeatingList } from '@/app/api/service/admin/getSeatingList';
-export default function WaitingManagement() {
+
+export default function ClientManagement() {
   const router = useRouter();
   const [selectedValue, setSelectedValue] = useState<'대기 고객' | '이용 고객'>(
     '대기 고객',

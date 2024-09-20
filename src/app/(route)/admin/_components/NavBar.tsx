@@ -12,9 +12,9 @@ export const Navbar = () => {
       <div className="mb-6 flex items-center bg-wt">
         <div className="flex w-full border-b-2 border-gray-200">
           <Link
-            href="/admin/pub-management"
+            href="/admin/menu-management"
             className={`flex flex-1 items-center justify-center px-2 py-2 text-base font-semibold transition duration-300 ease-in-out ${
-              isActive('/admin/pub-management')
+              isActive('/admin/menu-management')
                 ? '-mb-0.5 border-b-2 border-gy-900 text-gy-900'
                 : 'text-gy-400 hover:border-gy-900 hover:text-gy-900'
             }`}
