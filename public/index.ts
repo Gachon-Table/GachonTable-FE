@@ -14,6 +14,7 @@ export { default as Logout } from './icons/logout.svg'
 export { default as ClearButton } from './icons/clear-button.svg'
 export { default as Minus } from './icons/minus-icon.svg'
 export { default as Plus } from './icons/plus-icon.svg'
+export { default as Search } from './icons/search-icon.svg';
 export { default as Instagram } from './icons/instagram.svg'
 export { default as Home } from './icons/home.svg'
 export { default as Camera } from './icons/camera.svg'
