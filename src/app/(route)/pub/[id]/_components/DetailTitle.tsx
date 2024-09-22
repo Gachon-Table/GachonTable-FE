@@ -13,13 +13,13 @@ const DetailTitle: React.FC<DetailTitleProps> = ({
   instagramUrl,
   waitingCount,
 }) => (
-  <div className="flex flex-col items-center justify-center gap-2 py-4">
-    <div className="flex text-gy-700 font-b2-normal-semibold">
+  <div className="flex flex-col items-center justify-center py-4">
+    <div className="mb-2 flex text-gy-700 font-b2-normal-semibold">
       <span className="mr-1 items-center">👥 </span>현재&nbsp;
       <span className="text-red-400">{waitingCount}</span>명 대기 중
     </div>
-    <h1 className="text-gy-900 font-h1">{pubName}</h1>
-    <p className="text-gy-700 font-b1-normal-medium">{oneLiner}</p>
+    <h1 className="mb-[2px] text-gy-900 font-h1">{pubName}</h1>
+    <p className="mb-2 text-gy-700 font-b1-normal-medium">{oneLiner}</p>
     <a
       href={instagramUrl}
       target="_blank"
