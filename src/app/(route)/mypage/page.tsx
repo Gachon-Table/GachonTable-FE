@@ -1,13 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { LeftArrow } from 'public';
 import AfterProfile from './_components/AfterProfile';
 import BeforeProfile from './_components/BeforeProfile';
 import CancelModal from './_components/CancelModal';
 import Tab from './_components/Tab';
 import WaitedList from './_components/WaitedList';
 import WaitingList from './_components/WaitingList';
+import { PageHeader } from '@/app/common/PageHeader';
 
 const Mypage = () => {
   const [curTab, setCurTab] = useState('ing');
@@ -24,22 +24,16 @@ const Mypage = () => {
   }, []);
   return (
     <div className="flex h-screen flex-col">
-      <div className="ml-[2rem] mt-[2rem] flex items-center gap-[1rem]">
-        <LeftArrow
-          className="cursor-pointer"
-          onClick={() => router.push('/')}
-        />
-        <div className="text-[2rem] font-bold">마이 웨이팅</div>
-      </div>
-      {accessToken ? <AfterProfile /> : <BeforeProfile />}
+      <PageHeader isDetailPage={false} title={'마이 웨이팅'} />
       <Tab curTab={curTab} setFunc={setCurTab} />
-      <div className="h-full overflow-y-auto py-[2rem]">
+      <div className="h-full overflow-y-auto">
         {curTab === 'ing' ? (
           <WaitingList modal={modal} setFunc={setModal} setId={setId} />
         ) : (
           <WaitedList />
         )}
       </div>
+      {accessToken ? <AfterProfile /> : <BeforeProfile />}
       {modal && <CancelModal setModal={setModal} waitingId={id} />}
     </div>
   );

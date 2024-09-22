@@ -63,13 +63,13 @@ const WaitedList = () => {
             ))}
           </div>
         ) : (
-          <div className="flex h-full items-center justify-center text-[#D9D9D9]">
+          <div className="flex h-full items-center justify-center text-gy-400 font-b1-normal-medium">
             줄 서기 내역이 존재하지 않습니다.
           </div>
         )
       ) : (
-        <div className="flex h-full items-center justify-center text-[#D9D9D9]">
-          로그인이 필요합니다.
+        <div className="flex h-full items-center justify-center text-gy-400 font-b1-normal-medium">
+          로그인 후 이용해 보세요!
         </div>
       )}
     </div>

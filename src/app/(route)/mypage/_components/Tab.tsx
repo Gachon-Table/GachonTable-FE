@@ -7,22 +7,22 @@ interface TabProps {
 
 const Tab = ({ curTab, setFunc }: TabProps) => {
   return (
-    <div className="mt-[3rem] flex justify-between">
+    <div className="mx-4 mt-4 flex justify-between">
       <div
-        className={`flex w-[50%] cursor-pointer flex-col items-center border-b-2 p-2 ${curTab === 'ing' ? `border-black text-black` : `border-gray-200 text-gray-300`}`}
+        className={`flex w-[50%] cursor-pointer flex-col items-center border-b-2 p-2 ${curTab === 'ing' ? `text-text-gy-900 border-black` : `border-gy-200 text-gy-400`}`}
         onClick={() => {
           setFunc('ing');
         }}
       >
-        <div className="font-bold">줄서기 현황</div>
+        <div className="font-b1-normal-semibold">줄서기 현황</div>
       </div>
       <div
-        className={`flex w-[50%] cursor-pointer flex-col items-center border-b-2 p-2 ${curTab === 'ed' ? `border-black text-black` : `border-gray-200 text-gray-300`}`}
+        className={`flex w-[50%] cursor-pointer flex-col items-center border-b-2 p-2 ${curTab === 'ed' ? `text-text-gy-900 border-black` : `border-gy-200 text-gy-400`}`}
         onClick={() => {
           setFunc('ed');
         }}
       >
-        <div className="font-bold">줄서기 내역</div>
+        <div className="font-b1-normal-semibold">줄서기 내역</div>
       </div>
     </div>
   );
