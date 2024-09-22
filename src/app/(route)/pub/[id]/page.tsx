@@ -27,6 +27,7 @@ interface MenuItem {
   menuName: string;
   price: number;
   oneLiner: string;
+  thumbnail: string;
 }
 
 const StoreDetailPage: React.FC = () => {
