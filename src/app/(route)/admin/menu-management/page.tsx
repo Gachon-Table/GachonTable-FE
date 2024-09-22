@@ -1,25 +1,22 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '../_components/NavBar';
-import ImageUploader from '../_components/pubInput/ImageUploader';
-import StudentIdInputBox from '../_components/pubInput/StudentIdInputBox';
-import MenuInputBox from '../_components/pubInput/MenuInputBox';
+import ImageUploader from '@/app/(route)/admin/_components/menu-management/ImageUploader';
+import MenuInputBox from '@/app/(route)/admin/_components/menu-management/MenuInputBox';
 import { isAuthenticated } from '@/app/api/service/admin/adminAuth';
 import { getPubInfo } from '@/app/api/service/admin/getPubInfo';
 import pubAxios from '@/app/api/axios/pubAxios';
+import { MenuItemProps } from '@/app/(route)/admin/_components/menu-management/MenuInputBox';
 
-interface MenuItem {
-  menuName: string;
-  price: string;
-  oneLiner: string;
-}
-
-export default function PubManagement() {
-  const [contentImages, setContentImages] = useState<string[]>([]);
+export default function MenuManagement() {
+  const [representativeImages, setRepresentativeImages] = useState<string[]>(
+    [],
+  );
   const [oneLiner, setOneLiner] = useState('');
   const [studentId, setStudentId] = useState(false);
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [menuItems, setMenuItems] = useState<MenuItemProps[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -29,7 +26,7 @@ export default function PubManagement() {
         if (authenticated) {
           try {
             const response = await getPubInfo();
-            setContentImages(
+            setRepresentativeImages(
               response.pub.thumbnails &&
                 response.pub.thumbnails.length > 0 &&
                 response.pub.thumbnails[0] !== 'string'
@@ -58,7 +55,7 @@ export default function PubManagement() {
   }, [router]);
 
   const handleSave = async () => {
-    const cleanedImages = contentImages.map((url) => url.split('?')[0]);
+    const cleanedImages = representativeImages.map((url) => url.split('?')[0]);
 
     const updatedPubData = {
       thumbnails: cleanedImages,
@@ -83,19 +80,38 @@ export default function PubManagement() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-start bg-bg-white">
-      <Navbar />
-      <div className="h-550 w-10/12 max-w-screen-xl">
-        <ImageUploader images={contentImages} setImages={setContentImages} />
-        <StudentIdInputBox studentId={studentId} setStudentId={setStudentId} />
+    <>
+      <div className="flex min-h-screen flex-col justify-start bg-gy-0">
+        <Navbar />
+        <div className="mb-4 ml-4 space-y-3">
+          <div className="text-gy-900 font-h4">대표 사진 설정</div>
+          <ImageUploader
+            imageTotalCount={3}
+            images={representativeImages}
+            setImages={setRepresentativeImages}
+          />
+        </div>
+        <div className="border-b-4 bg-gy-100" />
+
+        <div className="ml-4 mt-[18px] flex flex-row items-center space-x-[5px]">
+          <div className="text-gy-900 font-h4">메뉴 편집</div>
+          <span className="text-gy-600 font-b2-normal-medium">
+            (사진은 대표메뉴 2가지만 등록가능 합니다.)
+          </span>
+        </div>
+
         <MenuInputBox menuItems={menuItems} setMenuItems={setMenuItems} />
       </div>
-      <button
-        className="mb-3 mt-16 w-10/12 rounded-xl bg-main-blue py-6 text-xl font-semibold text-white"
-        onClick={handleSave}
-      >
-        저장하기
-      </button>
-    </div>
+      <div className="fixed bottom-8 left-0 right-0 flex justify-center">
+        <button
+          className="flex w-[382px] items-center justify-center rounded-md bg-primary-400 px-6 py-[19px]"
+          onClick={handleSave}
+        >
+          <span className="block w-[334px] text-center text-wt font-h4">
+            저장하기
+          </span>
+        </button>
+      </div>
+    </>
   );
 }

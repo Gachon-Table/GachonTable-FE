@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useRef, useState, ChangeEvent } from 'react';
-import { Delete } from 'public';
+import { ClearButton } from 'public';
 
 export interface TableInputToastModalProps {
   onCancel: () => void;
@@ -52,7 +52,7 @@ export const TableInputToastModal = ({
               className="absolute right-10 top-[103px] -translate-y-1/2 transform cursor-pointer"
               onClick={handleClear}
             >
-              <Delete />
+              <ClearButton />
             </div>
           )}
         </div>
