@@ -1,5 +1,4 @@
 import React from 'react';
-import { PageHeader } from '@/app/common/PageHeader';
 
 interface DetailTitleProps {
   pubName: string;
@@ -16,8 +15,8 @@ const DetailTitle: React.FC<DetailTitleProps> = ({
 }) => (
   <div className="flex flex-col items-center justify-center gap-2 py-4">
     <div className="flex text-gy-700 font-b2-normal-semibold">
-      👥 현재&nbsp;<span className="text-red-400">{waitingCount}</span>명 대기
-      중
+      <span className="mr-1 items-center">👥 </span>현재&nbsp;
+      <span className="text-red-400">{waitingCount}</span>명 대기 중
     </div>
     <h1 className="text-gy-900 font-h1">{pubName}</h1>
     <p className="text-gy-700 font-b1-normal-medium">{oneLiner}</p>

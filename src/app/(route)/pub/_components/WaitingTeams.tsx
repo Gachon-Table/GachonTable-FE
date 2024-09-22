@@ -130,7 +130,7 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
   };
 
   return (
-    <div className="mt-2 flex h-full w-[382px] flex-col">
+    <div className="mt-2 flex w-[382px] flex-col">
       <div
         onClick={(e) => handleStoreClick(e)}
         className={`mb-6 flex h-16 w-full items-center justify-center rounded-md  text-wt font-h4
