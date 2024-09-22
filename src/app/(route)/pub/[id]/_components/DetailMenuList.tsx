@@ -4,6 +4,7 @@ interface MenuItem {
   menuName: string;
   price: number;
   oneLiner: string;
+  thumbnail: string;
 }
 
 interface DetailMenuListProps {
@@ -44,9 +45,9 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => (
                 {(index === 0 || index === 1) && (
                   <div className="flex-shrink-0">
                     <img
-                      src="/images/place.png"
-                      alt="Place"
-                      className="h-20 w-20 object-cover"
+                      key={index}
+                      src={menuItem.thumbnail || '/images/place.png'}
+                      className="h-20 w-20 object-cover "
                     />
                   </div>
                 )}

@@ -30,6 +30,7 @@ const Landing: React.FC = () => {
         <LandingSearchBar
           searchTerm={searchTerm}
           onSearchChange={(e) => setSearchTerm(e.target.value)}
+          setSearchTerm={setSearchTerm}
         />
         <LandingNavbar onFilterChange={handleFilterChange} />
       </header>

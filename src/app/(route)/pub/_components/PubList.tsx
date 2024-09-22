@@ -79,7 +79,7 @@ const PubList = ({
   }
 
   return (
-    <div className="flex w-full flex-col items-center justify-center">
+    <div className="flex w-full flex-col items-center justify-center px-4">
       {loading ? (
         <div className="flex h-screen w-full items-center justify-center font-bold">
           <p>로딩 중...</p>
@@ -89,7 +89,10 @@ const PubList = ({
           <p>{error}</p>
         </div>
       ) : sortedStores.length === 0 ? (
-        <div className="h-screen w-full font-bold">현재 주점이 없습니다</div>
+        <div className="mt-[260px] flex h-full flex-col items-center justify-center text-center text-gy-400 font-b1-normal-medium">
+          <p>검색 결과가 없어요.</p>
+          <p>다른 주점을 검색해보세요.</p>
+        </div>
       ) : (
         sortedStores.map((store: Store, index: number) => (
           <div
@@ -97,12 +100,12 @@ const PubList = ({
             onClick={() => {
               router.push(`/pub/${store.pubId}`);
             }}
-            className={` flex w-full cursor-pointer flex-col justify-center gap-3 bg-wt p-4 ${
+            className={` flex w-full cursor-pointer flex-col justify-center gap-3 bg-wt py-4 ${
               index !== sortedStores.length - 1 ? 'border-b border-gy-100' : ''
             }`}
           >
             <div className="flex flex-row items-center">
-              <div className="relative mr-3 h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl">
+              <div className="relative mr-3 h-20 w-20 flex-shrink-0 overflow-hidden rounded-[6px]">
                 <img
                   src={
                     store.thumbnails.length > 0
@@ -112,17 +115,18 @@ const PubList = ({
                   className="h-full w-full object-cover"
                 />
               </div>
+
               <div className="flex w-full flex-col">
-                <div className="text-gy-900 font-h4">{store.pubName}</div>
-                <div className="text-gy-700 font-b2-normal-semibold">
-                  {store.oneLiner}
-                </div>
-                <div className="mt-2 flex">
+                <div className="mb-1 flex">
                   <div className="text-right text-gy-600 font-c1-semibold ">
                     현재&nbsp;
                     <span className="text-red-400">{store.queueing}</span>명이
                     대기 중
                   </div>
+                </div>
+                <div className="text-gy-900 font-h4">{store.pubName}</div>
+                <div className="text-gy-700 font-b2-normal-semibold">
+                  {store.oneLiner}
                 </div>
               </div>
             </div>

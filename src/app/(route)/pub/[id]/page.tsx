@@ -18,6 +18,7 @@ interface Store {
     studentCard: boolean;
     thumbnails: string[];
     waitingCount: number;
+    waitingStatus: boolean;
   };
   menu: MenuItem[];
 }
@@ -26,6 +27,7 @@ interface MenuItem {
   menuName: string;
   price: number;
   oneLiner: string;
+  thumbnail: string;
 }
 
 const StoreDetailPage: React.FC = () => {
@@ -113,12 +115,13 @@ const StoreDetailPage: React.FC = () => {
         <div ref={menuRef} />
         <DetailMenuList menu={store.menu} />
 
-        <nav className="fixed bottom-0 left-0 right-0 mx-auto w-full max-w-[480px] border-none bg-transparent px-4">
+        <nav className="fixed bottom-0 left-0 right-0 mx-auto w-full border-none bg-transparent px-4">
           <div className="flex items-center justify-center">
             <WaitingTeams
               pubId={parseInt(id as string, 10)}
               studentCard={store.pub.studentCard}
               openStatus={store.pub.openStatus}
+              waitingStatus={store.pub.waitingStatus}
             />
           </div>
         </nav>

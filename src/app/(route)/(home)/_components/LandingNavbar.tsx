@@ -7,7 +7,7 @@ const LandingNavbar: React.FC<{ onFilterChange: (filters: any) => void }> = ({
   const [filterStudentCard, setFilterStudentCard] = useState<boolean | null>(
     null,
   );
-  const [sortByCongestion, setSortByCongestion] = useState(false);
+  const [sortByCongestion, setSortByCongestion] = useState(true);
   const [sortByLowCongestion, setSortByLowCongestion] = useState(false);
 
   const handleStudentCardFilter = () => {
