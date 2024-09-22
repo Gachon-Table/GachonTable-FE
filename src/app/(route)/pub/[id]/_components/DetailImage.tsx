@@ -49,6 +49,18 @@ const DetailImage: React.FC<DetailImageProps> = ({ thumbnails }) => {
         </div>
         <PageHeader icon={<BackButtonWT />} isDetailPage={true} />
       </div>
+      {thumbnails.length > 1 && (
+        <div className="absolute bottom-2 left-0 right-0 flex justify-center space-x-2">
+          {thumbnails.map((_, index) => (
+            <div
+              key={index}
+              className={`h-2 w-2 rounded-full ${
+                index === currentImageIndex ? 'bg-wt' : 'bg-wt opacity-70'
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
