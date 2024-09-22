@@ -110,7 +110,7 @@ const StoreDetailPage: React.FC = () => {
           instagramUrl={store.pub.instagramUrl}
           waitingCount={store.pub.waitingCount}
         />
-        <div className="border bg-gy-100" />
+        <div className="border-2 border-gy-0" />
 
         <div ref={menuRef} />
         <DetailMenuList menu={store.menu} />
