@@ -79,7 +79,7 @@ const PubList = ({
   }
 
   return (
-    <div className="flex w-full flex-col items-center justify-center">
+    <div className="flex w-full flex-col items-center justify-center px-4">
       {loading ? (
         <div className="flex h-screen w-full items-center justify-center font-bold">
           <p>로딩 중...</p>
@@ -100,7 +100,7 @@ const PubList = ({
             onClick={() => {
               router.push(`/pub/${store.pubId}`);
             }}
-            className={` flex w-full cursor-pointer flex-col justify-center gap-3 bg-wt p-4 ${
+            className={` flex w-full cursor-pointer flex-col justify-center gap-3 bg-wt py-4 ${
               index !== sortedStores.length - 1 ? 'border-b border-gy-100' : ''
             }`}
           >
@@ -115,17 +115,18 @@ const PubList = ({
                   className="h-full w-full object-cover"
                 />
               </div>
+
               <div className="flex w-full flex-col">
-                <div className="text-gy-900 font-h4">{store.pubName}</div>
-                <div className="text-gy-700 font-b2-normal-semibold">
-                  {store.oneLiner}
-                </div>
-                <div className="mt-2 flex">
+                <div className="mb-1 flex">
                   <div className="text-right text-gy-600 font-c1-semibold ">
                     현재&nbsp;
                     <span className="text-red-400">{store.queueing}</span>명이
                     대기 중
                   </div>
+                </div>
+                <div className="text-gy-900 font-h4">{store.pubName}</div>
+                <div className="text-gy-700 font-b2-normal-semibold">
+                  {store.oneLiner}
                 </div>
               </div>
             </div>
