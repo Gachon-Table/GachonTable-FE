@@ -14,16 +14,24 @@ export interface MenuItemProps {
 interface MenuInputBoxProps {
   menuItems: MenuItemProps[];
   setMenuItems: React.Dispatch<React.SetStateAction<MenuItemProps[]>>;
+  firstImage: string[];
+  setFirstImage: React.Dispatch<React.SetStateAction<string[]>>;
+  secondImage: string[];
+  setSecondImage: React.Dispatch<React.SetStateAction<string[]>>;
   maxFields?: number;
 }
 
 const MenuInputBox: React.FC<MenuInputBoxProps> = ({
   menuItems,
   setMenuItems,
+  firstImage,
+  setFirstImage,
+  secondImage,
+  setSecondImage,
   maxFields = 10,
 }) => {
-  const [firstImage, setFirstImage] = useState<string[]>([]);
-  const [secondImage, setSecondImage] = useState<string[]>([]);
+  // const [firstImage, setFirstImage] = useState<string[]>([]);
+  // const [secondImage, setSecondImage] = useState<string[]>([]);
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
   const [itemToDeleteIndex, setItemToDeleteIndex] = useState<number | null>(
     null,
@@ -43,7 +51,13 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
     if (menuItems.length < maxFields) {
       setMenuItems([
         ...menuItems,
-        { thumbnail: '', menuName: '', price: '', oneLiner: '' },
+        {
+          menuId: menuItems.length,
+          thumbnail: '',
+          menuName: '',
+          price: '',
+          oneLiner: '',
+        },
       ]);
     }
   };
