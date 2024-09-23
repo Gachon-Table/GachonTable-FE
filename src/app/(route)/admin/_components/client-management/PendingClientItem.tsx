@@ -1,5 +1,4 @@
 import React from 'react';
-import { Phone } from 'public';
 
 export interface PendingClientItemProps {
   index?: number;
@@ -52,15 +51,13 @@ export const PendingClientItem = ({
             {username}({headCount}명)
           </div>
         </div>
-        <div className="flex flex-row items-center text-gy-500">
-          <span
-            className="cursor-pointer underline font-b2-normal-semibold"
-            onClick={() => tel && handlePhoneCall(tel)}
-          >
-            {tel}
-          </span>
-          <Phone />
-        </div>
+        <button
+          className="cursor-pointer text-gy-500 underline font-b2-normal-semibold"
+          onClick={() => tel && handlePhoneCall(tel)}
+        >
+          <span>Tel. </span>
+          {tel}
+        </button>
       </div>
 
       <div className="flex space-x-2.5">
@@ -74,10 +71,10 @@ export const PendingClientItem = ({
           </span>
         </button>
         <button
-          className="rounded-md bg-primary-400 px-7 py-3"
+          className="rounded-md bg-primary-200 px-7 py-3 text-primary-400"
           onClick={handleTableInputModal}
         >
-          <span className="block w-[108px] text-center text-wt font-b2-normal-semibold">
+          <span className="block w-[108px] text-center font-b2-normal-semibold">
             입장 처리
           </span>
         </button>

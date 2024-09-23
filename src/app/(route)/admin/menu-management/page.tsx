@@ -73,7 +73,7 @@ export default function MenuManagement() {
   return (
     <>
       <div className="flex h-screen flex-col justify-start bg-gy-0">
-        <div className="fixed top-0 z-50 w-full max-w-[26rem]">
+        <div className="fixed top-0 z-50 w-full max-w-[414px]">
           <Navbar />
         </div>
         <div className="flex-grow overflow-y-auto">
