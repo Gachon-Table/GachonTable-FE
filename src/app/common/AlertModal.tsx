@@ -29,9 +29,9 @@ const AlertModal = ({
 
   return (
     <>
-      <div className="fixed left-0 top-0 z-40 h-full w-full bg-bk/30"></div>
+      <div className="z-60 fixed left-0 top-0 h-full w-full bg-bk/30"></div>
 
-      <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center">
+      <div className="z-70 fixed left-0 top-0 flex h-full w-full items-center justify-center">
         <div className="flex flex-col items-center justify-center rounded-md bg-white p-6 px-4 pb-4 pt-8">
           <div className="block w-[279px] text-center text-gy-900 font-h4">
             {message}

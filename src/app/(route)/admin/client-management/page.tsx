@@ -62,20 +62,24 @@ export default function ClientManagement() {
     fetchSeatingList();
   }, []);
   return (
-    <div className="flex min-h-screen flex-col items-center bg-gy-0">
-      <Navbar />
-      <ClientStateTabs
-        selectedValue={selectedValue}
-        onClick={setSelectedValue}
-      />
-      {selectedValue === '대기 고객' ? (
-        <PendingClientList
-          pendingClientList={pendingClientList}
-          refreshPendingClientList={refreshPendingClientList}
+    <div className="flex h-screen flex-col items-center bg-gy-0">
+      <div className="fixed top-0 z-50 w-full max-w-[414px]">
+        <Navbar />
+      </div>
+      <div className="flex-grow overflow-y-auto">
+        <ClientStateTabs
+          selectedValue={selectedValue}
+          onClick={setSelectedValue}
         />
-      ) : (
-        <ServedClientList servedClientList={servedClientList} />
-      )}
+        {selectedValue === '대기 고객' ? (
+          <PendingClientList
+            pendingClientList={pendingClientList}
+            refreshPendingClientList={refreshPendingClientList}
+          />
+        ) : (
+          <ServedClientList servedClientList={servedClientList} />
+        )}
+      </div>
     </div>
   );
 }

@@ -23,7 +23,7 @@ export const getPubInfo = async (): Promise<PubResponse> => {
       throw new Error('주점이 존재하지 않습니다.');
     }
     const response = await pubAxios.get<PubResponse>(`/${pubId}`);
-
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('주점 정보 가져오기 실패: ', error);

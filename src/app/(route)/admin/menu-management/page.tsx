@@ -7,16 +7,16 @@ import ImageUploader from '@/app/(route)/admin/_components/menu-management/Image
 import MenuInputBox from '@/app/(route)/admin/_components/menu-management/MenuInputBox';
 import { isAuthenticated } from '@/app/api/service/admin/adminAuth';
 import { getPubInfo } from '@/app/api/service/admin/getPubInfo';
-import pubAxios from '@/app/api/axios/pubAxios';
+import { patchManageMenu } from '@/app/api/service/admin/patchManageMenu';
 import { MenuItemProps } from '@/app/(route)/admin/_components/menu-management/MenuInputBox';
 
 export default function MenuManagement() {
   const [representativeImages, setRepresentativeImages] = useState<string[]>(
     [],
   );
-  const [oneLiner, setOneLiner] = useState('');
-  const [studentId, setStudentId] = useState(false);
   const [menuItems, setMenuItems] = useState<MenuItemProps[]>([]);
+  const [firstImage, setFirstImage] = useState<string[]>([]);
+  const [secondImage, setSecondImage] = useState<string[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -33,8 +33,6 @@ export default function MenuManagement() {
                 ? response.pub.thumbnails
                 : [],
             );
-            setOneLiner(response.pub.onLiner || '');
-            setStudentId(response.pub.studentCard || false);
             setMenuItems(response.menu || []);
             console.log(menuItems);
           } catch (error) {
@@ -57,50 +55,54 @@ export default function MenuManagement() {
   const handleSave = async () => {
     const cleanedImages = representativeImages.map((url) => url.split('?')[0]);
 
+    if (menuItems.length > 0 && firstImage.length > 0) {
+      menuItems[0].thumbnail = firstImage[0];
+    }
+    if (menuItems.length > 1 && secondImage.length > 0) {
+      menuItems[1].thumbnail = secondImage[0];
+    }
+
     const updatedPubData = {
       thumbnails: cleanedImages,
-      oneLiner: oneLiner,
-      studentCard: studentId,
       menuRequests: menuItems,
     };
 
-    console.log('최종 전송할 thumbnails 배열:', updatedPubData.thumbnails);
-
-    try {
-      const response = await pubAxios.patch('/manage', updatedPubData);
-      if (response.status === 200) {
-        console.log('정보 업데이트 성공');
-        alert('저장되었습니다.');
-        return response.data;
-      }
-    } catch (error) {
-      console.log('정보 업데이트 실패: ', error);
-      console.log(updatedPubData);
-    }
+    const response = await patchManageMenu(updatedPubData);
   };
 
   return (
     <>
-      <div className="flex min-h-screen flex-col justify-start bg-gy-0">
-        <Navbar />
-        <div className="mb-4 ml-4 space-y-3">
-          <div className="text-gy-900 font-h4">대표 사진 설정</div>
-          <ImageUploader
-            imageTotalCount={3}
-            images={representativeImages}
-            setImages={setRepresentativeImages}
+      <div className="flex h-screen flex-col justify-start bg-gy-0">
+        <div className="fixed top-0 z-50 w-full max-w-[414px]">
+          <Navbar />
+        </div>
+        <div className="flex-grow overflow-y-auto">
+          <div className="mb-4 ml-4 mt-16 space-y-3">
+            <div className="text-gy-900 font-h4">대표 사진 설정</div>
+            <ImageUploader
+              imageTotalCount={3}
+              images={representativeImages}
+              setImages={setRepresentativeImages}
+            />
+          </div>
+          <div className="border-b-4 bg-gy-100" />
+
+          <div className="ml-4 mt-[18px] flex flex-row items-center space-x-[5px]">
+            <div className="text-gy-900 font-h4">메뉴 편집</div>
+            <span className="text-gy-600 font-b2-normal-medium">
+              (사진은 대표메뉴 2가지만 등록가능 합니다.)
+            </span>
+          </div>
+
+          <MenuInputBox
+            menuItems={menuItems}
+            setMenuItems={setMenuItems}
+            firstImage={firstImage}
+            setFirstImage={setFirstImage}
+            secondImage={secondImage}
+            setSecondImage={setSecondImage}
           />
         </div>
-        <div className="border-b-4 bg-gy-100" />
-
-        <div className="ml-4 mt-[18px] flex flex-row items-center space-x-[5px]">
-          <div className="text-gy-900 font-h4">메뉴 편집</div>
-          <span className="text-gy-600 font-b2-normal-medium">
-            (사진은 대표메뉴 2가지만 등록가능 합니다.)
-          </span>
-        </div>
-
-        <MenuInputBox menuItems={menuItems} setMenuItems={setMenuItems} />
       </div>
       <div className="fixed bottom-8 left-0 right-0 flex justify-center">
         <button
