@@ -90,6 +90,12 @@ const config: Config = {
     addUtilities({
       '.font-default': {
       },
+      '.font-num': {
+        '@apply font-default font-semibold': {},
+        fontSize: '32px',     
+        lineHeight: '32px',    
+        letterSpacing: '-0.025em',
+      },
       '.font-h1': {
         '@apply font-default font-bold': {},
         fontSize: '24px',     
