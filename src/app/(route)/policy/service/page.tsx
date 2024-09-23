@@ -2,7 +2,7 @@
 import React from 'react';
 import { PageHeader } from '@/app/common/PageHeader';
 
-export default function privacyPolicy() {
+export default function servicePolicy() {
   return (
     <div className="pb-10 pt-2 shadow-2xl shadow-gy-100">
       <PageHeader title={'서비스 이용약관'} />
