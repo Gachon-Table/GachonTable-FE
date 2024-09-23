@@ -81,26 +81,30 @@ export default function MenuManagement() {
 
   return (
     <>
-      <div className="flex min-h-screen flex-col justify-start bg-gy-0">
-        <Navbar />
-        <div className="mb-4 ml-4 space-y-3">
-          <div className="text-gy-900 font-h4">대표 사진 설정</div>
-          <ImageUploader
-            imageTotalCount={3}
-            images={representativeImages}
-            setImages={setRepresentativeImages}
-          />
+      <div className="flex h-screen flex-col justify-start bg-gy-0">
+        <div className="fixed top-0 z-50 w-full max-w-[26rem]">
+          <Navbar />
         </div>
-        <div className="border-b-4 bg-gy-100" />
+        <div className="flex-grow overflow-y-auto">
+          <div className="mb-4 ml-4 mt-16 space-y-3">
+            <div className="text-gy-900 font-h4">대표 사진 설정</div>
+            <ImageUploader
+              imageTotalCount={3}
+              images={representativeImages}
+              setImages={setRepresentativeImages}
+            />
+          </div>
+          <div className="border-b-4 bg-gy-100" />
 
-        <div className="ml-4 mt-[18px] flex flex-row items-center space-x-[5px]">
-          <div className="text-gy-900 font-h4">메뉴 편집</div>
-          <span className="text-gy-600 font-b2-normal-medium">
-            (사진은 대표메뉴 2가지만 등록가능 합니다.)
-          </span>
+          <div className="ml-4 mt-[18px] flex flex-row items-center space-x-[5px]">
+            <div className="text-gy-900 font-h4">메뉴 편집</div>
+            <span className="text-gy-600 font-b2-normal-medium">
+              (사진은 대표메뉴 2가지만 등록가능 합니다.)
+            </span>
+          </div>
+
+          <MenuInputBox menuItems={menuItems} setMenuItems={setMenuItems} />
         </div>
-
-        <MenuInputBox menuItems={menuItems} setMenuItems={setMenuItems} />
       </div>
       <div className="fixed bottom-8 left-0 right-0 flex justify-center">
         <button
