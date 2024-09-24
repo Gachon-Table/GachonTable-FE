@@ -39,7 +39,9 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => (
                   <p className="mb-1 text-gy-600 font-b1-normal-medium">
                     {menuItem.oneLiner}
                   </p>
-                  <p className="text-gy-900 font-h4">{menuItem.price}</p>
+                  <p className="text-gy-900 font-b1-normal-semibold">
+                    {menuItem.price}
+                  </p>
                 </div>
 
                 {(index === 0 || index === 1) && (
@@ -47,7 +49,7 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => (
                     <img
                       key={index}
                       src={menuItem.thumbnail || '/images/place.png'}
-                      className="h-20 w-20 rounded-md object-cover "
+                      className="h-[82px] w-[82px] rounded-md object-cover "
                     />
                   </div>
                 )}
