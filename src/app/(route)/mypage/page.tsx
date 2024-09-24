@@ -1,13 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import AfterProfile from './_components/AfterProfile';
-import BeforeProfile from './_components/BeforeProfile';
 import CancelModal from './_components/CancelModal';
 import Tab from './_components/Tab';
 import WaitedList from './_components/WaitedList';
 import WaitingList from './_components/WaitingList';
 import { PageHeader } from '@/app/common/PageHeader';
+import Profile from './_components/Profile';
 
 const Mypage = () => {
   const [curTab, setCurTab] = useState('ing');
@@ -35,7 +34,7 @@ const Mypage = () => {
           <WaitedList />
         )}
       </div>
-      {accessToken ? <AfterProfile /> : <BeforeProfile />}
+      {accessToken ? null : <Profile />}
       {modal && <CancelModal setModal={setModal} waitingId={id} />}
     </div>
   );

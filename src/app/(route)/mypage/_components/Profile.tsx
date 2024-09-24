@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BeforeProfile = () => {
+const Profile = () => {
   const loginProcess = () => {
     localStorage.setItem('callbackPath', window.location.pathname);
 
@@ -24,4 +24,4 @@ const BeforeProfile = () => {
   );
 };
 
-export default BeforeProfile;
+export default Profile;
