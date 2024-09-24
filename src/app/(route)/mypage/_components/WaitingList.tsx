@@ -55,7 +55,7 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
               >
                 <div className="mb-2 flex items-center justify-between">
                   <div
-                    className={`inline-block rounded-full px-2 py-[5px] text-white font-c2-semibold ${
+                    className={`inline-block rounded-full px-2 py-[5px] font-c2-semibold ${
                       element.orderStatus === '대기 중'
                         ? 'bg-orange-200 text-orange-400'
                         : 'bg-orange-200'
