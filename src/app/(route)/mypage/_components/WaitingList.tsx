@@ -3,6 +3,7 @@ import axios from 'axios';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import AlertBox from '../../waiting/biztalk-status/[waitingId]/_components/AlertBox';
 
 interface WaitingItem {
   waitingId: string;
@@ -45,9 +46,12 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
 
   return (
     <div className="h-full">
+      <div className="mx-4 mt-[26px] flex justify-center">
+        <AlertBox color={'primary'} />
+      </div>
       {accessToken ? (
         waitingList.length > 0 ? (
-          <div className="mx-4 mt-8 flex flex-col items-center justify-center gap-3">
+          <div className="mx-4 mt-3 flex flex-col items-center justify-center gap-3">
             {waitingList.map((element) => (
               <div
                 key={element.waitingId}
@@ -74,7 +78,7 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
                   등록 인원 : {element.tableType}
                 </div>
                 <button
-                  className="h-[46px] w-full rounded-md border border-gy-100 bg-gy-100 px-[117px] py-3 text-center text-gy-700 font-b2-normal-semibold"
+                  className=" w-full rounded-md border border-gy-100 bg-gy-100 px-[117px] py-3 text-center text-gy-700 font-b2-normal-semibold"
                   onClick={() => {
                     setFunc(!modal);
                     setId(element.waitingId);
