@@ -73,8 +73,12 @@ const WaitingInfo = () => {
 
   return (
     <div>
-      <PageHeader icon={<Home />} title={'마이 웨이팅'} />
-      <div className="mt-12 flex flex-col items-center space-y-3">
+      <PageHeader
+        icon={<Home />}
+        title={'마이 웨이팅'}
+        clickHandler={() => router.push('/')}
+      />
+      <div className="mt-7 flex flex-col items-center space-y-3">
         <AlertBox />
         <DetailBox
           pubName={waitingState.pubName}
