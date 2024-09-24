@@ -7,17 +7,20 @@ interface WaitedItem {
   pubName: string;
   status: string;
   enteredTime: string;
+  exitTime?: string;
 }
 
 const WaitedList = () => {
   const [waitedList, setWaitedList] = useState<WaitedItem[]>([]);
   const [accessToken, setAccessToken] = useState<string | null>('');
+
   useEffect(() => {
     setAccessToken(localStorage.getItem('accessToken'));
     if (accessToken) {
       waitedApi();
     }
   }, [accessToken, waitedList]);
+
   const waitedApi = async () => {
     if (!accessToken) return;
     try {
@@ -35,36 +38,47 @@ const WaitedList = () => {
     <div className="h-full">
       {accessToken ? (
         waitedList.length > 0 ? (
-          <div className="mx-auto flex h-full w-[90%] flex-col gap-[2rem]">
+          <div className="mx-4 mt-8 flex flex-col items-center justify-center gap-3">
             {waitedList.map((element) => (
               <div
                 key={element.waitingId}
-                className="rounded-[1rem] border border-t-0 px-[2rem] py-[1rem] shadow-md"
+                className="w-full max-w-[400px] rounded-lg border border-gy-200 bg-wt p-5"
               >
                 <div
-                  className={`my-[0.5rem] inline-block rounded-[1rem] ${element.status == 'CANCELED' ? 'bg-[#ff805a]' : 'bg-[#7da4ff]'} px-[1rem] py-[0.2rem] text-white`}
+                  className={`inline-block rounded-full px-2 py-[5px] font-c2-semibold ${
+                    element.status === 'ENTERED'
+                      ? 'bg-green-100 text-green-500'
+                      : 'bg-red-100 text-red-500'
+                  }`}
                 >
-                  {element.status == 'CANCELED' ? '대기 취소' : '입장 완료'}
+                  {element.status === 'ENTERED' ? '입장 완료' : '대기 취소'}
                 </div>
-                <div className="text-[1.5rem] font-bold">{element.pubName}</div>
-                <div className="text-[1rem] font-semibold text-[#969595]">
-                  ID: {element.waitingId.substring(0, 8)}
+
+                <div className="mt-2 text-gy-900 font-h4">
+                  {element.pubName}
                 </div>
-                <div className="mt-[1rem] text-[1rem] font-semibold text-[#969595]">
-                  {element.enteredTime.substring(0, 10)}
-                </div>
-                <div className="text-[1.2rem] font-bold text-[#3b4d9b]">
-                  {element.status == 'CANCELED'
-                    ? '취소 시간'
-                    : '방문 입장 시간:'}{' '}
-                  {element.enteredTime.substring(11, 19)}
-                </div>
+
+                {element.status === 'CANCELED' ? (
+                  <div className="mt-1 text-gy-500 font-b2-normal-medium">
+                    {/* 취소시간 api 수정 */}
+                    취소 시간 : {element.enteredTime}
+                  </div>
+                ) : (
+                  <>
+                    <div className="mt-1 text-red-400 font-b2-normal-medium">
+                      퇴장 예정 시간 : {element.exitTime}
+                    </div>
+                    <div className="text-gy-500 font-b2-normal-medium">
+                      입장 시간 : {element.enteredTime}
+                    </div>
+                  </>
+                )}
               </div>
             ))}
           </div>
         ) : (
           <div className="flex h-full items-center justify-center text-gy-400 font-b1-normal-medium">
-            줄 서기 내역이 존재하지 않습니다.
+            줄서기 내역이 존재하지 않습니다.
           </div>
         )
       ) : (

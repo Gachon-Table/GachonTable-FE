@@ -23,10 +23,12 @@ const Mypage = () => {
     setAccessToken(localStorage.getItem('accessToken'));
   }, []);
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-screen flex-col bg-gy-0">
       <PageHeader isDetailPage={false} title={'마이 웨이팅'} />
-      <Tab curTab={curTab} setFunc={setCurTab} />
-      <div className="h-full overflow-y-auto">
+      <div className="bg-wt">
+        <Tab curTab={curTab} setFunc={setCurTab} />
+      </div>
+      <div className="h-screen">
         {curTab === 'ing' ? (
           <WaitingList modal={modal} setFunc={setModal} setId={setId} />
         ) : (

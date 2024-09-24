@@ -10,6 +10,7 @@ interface WaitingItem {
   orderStatus: string;
   order: number;
   createdAt: string;
+  tableType: string;
 }
 
 interface WaitingProps {
@@ -46,48 +47,47 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
     <div className="h-full">
       {accessToken ? (
         waitingList.length > 0 ? (
-          <div className="mx-auto flex w-[90%] flex-col gap-[2rem]">
+          <div className="mx-4 mt-8 flex flex-col items-center justify-center gap-3">
             {waitingList.map((element) => (
               <div
                 key={element.waitingId}
-                className="flex items-center justify-between rounded-[1rem] border border-t-0 px-[2rem] py-[1rem] shadow-md"
+                className="w-full max-w-[400px] rounded-lg border border-gy-200 bg-wt p-5"
               >
-                <div>
+                <div className="mb-2 flex items-center justify-between">
                   <div
-                    className={`my-[0.5rem] inline-block rounded-[1rem] ${element.orderStatus == '대기 중' ? 'bg-[#7da4ff]' : 'bg-[#FF805A]'} px-[1rem] py-[0.2rem] text-white`}
+                    className={`inline-block rounded-full px-2 py-[5px] text-white font-c2-semibold ${
+                      element.orderStatus === '대기 중'
+                        ? 'bg-orange-200 text-orange-400'
+                        : 'bg-orange-200'
+                    }`}
                   >
-                    {element.orderStatus}
-                  </div>
-                  <div className="text-[1.5rem] font-bold">
-                    {element.pubName}
-                  </div>
-                  <div className="text-[1rem] font-semibold text-[#969595]">
-                    ID: {element.waitingId.substring(0, 8)}
-                  </div>
-                  <div className="mt-[1rem] text-[1rem] font-semibold text-[#969595]">
-                    대기 시작 시간: {element.createdAt.substring(11, 19)}
-                  </div>
-                  <div className="text-[1.2rem] font-bold text-[#3b4d9b]">
-                    대기순번: {element.order}
+                    대기 중 : 내 순서 {element.order}번째
                   </div>
                 </div>
-                <Image
-                  src={'/images/cancel.png'}
-                  width={15}
-                  height={15}
-                  alt="cancel"
-                  className="h-[15px] cursor-pointer"
+                <div className="mb-1 text-gy-900 font-h4">
+                  {element.pubName}
+                </div>
+                <div className="text-gy-500 font-b2-normal-medium">
+                  등록 시간 : {element.createdAt}
+                </div>
+                <div className="mb-3 text-gray-500 font-b2-normal-medium">
+                  등록 인원 : {element.tableType}
+                </div>
+                <button
+                  className="h-[46px] w-full rounded-md border border-gy-100 bg-gy-100 px-[117px] py-3 text-center text-gy-700 font-b2-normal-semibold"
                   onClick={() => {
                     setFunc(!modal);
                     setId(element.waitingId);
                   }}
-                />
+                >
+                  대기 취소
+                </button>
               </div>
             ))}
           </div>
         ) : (
-          <div className="flex h-full items-center justify-center text-gy-400 font-b1-normal-medium ">
-            줄 서기 현황이 존재하지 않습니다.
+          <div className="flex h-full items-center justify-center text-gy-400 font-b1-normal-medium">
+            줄서기 현황이 존재하지 않습니다.
           </div>
         )
       ) : (
@@ -98,8 +98,10 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
     </div>
   );
 };
+
 WaitingList.propTypes = {
   modal: PropTypes.bool.isRequired,
   setFunc: PropTypes.func.isRequired,
 };
+
 export default WaitingList;
