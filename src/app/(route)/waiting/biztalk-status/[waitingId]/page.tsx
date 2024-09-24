@@ -8,6 +8,7 @@ import AlertModal from '@/app/common/AlertModal';
 import AlertBox from './_components/AlertBox';
 import DetailBox from './_components/DetailBox';
 import CancelButton from './_components/CancelButton';
+import { NoteBox } from '@/app/(route)/waiting/biztalk-status/[waitingId]/_components/NoteBox';
 import { getWaitingInfo } from '@/app/api/service/getWaitingInfo';
 
 interface WaitingProps {
@@ -71,9 +72,9 @@ const WaitingInfo = () => {
   }, [waitingId]);
 
   return (
-    <div className="flex flex-col items-center">
+    <div>
       <PageHeader icon={<Home />} title={'마이 웨이팅'} />
-      <div className="mt-12 space-y-4">
+      <div className="mt-12 flex flex-col items-center space-y-3">
         <AlertBox />
         <DetailBox
           pubName={waitingState.pubName}
@@ -81,6 +82,9 @@ const WaitingInfo = () => {
           order={waitingState.order}
           createdAt={waitingState.createdAt}
         />
+        <NoteBox />
+      </div>
+      <div className="fixed bottom-8 left-0 right-0 flex justify-center">
         <CancelButton
           handleCancel={() => setIsModalOpen(false)}
           order={waitingState.order}

@@ -72,7 +72,7 @@ export default function Setting() {
 
   return (
     <div>
-      <div className="flex min-h-screen flex-col items-center bg-bg-white">
+      <div className="flex h-screen flex-col items-center bg-bg-white">
         <Navbar />
         <div className="mb-6 flex flex-row space-x-3">
           <ClouserCard
