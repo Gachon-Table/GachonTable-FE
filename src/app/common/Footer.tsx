@@ -2,7 +2,6 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Instagram } from 'public';
-import { Divider } from '@/app/common/Divider';
 
 export const Footer = () => {
   const router = useRouter();
@@ -16,7 +15,7 @@ export const Footer = () => {
           >
             개인정보 처리방침
           </button>
-          <Divider length={14} borderColor={'border-gy-300'} />
+          <div className="h-[14px] border-r border-gy-300" />
           <button
             className="cursor-pointer p-2 text-gy-700 font-b2-normal-semibold"
             onClick={() => router.push('/policy/service')}
