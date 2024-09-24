@@ -46,9 +46,11 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
 
   return (
     <div className="h-full">
-      <div className="mx-4 mt-[26px] flex justify-center">
-        <AlertBox color={'primary'} />
-      </div>
+      {accessToken && (
+        <div className="mx-4 mt-[26px] flex justify-center">
+          <AlertBox color={'primary'} />
+        </div>
+      )}
       {accessToken ? (
         waitingList.length > 0 ? (
           <div className="mx-4 mt-3 flex flex-col items-center justify-center gap-3">
