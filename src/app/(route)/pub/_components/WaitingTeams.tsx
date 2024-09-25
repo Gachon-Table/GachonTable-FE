@@ -3,11 +3,9 @@ import { useRouter } from 'next/navigation';
 import userAxios from '@/app/api/axios/userAxios';
 import { isUserAuthenticated } from '@/app/api/service/user/userAuth';
 import axios from 'axios';
-// import ConfirmPopup from './ConfirmPopup';
-import SuccessPopup from './SuccessPopup';
 import AlertModal from '@/app/common/AlertModal';
-import { LoginToastModal } from '@/app/(route)/(home)/_components/LoginToastModal';
-import { VisitorCountToastModal } from '@/app/(route)/(home)/_components/VisitorCountToastModal';
+import { LoginToastModal } from '@/app/(route)/pub/[id]/_components/LoginToastModal';
+import { VisitorCountToastModal } from '@/app/(route)/pub/[id]/_components/VisitorCountToastModal';
 
 interface WaitingTeamsProps {
   pubId: number;
@@ -28,7 +26,6 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
   const router = useRouter();
 
   const handleHeadCountChange = (count: number) => {
@@ -38,7 +35,6 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
   const closePopup = () => {
     setIsVisitorModalOpen(false);
     setError(null);
-    setShowSuccessPopup(false);
   };
 
   const handleStoreClick = async (e: React.MouseEvent<HTMLDivElement>) => {
@@ -101,8 +97,6 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
         } else {
           setError(`오류가 발생했습니다: ${message}`);
         }
-      } else {
-        setShowSuccessPopup(true);
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -171,7 +165,6 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
         />
       )}
 
-      {/* 옛날 코드 다 수정해야함..ㅋ */}
       {error && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="rounded-lg bg-white p-8 shadow-lg">
@@ -188,8 +181,6 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
           </div>
         </div>
       )}
-
-      {showSuccessPopup && <SuccessPopup onClose={closePopup} />}
     </div>
   );
 };
