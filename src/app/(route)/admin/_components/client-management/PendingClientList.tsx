@@ -8,7 +8,6 @@ import { TableInputToastModal } from '@/app/(route)/admin/_components/client-man
 import AlertModal from '@/app/common/AlertModal';
 import { patchCallClient } from '@/app/api/service/admin/patchCallClient';
 import { patchEnterClient } from '@/app/api/service/admin/patchEnterClient';
-import { useRouter } from 'next/router';
 
 export interface PendingClientListProps {
   pendingClientList: PendingClientItemProps[];
@@ -22,7 +21,6 @@ export const PendingClientList = ({
   const [isTableModalOpen, setIsTableModalOpen] = useState(false);
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
   const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
-  const router = useRouter();
 
   const handleCallClick = (waitingId: string) => {
     setSelectedClientId(waitingId);
@@ -39,7 +37,7 @@ export const PendingClientList = ({
         await patchEnterClient(selectedClientId, tableNumber);
         setIsTableModalOpen(false);
         refreshPendingClientList();
-        router.reload();
+        window.location.reload();
       } catch (error) {
         console.error('입장 처리 중 오류 발생:', error);
       }
@@ -52,7 +50,7 @@ export const PendingClientList = ({
         await patchCallClient(selectedClientId);
         setIsCallModalOpen(false);
         refreshPendingClientList();
-        router.reload();
+        window.location.reload();
       } catch (error) {
         console.error('고객 호출 중 오류 발생:', error);
       }
