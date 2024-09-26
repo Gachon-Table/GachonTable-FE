@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import userAxios from '@/app/api/axios/userAxios';
 import { isUserAuthenticated } from '@/app/api/service/user/userAuth';
-import axios from 'axios';
 import AlertModal from '@/app/common/AlertModal';
 import { LoginToastModal } from '@/app/(route)/pub/[id]/_components/LoginToastModal';
-import { VisitorCountToastModal } from '@/app/(route)/pub/[id]/_components/VisitorCountToastModal';
+import { TableBottomSheet } from '@/app/(route)/pub/[id]/_components/TableBottomSheet';
 
 interface WaitingTeamsProps {
   pubId: number;
@@ -19,22 +18,24 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
   openStatus,
   waitingStatus,
 }) => {
-  const [headCount, setHeadCount] = useState(0);
+  const [tableType, setTableType] = useState('BASIC');
   const [isVisitorModalOpen, setIsVisitorModalOpen] = useState(false);
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [suberror, setSuberror] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleHeadCountChange = (count: number) => {
-    setHeadCount(count);
+  const handleTableTypeChange = (tableType: 'BASIC' | 'PARTY') => {
+    setTableType(tableType);
   };
 
-  const closePopup = () => {
+  const handleErrorModal = () => {
     setIsVisitorModalOpen(false);
     setError(null);
+    setSuberror(null);
   };
 
   const handleStoreClick = async (e: React.MouseEvent<HTMLDivElement>) => {
@@ -76,7 +77,7 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
 
       const payload = {
         pubId,
-        headCount: headCount,
+        tableType: tableType,
       };
 
       const response = await userAxios.post('/waiting/remote', payload, {
@@ -91,35 +92,16 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
 
       if (httpStatus === 412) {
         if (code === 'WAITING_OVER_COUNT') {
-          setError('예약 가능한 주점의 최대 개수를 초과했습니다.');
+          setError('예약 가능한 주점의\n최대 개수(3개)를 초과했습니다.');
+          setSuberror('신청을 원하시면, 다른 주점의 웨이팅을 취소하세요.');
         } else if (code === 'WAITING_ALREADY_EXIST') {
-          setError('한 주점에 하나의 웨이팅 신청만 가능합니다.');
+          setError('한 주점에 하나의 웨이팅\n신청만 가능합니다.');
         } else {
           setError(`오류가 발생했습니다: ${message}`);
         }
       }
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const status = error.response?.status;
-
-        if (status === 500) {
-          setError('서버 에러가 발생했습니다.');
-        } else if (status === 401) {
-          setError('인증 오류가 발생했습니다. 다시 로그인 해주세요.');
-        } else if (status === 404) {
-          setError('요청한 페이지를 찾을 수 없습니다.');
-        } else if (status === 403) {
-          setError('권한이 존재하지 않습니다.');
-        } else if (status === 503) {
-          setError('관리자에게 문의해주세요.');
-        } else {
-          setError(`오류가 발생했습니다: ${error.message}`);
-        }
-      } else {
-        setError('예기치 못한 오류가 발생했습니다.');
-      }
-    } finally {
-      setLoading(false);
+      console.error(error);
     }
   };
 
@@ -141,9 +123,9 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
       </div>
 
       {isVisitorModalOpen && (
-        <VisitorCountToastModal
+        <TableBottomSheet
           onClose={() => setIsVisitorModalOpen(false)}
-          handleHeadCountChange={handleHeadCountChange}
+          handleSelectedTableType={handleTableTypeChange}
           onSubmit={handleSubmit}
         />
       )}
@@ -157,7 +139,7 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
 
       {isAlertModalOpen && (
         <AlertModal
-          message={`${headCount}명 방문 예정인가요?`}
+          message={`${tableType === 'BASIC' ? '4인 테이블' : '8인 테이블'} 이용 예정인가요?`}
           hasSubmessage={true}
           submessage={'신청 시 카카오톡으로 대기 현황을 알려드려요!'}
           onCancel={() => setIsAlertModalOpen(false)}
@@ -166,20 +148,12 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
       )}
 
       {error && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="rounded-lg bg-white p-8 shadow-lg">
-            <p>{error}</p>
-            <div className="mt-6 flex justify-center">
-              <button
-                onClick={closePopup}
-                style={{ backgroundColor: '#3B4D9B' }}
-                className="rounded px-4 py-2 text-white"
-              >
-                닫기
-              </button>
-            </div>
-          </div>
-        </div>
+        <AlertModal
+          message={error}
+          hasSubmessage={suberror !== null}
+          submessage={suberror !== null ? suberror : ''}
+          onConfirm={handleErrorModal}
+        />
       )}
     </div>
   );
