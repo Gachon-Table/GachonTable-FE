@@ -53,8 +53,8 @@ export default function AdminLogin() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center space-y-6">
-          <div className="w-full space-y-[6px] px-4">
+        <div className="flex flex-col items-center justify-center space-y-6">
+          <div className="space-y-[6px]">
             <label
               htmlFor="id"
               className="block text-gy-600 font-b1-normal-medium"
@@ -70,7 +70,7 @@ export default function AdminLogin() {
               className="placeholder:text-font-b1-normal-medium w-[382px] max-w-full rounded-md bg-gy-0 py-4 pl-4 pr-[71px] focus:outline-none"
             />
           </div>
-          <div className="w-full space-y-[6px] px-4">
+          <div className="space-y-[6px]">
             <label
               htmlFor="password"
               className="block text-gy-600 font-b1-normal-medium"

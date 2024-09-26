@@ -72,11 +72,11 @@ export default function MenuManagement() {
 
   return (
     <>
-      <div className="flex h-screen flex-col justify-start bg-gy-0">
+      <div className="flex h-screen flex-col items-center justify-center bg-gy-0">
         <div className="fixed top-0 z-50 w-full max-w-[414px]">
           <Navbar />
         </div>
-        <div className=" ml-4 flex-grow overflow-y-auto">
+        <div className="flex-grow items-center justify-center overflow-y-auto">
           <div className="mb-4 mt-16 space-y-3">
             <div className="text-gy-900 font-h4">대표 사진 설정</div>
             <ImageUploader
