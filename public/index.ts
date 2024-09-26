@@ -23,3 +23,5 @@ export { default as TrashIcon } from './icons/trash-icon.svg';
 export { default as BackButtonWT } from './icons/back-button-wt.svg';
 export { default as Close } from './icons/close-icon.svg';
 export { default as CheckIcon } from './icons/check-icon.svg';
+export { default as RadioButton } from './icons/radio-btn.svg';
+export { default as RadioButtonClicked } from './icons/radio-btn-clicked.svg';
