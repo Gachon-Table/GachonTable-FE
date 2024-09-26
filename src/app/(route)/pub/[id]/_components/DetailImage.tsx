@@ -21,6 +21,10 @@ const DetailImage: React.FC<DetailImageProps> = ({ thumbnails }) => {
     }
   }, [thumbnails]);
 
+  const handleHeaderClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   return (
     <div className="relative h-48 w-full">
       <div className="relative h-full w-full overflow-hidden">
@@ -47,7 +51,9 @@ const DetailImage: React.FC<DetailImageProps> = ({ thumbnails }) => {
             />
           )}
         </div>
-        <PageHeader icon={<BackButtonWT />} isDetailPage={true} />
+        <div onClick={handleHeaderClick} className="relative z-10">
+          <PageHeader icon={<BackButtonWT />} isDetailPage={true} />
+        </div>
       </div>
       {thumbnails.length > 1 && (
         <div className="absolute bottom-2 left-0 right-0 flex justify-center space-x-2">
@@ -60,6 +66,13 @@ const DetailImage: React.FC<DetailImageProps> = ({ thumbnails }) => {
             />
           ))}
         </div>
+      )}
+      {thumbnails.length > 0 && (
+        <a
+          href={thumbnails[currentImageIndex]}
+          target="_blank"
+          className="absolute inset-0 z-0"
+        ></a>
       )}
     </div>
   );
