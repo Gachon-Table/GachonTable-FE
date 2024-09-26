@@ -4,7 +4,7 @@ import { TrashIcon } from 'public';
 import ImageUploader from '@/app/(route)/admin/_components/menu-management/ImageUploader';
 
 export interface MenuItemProps {
-  menuId?: number;
+  menuId?: number | null;
   thumbnail: string;
   menuName: string;
   oneLiner: string;
@@ -30,8 +30,6 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
   setSecondImage,
   maxFields = 10,
 }) => {
-  // const [firstImage, setFirstImage] = useState<string[]>([]);
-  // const [secondImage, setSecondImage] = useState<string[]>([]);
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
   const [itemToDeleteIndex, setItemToDeleteIndex] = useState<number | null>(
     null,
@@ -52,7 +50,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
       setMenuItems([
         ...menuItems,
         {
-          menuId: menuItems.length,
+          menuId: null,
           thumbnail: '',
           menuName: '',
           price: '',
@@ -89,7 +87,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
 
   return (
     <>
-      <form className="ml-4 mt-4 flex flex-col">
+      <form className="mt-4 flex flex-col">
         <div className="mb-28 space-y-2 overflow-y-auto ">
           {menuItems.map((menu, index) => (
             <div key={index} className="space-y-2">
@@ -211,9 +209,9 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
           ))}
           <button
             onClick={handleAddField}
-            className="rounded-md bg-gy-200 px-[159px] py-[14px] font-b2-normal-semibold"
+            className="rounded-md bg-gy-200 px-[151px] py-[14px] font-b2-normal-semibold"
           >
-            + 메뉴 추가
+            <span className="block w-[80px] text-center">+ 메뉴 추가</span>
           </button>
         </div>
       </form>
