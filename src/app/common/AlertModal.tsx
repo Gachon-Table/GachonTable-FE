@@ -5,7 +5,8 @@ interface AlertModalProps {
   message: string;
   hasSubmessage: boolean;
   submessage?: string;
-  onCancel: () => void;
+  hasCancelButton?: boolean;
+  onCancel?: () => void;
   onConfirm?: () => void;
   waitingId?: string;
 }
@@ -14,6 +15,7 @@ const AlertModal = ({
   message,
   hasSubmessage,
   submessage,
+  hasCancelButton = true,
   onCancel,
   onConfirm,
   waitingId,
@@ -42,20 +44,31 @@ const AlertModal = ({
             </div>
           )}
           <div className="gap-5">
-            <div className="mt-5 flex items-center justify-center gap-[7px]">
-              <button
-                className="h-[46px] w-[136px] rounded-md bg-gy-100 px-[14px] py-[13px] font-semibold text-gy-700 hover:bg-gray-100"
-                onClick={onCancel}
-              >
-                취소
-              </button>
-              <button
-                className="h-[46px] w-[136px] rounded-md bg-primary-400 px-[14px] py-[13px] font-semibold text-white"
-                onClick={handleConfirm}
-              >
-                확인
-              </button>
-            </div>
+            {hasCancelButton ? (
+              <div className="mt-5 flex items-center justify-center gap-[7px]">
+                <button
+                  className="h-[46px] w-[136px] rounded-md bg-gy-100 px-[14px] py-[13px] font-semibold text-gy-700 hover:bg-gray-100"
+                  onClick={onCancel}
+                >
+                  취소
+                </button>
+                <button
+                  className="h-[46px] w-[136px] rounded-md bg-primary-400 px-[14px] py-[13px] font-semibold text-white"
+                  onClick={handleConfirm}
+                >
+                  확인
+                </button>
+              </div>
+            ) : (
+              <div className="mt-5 flex items-center justify-center gap-[7px]">
+                <button
+                  className="h-[46px] w-[136px] rounded-md bg-primary-400 px-[14px] py-[13px] font-semibold text-white"
+                  onClick={handleConfirm}
+                >
+                  확인
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
