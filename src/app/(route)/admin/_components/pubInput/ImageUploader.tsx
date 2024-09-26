@@ -77,7 +77,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
             />
             <button
               onClick={() => handleDeleteImage(index)}
-              className="absolute right-1 top-1 flex h-3 w-3 items-center justify-center rounded-full bg-main-blue text-white"
+              className="absolute right-1 top-1 flex h-3 w-3 items-center justify-center rounded-full text-white"
             >
               <span className="text-[7px] font-medium">X</span>
             </button>

@@ -1,6 +1,5 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import CancelModal from './_components/CancelModal';
 import Tab from './_components/Tab';
 import WaitedList from './_components/WaitedList';
@@ -12,7 +11,6 @@ const Mypage = () => {
   const [curTab, setCurTab] = useState('ing');
   const [modal, setModal] = useState(false);
   const [id, setId] = useState('');
-  const router = useRouter();
   const [accessToken, setAccessToken] = useState<string | null>('');
   useEffect(() => {
     setAccessToken(localStorage.getItem('accessToken'));
