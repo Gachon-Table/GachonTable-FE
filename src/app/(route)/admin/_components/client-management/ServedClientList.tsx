@@ -6,7 +6,6 @@ import {
 } from '@/app/(route)/admin/_components/client-management/ServedClientItem';
 import { patchExitClient } from '@/app/api/service/admin/patchExitClient';
 import AlertModal from '@/app/common/AlertModal';
-import { useRouter } from 'next/router';
 
 export interface ServedClientListProps {
   servedClientList: ServedClientItemProps[];
@@ -17,7 +16,6 @@ export const ServedClientList = ({
 }: ServedClientListProps) => {
   const [isExitModalOpen, setIsExitModalOpen] = useState(false);
   const [selectedSeatingId, setSelectedSeatingId] = useState(0);
-  const router = useRouter();
 
   const handleExitModal = (seatingId: number) => {
     setSelectedSeatingId(seatingId);
@@ -29,7 +27,7 @@ export const ServedClientList = ({
       try {
         await patchExitClient(selectedSeatingId);
         setIsExitModalOpen(false);
-        router.reload();
+        window.location.reload();
       } catch (error) {
         console.error('퇴장 처리 중 오류 발생:', error);
       }
