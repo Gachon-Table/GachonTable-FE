@@ -21,7 +21,6 @@ const config: Config = {
         mobile: '414px',
       },
       colors: {
-        // 새로운 컬러 팔레트
         'primary-400': '#1043A4',
         'primary-200': '#EDF6FF',
         'green-400': '#00A72F',
@@ -34,6 +33,8 @@ const config: Config = {
         'yellow-200': '#FFF8E0',
         'blue-400': '#4666F1',
         'blue-200': '#E6F2FF',
+        'pink-400': '#FF36D0',
+        'pink-200': '#FFEEFB',
         'wt': '#FFFFFF',
         'bk': '#0F0F0F',
         'gy-0': '#F4F4F4',
@@ -47,20 +48,6 @@ const config: Config = {
         'gy-800': '#2A2A2A',
         'gy-900': '#1B1B1B',
         'kakao': '#FEE500',
-
-        // 이전 컬러팔레트 ;;
-        'main-blue': '#3B4D9B',
-        'bg-white': '#F2F4F6',
-        'point-yellow': '#FFD479',
-        'point-blue': '#EAEFFF',
-        'point-red': '#E87567',
-        'point-grey': '#EFEFF0',
-        'tory-blue': '#014f9e',
-        'dodger-blue': '#0096ff',
-        'deep-cove': '#001140',
-        sunglo: '#de6868',
-        gallery: '#efeff0',
-        'modal-rgba': 'rgba(0, 0, 0, 0.4)',
       },
       boxShadow: {
         'client-item': '0px 4px 7px 0px rgba(0, 0, 0, 0.05)',

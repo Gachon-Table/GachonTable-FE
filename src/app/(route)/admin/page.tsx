@@ -19,10 +19,10 @@ export default function AdminLogin() {
 
     const loginSuccess = await adminLogin(credentials);
     if (loginSuccess) {
-      router.push('/admin/client-management');
       setIsLoginSuccess(true);
       setTimeout(() => {
         setIsLoginSuccess(false);
+        router.push('/admin/menu-management');
       }, 2000);
     }
   };
@@ -32,7 +32,7 @@ export default function AdminLogin() {
       try {
         const authenticated = await isAuthenticated();
         if (authenticated) {
-          router.push('/admin/client-management');
+          router.push('/admin/menu-management');
         } else {
           router.push('/admin');
         }
@@ -43,18 +43,17 @@ export default function AdminLogin() {
 
     checkAuth();
   }, [router]);
-
   return (
-    <div className="flex h-screen flex-col bg-white">
-      <div className="mt-[157px]">
-        <div className="mb-[54px] flex flex-col items-center">
+    <div className="relative flex h-screen flex-col overflow-x-hidden bg-white">
+      <div className="mt-40">
+        <div className="mb-14 flex flex-col items-center">
           <Logo />
           <div className="mt-6 text-center text-gy-700 font-h1">
             관리자 로그인
           </div>
         </div>
 
-        <div className="flex flex-col items-center space-y-6">
+        <div className="flex flex-col items-center justify-center space-y-6">
           <div className="space-y-[6px]">
             <label
               htmlFor="id"
@@ -68,7 +67,7 @@ export default function AdminLogin() {
               placeholder="아이디를 입력해주세요."
               value={id}
               onChange={(e) => setId(e.target.value)}
-              className="placeholder:text-font-b1-normal-medium w-[382px] rounded-md bg-gy-0 py-4 pl-4 pr-[71px] focus:outline-none"
+              className="placeholder:text-font-b1-normal-medium w-[382px] max-w-full rounded-md bg-gy-0 py-4 pl-4 pr-[71px] focus:outline-none"
             />
           </div>
           <div className="space-y-[6px]">
@@ -84,14 +83,14 @@ export default function AdminLogin() {
               placeholder="비밀번호를 입력해주세요."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="placeholder:text-font-b1-normal-medium w-[382px] rounded-md bg-gy-0 py-4 pl-4 pr-[71px] focus:outline-none"
+              className="placeholder:text-font-b1-normal-medium w-[382px] max-w-full rounded-md bg-gy-0 py-4 pl-4 pr-[71px] focus:outline-none"
             />
           </div>
         </div>
       </div>
 
       {isLoginSuccess && (
-        <div className="mt-[206px] flex justify-center">
+        <div className="fixed bottom-[100px] left-0 right-0 mb-3 flex justify-center">
           <ToastModal message={'로그인이 완료되었습니다!'} />
         </div>
       )}
@@ -99,7 +98,7 @@ export default function AdminLogin() {
       <div className="fixed bottom-8 left-0 right-0 flex justify-center">
         <button
           onClick={handleLogin}
-          className="flex w-[382px] items-center justify-center rounded-md bg-primary-400 px-6 py-[19px]"
+          className="w-[382px] max-w-full rounded-md bg-primary-400 px-6 py-[19px]"
         >
           <span className="block w-[334px] text-center text-wt font-h4">
             로그인

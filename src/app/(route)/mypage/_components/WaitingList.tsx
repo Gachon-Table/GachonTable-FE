@@ -1,6 +1,5 @@
 'use client';
 import axios from 'axios';
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import AlertBox from '../../waiting/biztalk-status/[waitingId]/_components/AlertBox';

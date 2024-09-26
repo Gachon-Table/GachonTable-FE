@@ -15,7 +15,7 @@ function StudentIdInputBox({
   return (
     <div className="h-18 relative mt-3 flex w-full max-w-md cursor-pointer flex-row overflow-hidden rounded-xl bg-white">
       <div
-        className={`absolute left-0 top-0 h-full w-1/2 rounded-xl bg-main-blue transition-all duration-300 ease-in-out ${
+        className={`absolute left-0 top-0 h-full w-1/2 rounded-xl transition-all duration-300 ease-in-out ${
           studentId ? 'translate-x-0' : 'translate-x-full'
         }`}
       ></div>

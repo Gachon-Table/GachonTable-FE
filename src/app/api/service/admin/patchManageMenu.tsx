@@ -1,7 +1,7 @@
 import adminAxios from '@/app/api/axios/adminAxios';
 
 interface MenuRequest {
-  menuId?: number | undefined;
+  menuId?: number | null;
   menuName: string;
   price: string;
   oneLiner: string;
