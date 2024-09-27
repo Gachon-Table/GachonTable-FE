@@ -1,9 +1,11 @@
 import React from 'react';
+import { TableTypeLabel } from '@/app/(route)/admin/_components/TableTypeLabel';
+import { Phone } from 'public';
 
 export interface PendingClientItemProps {
   index?: number;
   username?: string;
-  headCount?: number;
+  tableType?: 'BASIC' | 'PARTY';
   tel?: string;
   waitingId?: string;
   waitingStatus?: string;
@@ -14,7 +16,7 @@ export interface PendingClientItemProps {
 export const PendingClientItem = ({
   index,
   username,
-  headCount,
+  tableType,
   tel,
   waitingStatus,
   handleCallUser,
@@ -44,19 +46,17 @@ export const PendingClientItem = ({
   return (
     <div className="flex flex-col space-y-4 rounded-lg border border-gy-100 bg-wt p-5 shadow-client-item">
       <div className="flex w-[342px] flex-row justify-between">
-        <div className="flex flex-row items-center space-x-1 font-h4">
+        <div className="flex flex-row items-center space-x-[5px] font-h4">
           <div className="text-gy-800">{index}번</div>
           <div className="text-gy-200 font-b1-normal-semibold">|</div>
-          <div className="text-gy-800">
-            {username}({headCount}명)
-          </div>
+          <div className="text-gy-800">{username}</div>
+          <TableTypeLabel tableType={tableType} />
         </div>
         <button
-          className="cursor-pointer text-gy-500 underline font-b2-normal-semibold"
+          className="cursor-pointer"
           onClick={() => tel && handlePhoneCall(tel)}
         >
-          <span>Tel. </span>
-          {tel}
+          <Phone />
         </button>
       </div>
 

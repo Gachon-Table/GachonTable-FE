@@ -21,9 +21,13 @@ export const PendingClientList = ({
   const [isTableModalOpen, setIsTableModalOpen] = useState(false);
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
   const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
+  const [selectedClientIndex, setSelectedClientIndex] = useState<number | null>(
+    null,
+  );
 
-  const handleCallClick = (waitingId: string) => {
+  const handleCallClick = (waitingId: string, index: number) => {
     setSelectedClientId(waitingId);
+    setSelectedClientIndex(index);
     setIsCallModalOpen(true);
   };
 
@@ -59,17 +63,19 @@ export const PendingClientList = ({
 
   return (
     <>
-      <div className="h-screen max-h-[calc(100vh-4rem)] space-y-3 overflow-y-auto">
+      <div className="h-screen space-y-3 overflow-y-auto">
         {pendingClientList.map((client, idx) => (
           <div key={client.waitingId}>
             <PendingClientItem
               index={idx + 1}
               username={client.username}
-              headCount={client.headCount}
+              tableType={client.tableType}
               tel={client.tel}
               waitingStatus={client.waitingStatus}
               waitingId={client.waitingId}
-              handleCallUser={() => handleCallClick(client.waitingId as string)}
+              handleCallUser={() =>
+                handleCallClick(client.waitingId as string, idx + 1)
+              }
               handleTableInputModal={() => {
                 if (client.waitingId) {
                   setSelectedClientId(client.waitingId);
@@ -86,14 +92,10 @@ export const PendingClientList = ({
           onSubmit={handleEnterClient}
         />
       )}
-      {isCallModalOpen && selectedClientId && (
+      {isCallModalOpen && selectedClientId && selectedClientIndex && (
         <AlertModal
           hasSubmessage={false}
-          message={`${
-            pendingClientList.find(
-              (client) => client.waitingId === selectedClientId,
-            )?.username
-          } 고객을 호출하시겠습니까?`}
+          message={`${selectedClientIndex}번 고객을 호출하시겠습니까?`}
           onCancel={() => setIsCallModalOpen(false)}
           onConfirm={handleCallClient}
         />
