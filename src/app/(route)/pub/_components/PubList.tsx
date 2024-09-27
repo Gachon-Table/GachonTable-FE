@@ -20,14 +20,14 @@ interface Store {
 interface ResponsiveTestProps {
   searchTerm: string;
   filterStudentCard: boolean | null;
-  sortByCongestion: boolean;
+  sortByPopular: boolean;
   sortByLowCongestion: boolean;
 }
 
 const PubList = ({
   searchTerm,
   filterStudentCard,
-  sortByCongestion,
+  sortByPopular,
   sortByLowCongestion,
 }: ResponsiveTestProps) => {
   const router = useRouter();
@@ -72,9 +72,12 @@ const PubList = ({
 
   const sortedStores = [...filteredStores];
 
-  if (sortByCongestion) {
+  sortByPopular;
+  sortByLowCongestion;
+
+  if (sortByLowCongestion) {
     sortedStores.sort((a, b) => b.queueing - a.queueing);
-  } else if (sortByLowCongestion) {
+  } else if (sortByPopular) {
     sortedStores.sort((a, b) => a.queueing - b.queueing);
   }
 
