@@ -16,6 +16,7 @@ export default function ClientManagement() {
   );
   const [pendingClientList, setPendingClientList] = useState([]);
   const [servedClientList, setServedClientList] = useState([]);
+
   const fetchWaitingList = async () => {
     try {
       const waitingList = await getWaitingList();
@@ -24,12 +25,13 @@ export default function ClientManagement() {
       console.error('대기열 조회 중 오류 발생:', error);
     }
   };
+
   const fetchSeatingList = async () => {
     try {
       const seatingList = await getSeatingList();
       setServedClientList(seatingList);
     } catch (error) {
-      console.error('대기열 조회 중 오류 발생:', error);
+      console.error('이용 고객 조회 중 오류 발생:', error);
     }
   };
 
@@ -43,6 +45,10 @@ export default function ClientManagement() {
         const authenticated = await isAuthenticated();
         if (!authenticated) {
           router.push('/admin');
+        } else {
+          setSelectedValue('대기 고객');
+          fetchWaitingList();
+          fetchSeatingList();
         }
       } catch (error) {
         console.error('인증 실패:', error);
@@ -50,6 +56,7 @@ export default function ClientManagement() {
     };
     checkAuth();
   }, [router]);
+
   useEffect(() => {
     if (selectedValue === '대기 고객') {
       fetchWaitingList();
@@ -57,16 +64,13 @@ export default function ClientManagement() {
       fetchSeatingList();
     }
   }, [selectedValue]);
-  useEffect(() => {
-    fetchWaitingList();
-    fetchSeatingList();
-  }, []);
+
   return (
     <div className="flex h-screen flex-col items-center bg-gy-0">
       <div className="fixed top-0 z-50 w-full max-w-[414px]">
         <Navbar />
       </div>
-      <div className="flex-grow overflow-y-auto">
+      <div className="flex-grow">
         <ClientStateTabs
           selectedValue={selectedValue}
           onClick={setSelectedValue}
