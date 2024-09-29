@@ -9,7 +9,7 @@ export const Navbar = () => {
 
   return (
     <nav className="w-full">
-      <div className="mb-6 flex items-center bg-wt">
+      <div className="mb-6 flex items-center bg-wt px-4">
         <div className="flex w-full border-b-2 border-gray-200">
           <Link
             href="/admin/menu-management"
