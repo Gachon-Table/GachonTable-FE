@@ -15,7 +15,7 @@ interface WaitingProps {
   waitingId?: string;
   pubName: string;
   orderStatus?: string;
-  headCount: number;
+  tableType: string;
   order: number; //대기 순번: 취소상태 시 -1 반환
   createdAt: string;
 }
@@ -31,7 +31,7 @@ const WaitingInfo = () => {
     orderStatus: '',
     order: 0,
     createdAt: '',
-    headCount: 0,
+    tableType: '',
   });
 
   const extractWaitingId = () => {
@@ -45,12 +45,13 @@ const WaitingInfo = () => {
     try {
       const response = await getWaitingInfo(waitingId as string);
       const data: WaitingProps = await response;
+      console.log(data.order);
 
       setWaitingState({
         waitingId: data.waitingId,
         pubName: data.pubName,
         orderStatus: data.orderStatus,
-        headCount: data.headCount,
+        tableType: data.tableType,
         order: data.order,
         createdAt: data.createdAt,
       });
@@ -82,7 +83,7 @@ const WaitingInfo = () => {
         <AlertBox />
         <DetailBox
           pubName={waitingState.pubName}
-          headCount={waitingState.headCount}
+          tableType={waitingState.tableType}
           order={waitingState.order}
           createdAt={waitingState.createdAt}
         />
@@ -90,7 +91,7 @@ const WaitingInfo = () => {
       </div>
       <div className="fixed bottom-8 left-0 right-0 flex justify-center">
         <CancelButton
-          handleCancel={() => setIsModalOpen(false)}
+          handleCancel={() => setIsModalOpen(true)}
           order={waitingState.order}
         />
       </div>
@@ -101,6 +102,7 @@ const WaitingInfo = () => {
           submessage={'확인 후 확인 버튼을 눌러주세요.'}
           onCancel={() => setIsModalOpen(false)}
           waitingId={waitingState.waitingId}
+          onConfirm={() => setIsModalOpen(false)}
         />
       )}
     </div>

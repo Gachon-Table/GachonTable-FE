@@ -36,7 +36,10 @@ export const ServedClientList = ({
 
   return (
     <>
-      <div className="max-h-[700px] space-y-3 overflow-y-auto">
+      <div className="h-[100vh-88px] space-y-3 overflow-y-auto">
+        <div className="text-gy-400 font-b2-normal-semibold">
+          퇴장 시간 임박순
+        </div>
         {servedClientList.map((client) => (
           <div key={client.waitingId}>
             <ServedClientItem

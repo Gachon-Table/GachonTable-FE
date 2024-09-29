@@ -93,7 +93,7 @@ export default function MenuManagement() {
               (사진은 대표메뉴 2가지만 등록가능 합니다.)
             </span>
           </div>
-          <div>
+          <div className="mt-[15px]">
             <MenuInputBox
               menuItems={menuItems}
               setMenuItems={setMenuItems}

@@ -10,7 +10,7 @@ export const patchWaitingStatus = async (
       status: newStatus,
     };
 
-    const response = await adminAxios.patch('/status', credentials);
+    const response = await adminAxios.patch('/status-waiting', credentials);
 
     if (response.status) {
       setWaitingStatus(newStatus);

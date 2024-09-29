@@ -3,25 +3,37 @@
 import React from 'react';
 
 const divideCreatedAt = (createdAt: string | undefined) => {
-  if (!createdAt || !createdAt.includes('T')) {
+  if (!createdAt) {
     return 'Invalid date';
   }
 
-  const [date, timePart] = createdAt.split('T');
-  const [hours, minutes] = timePart.split(':');
+  const dateRegex = /\d+일\s\(.\)/;
+  const timeRegex = /\d{2}:\d{2}/;
 
-  return `${date} ${hours}:${minutes}`;
+  const dateMatch = createdAt.match(dateRegex);
+  const timeMatch = createdAt.match(timeRegex);
+
+  if (!dateMatch || !timeMatch) {
+    return 'Invalid date';
+  }
+
+  return `${dateMatch[0]} ${timeMatch[0]}`;
 };
 
 interface WaitingProps {
   waitingId?: string;
   pubName: string;
   orderStatus?: string;
-  headCount: number;
   order: number;
   createdAt: string;
+  tableType: string;
 }
-const DetailBox = ({ pubName, headCount, order, createdAt }: WaitingProps) => {
+const DetailBox = ({
+  pubName,
+  tableType,
+  order = -1,
+  createdAt,
+}: WaitingProps) => {
   const formattedCreatedAt = createdAt
     ? divideCreatedAt(createdAt)
     : 'Loading...';
@@ -29,12 +41,12 @@ const DetailBox = ({ pubName, headCount, order, createdAt }: WaitingProps) => {
     <div className="flex w-[382px] flex-col rounded-md bg-gy-0 p-6">
       <div className="mb-3 text-gray-800 font-h4">{pubName}</div>
       <div className="w-[334px] border-b-2 bg-gy-100" />
-      <div className="mt-3 flex flex-row space-x-[51px]">
-        <div className="flex flex-col space-y-[6px] pt-[11px]">
+      <div className="mt-3 flex flex-row">
+        <div className="mr-[34px] flex flex-col space-y-[6px] pt-[11px]">
           <div className="flex flex-row space-x-2">
-            <span className="text-gy-400 font-b1-normal-semibold">인원</span>
+            <span className="text-gy-400 font-b1-normal-semibold">좌석</span>
             <span className="text-gy-800 font-b1-normal-semibold">
-              {headCount}명
+              {tableType === 'BASIC' ? '4인 테이블' : '8인 테이블'}
             </span>
           </div>
 
@@ -46,14 +58,14 @@ const DetailBox = ({ pubName, headCount, order, createdAt }: WaitingProps) => {
           </div>
         </div>
         <div className="h-[76px] border-r-2 bg-gy-100" />
-        <div className=" flex flex-col items-center pt-[7px]">
+        <div className="ml-[51px] flex flex-col items-center pt-[7px]">
           {order < 0 ? (
             order === -1 ? (
-              <div className="text-gy-400 font-b1-normal-semibold">
+              <div className="pl-[4px] pt-[21px] text-gy-400 font-b1-normal-semibold">
                 대기 취소
               </div>
             ) : (
-              <div className="text-gy-400 font-b1-normal-semibold">
+              <div className="pl-[4px] pt-[21px] text-gy-400 font-b1-normal-semibold">
                 입장 완료
               </div>
             )
@@ -63,7 +75,7 @@ const DetailBox = ({ pubName, headCount, order, createdAt }: WaitingProps) => {
                 내 순서
               </div>
               <div className="flex h-8 flex-row items-baseline space-x-1">
-                <div className="font-num text-primary-400">{order}</div>
+                <div className="text-primary-400 font-num">{order}</div>
                 <div className="pb-2 text-gy-800 font-b1-normal-semibold">
                   번째
                 </div>

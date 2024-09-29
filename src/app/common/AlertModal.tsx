@@ -21,8 +21,9 @@ const AlertModal = ({
   waitingId,
 }: AlertModalProps) => {
   const handleConfirm = async () => {
-    if (waitingId) {
+    if (waitingId && onConfirm) {
       patchWaitingCancel(waitingId);
+      onConfirm();
     }
     if (onConfirm) {
       onConfirm();

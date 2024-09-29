@@ -63,7 +63,8 @@ export const PendingClientList = ({
 
   return (
     <>
-      <div className="h-screen space-y-3 overflow-y-auto">
+      <div className="h-[100vh-88px] space-y-3 overflow-y-auto">
+        <div className="text-gy-400 font-b2-normal-semibold">웨이팅 등록순</div>
         {pendingClientList.map((client, idx) => (
           <div key={client.waitingId}>
             <PendingClientItem
