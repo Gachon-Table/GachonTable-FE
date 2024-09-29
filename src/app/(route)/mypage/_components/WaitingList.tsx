@@ -44,10 +44,10 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
   };
 
   return (
-    <div className="relative h-full">
+    <div className=" h-full">
       {accessToken && (
-        <div className="absolute left-4 right-4 top-6 flex justify-center">
-          <AlertBox color={'primary'} />
+        <div className=" left-4 right-4 top-6 mt-6 flex justify-center">
+          <AlertBox />
         </div>
       )}
       {accessToken ? (
