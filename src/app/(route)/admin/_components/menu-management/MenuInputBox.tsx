@@ -87,13 +87,13 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
 
   return (
     <>
-      <form className="mt-4 flex flex-col">
-        <div className="mb-28 space-y-2 overflow-y-auto ">
+      <form className="flex flex-col">
+        <div className="mb-28 space-y-6 overflow-y-auto ">
           {menuItems.map((menu, index) => (
             <div key={index} className="space-y-2">
               {index === 0 && (
                 <div className="space-y-2">
-                  <div className="text-gy-800 font-b2-normal-semibold">
+                  <div className="text-gy-800 font-b1-normal-semibold">
                     (대표) 메뉴1
                   </div>
                   <ImageUploader
@@ -131,7 +131,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
               )}
               {index === 1 && (
                 <div className="space-y-2">
-                  <div className="text-gy-800 font-b2-normal-semibold">
+                  <div className="text-gy-800 font-b1-normal-semibold">
                     (대표) 메뉴2
                   </div>
                   <ImageUploader
@@ -170,7 +170,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
               {index > 1 && (
                 <div className="w-[382px] space-y-2">
                   <div className="flew-row flex justify-between">
-                    <div className="text-gy-800 font-b2-normal-semibold">
+                    <div className="text-gy-800 font-b1-normal-semibold">
                       메뉴{index + 1}
                     </div>
                     <button onClick={(e) => openRemoveModal(e, index)}>
