@@ -7,13 +7,13 @@ const LandingNavbar: React.FC<{ onFilterChange: (filters: any) => void }> = ({
   const [filterStudentCard, setFilterStudentCard] = useState<boolean | null>(
     null,
   );
-  const [sortByCongestion, setSortByCongestion] = useState(true);
+  const [sortByPopular, setsortByPopular] = useState(true);
   const [sortByLowCongestion, setSortByLowCongestion] = useState(false);
 
   const handleStudentCardFilter = () => {
     const newValue = filterStudentCard === false ? null : false;
     setFilterStudentCard(newValue);
-    setSortByCongestion(false);
+    setsortByPopular(false);
     setSortByLowCongestion(false);
     onFilterChange({
       filterStudentCard: newValue,
@@ -23,11 +23,11 @@ const LandingNavbar: React.FC<{ onFilterChange: (filters: any) => void }> = ({
   };
 
   const handleSortByCongestion = () => {
-    setSortByCongestion((prev) => !prev);
+    setsortByPopular((prev) => !prev);
     setSortByLowCongestion(false);
     setFilterStudentCard(null);
     onFilterChange({
-      sortByCongestion: !sortByCongestion,
+      sortByCongestion: !setsortByPopular,
       sortByLowCongestion: false,
       filterStudentCard: null,
     });
@@ -35,7 +35,7 @@ const LandingNavbar: React.FC<{ onFilterChange: (filters: any) => void }> = ({
 
   const handleSortByLowCongestion = () => {
     setSortByLowCongestion((prev) => !prev);
-    setSortByCongestion(false);
+    setsortByPopular(false);
     setFilterStudentCard(null);
     onFilterChange({
       sortByLowCongestion: !sortByLowCongestion,
@@ -51,7 +51,7 @@ const LandingNavbar: React.FC<{ onFilterChange: (filters: any) => void }> = ({
           <div
             onClick={handleSortByCongestion}
             className={`flex flex-1 cursor-pointer items-center justify-center px-2 py-2 transition duration-300 ease-in-out font-b1-normal-semibold ${
-              sortByCongestion
+              sortByPopular
                 ? '-mb-0.5 border-b-2 border-gy-900 text-gy-900'
                 : 'text-gy-400 hover:border-gy-900 hover:text-gy-900'
             }`}

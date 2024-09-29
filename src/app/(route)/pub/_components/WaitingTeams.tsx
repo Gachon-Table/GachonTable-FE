@@ -76,7 +76,7 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
       const token = localStorage.getItem('accessToken');
 
       const payload = {
-        pubId,
+        pubId: pubId,
         tableType: tableType,
       };
 

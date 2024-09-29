@@ -9,7 +9,7 @@ const Landing: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({
     filterStudentCard: null as boolean | null,
-    sortByCongestion: false,
+    sortByPopular: true,
     sortByLowCongestion: false,
   });
 
@@ -39,7 +39,7 @@ const Landing: React.FC = () => {
         <PubList
           searchTerm={searchTerm}
           filterStudentCard={filters.filterStudentCard}
-          sortByCongestion={filters.sortByCongestion}
+          sortByPopular={filters.sortByPopular}
           sortByLowCongestion={filters.sortByLowCongestion}
         />
       </div>

@@ -18,7 +18,7 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
       <div className="mb-28 flex w-full flex-col items-start justify-center px-2">
         <div className="flex w-full flex-col gap-2 py-4">
           {menu.length === 0 ? (
-            <p className="text-center text-gray-600">
+            <p className="mt-[107px] text-center text-gy-300 font-b1-normal-medium">
               현재 등록되어있는 메뉴가 없습니다
             </p>
           ) : (

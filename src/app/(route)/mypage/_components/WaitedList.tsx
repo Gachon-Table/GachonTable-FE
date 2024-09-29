@@ -77,12 +77,12 @@ const WaitedList = () => {
             ))}
           </div>
         ) : (
-          <div className="flex h-full items-center justify-center text-gy-400 font-b1-normal-medium">
+          <div className="flex h-full items-center justify-center text-gy-300 font-b1-normal-medium">
             줄서기 내역이 존재하지 않습니다.
           </div>
         )
       ) : (
-        <div className="flex h-full items-center justify-center text-gy-400 font-b1-normal-medium">
+        <div className="flex h-full items-center justify-center text-gy-300 font-b1-normal-medium">
           로그인 후 이용해 보세요!
         </div>
       )}
