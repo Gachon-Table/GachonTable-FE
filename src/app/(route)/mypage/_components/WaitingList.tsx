@@ -44,9 +44,9 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
   };
 
   return (
-    <div className="h-full">
+    <div className="relative h-full">
       {accessToken && (
-        <div className="mx-4 mt-[26px] flex justify-center">
+        <div className="absolute left-4 right-4 top-6 flex justify-center">
           <AlertBox color={'primary'} />
         </div>
       )}
@@ -91,12 +91,12 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
             ))}
           </div>
         ) : (
-          <div className="flex h-full items-center justify-center text-gy-400 font-b1-normal-medium">
+          <div className="flex h-full items-center justify-center text-gy-300 font-b1-normal-medium">
             줄서기 현황이 존재하지 않습니다.
           </div>
         )
       ) : (
-        <div className="flex h-full items-center justify-center text-gy-400 font-b1-normal-medium">
+        <div className="flex h-full items-center justify-center text-gy-300 font-b1-normal-medium">
           로그인 후 이용해 보세요!
         </div>
       )}
