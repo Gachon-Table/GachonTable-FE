@@ -72,7 +72,7 @@ export default function Setting() {
   }, []);
 
   return (
-    <div>
+    <div className="box-border">
       <div className="flex h-screen flex-col items-center bg-gy-0">
         <Navbar />
         <div className="mb-6 flex flex-row space-x-3">
