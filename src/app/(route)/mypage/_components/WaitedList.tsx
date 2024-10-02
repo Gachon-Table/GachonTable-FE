@@ -16,10 +16,20 @@ const WaitedList = () => {
 
   useEffect(() => {
     setAccessToken(localStorage.getItem('accessToken'));
+  }, []);
+
+  useEffect(() => {
     if (accessToken) {
       waitedApi();
     }
-  }, [accessToken, waitedList]);
+  }, [accessToken]);
+
+  // useEffect(() => {
+  //   setAccessToken(localStorage.getItem('accessToken'));
+  //   if (accessToken) {
+  //     waitedApi();
+  //   }
+  // }, [accessToken, waitedList]);
 
   const waitedApi = async () => {
     if (!accessToken) return;
