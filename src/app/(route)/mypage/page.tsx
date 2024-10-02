@@ -25,7 +25,7 @@ const Mypage = () => {
       <div className="bg-wt">
         <Tab curTab={curTab} setFunc={setCurTab} />
       </div>
-      <div className="h-screen">
+      <div className="w-full">
         {curTab === 'ing' ? (
           <WaitingList modal={modal} setFunc={setModal} setId={setId} />
         ) : (

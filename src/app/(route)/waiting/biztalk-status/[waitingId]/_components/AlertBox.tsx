@@ -9,7 +9,7 @@ const AlertBox = ({ color = 'sementic' }: AlertBoxProps) => {
   return (
     <div
       className={`flex w-[382px] flex-row space-x-3 rounded-md px-6 py-[18.5px] ${
-        color === 'primary' ? 'bg-primary-400' : 'bg-blue-200'
+        color === 'primary' ? 'bg-blue-400' : 'bg-blue-200'
       }`}
     >
       <AlertIcon />

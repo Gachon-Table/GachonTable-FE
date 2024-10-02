@@ -107,12 +107,12 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
             ))}
           </div>
         ) : (
-          <div className="mt-[270px] flex items-center justify-center text-gy-300 font-b1-normal-medium">
+          <div className="flex h-screen items-center justify-center text-gy-300 font-b1-normal-medium">
             신청한 웨이팅이 없습니다.
           </div>
         )
       ) : (
-        <div className="mt-[270px] flex items-center justify-center text-gy-300 font-b1-normal-medium">
+        <div className="flex h-screen items-center justify-center text-gy-300 font-b1-normal-medium">
           로그인 후 이용해 보세요!
         </div>
       )}
