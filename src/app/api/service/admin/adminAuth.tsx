@@ -1,3 +1,4 @@
+'use client';
 import adminAxios from '../../axios/adminAxios';
 import { useRouter } from 'next/navigation';
 import { getWaitingList } from './getWaitingList';

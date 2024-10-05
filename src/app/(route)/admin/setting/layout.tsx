@@ -2,7 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '마이페이지 | 라인업지',
+  title: '관리자 | 라인업지',
 };
 
 interface RouteLayoutProps {
@@ -11,7 +11,7 @@ interface RouteLayoutProps {
 
 const RouteLayout: React.FC<RouteLayoutProps> = ({ children }) => {
   return (
-    <div className="shadow-2xl shadow-gray-200">
+    <div>
       <main>{children}</main>
     </div>
   );
