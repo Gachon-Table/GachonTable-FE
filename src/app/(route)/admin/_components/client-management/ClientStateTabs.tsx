@@ -10,7 +10,7 @@ export const ClientStateTabs = ({
   onClick,
 }: TabProps) => {
   return (
-    <div className="mb-2 mt-16 flex space-x-1.5 rounded-md bg-gy-200 p-1.5">
+    <div className="mb-6 mt-16 flex space-x-1.5 rounded-md bg-gy-200 p-1.5">
       <div
         className={`flex cursor-pointer items-center justify-center rounded px-[33px] py-1.5 transition-colors duration-300 font-b1-normal-semibold ${
           selectedValue === '대기 고객'

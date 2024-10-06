@@ -36,21 +36,23 @@ export const ServedClientList = ({
 
   return (
     <>
-      <div className="h-[100vh-88px] space-y-3 overflow-y-auto">
+      <div className="space-y-3">
         <div className="text-gy-400 font-b2-normal-semibold">
           퇴장 시간 임박순
         </div>
-        {servedClientList.map((client) => (
-          <div key={client.waitingId}>
-            <ServedClientItem
-              seatingNum={client.seatingNum}
-              exitTime={client.exitTime}
-              handleExitModal={() =>
-                handleExitModal(client.seatingId as number)
-              }
-            />
-          </div>
-        ))}
+        <div className="h-[100vh-88px] overflow-y-auto">
+          {servedClientList.map((client) => (
+            <div key={client.waitingId}>
+              <ServedClientItem
+                seatingNum={client.seatingNum}
+                exitTime={client.exitTime}
+                handleExitModal={() =>
+                  handleExitModal(client.seatingId as number)
+                }
+              />
+            </div>
+          ))}
+        </div>
       </div>
       {isExitModalOpen && (
         <AlertModal
