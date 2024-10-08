@@ -126,7 +126,10 @@ const StoreDetailPage: React.FC = () => {
         }`}
         ref={imageRef}
       >
-        <DetailImage thumbnails={store.pub.thumbnails} />
+        <DetailImage
+          thumbnails={store.pub.thumbnails}
+          instagramUrl={store.pub.instagramUrl}
+        />
       </div>
 
       {isScrolled && (
@@ -143,7 +146,6 @@ const StoreDetailPage: React.FC = () => {
         <DetailTitle
           pubName={store.pub.pubName}
           oneLiner={store.pub.oneLiner}
-          instagramUrl={store.pub.instagramUrl}
           waitingCount={store.pub.waitingCount}
         />
         <div className="border-2 border-gy-0" />

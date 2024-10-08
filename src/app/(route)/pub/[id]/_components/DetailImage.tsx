@@ -1,13 +1,21 @@
+import React, { useEffect, useState } from 'react';
 import { PageHeader } from '@/app/common/PageHeader';
 import { BackButtonWT } from 'public';
-import React, { useEffect, useState } from 'react';
+import Modal from '@/app/common/Modal';
 
 interface DetailImageProps {
   thumbnails: string[];
+  instagramUrl: string;
 }
 
-const DetailImage: React.FC<DetailImageProps> = ({ thumbnails }) => {
+const DetailImage: React.FC<DetailImageProps> = ({
+  thumbnails,
+  instagramUrl,
+}) => {
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImageIndex, setModalImageIndex] = useState<number>(0);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     if (thumbnails.length > 1) {
@@ -23,6 +31,17 @@ const DetailImage: React.FC<DetailImageProps> = ({ thumbnails }) => {
 
   const handleHeaderClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+  };
+
+  const openImageModal = (imageUrl: string, index: number) => {
+    setSelectedImage(imageUrl);
+    setModalImageIndex(index);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedImage(null);
   };
 
   return (
@@ -41,6 +60,7 @@ const DetailImage: React.FC<DetailImageProps> = ({ thumbnails }) => {
                 src={thumbnail}
                 alt={`Slide ${index}`}
                 className="w-full flex-shrink-0 object-cover"
+                onClick={() => openImageModal(thumbnail, index)}
               />
             ))
           ) : (
@@ -51,10 +71,25 @@ const DetailImage: React.FC<DetailImageProps> = ({ thumbnails }) => {
             />
           )}
         </div>
+
         <div onClick={handleHeaderClick} className="relative z-10">
           <PageHeader icon={<BackButtonWT />} isDetailPage={true} />
         </div>
       </div>
+
+      <div className="absolute bottom-6 right-5 z-10">
+        <div className="flex items-center justify-center rounded-[32px] border border-gy-200 bg-wt px-[10px] py-2 shadow-custom">
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cursor-pointer text-center text-blue-400 font-c1-semibold"
+          >
+            인스타 바로가기
+          </a>
+        </div>
+      </div>
+
       {thumbnails.length > 1 && (
         <div className="absolute bottom-2 left-0 right-0 flex justify-center space-x-2">
           {thumbnails.map((_, index) => (
@@ -67,13 +102,23 @@ const DetailImage: React.FC<DetailImageProps> = ({ thumbnails }) => {
           ))}
         </div>
       )}
-      {thumbnails.length > 0 && (
-        <a
-          href={thumbnails[currentImageIndex]}
-          target="_blank"
-          className="absolute inset-0 z-0"
-        ></a>
-      )}
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        currentIndex={modalImageIndex}
+        totalItems={thumbnails.length}
+      >
+        {selectedImage && (
+          <div className="relative">
+            <img
+              src={selectedImage}
+              alt="Full view"
+              className="h-auto min-w-full object-cover"
+            />
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };
