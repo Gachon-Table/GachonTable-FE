@@ -63,29 +63,31 @@ export const PendingClientList = ({
 
   return (
     <>
-      <div className="h-[100vh-88px] space-y-3 overflow-y-auto">
+      <div className="space-y-3">
         <div className="text-gy-400 font-b2-normal-semibold">웨이팅 등록순</div>
-        {pendingClientList.map((client, idx) => (
-          <div key={client.waitingId}>
-            <PendingClientItem
-              index={idx + 1}
-              username={client.username}
-              tableType={client.tableType}
-              tel={client.tel}
-              waitingStatus={client.waitingStatus}
-              waitingId={client.waitingId}
-              handleCallUser={() =>
-                handleCallClick(client.waitingId as string, idx + 1)
-              }
-              handleTableInputModal={() => {
-                if (client.waitingId) {
-                  setSelectedClientId(client.waitingId);
-                  handleTableInputModal();
+        <div className="h-[100vh-88px] overflow-y-auto">
+          {pendingClientList.map((client, idx) => (
+            <div key={client.waitingId}>
+              <PendingClientItem
+                index={idx + 1}
+                username={client.username}
+                tableType={client.tableType}
+                tel={client.tel}
+                waitingStatus={client.waitingStatus}
+                waitingId={client.waitingId}
+                handleCallUser={() =>
+                  handleCallClick(client.waitingId as string, idx + 1)
                 }
-              }}
-            />
-          </div>
-        ))}
+                handleTableInputModal={() => {
+                  if (client.waitingId) {
+                    setSelectedClientId(client.waitingId);
+                    handleTableInputModal();
+                  }
+                }}
+              />
+            </div>
+          ))}
+        </div>
       </div>
       {isTableModalOpen && selectedClientId && (
         <TableInputToastModal

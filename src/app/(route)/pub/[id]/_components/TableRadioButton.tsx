@@ -17,13 +17,23 @@ export const TableRadioButton = ({
   return (
     <button
       className={`flex items-center justify-between rounded-md border-2 p-[18px] ${
-        isSelected ? 'border-primary-400 bg-primary-200' : 'border-gy-200 bg-wt'
+        isSelected ? 'border-primary-400 bg-wt' : 'border-gy-200 bg-wt'
       }`}
       onClick={onClick}
     >
       <div>
-        <span className="text-gray-900 font-h4">{buttonName}</span>{' '}
-        <span className="text-gray-700 font-b1-normal-semibold">
+        <span
+          className={`font-h4 ${
+            isSelected ? 'text-primary-400' : 'text-gray-900'
+          }`}
+        >
+          {buttonName}
+        </span>{' '}
+        <span
+          className={`font-b1-normal-semibold ${
+            isSelected ? 'text-primary-400' : 'text-gray-700'
+          }`}
+        >
           {buttonInfo}
         </span>
       </div>
