@@ -40,6 +40,17 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
         </div>
       </div>
 
+      {/* 메뉴판 */}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        {selectedImage && (
+          <img
+            src={selectedImage}
+            alt="메뉴판 이미지"
+            className="h-auto max-w-full"
+          />
+        )}
+      </Modal>
+
       <div className="mb-28 flex w-full flex-col items-start justify-center px-2">
         <div className="flex w-full flex-col gap-4 py-4">
           {menu.length === 0 ? (
@@ -58,7 +69,7 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
                   <div className="flex flex-col">
                     <div className="mb-1 flex items-center">
                       <p className="text-gy-900 font-h4">{menuItem.menuName}</p>
-                      {(index === 0 || index === 1) && (
+                      {index < 5 && (
                         <p className="ml-2 rounded-[32px] bg-yellow-200 px-2 py-1 text-yellow-400 font-c2-medium">
                           대표메뉴
                         </p>
@@ -72,7 +83,7 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
                     </p>
                   </div>
 
-                  {(index === 0 || index === 1) && (
+                  {index < 5 && (
                     <div
                       className="flex-shrink-0 cursor-pointer"
                       onClick={() => handleOpenModal(menuItem.thumbnail)}
@@ -90,17 +101,6 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
           )}
         </div>
       </div>
-
-      {/* 메뉴판 */}
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        {selectedImage && (
-          <img
-            src={selectedImage}
-            alt="메뉴판 이미지"
-            className="h-auto max-w-full"
-          />
-        )}
-      </Modal>
     </div>
   );
 };
