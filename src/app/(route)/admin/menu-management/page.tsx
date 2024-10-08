@@ -17,6 +17,9 @@ export default function MenuManagement() {
   const [menuItems, setMenuItems] = useState<MenuItemProps[]>([]);
   const [firstImage, setFirstImage] = useState<string[]>([]);
   const [secondImage, setSecondImage] = useState<string[]>([]);
+  const [thirdImage, setThirdImage] = useState<string[]>([]);
+  const [fourthImage, setFourthImage] = useState<string[]>([]);
+  const [fifthImage, setFifthImage] = useState<string[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -90,7 +93,7 @@ export default function MenuManagement() {
           <div className="mt-[18px] flex flex-row items-center space-x-[5px]">
             <div className="text-gy-900 font-h4">메뉴 편집</div>
             <span className="text-gy-600 font-b2-normal-medium">
-              (사진은 대표메뉴 2가지만 등록가능 합니다.)
+              (사진은 대표메뉴 5가지만 등록가능 합니다.)
             </span>
           </div>
           <div className="mt-[15px]">
@@ -101,6 +104,12 @@ export default function MenuManagement() {
               setFirstImage={setFirstImage}
               secondImage={secondImage}
               setSecondImage={setSecondImage}
+              thirdImage={thirdImage}
+              setThirdImage={setThirdImage}
+              fourthImage={fourthImage}
+              setFourthImage={setFourthImage}
+              fifthImage={fifthImage}
+              setFifthImage={setFifthImage}
             />
           </div>
         </div>
