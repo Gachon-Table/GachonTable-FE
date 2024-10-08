@@ -25,3 +25,5 @@ export { default as Close } from './icons/close-icon.svg';
 export { default as CheckIcon } from './icons/check-icon.svg';
 export { default as RadioButton } from './icons/radio-btn.svg';
 export { default as RadioButtonClicked } from './icons/radio-btn-clicked.svg';
+export { default as BackButtonreverse } from './icons/back-button-reverse.svg';
+export { default as NobgClose } from './icons/nobg-close.svg';
