@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { BackButtonreverse } from 'public';
+import Modal from '@/app/common/Modal';
 
 interface MenuItem {
   menuName: string;
@@ -12,9 +14,32 @@ interface DetailMenuListProps {
 }
 
 const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const handleOpenModal = (imageUrl: string) => {
+    setSelectedImage(imageUrl);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedImage(null);
+  };
+
   return (
     <div className="m-4 mt-6">
-      <div className="px-2 text-gy-400 font-h3">메뉴</div>
+      <div className="flex items-center justify-between">
+        <div className="px-2 text-gy-400 font-h3">메뉴</div>
+        <div
+          className="mr-2 flex cursor-pointer flex-row items-center justify-center text-gy-600 font-b2-normal-medium"
+          onClick={() => handleOpenModal('/images/menu-example.png')}
+        >
+          메뉴판 이미지로 보기
+          <BackButtonreverse />
+        </div>
+      </div>
+
       <div className="mb-28 flex w-full flex-col items-start justify-center px-2">
         <div className="flex w-full flex-col gap-2 py-4">
           {menu.length === 0 ? (
@@ -48,18 +73,15 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
                   </div>
 
                   {(index === 0 || index === 1) && (
-                    <div className="flex-shrink-0">
-                      <a
-                        href={menuItem.thumbnail}
-                        target="_blank"
-                        className="block"
-                      >
-                        <img
-                          src={menuItem.thumbnail || '/images/place.png'}
-                          className="h-[82px] w-[82px] rounded-md object-cover"
-                          alt={`${menuItem.menuName}`}
-                        />
-                      </a>
+                    <div
+                      className="flex-shrink-0 cursor-pointer"
+                      onClick={() => handleOpenModal(menuItem.thumbnail)}
+                    >
+                      <img
+                        src={menuItem.thumbnail || '/images/place.png'}
+                        className="h-[82px] w-[82px] rounded-md object-cover"
+                        alt={`${menuItem.menuName}`}
+                      />
                     </div>
                   )}
                 </div>
@@ -68,6 +90,17 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
           )}
         </div>
       </div>
+
+      {/* 메뉴판 */}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        {selectedImage && (
+          <img
+            src={selectedImage}
+            alt="메뉴판 이미지"
+            className="h-auto max-w-full"
+          />
+        )}
+      </Modal>
     </div>
   );
 };

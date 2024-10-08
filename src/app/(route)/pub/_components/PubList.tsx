@@ -13,7 +13,7 @@ interface Store {
   studentCard: boolean;
   menu: string;
   bookmark: boolean;
-  queueing: number;
+  waitingCount: number;
   thumbnails: string[];
 }
 
@@ -76,9 +76,9 @@ const PubList = ({
   sortByLowCongestion;
 
   if (sortByLowCongestion) {
-    sortedStores.sort((a, b) => b.queueing - a.queueing);
+    sortedStores.sort((a, b) => b.waitingCount - a.waitingCount);
   } else if (sortByPopular) {
-    sortedStores.sort((a, b) => a.queueing - b.queueing);
+    sortedStores.sort((a, b) => a.waitingCount - b.waitingCount);
   }
 
   return (
@@ -123,8 +123,8 @@ const PubList = ({
                 <div className="mb-1 flex">
                   <div className="text-right text-gy-600 font-c1-semibold ">
                     현재&nbsp;
-                    <span className="text-red-400">{store.queueing}</span>명이
-                    대기 중
+                    <span className="text-red-400">{store.waitingCount}</span>
+                    명이 대기 중
                   </div>
                 </div>
                 <div className="text-gy-900 font-h4">{store.pubName}</div>
