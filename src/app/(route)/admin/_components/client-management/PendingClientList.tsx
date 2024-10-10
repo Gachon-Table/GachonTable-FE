@@ -65,7 +65,7 @@ export const PendingClientList = ({
     }
   };
 
-  const handleReloadButton = () => {
+  const handleRefreshButton = () => {
     window.location.reload();
   };
 
@@ -77,7 +77,7 @@ export const PendingClientList = ({
             웨이팅 등록순
           </div>
 
-          <button onClick={handleReloadButton}>
+          <button onClick={handleRefreshButton}>
             <ReloadButton />
           </button>
         </div>{' '}

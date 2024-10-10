@@ -4,11 +4,18 @@ import { useRouter } from 'next/navigation';
 import { adminLogin, isAuthenticated } from '@/app/api/service/admin/adminAuth';
 import { Logo } from 'public';
 import { ToastModal } from '@/app/common/ToastModal';
+import AlertModal from '@/app/common/AlertModal';
 
 export default function AdminLogin() {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [isLoginSuccess, setIsLoginSuccess] = useState(false);
+  const [isLoginErrorModalOpen, setIsLoginErrorModalOpen] = useState(false);
+  const [errorCode, setErrorCode] = useState(0);
+  const errorMessage = {
+    403: '로그인 정보를 다시 확인해 주세요.',
+    500: '네트워크를 다시 확인해 주세요.',
+  };
   const router = useRouter();
 
   const handleLogin = async () => {
@@ -17,13 +24,17 @@ export default function AdminLogin() {
       password: password,
     };
 
-    const loginSuccess = await adminLogin(credentials);
-    if (loginSuccess) {
+    const result = await adminLogin(credentials);
+    if (result.success) {
       setIsLoginSuccess(true);
       setTimeout(() => {
         setIsLoginSuccess(false);
         router.push('/admin/menu-management');
       }, 2000);
+    } else {
+      setIsLoginSuccess(false);
+      setErrorCode(result.code);
+      setIsLoginErrorModalOpen(true);
     }
   };
 
@@ -45,7 +56,7 @@ export default function AdminLogin() {
   }, [router]);
   return (
     <div className="relative flex h-screen flex-col overflow-x-hidden bg-white">
-      <div className="mt-40">
+      <div className="mt-32">
         <div className="mb-14 flex flex-col items-center">
           <Logo />
           <div className="mt-6 text-center text-gy-700 font-h1">
@@ -105,6 +116,14 @@ export default function AdminLogin() {
           </span>
         </button>
       </div>
+      {isLoginErrorModalOpen && (
+        <AlertModal
+          hasSubmessage={false}
+          hasCancelButton={false}
+          message={`로그인에 실패했습니다.\n${errorCode === 403 ? errorMessage[403] : errorMessage[500]}`}
+          onConfirm={() => setIsLoginErrorModalOpen(false)}
+        />
+      )}
     </div>
   );
 }

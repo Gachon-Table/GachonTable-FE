@@ -1,5 +1,6 @@
 'use client';
 import adminAxios from '../../axios/adminAxios';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import { getWaitingList } from './getWaitingList';
 
@@ -11,17 +12,28 @@ interface AdminProps {
 export const adminLogin = async (credentials: AdminProps) => {
   try {
     const response = await adminAxios.post('/login', credentials);
+
     if (response.status === 200) {
       const tokens = response.data;
       localStorage.setItem('accessToken', tokens.accessToken);
       localStorage.setItem('refreshToken', tokens.refreshToken);
       localStorage.setItem('pubId', tokens.pubId);
-      return true;
+      return { success: true, code: 200 };
     } else {
-      alert('로그인 실패');
+      return { success: false, code: 500 };
     }
-  } catch (error) {
-    console.log('로그인 실패: ', error);
+  } catch (error: unknown) {
+    const axiosError = error as AxiosError;
+    let code = 500;
+
+    if (axiosError.response) {
+      const statusCode = axiosError.response.status;
+      if (statusCode === 403) {
+        code = 403;
+      }
+    }
+
+    return { success: false, code };
   }
 };
 
