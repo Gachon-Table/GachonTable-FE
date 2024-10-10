@@ -45,7 +45,7 @@ export default function AdminLogin() {
   }, [router]);
   return (
     <div className="relative flex h-screen flex-col overflow-x-hidden bg-white">
-      <div className="mt-40">
+      <div className="mt-32">
         <div className="mb-14 flex flex-col items-center">
           <Logo />
           <div className="mt-6 text-center text-gy-700 font-h1">
