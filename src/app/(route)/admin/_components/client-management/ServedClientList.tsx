@@ -6,6 +6,7 @@ import {
 } from '@/app/(route)/admin/_components/client-management/ServedClientItem';
 import { patchExitClient } from '@/app/api/service/admin/patchExitClient';
 import AlertModal from '@/app/common/AlertModal';
+import { ReloadButton } from 'public';
 
 export interface ServedClientListProps {
   servedClientList: ServedClientItemProps[];
@@ -34,11 +35,20 @@ export const ServedClientList = ({
     }
   };
 
+  const handleRefreshButton = () => {
+    window.location.reload();
+  };
+
   return (
     <>
       <div className="space-y-3">
-        <div className="text-gy-400 font-b2-normal-semibold">
-          퇴장 시간 임박순
+        <div className="flex items-end justify-between">
+          <div className="pb-1 text-gy-400 font-b2-normal-semibold">
+            퇴장 시간 임박순
+          </div>
+          <button onClick={handleRefreshButton}>
+            <ReloadButton />
+          </button>
         </div>
         <div className="h-[100vh-88px] overflow-y-auto">
           {servedClientList.map((client) => (
