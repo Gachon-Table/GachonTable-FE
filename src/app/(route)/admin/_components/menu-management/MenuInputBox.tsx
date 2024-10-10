@@ -24,7 +24,6 @@ interface MenuInputBoxProps {
   setFourthImage: React.Dispatch<React.SetStateAction<string[]>>;
   fifthImage: string[];
   setFifthImage: React.Dispatch<React.SetStateAction<string[]>>;
-  maxFields?: number;
 }
 
 const MenuInputBox: React.FC<MenuInputBoxProps> = ({
@@ -40,7 +39,6 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
   setFourthImage,
   fifthImage,
   setFifthImage,
-  maxFields = 10,
 }) => {
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
   const [itemToDeleteIndex, setItemToDeleteIndex] = useState<number | null>(
@@ -54,22 +52,30 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
     if (menuItems.length > 1 && menuItems[1].thumbnail) {
       setSecondImage([menuItems[1].thumbnail]);
     }
+    if (menuItems.length > 2 && menuItems[2].thumbnail) {
+      setThirdImage([menuItems[2].thumbnail]);
+    }
+    if (menuItems.length > 3 && menuItems[3].thumbnail) {
+      setFourthImage([menuItems[3].thumbnail]);
+    }
+    if (menuItems.length > 4 && menuItems[4].thumbnail) {
+      setFifthImage([menuItems[4].thumbnail]);
+    }
   }, [menuItems]);
 
   const handleAddField = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (menuItems.length < maxFields) {
-      setMenuItems([
-        ...menuItems,
-        {
-          menuId: null,
-          thumbnail: '',
-          menuName: '',
-          price: '',
-          oneLiner: '',
-        },
-      ]);
-    }
+
+    setMenuItems([
+      ...menuItems,
+      {
+        menuId: null,
+        thumbnail: '',
+        menuName: '',
+        price: '',
+        oneLiner: '',
+      },
+    ]);
   };
 
   const handleRemoveField = () => {

@@ -64,6 +64,15 @@ export default function MenuManagement() {
     if (menuItems.length > 1 && secondImage.length > 0) {
       menuItems[1].thumbnail = secondImage[0];
     }
+    if (menuItems.length > 2 && thirdImage.length > 0) {
+      menuItems[2].thumbnail = thirdImage[0];
+    }
+    if (menuItems.length > 3 && fourthImage.length > 0) {
+      menuItems[3].thumbnail = fourthImage[0];
+    }
+    if (menuItems.length > 4 && fifthImage.length > 0) {
+      menuItems[4].thumbnail = fifthImage[0];
+    }
 
     const updatedPubData = {
       thumbnails: cleanedImages,
