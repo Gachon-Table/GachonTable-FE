@@ -73,28 +73,34 @@ const WaitingInfo = () => {
   }, [waitingId]);
 
   return (
-    <div>
-      <PageHeader
-        icon={<Home />}
-        title={'마이 웨이팅'}
-        clickHandler={() => router.push('/')}
-      />
-      <div className="mt-7 flex flex-col items-center space-y-3">
-        <AlertBox />
-        <DetailBox
-          pubName={waitingState.pubName}
-          tableType={waitingState.tableType}
-          order={waitingState.order}
-          createdAt={waitingState.createdAt}
+    <div className="relative flex h-screen w-full flex-col overflow-x-hidden bg-white ">
+      <div className="flex-grow">
+        <PageHeader
+          icon={<Home />}
+          title={'마이 웨이팅'}
+          clickHandler={() => router.push('/')}
         />
-        <NoteBox />
+        <div className="mt-7 flex w-full flex-col items-center space-y-3 px-4">
+          <div className="flex w-full justify-center">
+            <AlertBox />
+          </div>
+          <DetailBox
+            pubName={waitingState.pubName}
+            tableType={waitingState.tableType}
+            order={waitingState.order}
+            createdAt={waitingState.createdAt}
+          />
+          <NoteBox />
+        </div>
       </div>
-      <div className="fixed bottom-8 left-0 right-0 flex justify-center">
+
+      <div className="mt-auto flex w-full flex-col px-4">
         <CancelButton
           handleCancel={() => setIsModalOpen(true)}
           order={waitingState.order}
         />
       </div>
+
       {isModalOpen && waitingState.waitingId && (
         <AlertModal
           message={'대기를 취소하시겠습니까?'}

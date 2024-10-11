@@ -38,7 +38,7 @@ const DetailBox = ({
     ? divideCreatedAt(createdAt)
     : 'Loading...';
   return (
-    <div className="flex w-[382px] flex-col rounded-md bg-gy-0 p-6">
+    <div className="flex w-full flex-col rounded-md bg-gy-0 p-6">
       <div className="mb-3 text-gray-800 font-h4">{pubName}</div>
       <div className="w-[334px] border-b-2 bg-gy-100" />
       <div className="mt-3 flex flex-row">
