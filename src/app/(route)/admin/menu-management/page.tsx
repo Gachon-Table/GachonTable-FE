@@ -84,11 +84,11 @@ export default function MenuManagement() {
 
   return (
     <>
-      <div className="flex h-screen flex-col items-center justify-center bg-gy-0">
-        <div className="fixed top-0 z-50 w-full max-w-[414px]">
+      <div className="flex h-screen w-full flex-col items-center justify-center bg-gy-0 ">
+        <div className="fixed top-0 z-50 w-full max-w-[430px]">
           <Navbar />
         </div>
-        <div className="flex-grow items-center justify-center overflow-y-auto">
+        <div className="w-full items-center justify-center overflow-y-auto  px-4">
           <div className="mb-4 mt-16 space-y-3">
             <div className="text-gy-900 font-h4">대표 사진 설정</div>
             <ImageUploader
@@ -99,13 +99,13 @@ export default function MenuManagement() {
           </div>
           <div className="border-b-4 bg-gy-100" />
 
-          <div className="mt-[18px] flex flex-row items-center space-x-[5px]">
+          <div className="mt-[18px] flex flex-row items-center space-x-[5px] ">
             <div className="text-gy-900 font-h4">메뉴 편집</div>
             <span className="text-gy-600 font-b2-normal-medium">
               (사진은 대표메뉴 5가지만 등록가능 합니다.)
             </span>
           </div>
-          <div className="mt-[15px]">
+          <div className="mb-6 mt-[15px]">
             <MenuInputBox
               menuItems={menuItems}
               setMenuItems={setMenuItems}
@@ -121,18 +121,37 @@ export default function MenuManagement() {
               setFifthImage={setFifthImage}
             />
           </div>
+          <div className="mt-2 flex w-full flex-col">
+            <button
+              onClick={handleSave}
+              className="mb-6 flex h-16 w-full cursor-pointer items-center justify-center  rounded-md bg-primary-400 text-wt font-h4"
+            >
+              저장하기
+            </button>
+          </div>
         </div>
       </div>
-      <div className="fixed bottom-8 left-0 right-0 flex justify-center">
+      {/* <div className="fixed bottom-8 left-0 right-0 flex w-full justify-center px-4">
         <button
-          className="flex w-[382px] items-center justify-center rounded-md bg-primary-400 px-6 py-[19px]"
+          className="w-full rounded-md bg-primary-400 px-6 py-[19px] text-center text-wt"
           onClick={handleSave}
         >
-          <span className="block w-[334px] text-center text-wt font-h4">
-            저장하기
-          </span>
+          저장하기
         </button>
-      </div>
+      </div> */}
+
+      {/* <nav className="fixed bottom-0 left-0 right-0 mx-auto w-full border-none bg-transparent px-4">
+        <div className="flex items-center justify-center">
+          <div className="mt-2 flex w-[382px] flex-col">
+            <button
+              onClick={handleSave}
+              className="mb-6 flex h-16 w-full cursor-pointer items-center justify-center  rounded-md bg-primary-400 text-wt font-h4"
+            >
+              저장하기
+            </button>
+          </div>
+        </div>
+      </nav> */}
     </>
   );
 }

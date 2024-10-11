@@ -55,7 +55,7 @@ export default function AdminLogin() {
     checkAuth();
   }, [router]);
   return (
-    <div className="relative flex h-screen flex-col overflow-x-hidden bg-white">
+    <div className="relative flex h-screen w-full flex-col overflow-x-hidden bg-white px-4">
       <div className="mt-32">
         <div className="mb-14 flex flex-col items-center">
           <Logo />
@@ -64,8 +64,8 @@ export default function AdminLogin() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-center space-y-6">
-          <div className="space-y-[6px]">
+        <div className="flex flex-col items-center justify-center space-y-6 ">
+          <div className="w-full space-y-[6px]">
             <label
               htmlFor="id"
               className="block text-gy-600 font-b1-normal-medium"
@@ -81,7 +81,7 @@ export default function AdminLogin() {
               className="placeholder:text-font-b1-normal-medium w-[382px] max-w-full rounded-md bg-gy-0 py-4 pl-4 pr-[71px] focus:outline-none"
             />
           </div>
-          <div className="space-y-[6px]">
+          <div className="w-full space-y-[6px]">
             <label
               htmlFor="password"
               className="block text-gy-600 font-b1-normal-medium"
@@ -106,16 +106,19 @@ export default function AdminLogin() {
         </div>
       )}
 
-      <div className="fixed bottom-8 left-0 right-0 flex justify-center">
-        <button
-          onClick={handleLogin}
-          className="w-[382px] max-w-full rounded-md bg-primary-400 px-6 py-[19px]"
-        >
-          <span className="block w-[334px] text-center text-wt font-h4">
-            로그인
-          </span>
-        </button>
-      </div>
+      <nav className="fixed bottom-0 left-0 right-0 mx-auto w-full border-none bg-transparent px-4">
+        <div className="flex items-center justify-center">
+          <div className="mt-2 flex w-[382px] flex-col">
+            <button
+              onClick={handleLogin}
+              className="mb-6 flex h-16 w-full cursor-pointer items-center justify-center  rounded-md bg-primary-400 text-wt font-h4"
+            >
+              로그인
+            </button>
+          </div>
+        </div>
+      </nav>
+
       {isLoginErrorModalOpen && (
         <AlertModal
           hasSubmessage={false}

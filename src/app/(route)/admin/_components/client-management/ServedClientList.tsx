@@ -41,7 +41,7 @@ export const ServedClientList = ({
 
   return (
     <>
-      <div className="space-y-3">
+      <div className="w-full space-y-3 px-4">
         <div className="flex items-end justify-between">
           <div className="pb-1 text-gy-400 font-b2-normal-semibold">
             퇴장 시간 임박순

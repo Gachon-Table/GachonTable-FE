@@ -75,7 +75,7 @@ export default function Setting() {
     <div className="box-border">
       <div className="flex h-screen flex-col items-center bg-gy-0">
         <Navbar />
-        <div className="mb-6 flex flex-row space-x-3">
+        <div className="mb-6 flex w-full flex-row space-x-3 px-4">
           <ClouserCard
             label={waitingStatus ? '대기 마감' : '대기 오픈'}
             icon={<WaitingClose />}
@@ -89,7 +89,9 @@ export default function Setting() {
             onClick={handlePubClouserClick}
           />
         </div>
-        <LogoutButton onClick={handleLogoutClick} />
+        <div className="w-full px-4">
+          <LogoutButton onClick={handleLogoutClick} />
+        </div>
       </div>
 
       {isWaitModalOpen && (

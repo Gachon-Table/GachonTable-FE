@@ -45,7 +45,7 @@ export const PendingClientItem = ({
 
   return (
     <div className="flex flex-col space-y-4 rounded-lg border border-gy-100 bg-wt p-5 shadow-client-item">
-      <div className="flex w-[342px] flex-row justify-between">
+      <div className="flex w-full flex-row justify-between">
         <div className="flex flex-row items-center space-x-[5px] font-h4">
           <div className="text-gy-800">{index}번</div>
           <div className="text-gy-200 font-b1-normal-semibold">|</div>
@@ -62,21 +62,17 @@ export const PendingClientItem = ({
 
       <div className="flex space-x-2.5">
         <button
-          className={`rounded-md px-7 py-3 ${callButtonStyle}`}
+          className={`flex flex-1 items-center justify-center rounded-md px-7 py-3 text-center ${callButtonStyle}`}
           disabled={isDisabled}
           onClick={handleCallUser}
         >
-          <span className="block w-[108px] text-center font-b2-normal-semibold">
-            {callButtonText}
-          </span>
+          {callButtonText}
         </button>
         <button
-          className="rounded-md bg-primary-200 px-7 py-3 text-primary-400"
+          className="flex flex-1 items-center justify-center rounded-md bg-primary-200 px-7 py-3 text-center text-primary-400"
           onClick={handleTableInputModal}
         >
-          <span className="block w-[108px] text-center font-b2-normal-semibold">
-            입장 처리
-          </span>
+          입장 처리
         </button>
       </div>
     </div>
