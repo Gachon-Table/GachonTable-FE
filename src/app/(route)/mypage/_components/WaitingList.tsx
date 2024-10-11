@@ -54,15 +54,15 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
   };
 
   return (
-    <div className="gap-3 bg-gy-0 px-4 pt-6">
+    <div className="flex h-full flex-col">
       {accessToken && (
-        <div className="px flex w-full justify-center ">
+        <div className="mt-5 flex w-full justify-center px-4">
           <AlertBox color="primary" />
         </div>
       )}
       {accessToken ? (
         waitingList.length > 0 ? (
-          <div className="mt-3 flex flex-col items-center justify-center">
+          <div className="mb-[69px] mt-3 flex w-full flex-col items-center justify-center px-4">
             {waitingList.map((element) => (
               <div
                 key={element.waitingId}
@@ -106,9 +106,11 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
             ))}
           </div>
         ) : (
-          <p className="text-gy-300 font-b1-normal-medium">
-            줄서기 현황이 존재하지 않습니다.
-          </p>
+          <div className="flex h-[calc(100vh_-_210px)] items-center justify-center">
+            <p className="text-gy-300 font-b1-normal-medium">
+              줄서기 현황이 존재하지 않습니다.
+            </p>
+          </div>
         )
       ) : (
         <p className="text-gy-300 font-b1-normal-medium">

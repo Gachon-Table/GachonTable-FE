@@ -11,7 +11,7 @@ export default function LandingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <div className="shadow-2xl shadow-gray-200">
       <main>{children}</main>
     </div>
   );

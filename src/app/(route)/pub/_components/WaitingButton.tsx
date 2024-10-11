@@ -15,7 +15,7 @@ interface WaitingTeamsProps {
   waitingStatus: boolean;
 }
 
-const WaitingTeams: React.FC<WaitingTeamsProps> = ({
+const WaitingButton: React.FC<WaitingTeamsProps> = ({
   pubId,
   openStatus,
   waitingStatus,
@@ -184,4 +184,4 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
   );
 };
 
-export default WaitingTeams;
+export default WaitingButton;

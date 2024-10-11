@@ -40,6 +40,7 @@ const CancelModal = ({ waitingId, setModal }: CancelModalProps) => {
       );
 
       setModal(false);
+      window.location.reload();
     } catch (error) {
       console.error('웨이팅 취소에 에러가 발생했습니다.', error);
     }

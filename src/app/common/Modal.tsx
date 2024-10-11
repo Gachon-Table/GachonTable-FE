@@ -20,7 +20,7 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
-      <div className="absolute left-4 top-3 z-10 flex items-center">
+      <div className="absolute left-4 top-3 z-10 flex cursor-pointer items-center">
         <NobgClose onClick={onClose} />
       </div>
 

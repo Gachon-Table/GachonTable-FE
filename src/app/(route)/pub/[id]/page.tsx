@@ -2,7 +2,7 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import WaitingTeams from '../_components/WaitingTeams';
+import WaitingButton from '@/app/(route)/pub/_components/WaitingButton';
 import { getPubInfoForUser } from '@/app/api/service/user/getPubInfoForUser';
 import DetailTitle from './_components/DetailTitle';
 import DetailMenuList from './_components/DetailMenuList';
@@ -156,7 +156,7 @@ const StoreDetailPage: React.FC = () => {
 
         <nav className="fixed bottom-0 left-0 right-0 mx-auto w-full border-none bg-transparent px-4">
           <div className="flex items-center justify-center">
-            <WaitingTeams
+            <WaitingButton
               pubId={parseInt(id as string, 10)}
               studentCard={store.pub.studentCard}
               openStatus={store.pub.openStatus}
