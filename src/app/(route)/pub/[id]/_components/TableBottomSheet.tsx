@@ -26,7 +26,7 @@ export const TableBottomSheet = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center">
+    <div className="fixed bottom-0 z-50 flex w-full max-w-[390px] items-end justify-center">
       <div
         className="fixed inset-0 bg-bk/30 opacity-50"
         onClick={onClose}
