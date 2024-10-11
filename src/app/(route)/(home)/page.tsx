@@ -28,7 +28,7 @@ const Landing: React.FC = () => {
 
   return (
     <div className="flex h-full flex-col">
-      <header className="fixed top-0 z-10 w-full  rounded-lg bg-wt text-center">
+      <header className="fixed top-0 z-10 w-full max-w-[430px] rounded-lg bg-wt text-center">
         <LandingSearchBar
           searchTerm={searchTerm}
           onSearchChange={(e) => setSearchTerm(e.target.value)}
