@@ -11,14 +11,15 @@ interface MenuItem {
 
 interface DetailMenuListProps {
   menu: MenuItem[];
+  menuUrl: string;
 }
 
-const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
+const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu, menuUrl }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const handleOpenModal = (imageUrl: string) => {
-    setSelectedImage(imageUrl);
+  const handleOpenModal = (menuUrl: string) => {
+    setSelectedImage(menuUrl);
     setIsModalOpen(true);
   };
 
@@ -33,7 +34,7 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
         <div className="px-2 text-gy-400 font-h3">메뉴</div>
         <div
           className="mr-2 flex cursor-pointer flex-row items-center justify-center text-gy-600 font-b2-normal-medium"
-          onClick={() => handleOpenModal('/images/menu-example.png')}
+          onClick={() => handleOpenModal(menuUrl)}
         >
           메뉴판 이미지로 보기
           <BackButtonreverse />
@@ -43,11 +44,7 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
       {/* 메뉴판 */}
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         {selectedImage && (
-          <img
-            src={selectedImage}
-            alt="메뉴판 이미지"
-            className="h-auto max-w-full"
-          />
+          <img src={selectedImage} alt="이미지" className="h-auto max-w-full" />
         )}
       </Modal>
 
