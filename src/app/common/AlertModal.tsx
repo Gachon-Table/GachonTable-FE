@@ -36,7 +36,7 @@ const AlertModal = ({
 
       <div className="z-70 fixed left-0 top-0 flex h-full w-full items-center justify-center">
         <div className="flex flex-col items-center justify-center rounded-md bg-white p-6 px-4 pb-4 pt-8">
-          <div className="block w-[279px] text-center text-gy-900 font-h4">
+          <div className="block w-[279px] whitespace-pre-line text-center text-gy-900 font-h4">
             {message}
           </div>
           {hasSubmessage && (
@@ -63,10 +63,10 @@ const AlertModal = ({
             ) : (
               <div className="mt-5 flex items-center justify-center gap-[7px]">
                 <button
-                  className="h-[46px] w-[136px] rounded-md bg-primary-400 px-[14px] py-[13px] font-semibold text-white"
+                  className="rounded-md bg-primary-400 px-[85.5px] py-[13px] font-semibold text-white"
                   onClick={handleConfirm}
                 >
-                  확인
+                  <span className="block w-[108px] text-center">확인</span>
                 </button>
               </div>
             )}

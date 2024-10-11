@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   PendingClientItemProps,
   PendingClientItem,
@@ -8,6 +8,8 @@ import { TableInputToastModal } from '@/app/(route)/admin/_components/client-man
 import AlertModal from '@/app/common/AlertModal';
 import { patchCallClient } from '@/app/api/service/admin/patchCallClient';
 import { patchEnterClient } from '@/app/api/service/admin/patchEnterClient';
+import { ReloadButton } from 'public';
+import { ScrollToTopButton } from '@/app/common/ScrollToTopButton';
 
 export interface PendingClientListProps {
   pendingClientList: PendingClientItemProps[];
@@ -24,6 +26,8 @@ export const PendingClientList = ({
   const [selectedClientIndex, setSelectedClientIndex] = useState<number | null>(
     null,
   );
+
+  const listRef = useRef<HTMLDivElement>(null);
 
   const handleCallClick = (waitingId: string, index: number) => {
     setSelectedClientId(waitingId);
@@ -61,11 +65,23 @@ export const PendingClientList = ({
     }
   };
 
+  const handleRefreshButton = () => {
+    window.location.reload();
+  };
+
   return (
     <>
       <div className="space-y-3">
-        <div className="text-gy-400 font-b2-normal-semibold">웨이팅 등록순</div>
-        <div className="h-[100vh-88px] overflow-y-auto">
+        <div className="flex items-end justify-between">
+          <div className="pb-1 text-gy-400 font-b2-normal-semibold">
+            웨이팅 등록순
+          </div>
+
+          <button onClick={handleRefreshButton}>
+            <ReloadButton />
+          </button>
+        </div>{' '}
+        <div className="h-[100vh-88px] overflow-y-auto" ref={listRef}>
           {pendingClientList.map((client, idx) => (
             <div key={client.waitingId}>
               <PendingClientItem
@@ -89,6 +105,10 @@ export const PendingClientList = ({
           ))}
         </div>
       </div>
+      <div className="fixed bottom-4 right-4 flex justify-end">
+        <ScrollToTopButton listRef={listRef} />
+      </div>
+
       {isTableModalOpen && selectedClientId && (
         <TableInputToastModal
           onCancel={() => setIsTableModalOpen(false)}

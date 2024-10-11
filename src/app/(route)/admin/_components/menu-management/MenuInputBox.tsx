@@ -18,7 +18,12 @@ interface MenuInputBoxProps {
   setFirstImage: React.Dispatch<React.SetStateAction<string[]>>;
   secondImage: string[];
   setSecondImage: React.Dispatch<React.SetStateAction<string[]>>;
-  maxFields?: number;
+  thirdImage: string[];
+  setThirdImage: React.Dispatch<React.SetStateAction<string[]>>;
+  fourthImage: string[];
+  setFourthImage: React.Dispatch<React.SetStateAction<string[]>>;
+  fifthImage: string[];
+  setFifthImage: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const MenuInputBox: React.FC<MenuInputBoxProps> = ({
@@ -28,7 +33,12 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
   setFirstImage,
   secondImage,
   setSecondImage,
-  maxFields = 10,
+  thirdImage,
+  setThirdImage,
+  fourthImage,
+  setFourthImage,
+  fifthImage,
+  setFifthImage,
 }) => {
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
   const [itemToDeleteIndex, setItemToDeleteIndex] = useState<number | null>(
@@ -42,22 +52,30 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
     if (menuItems.length > 1 && menuItems[1].thumbnail) {
       setSecondImage([menuItems[1].thumbnail]);
     }
+    if (menuItems.length > 2 && menuItems[2].thumbnail) {
+      setThirdImage([menuItems[2].thumbnail]);
+    }
+    if (menuItems.length > 3 && menuItems[3].thumbnail) {
+      setFourthImage([menuItems[3].thumbnail]);
+    }
+    if (menuItems.length > 4 && menuItems[4].thumbnail) {
+      setFifthImage([menuItems[4].thumbnail]);
+    }
   }, [menuItems]);
 
   const handleAddField = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (menuItems.length < maxFields) {
-      setMenuItems([
-        ...menuItems,
-        {
-          menuId: null,
-          thumbnail: '',
-          menuName: '',
-          price: '',
-          oneLiner: '',
-        },
-      ]);
-    }
+
+    setMenuItems([
+      ...menuItems,
+      {
+        menuId: null,
+        thumbnail: '',
+        menuName: '',
+        price: '',
+        oneLiner: '',
+      },
+    ]);
   };
 
   const handleRemoveField = () => {
@@ -167,7 +185,121 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                   </div>
                 </div>
               )}
-              {index > 1 && (
+              {index === 2 && (
+                <div className="space-y-2">
+                  <div className="text-gy-800 font-b1-normal-semibold">
+                    (대표) 메뉴3
+                  </div>
+                  <ImageUploader
+                    imageTotalCount={1}
+                    images={thirdImage}
+                    setImages={setThirdImage}
+                  />
+                  <div className="flex w-[382px] flex-col rounded-md border-[1px] border-gy-200 bg-wt px-4 py-[6px]">
+                    <input
+                      type="text"
+                      name="menuName"
+                      placeholder="메뉴 이름"
+                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      value={menu.menuName}
+                      onChange={(e) => handleInputChange(index, e)}
+                    />
+                    <input
+                      type="text"
+                      name="oneLiner"
+                      placeholder="한 줄 설명"
+                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      value={menu.oneLiner}
+                      onChange={(e) => handleInputChange(index, e)}
+                    />
+                    <input
+                      type="text"
+                      name="price"
+                      placeholder="가격 (단위도 함께 작성해주세요)"
+                      className="px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      value={menu.price}
+                      onChange={(e) => handleInputChange(index, e)}
+                    />
+                  </div>
+                </div>
+              )}
+              {index === 3 && (
+                <div className="space-y-2">
+                  <div className="text-gy-800 font-b1-normal-semibold">
+                    (대표) 메뉴4
+                  </div>
+                  <ImageUploader
+                    imageTotalCount={1}
+                    images={fourthImage}
+                    setImages={setFourthImage}
+                  />
+                  <div className="flex w-[382px] flex-col rounded-md border-[1px] border-gy-200 bg-wt px-4 py-[6px]">
+                    <input
+                      type="text"
+                      name="menuName"
+                      placeholder="메뉴 이름"
+                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      value={menu.menuName}
+                      onChange={(e) => handleInputChange(index, e)}
+                    />
+                    <input
+                      type="text"
+                      name="oneLiner"
+                      placeholder="한 줄 설명"
+                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      value={menu.oneLiner}
+                      onChange={(e) => handleInputChange(index, e)}
+                    />
+                    <input
+                      type="text"
+                      name="price"
+                      placeholder="가격 (단위도 함께 작성해주세요)"
+                      className="px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      value={menu.price}
+                      onChange={(e) => handleInputChange(index, e)}
+                    />
+                  </div>
+                </div>
+              )}
+              {index === 4 && (
+                <div className="space-y-2">
+                  <div className="text-gy-800 font-b1-normal-semibold">
+                    (대표) 메뉴5
+                  </div>
+                  <ImageUploader
+                    imageTotalCount={1}
+                    images={fifthImage}
+                    setImages={setFifthImage}
+                  />
+                  <div className="flex w-[382px] flex-col rounded-md border-[1px] border-gy-200 bg-wt px-4 py-[6px]">
+                    <input
+                      type="text"
+                      name="menuName"
+                      placeholder="메뉴 이름"
+                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      value={menu.menuName}
+                      onChange={(e) => handleInputChange(index, e)}
+                    />
+                    <input
+                      type="text"
+                      name="oneLiner"
+                      placeholder="한 줄 설명"
+                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      value={menu.oneLiner}
+                      onChange={(e) => handleInputChange(index, e)}
+                    />
+                    <input
+                      type="text"
+                      name="price"
+                      placeholder="가격 (단위도 함께 작성해주세요)"
+                      className="px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      value={menu.price}
+                      onChange={(e) => handleInputChange(index, e)}
+                    />
+                  </div>
+                </div>
+              )}
+              {index > 4 && (
                 <div className="w-[382px] space-y-2">
                   <div className="flew-row flex justify-between">
                     <div className="text-gy-800 font-b1-normal-semibold">
