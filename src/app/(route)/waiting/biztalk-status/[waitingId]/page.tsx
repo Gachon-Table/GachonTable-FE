@@ -75,11 +75,7 @@ const WaitingInfo = () => {
   return (
     <div className="relative flex h-screen w-full flex-col overflow-x-hidden bg-white ">
       <div className="flex-grow">
-        <PageHeader
-          icon={<Home />}
-          title={'마이 웨이팅'}
-          clickHandler={() => router.push('/')}
-        />
+        <PageHeader icon={<Home />} title={'마이 웨이팅'} />
         <div className="mt-7 flex w-full flex-col items-center space-y-3 px-4">
           <div className="flex w-full justify-center">
             <AlertBox />
