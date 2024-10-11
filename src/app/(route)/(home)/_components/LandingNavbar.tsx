@@ -46,7 +46,7 @@ const LandingNavbar: React.FC<{ onFilterChange: (filters: any) => void }> = ({
 
   return (
     <nav className="w-full">
-      <div className="mb-6 flex items-center bg-wt px-4">
+      <div className="flex items-center px-4">
         <div className="flex w-full border-b-2 border-gray-200">
           <div
             onClick={handleSortByCongestion}

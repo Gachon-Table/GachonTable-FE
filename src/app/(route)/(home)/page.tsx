@@ -26,8 +26,8 @@ const Landing: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-white">
-      <header className="fixed top-0 w-full max-w-[26rem] rounded-lg text-center">
+    <div className="flex h-full flex-col">
+      <header className="fixed top-0 z-10 w-full  rounded-lg bg-wt text-center">
         <LandingSearchBar
           searchTerm={searchTerm}
           onSearchChange={(e) => setSearchTerm(e.target.value)}
@@ -43,8 +43,8 @@ const Landing: React.FC = () => {
           sortByPopular={filters.sortByPopular}
           sortByLowCongestion={filters.sortByLowCongestion}
         />
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 };
