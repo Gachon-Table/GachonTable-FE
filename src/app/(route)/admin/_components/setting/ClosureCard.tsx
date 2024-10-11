@@ -14,18 +14,16 @@ export const ClouserCard = ({
   onClick,
 }: ClouserCardProps) => {
   return (
-    <div className="shadow-client-item flex flex-col space-y-2 rounded-md bg-wt px-[9.5px] pb-4 pt-6">
+    <div className="flex w-full flex-col space-y-2 rounded-md bg-wt px-[9.5px] pb-4 pt-6 shadow-client-item">
       <div>
-        <span className="text-gy-900 pl-2.5 font-h4">{label}</span>
+        <span className="pl-2.5 text-gy-900 font-h4">{label}</span>
         {icon}
       </div>
       <button
-        className="rounded-md bg-primary-200 px-[29px] py-[13px]"
+        className="flex flex-1 items-center justify-center rounded-md bg-primary-200 px-[29px] py-[13px] text-center"
         onClick={onClick}
       >
-        <span className="block w-[108px] text-center text-primary-400 font-b2-normal-semibold">
-          {buttonLabel}
-        </span>
+        {buttonLabel}
       </button>
     </div>
   );

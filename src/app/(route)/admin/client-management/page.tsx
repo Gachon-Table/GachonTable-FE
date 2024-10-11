@@ -66,11 +66,11 @@ export default function ClientManagement() {
   }, [selectedValue]);
 
   return (
-    <div className="flex h-screen flex-col items-center bg-gy-0">
-      <div className="fixed top-0 z-50 w-full max-w-[414px]">
+    <div className="flex h-screen w-full flex-col items-center bg-gy-0">
+      <div className="fixed top-0 z-50 w-full max-w-[430px]">
         <Navbar />
       </div>
-      <div className="flex-grow">
+      <div className="w-full">
         <ClientStateTabs
           selectedValue={selectedValue}
           onClick={setSelectedValue}

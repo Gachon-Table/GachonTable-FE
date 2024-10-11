@@ -55,8 +55,8 @@ export default function AdminLogin() {
     checkAuth();
   }, [router]);
   return (
-    <div className="relative flex h-screen flex-col overflow-x-hidden bg-white">
-      <div className="mt-32">
+    <div className="relative flex h-screen w-full flex-col overflow-x-hidden bg-white px-4">
+      <div className="mt-32 flex-grow">
         <div className="mb-14 flex flex-col items-center">
           <Logo />
           <div className="mt-6 text-center text-gy-700 font-h1">
@@ -64,8 +64,8 @@ export default function AdminLogin() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-center space-y-6">
-          <div className="space-y-[6px]">
+        <div className="flex flex-col items-center justify-center space-y-6 ">
+          <div className="w-full space-y-[6px]">
             <label
               htmlFor="id"
               className="block text-gy-600 font-b1-normal-medium"
@@ -78,10 +78,10 @@ export default function AdminLogin() {
               placeholder="아이디를 입력해주세요."
               value={id}
               onChange={(e) => setId(e.target.value)}
-              className="placeholder:text-font-b1-normal-medium w-[382px] max-w-full rounded-md bg-gy-0 py-4 pl-4 pr-[71px] focus:outline-none"
+              className="placeholder:text-font-b1-normal-medium w-full rounded-md bg-gy-0 py-4 pl-4 pr-[71px] focus:outline-none"
             />
           </div>
-          <div className="space-y-[6px]">
+          <div className="w-full space-y-[6px]">
             <label
               htmlFor="password"
               className="block text-gy-600 font-b1-normal-medium"
@@ -94,10 +94,19 @@ export default function AdminLogin() {
               placeholder="비밀번호를 입력해주세요."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="placeholder:text-font-b1-normal-medium w-[382px] max-w-full rounded-md bg-gy-0 py-4 pl-4 pr-[71px] focus:outline-none"
+              className="placeholder:text-font-b1-normal-medium w-full rounded-md bg-gy-0 py-4 pl-4 pr-[71px] focus:outline-none"
             />
           </div>
         </div>
+      </div>
+
+      <div className="mb-8 flex justify-end border-none bg-transparent">
+        <button
+          onClick={handleLogin}
+          className="flex h-16 w-full cursor-pointer items-center justify-center rounded-md bg-primary-400 text-wt font-h4"
+        >
+          로그인
+        </button>
       </div>
 
       {isLoginSuccess && (
@@ -106,16 +115,6 @@ export default function AdminLogin() {
         </div>
       )}
 
-      <div className="fixed bottom-8 left-0 right-0 flex justify-center">
-        <button
-          onClick={handleLogin}
-          className="w-[382px] max-w-full rounded-md bg-primary-400 px-6 py-[19px]"
-        >
-          <span className="block w-[334px] text-center text-wt font-h4">
-            로그인
-          </span>
-        </button>
-      </div>
       {isLoginErrorModalOpen && (
         <AlertModal
           hasSubmessage={false}

@@ -106,7 +106,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
   return (
     <>
       <form className="flex flex-col">
-        <div className="mb-28 space-y-6 overflow-y-auto ">
+        <div className="space-y-6 overflow-y-auto ">
           {menuItems.map((menu, index) => (
             <div key={index} className="space-y-2">
               {index === 0 && (
@@ -119,7 +119,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                     images={firstImage}
                     setImages={setFirstImage}
                   />
-                  <div className="flex w-[382px] flex-col rounded-md border-[1px] border-gy-200 bg-wt px-4 py-[6px]">
+                  <div className="flex w-full flex-col rounded-md border-[1px] border-gy-200 bg-wt px-4 py-[6px]">
                     <input
                       type="text"
                       name="menuName"
@@ -157,7 +157,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                     images={secondImage}
                     setImages={setSecondImage}
                   />
-                  <div className="flex w-[382px] flex-col rounded-md border-[1px] border-gy-200 bg-wt px-4 py-[6px]">
+                  <div className="flex w-full flex-col rounded-md border-[1px] border-gy-200 bg-wt px-4 py-[6px]">
                     <input
                       type="text"
                       name="menuName"
@@ -195,7 +195,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                     images={thirdImage}
                     setImages={setThirdImage}
                   />
-                  <div className="flex w-[382px] flex-col rounded-md border-[1px] border-gy-200 bg-wt px-4 py-[6px]">
+                  <div className="flex w-full flex-col rounded-md border-[1px] border-gy-200 bg-wt px-4 py-[6px]">
                     <input
                       type="text"
                       name="menuName"
@@ -233,7 +233,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                     images={fourthImage}
                     setImages={setFourthImage}
                   />
-                  <div className="flex w-[382px] flex-col rounded-md border-[1px] border-gy-200 bg-wt px-4 py-[6px]">
+                  <div className="flex w-full flex-col rounded-md border-[1px] border-gy-200 bg-wt px-4 py-[6px]">
                     <input
                       type="text"
                       name="menuName"
@@ -271,7 +271,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                     images={fifthImage}
                     setImages={setFifthImage}
                   />
-                  <div className="flex w-[382px] flex-col rounded-md border-[1px] border-gy-200 bg-wt px-4 py-[6px]">
+                  <div className="flex w-full flex-col rounded-md border-[1px] border-gy-200 bg-wt px-4 py-[6px]">
                     <input
                       type="text"
                       name="menuName"
@@ -300,7 +300,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                 </div>
               )}
               {index > 4 && (
-                <div className="w-[382px] space-y-2">
+                <div className="w-full space-y-2">
                   <div className="flew-row flex justify-between">
                     <div className="text-gy-800 font-b1-normal-semibold">
                       메뉴{index + 1}
@@ -309,7 +309,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                       <TrashIcon />
                     </button>
                   </div>
-                  <div className="flex flex-col rounded-md border-[1px] border-gy-200 bg-wt px-4 py-[6px]">
+                  <div className="flex w-full flex-col rounded-md border-[1px] border-gy-200 bg-wt px-4 py-[6px]">
                     <input
                       type="text"
                       name="menuName"
@@ -341,9 +341,9 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
           ))}
           <button
             onClick={handleAddField}
-            className="rounded-md bg-gy-200 px-[151px] py-[14px] font-b2-normal-semibold"
+            className="flex w-full flex-1 items-center justify-center rounded-md bg-gy-200 py-[14px] text-center font-b2-normal-semibold"
           >
-            <span className="block w-[80px] text-center">+ 메뉴 추가</span>
+            + 메뉴 추가
           </button>
         </div>
       </form>

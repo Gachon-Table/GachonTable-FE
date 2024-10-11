@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${pretendard.variable} mx-auto max-w-[414px] font-pretendard`}
+        className={`${pretendard.variable} mx-auto w-full max-w-[430px] font-pretendard`}
       >
         {children}
       </body>
