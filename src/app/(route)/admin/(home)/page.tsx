@@ -56,7 +56,7 @@ export default function AdminLogin() {
   }, [router]);
   return (
     <div className="relative flex h-screen w-full flex-col overflow-x-hidden bg-white px-4">
-      <div className="mt-32">
+      <div className="mt-32 flex-grow">
         <div className="mb-14 flex flex-col items-center">
           <Logo />
           <div className="mt-6 text-center text-gy-700 font-h1">
@@ -78,7 +78,7 @@ export default function AdminLogin() {
               placeholder="아이디를 입력해주세요."
               value={id}
               onChange={(e) => setId(e.target.value)}
-              className="placeholder:text-font-b1-normal-medium w-[382px] max-w-full rounded-md bg-gy-0 py-4 pl-4 pr-[71px] focus:outline-none"
+              className="placeholder:text-font-b1-normal-medium w-full rounded-md bg-gy-0 py-4 pl-4 pr-[71px] focus:outline-none"
             />
           </div>
           <div className="w-full space-y-[6px]">
@@ -94,10 +94,19 @@ export default function AdminLogin() {
               placeholder="비밀번호를 입력해주세요."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="placeholder:text-font-b1-normal-medium w-[382px] max-w-full rounded-md bg-gy-0 py-4 pl-4 pr-[71px] focus:outline-none"
+              className="placeholder:text-font-b1-normal-medium w-full rounded-md bg-gy-0 py-4 pl-4 pr-[71px] focus:outline-none"
             />
           </div>
         </div>
+      </div>
+
+      <div className="mb-8 flex justify-end border-none bg-transparent">
+        <button
+          onClick={handleLogin}
+          className="flex h-16 w-full cursor-pointer items-center justify-center rounded-md bg-primary-400 text-wt font-h4"
+        >
+          로그인
+        </button>
       </div>
 
       {isLoginSuccess && (
@@ -105,19 +114,6 @@ export default function AdminLogin() {
           <ToastModal message={'로그인이 완료되었습니다!'} />
         </div>
       )}
-
-      <nav className="fixed bottom-0 left-0 right-0 mx-auto w-full border-none bg-transparent px-4">
-        <div className="flex items-center justify-center">
-          <div className="mt-2 flex w-[382px] flex-col">
-            <button
-              onClick={handleLogin}
-              className="mb-6 flex h-16 w-full cursor-pointer items-center justify-center  rounded-md bg-primary-400 text-wt font-h4"
-            >
-              로그인
-            </button>
-          </div>
-        </div>
-      </nav>
 
       {isLoginErrorModalOpen && (
         <AlertModal
