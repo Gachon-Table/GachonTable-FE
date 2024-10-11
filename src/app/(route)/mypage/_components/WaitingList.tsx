@@ -1,7 +1,6 @@
 'use client';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import AlertBox from '../../waiting/biztalk-status/[waitingId]/_components/AlertBox';
 
 interface WaitingItem {
@@ -55,7 +54,7 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
   };
 
   return (
-    <div className="h-full gap-3 bg-gy-0 px-4 pt-6">
+    <div className="gap-3 bg-gy-0 px-4 pt-6">
       {accessToken && (
         <div className="px flex w-full justify-center ">
           <AlertBox color="primary" />
@@ -107,12 +106,12 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
             ))}
           </div>
         ) : (
-          <p className="flex items-center justify-center text-gy-300 font-b1-normal-medium">
+          <p className="text-gy-300 font-b1-normal-medium">
             줄서기 현황이 존재하지 않습니다.
           </p>
         )
       ) : (
-        <p className="flex h-screen items-center justify-center text-gy-300 font-b1-normal-medium">
+        <p className="text-gy-300 font-b1-normal-medium">
           로그인 후 이용해 보세요!
         </p>
       )}
