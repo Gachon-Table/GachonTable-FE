@@ -28,12 +28,15 @@ export const PageHeader = ({
 
   return (
     <div
-      className={`z-99999 flex items-center space-x-[45px] py-3 pl-4 ${isDetailPage ? 'absolute bg-none' : 'bg-wt'}`}
+      className={`z-99999 relative flex w-full items-center px-4 py-3 ${isDetailPage ? 'absolute bg-none' : 'bg-wt'}`}
     >
-      <div onClick={clickHandler || handleClick} className="cursor-pointer">
+      <div
+        onClick={clickHandler || handleClick}
+        className="flex h-8 w-8 cursor-pointer items-center justify-center"
+      >
         {icon}
       </div>
-      <div className="block w-[228px] text-center font-b1-normal-semibold">
+      <div className="absolute left-0 right-0 text-center font-b1-normal-semibold">
         {title}
       </div>
     </div>
