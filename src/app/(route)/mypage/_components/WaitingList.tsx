@@ -62,7 +62,7 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
       )}
       {accessToken ? (
         waitingList.length > 0 ? (
-          <div className="mb-[69px] mt-3 flex flex-col items-center justify-center">
+          <div className="mb-[69px] mt-3 flex w-full flex-col items-center justify-center px-4">
             {waitingList.map((element) => (
               <div
                 key={element.waitingId}
