@@ -45,14 +45,14 @@ const WaitedList = () => {
   };
 
   return (
-    <div className="h-full">
+    <div className="mt-8 h-full w-full bg-gy-0 px-4">
       {accessToken ? (
         waitedList.length > 0 ? (
-          <div className="mx-4 mt-8 flex flex-col items-center justify-center gap-3">
+          <div className="flex flex-col items-center justify-center gap-3">
             {waitedList.map((element) => (
               <div
                 key={element.waitingId}
-                className="w-full max-w-[400px] rounded-lg border border-gy-200 bg-wt p-5"
+                className="w-full rounded-lg border border-gy-200 bg-wt p-5"
               >
                 <div
                   className={`inline-block rounded-full px-2 py-[5px] font-c2-semibold ${
@@ -87,12 +87,12 @@ const WaitedList = () => {
             ))}
           </div>
         ) : (
-          <div className="flex h-full items-center justify-center text-gy-300 font-b1-normal-medium">
+          <div className="flex items-center justify-center text-gy-300 font-b1-normal-medium">
             줄서기 내역이 존재하지 않습니다.
           </div>
         )
       ) : (
-        <div className="flex h-full items-center justify-center text-gy-300 font-b1-normal-medium">
+        <div className="flex h-screen items-center justify-center text-gy-300 font-b1-normal-medium">
           로그인 후 이용해 보세요!
         </div>
       )}

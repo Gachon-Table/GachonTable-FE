@@ -11,14 +11,15 @@ interface MenuItem {
 
 interface DetailMenuListProps {
   menu: MenuItem[];
+  menuUrl: string;
 }
 
-const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
+const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu, menuUrl }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const handleOpenModal = (imageUrl: string) => {
-    setSelectedImage(imageUrl);
+  const handleOpenModal = (menuUrl: string) => {
+    setSelectedImage(menuUrl);
     setIsModalOpen(true);
   };
 
@@ -33,15 +34,22 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
         <div className="px-2 text-gy-400 font-h3">메뉴</div>
         <div
           className="mr-2 flex cursor-pointer flex-row items-center justify-center text-gy-600 font-b2-normal-medium"
-          onClick={() => handleOpenModal('/images/menu-example.png')}
+          onClick={() => handleOpenModal(menuUrl)}
         >
           메뉴판 이미지로 보기
           <BackButtonreverse />
         </div>
       </div>
 
+      {/* 메뉴판 */}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        {selectedImage && (
+          <img src={selectedImage} alt="이미지" className="h-auto max-w-full" />
+        )}
+      </Modal>
+
       <div className="mb-28 flex w-full flex-col items-start justify-center px-2">
-        <div className="flex w-full flex-col gap-2 py-4">
+        <div className="flex w-full flex-col gap-4 py-4">
           {menu.length === 0 ? (
             <p className="mt-[107px] text-center text-gy-300 font-b1-normal-medium">
               현재 등록되어있는 메뉴가 없습니다
@@ -58,7 +66,7 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
                   <div className="flex flex-col">
                     <div className="mb-1 flex items-center">
                       <p className="text-gy-900 font-h4">{menuItem.menuName}</p>
-                      {(index === 0 || index === 1) && (
+                      {index < 5 && (
                         <p className="ml-2 rounded-[32px] bg-yellow-200 px-2 py-1 text-yellow-400 font-c2-medium">
                           대표메뉴
                         </p>
@@ -72,7 +80,7 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
                     </p>
                   </div>
 
-                  {(index === 0 || index === 1) && (
+                  {index < 5 && (
                     <div
                       className="flex-shrink-0 cursor-pointer"
                       onClick={() => handleOpenModal(menuItem.thumbnail)}
@@ -90,17 +98,6 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu }) => {
           )}
         </div>
       </div>
-
-      {/* 메뉴판 */}
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        {selectedImage && (
-          <img
-            src={selectedImage}
-            alt="메뉴판 이미지"
-            className="h-auto max-w-full"
-          />
-        )}
-      </Modal>
     </div>
   );
 };

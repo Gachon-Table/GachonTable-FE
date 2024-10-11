@@ -6,7 +6,7 @@ import { Instagram } from 'public';
 export const Footer = () => {
   const router = useRouter();
   return (
-    <div className="flex justify-between space-x-1 bg-gy-200 pb-[23px] pl-4 pr-6 pt-[15px]">
+    <div className="flex w-full justify-between space-x-1 bg-gy-200 pb-[23px] pl-4 pr-6 pt-[15px]">
       <div className="flex flex-col space-y-[3px]">
         <div className="flex flex-row items-center space-x-1">
           <button

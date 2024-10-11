@@ -5,6 +5,8 @@ import { isUserAuthenticated } from '@/app/api/service/user/userAuth';
 import AlertModal from '@/app/common/AlertModal';
 import { LoginToastModal } from '@/app/(route)/pub/[id]/_components/LoginToastModal';
 import { TableBottomSheet } from '@/app/(route)/pub/[id]/_components/TableBottomSheet';
+import { ToastModal } from '@/app/common/ToastModal';
+import { AxiosError } from 'axios';
 
 interface WaitingTeamsProps {
   pubId: number;
@@ -22,7 +24,8 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
   const [isVisitorModalOpen, setIsVisitorModalOpen] = useState(false);
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-
+  const [isToastModalVisible, setIsToastModalVisible] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [suberror, setSuberror] = useState<string | null>(null);
@@ -33,7 +36,7 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
   };
 
   const handleErrorModal = () => {
-    setIsVisitorModalOpen(false);
+    setIsError(false);
     setError(null);
     setSuberror(null);
   };
@@ -73,6 +76,7 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
     setError(null);
 
     try {
+      setIsAlertModalOpen(false);
       const token = localStorage.getItem('accessToken');
 
       const payload = {
@@ -88,21 +92,37 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
         },
       });
 
-      const { httpStatus, code, message } = response.data;
-
-      if (httpStatus === 412) {
-        if (code === 'WAITING_OVER_COUNT') {
-          setError('예약 가능한 주점의\n최대 개수(3개)를 초과했습니다.');
-          setSuberror('신청을 원하시면, 다른 주점의 웨이팅을 취소하세요.');
-        } else if (code === 'WAITING_ALREADY_EXIST') {
-          setError('한 주점에 하나의 웨이팅\n신청만 가능합니다.');
-        } else {
-          setError(`오류가 발생했습니다: ${message}`);
-        }
+      if (response.status === 200) {
+        setIsToastModalVisible(true);
+        setTimeout(() => {
+          setIsToastModalVisible(false);
+        }, 2000);
       }
     } catch (error) {
+      const axiosError = error as AxiosError;
+
+      if (axiosError.response && axiosError.response.data) {
+        const errorData = axiosError.response.data as { code?: string };
+
+        if (errorData?.code === 'WAITING_OVER_COUNT') {
+          setError('예약 가능한 주점의\n최대 개수(3개)를 초과했습니다.');
+          setSuberror('신청을 원하시면, 다른 주점의 웨이팅을 취소하세요.');
+          setIsError(true);
+        } else if (errorData?.code === 'WAITING_ALREADY_EXIST') {
+          setError('한 주점에 하나의 웨이팅\n신청만 가능합니다.');
+          setIsError(true);
+        } else if (errorData?.code === 'SEATING_ALREADY_EXIST') {
+          setError('현재 이용 중인 주점이 존재합니다.');
+          setIsError(true);
+        }
+      }
       console.error(error);
     }
+  };
+
+  const handleBottomSheet = () => {
+    setIsVisitorModalOpen(false);
+    setIsAlertModalOpen(true);
   };
 
   return (
@@ -113,20 +133,18 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
   ${openStatus && waitingStatus ? 'cursor-pointer bg-primary-400' : 'cursor-not-allowed bg-gy-400'}
   ${loading || !openStatus || !waitingStatus ? 'cursor-not-allowed' : ''}`}
       >
-        {loading
-          ? '로딩 중...'
-          : openStatus
-            ? waitingStatus
-              ? '웨이팅 신청하기'
-              : '대기 마감되었어요'
-            : '오픈 준비중이에요'}
+        {openStatus
+          ? waitingStatus
+            ? '웨이팅 신청하기'
+            : '대기 마감되었어요'
+          : '오픈 준비중이에요'}
       </div>
 
       {isVisitorModalOpen && (
         <TableBottomSheet
           onClose={() => setIsVisitorModalOpen(false)}
           handleSelectedTableType={handleTableTypeChange}
-          onSubmit={handleSubmit}
+          onSubmit={handleBottomSheet}
         />
       )}
 
@@ -147,13 +165,20 @@ const WaitingTeams: React.FC<WaitingTeamsProps> = ({
         />
       )}
 
-      {error && (
+      {isError && (
         <AlertModal
-          message={error}
+          message={error as string}
           hasSubmessage={suberror !== null}
+          hasCancelButton={false}
           submessage={suberror !== null ? suberror : ''}
           onConfirm={handleErrorModal}
         />
+      )}
+
+      {isToastModalVisible && (
+        <div className="fixed bottom-[100px] left-0 right-0 mb-3 flex justify-center">
+          <ToastModal message={'웨이팅이 완료되었습니다!'} />
+        </div>
       )}
     </div>
   );

@@ -55,19 +55,19 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
   };
 
   return (
-    <div className="h-full">
+    <div className="h-full gap-3 bg-gy-0 px-4 pt-6">
       {accessToken && (
-        <div className=" left-4 right-4 top-6 mt-6 flex justify-center">
+        <div className="px flex w-full justify-center ">
           <AlertBox color="primary" />
         </div>
       )}
       {accessToken ? (
         waitingList.length > 0 ? (
-          <div className="mx-4 mt-3 flex flex-col items-center justify-center gap-3">
+          <div className="mt-3 flex flex-col items-center justify-center">
             {waitingList.map((element) => (
               <div
                 key={element.waitingId}
-                className="w-full max-w-[400px] rounded-lg border border-gy-200 bg-wt p-5"
+                className="w-full rounded-lg border border-gy-200 bg-wt p-5"
               >
                 <div className="mb-2 flex items-center justify-between">
                   <div
@@ -107,22 +107,17 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
             ))}
           </div>
         ) : (
-          <div className="flex h-screen items-center justify-center text-gy-300 font-b1-normal-medium">
-            신청한 웨이팅이 없습니다.
-          </div>
+          <p className="flex items-center justify-center text-gy-300 font-b1-normal-medium">
+            줄서기 현황이 존재하지 않습니다.
+          </p>
         )
       ) : (
-        <div className="flex h-screen items-center justify-center text-gy-300 font-b1-normal-medium">
+        <p className="flex h-screen items-center justify-center text-gy-300 font-b1-normal-medium">
           로그인 후 이용해 보세요!
-        </div>
+        </p>
       )}
     </div>
   );
-};
-
-WaitingList.propTypes = {
-  modal: PropTypes.bool.isRequired,
-  setFunc: PropTypes.func.isRequired,
 };
 
 export default WaitingList;

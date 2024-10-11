@@ -22,6 +22,7 @@ interface Store {
     thumbnails: string[];
     waitingCount: number;
     waitingStatus: boolean;
+    menuUrl: string;
   };
   menu: MenuItem[];
 }
@@ -151,7 +152,7 @@ const StoreDetailPage: React.FC = () => {
         <div className="border-2 border-gy-0" />
 
         <div ref={menuRef} />
-        <DetailMenuList menu={store.menu} />
+        <DetailMenuList menu={store.menu} menuUrl={store.pub.menuUrl} />
 
         <nav className="fixed bottom-0 left-0 right-0 mx-auto w-full border-none bg-transparent px-4">
           <div className="flex items-center justify-center">

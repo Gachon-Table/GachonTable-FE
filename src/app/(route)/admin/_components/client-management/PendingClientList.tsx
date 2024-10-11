@@ -106,7 +106,7 @@ export const PendingClientList = ({
         </div>
       </div>
       <div className="fixed bottom-4 right-4 flex justify-end">
-        <ScrollToTopButton listRef={listRef} />
+        <ScrollToTopButton />
       </div>
 
       {isTableModalOpen && selectedClientId && (

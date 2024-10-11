@@ -5,6 +5,7 @@ import PubList from '../pub/_components/PubList';
 import { Footer } from '@/app/common/Footer';
 import LandingNavbar from './_components/LandingNavbar';
 import LandingSearchBar from './_components/LandingSearchBar';
+import { ScrollToTopButton } from '@/app/common/ScrollToTopButton';
 
 const Landing: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -26,8 +27,8 @@ const Landing: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-white">
-      <header className="fixed top-0 w-full max-w-[26rem] rounded-lg text-center">
+    <div className="flex h-full flex-col">
+      <header className="fixed top-0 z-10 w-full  rounded-lg bg-wt text-center">
         <LandingSearchBar
           searchTerm={searchTerm}
           onSearchChange={(e) => setSearchTerm(e.target.value)}
@@ -36,15 +37,18 @@ const Landing: React.FC = () => {
         <LandingNavbar onFilterChange={handleFilterChange} />
       </header>
 
-      <div className="mt-32 flex h-3/4 w-full flex-col items-start overflow-y-auto">
+      <div className="mt-32 flex h-3/4 w-full flex-col items-start">
         <PubList
           searchTerm={searchTerm}
           filterStudentCard={filters.filterStudentCard}
           sortByPopular={filters.sortByPopular}
           sortByLowCongestion={filters.sortByLowCongestion}
         />
+        <Footer />
       </div>
-      <Footer />
+      <div className="fixed bottom-4 right-4 flex justify-end">
+        <ScrollToTopButton />
+      </div>
     </div>
   );
 };
