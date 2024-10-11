@@ -121,37 +121,16 @@ export default function MenuManagement() {
               setFifthImage={setFifthImage}
             />
           </div>
-          <div className="mt-2 flex w-full flex-col">
+          <div className="mb-8 flex justify-end border-none">
             <button
               onClick={handleSave}
-              className="mb-6 flex h-16 w-full cursor-pointer items-center justify-center  rounded-md bg-primary-400 text-wt font-h4"
+              className="mb-6 flex h-16 w-full cursor-pointer items-center justify-center rounded-md bg-primary-400 text-wt font-h4"
             >
               저장하기
             </button>
           </div>
         </div>
       </div>
-      {/* <div className="fixed bottom-8 left-0 right-0 flex w-full justify-center px-4">
-        <button
-          className="w-full rounded-md bg-primary-400 px-6 py-[19px] text-center text-wt"
-          onClick={handleSave}
-        >
-          저장하기
-        </button>
-      </div> */}
-
-      {/* <nav className="fixed bottom-0 left-0 right-0 mx-auto w-full border-none bg-transparent px-4">
-        <div className="flex items-center justify-center">
-          <div className="mt-2 flex w-[382px] flex-col">
-            <button
-              onClick={handleSave}
-              className="mb-6 flex h-16 w-full cursor-pointer items-center justify-center  rounded-md bg-primary-400 text-wt font-h4"
-            >
-              저장하기
-            </button>
-          </div>
-        </div>
-      </nav> */}
     </>
   );
 }
