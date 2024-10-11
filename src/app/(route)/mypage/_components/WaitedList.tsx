@@ -45,10 +45,10 @@ const WaitedList = () => {
   };
 
   return (
-    <div className="gap-3 bg-gy-0 px-4 pt-6">
+    <div className="mt-5 gap-3 bg-gy-0 px-4">
       {accessToken ? (
         waitedList.length > 0 ? (
-          <div className="flex flex-col items-center justify-center gap-3">
+          <div className="flex flex-col items-center justify-center gap-3 pb-[69px]">
             {waitedList.map((element) => (
               <div
                 key={element.waitingId}

@@ -20,12 +20,14 @@ const Mypage = () => {
     setAccessToken(localStorage.getItem('accessToken'));
   }, []);
   return (
-    <div className="flex h-screen flex-col bg-gy-0">
-      <PageHeader isDetailPage={false} title={'마이 웨이팅'} />
-      <div className="bg-wt">
-        <Tab curTab={curTab} setFunc={setCurTab} />
+    <div className="flex h-screen w-full flex-col bg-gy-0">
+      <div className="fixed top-0 z-10 w-full max-w-[430px] bg-wt">
+        <PageHeader isDetailPage={false} title={'마이 웨이팅'} />
+        <div className="bg-wt">
+          <Tab curTab={curTab} setFunc={setCurTab} />
+        </div>
       </div>
-      <div className="flex h-screen items-center justify-center">
+      <div className="mt-32 w-full ">
         {curTab === 'ing' ? (
           <WaitingList modal={modal} setFunc={setModal} setId={setId} />
         ) : (
