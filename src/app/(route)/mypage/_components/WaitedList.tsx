@@ -45,10 +45,11 @@ const WaitedList = () => {
   };
 
   return (
-    <div className="mt-5 gap-3 bg-gy-0 px-4">
+    <div className="flex h-full flex-col bg-gy-0">
       {accessToken ? (
         waitedList.length > 0 ? (
-          <div className="flex flex-col items-center justify-center gap-3 pb-[69px]">
+          // 로그인 상태 및 대기 목록이 있는 경우
+          <div className="mt-5 flex w-full flex-col items-center justify-center gap-3 px-4 pb-[69px]">
             {waitedList.map((element) => (
               <div
                 key={element.waitingId}
@@ -87,13 +88,17 @@ const WaitedList = () => {
             ))}
           </div>
         ) : (
+          // 로그인 상태지만 대기 목록이 없는 경우
           <div className="text-gy-300 font-b1-normal-medium">
             줄서기 내역이 존재하지 않습니다.
           </div>
         )
       ) : (
-        <div className="text-gy-300 font-b1-normal-medium">
-          로그인 후 이용해 보세요!
+        // 비로그인 상태
+        <div className="flex h-[calc(100vh_-_210px)] items-center justify-center">
+          <p className="text-gy-300 font-b1-normal-medium">
+            로그인 후 이용해 보세요!
+          </p>
         </div>
       )}
     </div>
