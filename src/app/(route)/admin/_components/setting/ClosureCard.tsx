@@ -20,7 +20,7 @@ export const ClouserCard = ({
         {icon}
       </div>
       <button
-        className="flex flex-1 items-center justify-center rounded-md bg-primary-200 px-[29px] py-[13px] text-center"
+        className="flex flex-1 items-center justify-center rounded-md bg-primary-200 px-[29px] py-[13px] text-center text-primary-400 font-b2-normal-semibold"
         onClick={onClick}
       >
         {buttonLabel}

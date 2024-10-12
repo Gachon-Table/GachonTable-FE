@@ -50,7 +50,7 @@ export const ServedClientList = ({
             <ReloadButton />
           </button>
         </div>
-        <div className="h-[100vh-88px] overflow-y-auto">
+        <div className="h-[100vh-88px] space-y-3 overflow-y-auto">
           {servedClientList.map((client) => (
             <div key={client.waitingId}>
               <ServedClientItem

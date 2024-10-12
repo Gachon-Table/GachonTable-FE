@@ -81,7 +81,7 @@ export const PendingClientList = ({
             <ReloadButton />
           </button>
         </div>{' '}
-        <div className="h-[100vh-88px] overflow-y-auto" ref={listRef}>
+        <div className="h-[100vh-88px] space-y-3 overflow-y-auto" ref={listRef}>
           {pendingClientList.map((client, idx) => (
             <div key={client.waitingId}>
               <PendingClientItem
