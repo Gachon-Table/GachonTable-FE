@@ -22,13 +22,6 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
   const [waitingList, setWaitingList] = useState<WaitingItem[]>([]);
   const [accessToken, setAccessToken] = useState<string | null>('');
 
-  // useEffect(() => {
-  //   setAccessToken(localStorage.getItem('accessToken'));
-  //   if (accessToken) {
-  //     waitingApi();
-  //   }
-  // }, [accessToken, waitingList]);
-
   useEffect(() => {
     setAccessToken(localStorage.getItem('accessToken'));
   }, []);
@@ -57,7 +50,6 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
     <div className="flex h-full flex-col bg-gy-0">
       {accessToken ? (
         <>
-          {/* AlertBox는 로그인 상태에서만 표시 */}
           <div className="mt-2 flex w-full justify-center px-4">
             <AlertBox color="primary" />
           </div>
@@ -115,7 +107,6 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
           )}
         </>
       ) : (
-        // 비로그인 상태일 때
         <div className="flex h-[calc(100vh_-_210px)] items-center justify-center">
           <p className="text-gy-300 font-b1-normal-medium">
             로그인 후 이용해 보세요!

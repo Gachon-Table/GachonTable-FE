@@ -24,13 +24,6 @@ const WaitedList = () => {
     }
   }, [accessToken]);
 
-  // useEffect(() => {
-  //   setAccessToken(localStorage.getItem('accessToken'));
-  //   if (accessToken) {
-  //     waitedApi();
-  //   }
-  // }, [accessToken, waitedList]);
-
   const waitedApi = async () => {
     if (!accessToken) return;
     try {
@@ -48,7 +41,6 @@ const WaitedList = () => {
     <div className="flex h-full flex-col bg-gy-0">
       {accessToken ? (
         waitedList.length > 0 ? (
-          // 로그인 상태 및 대기 목록이 있는 경우
           <div className="mt-5 flex w-full flex-col items-center justify-center gap-3 px-4 pb-[69px]">
             {waitedList.map((element) => (
               <div
@@ -88,13 +80,13 @@ const WaitedList = () => {
             ))}
           </div>
         ) : (
-          // 로그인 상태지만 대기 목록이 없는 경우
-          <div className="text-gy-300 font-b1-normal-medium">
-            줄서기 내역이 존재하지 않습니다.
+          <div className="flex h-[calc(100vh_-_210px)] items-center justify-center">
+            <p className="text-gy-300 font-b1-normal-medium">
+              줄서기 내역이 존재하지 않습니다.
+            </p>
           </div>
         )
       ) : (
-        // 비로그인 상태
         <div className="flex h-[calc(100vh_-_210px)] items-center justify-center">
           <p className="text-gy-300 font-b1-normal-medium">
             로그인 후 이용해 보세요!
