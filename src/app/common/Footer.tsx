@@ -27,8 +27,14 @@ export const Footer = () => {
           © 2024 LUPG. All Rights Reserved.
         </div>
       </div>
-      <button onClick={() => alert('인스타그램으로 이동합니다!')}>
-        <Instagram />
+      <button>
+        <a
+          href="https://www.instagram.com/lupg.official/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Instagram />
+        </a>
       </button>
     </div>
   );
