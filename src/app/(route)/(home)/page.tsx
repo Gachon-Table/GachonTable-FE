@@ -46,7 +46,7 @@ const Landing: React.FC = () => {
         />
         <Footer />
       </div>
-      <div className="fixed bottom-4 right-4 flex justify-end">
+      <div className="z-1111 fixed bottom-[110px] flex w-full max-w-[430px] justify-end pr-[17px]">
         <ScrollToTopButton />
       </div>
     </div>

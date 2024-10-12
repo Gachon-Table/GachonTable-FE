@@ -105,7 +105,7 @@ export const PendingClientList = ({
           ))}
         </div>
       </div>
-      <div className="fixed bottom-4 right-4 flex justify-end">
+      <div className="z-1111 fixed bottom-4 flex w-full max-w-[430px] justify-end pr-4">
         <ScrollToTopButton />
       </div>
 
