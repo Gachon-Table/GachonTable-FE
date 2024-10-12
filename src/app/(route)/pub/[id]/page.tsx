@@ -9,6 +9,7 @@ import DetailMenuList from './_components/DetailMenuList';
 import DetailImage from './_components/DetailImage';
 import { PageHeader } from '@/app/common/PageHeader';
 import { BackButton } from 'public';
+import Loading from '@/app/loading';
 
 interface Store {
   pub: {
@@ -98,11 +99,7 @@ const StoreDetailPage: React.FC = () => {
   }, [store]);
 
   if (loading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        Loading...
-      </div>
-    );
+    return <Loading />;
   }
 
   if (error) {

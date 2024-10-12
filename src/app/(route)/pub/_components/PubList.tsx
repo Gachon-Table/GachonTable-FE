@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { isUserAuthenticated } from '@/app/api/service/user/userAuth';
+import Loading from '@/app/loading';
 
 interface Store {
   pubId: number;
@@ -84,9 +85,7 @@ const PubList = ({
   return (
     <div className="flex w-full flex-col items-center justify-center px-4">
       {loading ? (
-        <div className="flex h-screen w-full items-center justify-center font-bold">
-          <p>로딩 중...</p>
-        </div>
+        <Loading />
       ) : error ? (
         <div className="flex h-screen items-center justify-center">
           <p>{error}</p>
