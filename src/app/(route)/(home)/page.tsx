@@ -27,7 +27,7 @@ const Landing: React.FC = () => {
   };
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex min-h-screen flex-col">
       <header className="fixed top-0 z-10 w-full max-w-[430px] rounded-lg bg-wt text-center">
         <LandingSearchBar
           searchTerm={searchTerm}
@@ -37,15 +37,15 @@ const Landing: React.FC = () => {
         <LandingNavbar onFilterChange={handleFilterChange} />
       </header>
 
-      <div className="mt-32 flex h-3/4 w-full flex-col items-start">
+      <div className="mt-32 flex w-full flex-grow flex-col items-start">
         <PubList
           searchTerm={searchTerm}
           filterStudentCard={filters.filterStudentCard}
           sortByPopular={filters.sortByPopular}
           sortByLowCongestion={filters.sortByLowCongestion}
         />
-        <Footer />
       </div>
+      <Footer />
       <div className="z-1111 fixed bottom-[110px] flex w-full max-w-[430px] justify-end pr-[17px]">
         <ScrollToTopButton />
       </div>
