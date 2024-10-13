@@ -67,8 +67,10 @@ const PubList = ({
       }
       return true;
     })
-    .filter((store) =>
-      store.pubName.toLowerCase().includes(searchTerm.toLowerCase()),
+    .filter(
+      (store) =>
+        store.pubName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        store.oneLiner.toLowerCase().includes(searchTerm.toLowerCase()),
     );
 
   const sortedStores = [...filteredStores];
