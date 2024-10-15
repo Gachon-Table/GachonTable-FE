@@ -55,7 +55,7 @@ export default function AdminLogin() {
     checkAuth();
   }, [router]);
   return (
-    <div className="relative flex h-screen w-full flex-col overflow-x-hidden bg-white px-4">
+    <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white px-4">
       <div className="mt-32 flex-grow">
         <div className="mb-14 flex flex-col items-center">
           <Logo />
@@ -100,7 +100,7 @@ export default function AdminLogin() {
         </div>
       </div>
 
-      <div className="mb-8 flex justify-end border-none bg-transparent">
+      <div className="mb-8 flex border-none bg-transparent">
         <button
           onClick={handleLogin}
           className="flex h-16 w-full cursor-pointer items-center justify-center rounded-md bg-primary-400 text-wt font-h4"
