@@ -68,11 +68,11 @@ const DetailBox = ({
         <div className="mt-[18px] flex flex-col items-center justify-center">
           {order < 0 ? (
             order === -1 ? (
-              <div className="pl-[4px] pt-[21px] text-gy-400 font-b1-normal-semibold">
+              <div className="pb-3 pl-1 text-gy-400 font-b1-normal-semibold">
                 대기 취소
               </div>
             ) : (
-              <div className="pl-[4px] pt-[21px] text-gy-400 font-b1-normal-semibold">
+              <div className="pb-3 pl-1 text-gy-400 font-b1-normal-semibold">
                 입장 완료
               </div>
             )
