@@ -2,7 +2,7 @@ import React from 'react';
 
 export const NoteBox = () => {
   return (
-    <div className="flex w-full flex-col space-y-2 rounded-md border border-gy-200 px-4 pb-[26px]  pt-4">
+    <div className="pro:px-4 flex w-full flex-col space-y-2 rounded-md border border-gy-200 px-2 pb-[26px] pt-4">
       <div className="text-gy-600 font-c1-semibold">유의사항</div>
       <ul className="list-disc space-y-2 pl-4 text-gy-900 font-c1-semibold">
         <li>
