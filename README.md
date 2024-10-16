@@ -25,95 +25,141 @@
 
 ```
 📦src
-┣ 📂app
-┃ ┣ 📂(route)
-┃ ┃ ┣ 📂(home)
-┃ ┃ ┃ ┗ 📜page.tsx
-┃ ┃ ┣ 📂[waitingId]
-┃ ┃ ┃ ┣ 📂_components
-┃ ┃ ┃ ┃ ┣ 📜AlertBox.tsx
-┃ ┃ ┃ ┃ ┣ 📜CancelButton.tsx
-┃ ┃ ┃ ┃ ┣ 📜CancelModal.tsx
-┃ ┃ ┃ ┃ ┣ 📜DetailBox.tsx
-┃ ┃ ┃ ┃ ┗ 📜Header.tsx
-┃ ┃ ┃ ┗ 📜page.tsx
-┃ ┃ ┣ 📂admin
-┃ ┃ ┃ ┣ 📂_components
-┃ ┃ ┃ ┃ ┣ 📂field
-┃ ┃ ┃ ┃ ┃ ┣ 📜Information.tsx
-┃ ┃ ┃ ┃ ┃ ┣ 📜NumberKeypad.tsx
-┃ ┃ ┃ ┃ ┃ ┗ 📜ParticipantsModal.tsx
-┃ ┃ ┃ ┃ ┣ 📂pubInput
-┃ ┃ ┃ ┃ ┃ ┣ 📜ImageUploader.tsx
-┃ ┃ ┃ ┃ ┃ ┣ 📜MenuInputBox.tsx
-┃ ┃ ┃ ┃ ┃ ┗ 📜StudentIdInputBox.tsx
-┃ ┃ ┃ ┃ ┣ 📜AlertModal.tsx
-┃ ┃ ┃ ┃ ┣ 📜Dropdown.tsx
-┃ ┃ ┃ ┃ ┣ 📜ErrorModal.tsx
-┃ ┃ ┃ ┃ ┣ 📜NavBar.tsx
-┃ ┃ ┃ ┃ ┗ 📜WaitingList.tsx
-┃ ┃ ┃ ┣ 📂onsite-lineup
-┃ ┃ ┃ ┃ ┗ 📜page.tsx
-┃ ┃ ┃ ┣ 📂pub-management
-┃ ┃ ┃ ┃ ┗ 📜page.tsx
-┃ ┃ ┃ ┣ 📂waiting-management
-┃ ┃ ┃ ┃ ┗ 📜page.tsx
-┃ ┃ ┃ ┣ 📜layout.tsx
-┃ ┃ ┃ ┗ 📜page.tsx
-┃ ┃ ┣ 📂mypage
-┃ ┃ ┃ ┣ 📂_components
-┃ ┃ ┃ ┃ ┣ 📜AfterProfile.tsx
-┃ ┃ ┃ ┃ ┣ 📜BeforeProfile.tsx
-┃ ┃ ┃ ┃ ┣ 📜CancelModal.tsx
-┃ ┃ ┃ ┃ ┣ 📜Tab.tsx
-┃ ┃ ┃ ┃ ┣ 📜WaitedList.tsx
-┃ ┃ ┃ ┃ ┗ 📜WaitingList.tsx
-┃ ┃ ┃ ┣ 📜layout.tsx
-┃ ┃ ┃ ┗ 📜page.tsx
-┃ ┃ ┣ 📂oauth
-┃ ┃ ┃ ┗ 📜page.tsx
-┃ ┃ ┣ 📂privacy-policy
-┃ ┃ ┃ ┗ 📜page.tsx
-┃ ┃ ┗ 📂pub
-┃ ┃ ┃ ┣ 📂[id]
-┃ ┃ ┃ ┃ ┣ 📜layout.tsx
-┃ ┃ ┃ ┃ ┗ 📜page.tsx
-┃ ┃ ┃ ┗ 📂_components
-┃ ┃ ┃ ┃ ┣ 📜ConfirmPopup.tsx
-┃ ┃ ┃ ┃ ┣ 📜PeopleCountPopup.tsx
-┃ ┃ ┃ ┃ ┣ 📜PubList.tsx
-┃ ┃ ┃ ┃ ┣ 📜SuccessPopup.tsx
-┃ ┃ ┃ ┃ ┗ 📜WaitingTeams.tsx
-┃ ┣ 📂api
-┃ ┃ ┣ 📂axios
-┃ ┃ ┃ ┣ 📜adminAxios.ts
-┃ ┃ ┃ ┣ 📜pubAxios.ts
-┃ ┃ ┃ ┣ 📜userAxios.ts
-┃ ┃ ┃ ┗ 📜waitingAxios.ts
-┃ ┃ ┣ 📂s3-upload
-┃ ┃ ┃ ┗ 📜uploadToS3.tsx
-┃ ┃ ┗ 📂service
-┃ ┃ ┃ ┣ 📂admin
-┃ ┃ ┃ ┃ ┣ 📜adminAuth.tsx
-┃ ┃ ┃ ┃ ┣ 📜getPubInfo.tsx
-┃ ┃ ┃ ┃ ┣ 📜getWaitingList.tsx
-┃ ┃ ┃ ┃ ┣ 📜handleStatus.tsx
-┃ ┃ ┃ ┃ ┣ 📜onsiteWaiting.tsx
-┃ ┃ ┃ ┃ ┗ 📜savePubInfo.tsx
-┃ ┃ ┃ ┣ 📂user
-┃ ┃ ┃ ┃ ┣ 📜getPubInfoForUser.tsx
-┃ ┃ ┃ ┃ ┗ 📜userAuth.tsx
-┃ ┃ ┃ ┗ 📜getWaitingInfo.tsx
-┃ ┣ 📂common
-┃ ┃ ┣ 📜BackButton.tsx
-┃ ┃ ┣ 📜Footer.tsx
-┃ ┃ ┗ 📜Navbar.tsx
-┃ ┣ 📂service
-┃ ┃ ┗ 📜getRequest.ts
-┃ ┣ 📂types
-┃ ┃ ┗ 📜next-auth.d.ts
-┃ ┣ 📜favicon.ico
-┃ ┣ 📜globals.css
-┃ ┗ 📜layout.tsx
-┗ 📂hooks
+ ┗ 📂app
+ ┃ ┣ 📂(route)
+ ┃ ┃ ┣ 📂(home)
+ ┃ ┃ ┃ ┣ 📂_components
+ ┃ ┃ ┃ ┃ ┣ 📜LandingNavbar.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜LandingSearchBar.tsx
+ ┃ ┃ ┃ ┣ 📜layout.tsx
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂admin
+ ┃ ┃ ┃ ┣ 📂(home)
+ ┃ ┃ ┃ ┃ ┣ 📜layout.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┣ 📂_components
+ ┃ ┃ ┃ ┃ ┣ 📂client-management
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientStateTabs.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜PendingClientItem.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜PendingClientList.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ServedClientItem.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ServedClientList.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜TableInputToastModal.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂menu-management
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ImagePreview.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ImageUploadButton.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ImageUploader.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜MenuInputBox.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂others
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂onsite-lineup
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂field
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Information.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜NumberKeypad.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParticipantsModal.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂pubInput
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ImageUploader.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜StudentIdInputBox.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂setting
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClosureCard.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜LogoutButton.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜NavBar.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜TableTypeLabel.tsx
+ ┃ ┃ ┃ ┣ 📂client-management
+ ┃ ┃ ┃ ┃ ┣ 📜layout.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┣ 📂menu-management
+ ┃ ┃ ┃ ┃ ┣ 📜layout.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┗ 📂setting
+ ┃ ┃ ┃ ┃ ┣ 📜layout.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂mypage
+ ┃ ┃ ┃ ┣ 📂_components
+ ┃ ┃ ┃ ┃ ┣ 📜CancelModal.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜Profile.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜Tab.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜WaitedList.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜WaitingList.tsx
+ ┃ ┃ ┃ ┣ 📜layout.tsx
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂oauth
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂policy
+ ┃ ┃ ┃ ┣ 📂privacy
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂pub
+ ┃ ┃ ┃ ┣ 📂[id]
+ ┃ ┃ ┃ ┃ ┣ 📂_components
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜DetailImage.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜DetailMenuList.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜DetailTitle.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginToastModal.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜TableBottomSheet.tsx
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜TableRadioButton.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜VisitorCountToastModal.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜layout.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┗ 📂_components
+ ┃ ┃ ┃ ┃ ┣ 📜PeopleCountPopup.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜PubList.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜WaitingButton.tsx
+ ┃ ┃ ┗ 📂waiting
+ ┃ ┃ ┃ ┗ 📂biztalk-status
+ ┃ ┃ ┃ ┃ ┗ 📂[waitingId]
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂_components
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AlertBox.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CancelButton.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DetailBox.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜NoteBox.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┣ 📂api
+ ┃ ┃ ┣ 📂axios
+ ┃ ┃ ┃ ┣ 📜adminAxios.ts
+ ┃ ┃ ┃ ┣ 📜pubAxios.ts
+ ┃ ┃ ┃ ┣ 📜userAxios.ts
+ ┃ ┃ ┃ ┗ 📜waitingAxios.ts
+ ┃ ┃ ┣ 📂s3
+ ┃ ┃ ┃ ┣ 📜deleteFromS3.tsx
+ ┃ ┃ ┃ ┗ 📜uploadToS3.tsx
+ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┣ 📂admin
+ ┃ ┃ ┃ ┃ ┣ 📜adminAuth.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜getPubInfo.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜getSeatingList.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜getWaitingList.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜handleStatus.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜onsiteWaiting.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜patchCallClient.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜patchEnterClient.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜patchExitClient.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜patchManageMenu.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜patchPubStatus.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜patchWaitingStatus.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜savePubInfo.tsx
+ ┃ ┃ ┃ ┣ 📂user
+ ┃ ┃ ┃ ┃ ┣ 📜getPubInfoForUser.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜patchWaitingCancel.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜userAuth.tsx
+ ┃ ┃ ┃ ┗ 📜getWaitingInfo.tsx
+ ┃ ┣ 📂common
+ ┃ ┃ ┣ 📜AlertModal.tsx
+ ┃ ┃ ┣ 📜Footer.tsx
+ ┃ ┃ ┣ 📜Modal.tsx
+ ┃ ┃ ┣ 📜PageHeader.tsx
+ ┃ ┃ ┣ 📜ScrollToTopButton.tsx
+ ┃ ┃ ┗ 📜ToastModal.tsx
+ ┃ ┣ 📂constants
+ ┃ ┃ ┗ 📜metadata.ts
+ ┃ ┣ 📂fonts
+ ┃ ┃ ┗ 📜PretendardVariable.woff2
+ ┃ ┣ 📂utils
+ ┃ ┃ ┗ 📜getMetadata.ts
+ ┃ ┣ 📜favicon.ico
+ ┃ ┣ 📜globals.css
+ ┃ ┣ 📜layout.tsx
+ ┃ ┣ 📜loading.tsx
+ ┃ ┗ 📜not-found.tsx
 ```
