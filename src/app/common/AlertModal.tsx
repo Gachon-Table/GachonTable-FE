@@ -59,7 +59,7 @@ const AlertModal = ({
                   className="h-[46px] w-[136px] rounded-md bg-primary-400 px-[14px] py-[13px] font-semibold text-white"
                   onClick={handleConfirm}
                 >
-                  확인
+                  {isCloseButton ? '웨이팅 내역 확인' : '확인'}
                 </button>
               </div>
             ) : (
