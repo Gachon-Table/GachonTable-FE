@@ -9,6 +9,7 @@ interface AlertModalProps {
   onCancel?: () => void;
   onConfirm?: () => void;
   waitingId?: string;
+  isCloseButton?: boolean;
 }
 
 const AlertModal = ({
@@ -19,6 +20,7 @@ const AlertModal = ({
   onCancel,
   onConfirm,
   waitingId,
+  isCloseButton = false,
 }: AlertModalProps) => {
   const handleConfirm = async () => {
     if (waitingId && onConfirm) {
@@ -51,7 +53,7 @@ const AlertModal = ({
                   className="h-[46px] w-[136px] rounded-md bg-gy-100 px-[14px] py-[13px] font-semibold text-gy-700 hover:bg-gray-100"
                   onClick={onCancel}
                 >
-                  취소
+                  {isCloseButton ? '닫기' : '취소'}
                 </button>
                 <button
                   className="h-[46px] w-[136px] rounded-md bg-primary-400 px-[14px] py-[13px] font-semibold text-white"

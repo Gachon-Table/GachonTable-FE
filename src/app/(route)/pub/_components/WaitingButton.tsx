@@ -5,7 +5,6 @@ import { isUserAuthenticated } from '@/app/api/service/user/userAuth';
 import AlertModal from '@/app/common/AlertModal';
 import { LoginToastModal } from '@/app/(route)/pub/[id]/_components/LoginToastModal';
 import { TableBottomSheet } from '@/app/(route)/pub/[id]/_components/TableBottomSheet';
-import { ToastModal } from '@/app/common/ToastModal';
 import { AxiosError } from 'axios';
 
 interface WaitingTeamsProps {
@@ -24,7 +23,7 @@ const WaitingButton: React.FC<WaitingTeamsProps> = ({
   const [isVisitorModalOpen, setIsVisitorModalOpen] = useState(false);
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [isToastModalVisible, setIsToastModalVisible] = useState(false);
+  const [isWaitingSuccess, setIsWaitingSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -93,10 +92,7 @@ const WaitingButton: React.FC<WaitingTeamsProps> = ({
       });
 
       if (response.status === 200) {
-        setIsToastModalVisible(true);
-        setTimeout(() => {
-          setIsToastModalVisible(false);
-        }, 2000);
+        setIsWaitingSuccess(true);
       }
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -175,10 +171,15 @@ const WaitingButton: React.FC<WaitingTeamsProps> = ({
         />
       )}
 
-      {isToastModalVisible && (
-        <div className="fixed bottom-[100px] left-0 right-0 mb-3 flex justify-center">
-          <ToastModal message={'웨이팅이 완료되었습니다!'} />
-        </div>
+      {isWaitingSuccess && (
+        <AlertModal
+          message={'웨이팅 신청이 완료되었습니다!'}
+          hasSubmessage={false}
+          hasCancelButton={true}
+          isCloseButton={true}
+          onCancel={() => setIsWaitingSuccess(false)}
+          onConfirm={() => router.push('/mypage')}
+        />
       )}
     </div>
   );
