@@ -23,6 +23,9 @@ export const getMetadata = (metadataProps?: metadataProps) => {
       locale: 'ko_KR',
       type: 'website',
       url: PAGE_URL,
+      images: {
+        url: META.ogImage,
+      }
     },
   };
 };
