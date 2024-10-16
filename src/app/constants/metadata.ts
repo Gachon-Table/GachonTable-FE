@@ -37,5 +37,5 @@ export const META = {
         "가천대 주점 대기"
         ],
     url: 'https://www.lupg.me',
-    ogImage: '/images/opengraph-image.png',
+    ogImage: '/opengraph-image.png',
   } as const;

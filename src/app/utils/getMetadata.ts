@@ -10,7 +10,8 @@ export const getMetadata = (metadataProps?: metadataProps) => {
 
   const TITLE = title ? `${title} | 라인업지` : META.title;
   const PAGE_URL = asPath ? `${META.url}${asPath}` : META.url;
-
+  const OG_IMAGE_URL = `${META.url}${META.ogImage}`;
+  
   return {
     metadataBase: new URL(META.url),
     alternates: { canonical: PAGE_URL },
@@ -24,7 +25,7 @@ export const getMetadata = (metadataProps?: metadataProps) => {
       type: 'website',
       url: PAGE_URL,
       images: {
-        url: META.ogImage,
+        url: OG_IMAGE_URL,
       }
     },
   };
