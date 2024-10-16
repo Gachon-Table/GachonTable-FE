@@ -40,25 +40,32 @@ const DetailBox = ({
   return (
     <div className="flex w-full flex-col rounded-md bg-gy-0 p-6">
       <div className="mb-3 text-gray-800 font-h4">{pubName}</div>
-      <div className="w-full max-w-[334px] border-b-2 bg-gy-100" />
-      <div className="mt-3 flex w-full max-w-[334px] flex-row">
-        <div className="mr-[34px] flex flex-col space-y-[6px] pt-[11px]">
-          <div className="flex flex-row space-x-2">
-            <span className="text-gy-400 font-b1-normal-semibold">좌석</span>
-            <span className="text-gy-800 font-b1-normal-semibold">
-              {tableType === 'BASIC' ? '4인 테이블' : '8인 테이블'}
-            </span>
-          </div>
 
-          <div className="flex flex-row space-x-2">
-            <span className="text-gy-400 font-b1-normal-semibold">시간</span>
-            <span className="text-gy-800 font-b1-normal-semibold">
-              {formattedCreatedAt}
-            </span>
+      <div className="flex w-full items-center justify-center border-b-2 bg-gy-100" />
+      <div className="mt-3 flex w-full flex-row items-center justify-start">
+        <div className="mr-5">
+          <div className="mt-[11px] flex flex-shrink-0 flex-col">
+            <div className="flex flex-row space-x-2">
+              <span className="text-gy-400 font-b1-normal-semibold">좌석</span>
+              <span className="text-gy-800 font-b1-normal-semibold">
+                {tableType === 'BASIC' ? '4인 테이블' : '8인 테이블'}
+              </span>
+            </div>
+
+            <div className="flex flex-row gap-2">
+              <span className="text-gy-400 font-b1-normal-semibold">시간</span>
+              <span className="text-gy-800 font-b1-normal-semibold">
+                {formattedCreatedAt}
+              </span>
+            </div>
           </div>
         </div>
-        <div className="h-[76px] border-r-2 bg-gy-100" />
-        <div className="ml-[51px] flex flex-col items-center pt-[7px]">
+
+        <div className="mr-12">
+          <div className="h-[76px] border-r-2 bg-gy-100" />
+        </div>
+
+        <div className="mt-[18px] flex flex-col items-center justify-center">
           {order < 0 ? (
             order === -1 ? (
               <div className="pl-[4px] pt-[21px] text-gy-400 font-b1-normal-semibold">
@@ -71,10 +78,10 @@ const DetailBox = ({
             )
           ) : (
             <>
-              <div className="block w-[72px] text-center text-gy-400 font-b1-normal-semibold">
+              <div className="flex text-center text-gy-400 font-b1-normal-semibold">
                 내 순서
               </div>
-              <div className="flex h-8 flex-row items-baseline space-x-1">
+              <div className="flex flex-row items-baseline space-x-1">
                 <div className="text-primary-400 font-num">{order}</div>
                 <div className="pb-2 text-gy-800 font-b1-normal-semibold">
                   번째
