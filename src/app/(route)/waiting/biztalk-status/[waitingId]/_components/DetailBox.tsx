@@ -40,8 +40,8 @@ const DetailBox = ({
   return (
     <div className="flex w-full flex-col rounded-md bg-gy-0 p-6">
       <div className="mb-3 text-gray-800 font-h4">{pubName}</div>
-      <div className="w-full max-w-[334px] border-b-2 bg-gy-100" />
-      <div className="mt-3 flex w-full max-w-[334px] flex-row">
+      <div className="w-[334px] border-b-2 bg-gy-100" />
+      <div className="mt-3 flex flex-row">
         <div className="mr-[34px] flex flex-col space-y-[6px] pt-[11px]">
           <div className="flex flex-row space-x-2">
             <span className="text-gy-400 font-b1-normal-semibold">좌석</span>

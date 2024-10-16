@@ -1,22 +1,8 @@
+'use client';
 import React from 'react';
 import './globals.css';
 import localFont from 'next/font/local';
 import { GoogleAnalytics } from '@next/third-parties/google';
-import { META } from '@/app/constants/metadata';
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: META.title,
-  description: META.description,
-  keywords: [...META.keyword],
-  openGraph: {
-    title: META.title,
-    description: META.description,
-    locale: 'ko_KR',
-    type: 'website',
-    url: META.url,
-  },
-};
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',

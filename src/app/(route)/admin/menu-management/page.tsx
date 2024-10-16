@@ -105,7 +105,7 @@ export default function MenuManagement() {
               (사진은 대표메뉴 5가지만 등록가능 합니다.)
             </span>
           </div>
-          <div className="mb-[112px] mt-[15px]">
+          <div className="mb-6 mt-[15px]">
             <MenuInputBox
               menuItems={menuItems}
               setMenuItems={setMenuItems}
@@ -121,16 +121,14 @@ export default function MenuManagement() {
               setFifthImage={setFifthImage}
             />
           </div>
-          <nav className="fixed bottom-0 left-0 right-0 mx-auto w-full max-w-[430px] border-none bg-transparent px-4">
-            <div className="flex w-full items-center justify-center">
-              <button
-                onClick={handleSave}
-                className="mb-6 flex h-16 w-full cursor-pointer items-center justify-center rounded-md bg-primary-400 text-wt font-h4"
-              >
-                저장하기
-              </button>
-            </div>
-          </nav>
+          <div className="mb-8 flex justify-end border-none">
+            <button
+              onClick={handleSave}
+              className="mb-6 flex h-16 w-full cursor-pointer items-center justify-center rounded-md bg-primary-400 text-wt font-h4"
+            >
+              저장하기
+            </button>
+          </div>
         </div>
       </div>
     </>

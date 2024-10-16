@@ -1,21 +1,22 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { getPubInfoForUser } from '@/app/api/service/user/getPubInfoForUser';
-import { getMetadata } from '@/app/utils/getMetadata';
 
-interface Props {
+type Props = {
   params: {
     id: string;
   };
-}
-
-export const generateMetadata = async ({
-  params,
-}: Props): Promise<Metadata> => {
-  const pubId = params.id;
-  const pubData = await getPubInfoForUser(pubId);
-  return getMetadata({ title: pubData.pub.pubName, asPath: `/pub/${pubId}` });
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const pubId = params.id;
+
+  const pubData = await getPubInfoForUser(pubId);
+
+  return {
+    title: `${pubData.pub.pubName} | 라인업지`,
+  };
+}
 
 interface RouteLayoutProps {
   children: React.ReactNode;
