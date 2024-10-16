@@ -18,7 +18,9 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       screens: {
-        mobile: '414px',
+        pro: '390px',
+        pixel: '412px',
+        promax: '430px',
       },
       colors: {
         'primary-400': '#1043A4',
