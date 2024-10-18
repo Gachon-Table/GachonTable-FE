@@ -64,10 +64,12 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu, menuUrl }) => {
               >
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex flex-col">
-                    <div className="mb-1 flex items-center">
-                      <p className="text-gy-900 font-h4">{menuItem.menuName}</p>
+                    <div className="mb-1 flex flex-wrap items-center">
+                      <p className="mr-2 text-gy-900 font-h4 ">
+                        {menuItem.menuName}
+                      </p>
                       {index < 5 && (
-                        <p className="ml-2 rounded-[32px] bg-yellow-200 px-2 py-1 text-yellow-400 font-c2-medium">
+                        <p className="rounded-[32px] bg-yellow-200 px-2 py-1 text-yellow-400 font-c2-medium">
                           대표메뉴
                         </p>
                       )}
