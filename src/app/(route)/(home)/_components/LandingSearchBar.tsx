@@ -1,7 +1,8 @@
 'use client';
 import React from 'react';
-import { Close, LogoCircle, Search, User } from 'public';
+import { Close, Search, User } from 'public';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 interface LandingSearchBarProps {
   searchTerm: string;
@@ -23,10 +24,15 @@ const LandingSearchBar: React.FC<LandingSearchBarProps> = ({
   return (
     <div className="flex w-full items-center justify-between gap-3 p-4">
       <div className="flex-shrink-0">
-        <LogoCircle
-          className="cursor-pointer"
-          onClick={() => router.push('/')}
-        />
+        <button className="rounded-full p-1" onClick={() => router.push('/')}>
+          <Image
+            src="/images/logo-blue.jpg"
+            alt="logo-blue"
+            width={44}
+            height={44}
+            className="rounded-full"
+          />
+        </button>
       </div>
 
       <div className="relative flex w-full max-w-[270px] flex-grow items-center rounded-full bg-gy-100 py-2 pl-4 pr-6">
