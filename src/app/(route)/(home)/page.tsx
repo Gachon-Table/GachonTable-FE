@@ -37,7 +37,7 @@ const Landing: React.FC = () => {
         <LandingNavbar onFilterChange={handleFilterChange} />
       </header>
 
-      <div className="mt-32 flex w-full flex-grow flex-col items-start">
+      <div className=" mt-32 flex w-full flex-grow flex-col items-start">
         <PubList
           searchTerm={searchTerm}
           filterStudentCard={filters.filterStudentCard}
@@ -45,10 +45,11 @@ const Landing: React.FC = () => {
           sortByLowCongestion={filters.sortByLowCongestion}
         />
       </div>
-      <Footer />
-      <div className="z-1111 fixed bottom-[110px] flex w-full max-w-[430px] justify-end pr-[17px]">
+
+      <div className="fixed bottom-[100px] right-4 z-20">
         <ScrollToTopButton />
       </div>
+      <Footer />
     </div>
   );
 };
