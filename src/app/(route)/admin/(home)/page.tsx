@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { adminLogin, isAuthenticated } from '@/app/api/service/admin/adminAuth';
-import { Logo } from 'public';
+import Image from 'next/image';
 import { ToastModal } from '@/app/common/ToastModal';
 import AlertModal from '@/app/common/AlertModal';
 
@@ -58,7 +58,13 @@ export default function AdminLogin() {
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white px-4">
       <div className="mt-32 flex-grow">
         <div className="mb-14 flex flex-col items-center">
-          <Logo />
+          <Image
+            src="/images/logo-blue.jpg"
+            alt="logo-blue"
+            width={80}
+            height={80}
+            className="rounded-md"
+          />
           <div className="mt-6 text-center text-gy-700 font-h1">
             관리자 로그인
           </div>

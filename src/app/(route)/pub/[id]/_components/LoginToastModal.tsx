@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { LogoCircle } from 'public';
+import Image from 'next/image';
 
 interface LoginToastModalProps {
   onClose: () => void;
@@ -20,7 +20,13 @@ export const LoginToastModal = ({
 
       <div className="relative z-50 flex w-full flex-col items-center justify-center rounded-t-[20px] bg-wt px-6 pb-[53px] pt-8">
         <div className="mb-4">
-          <LogoCircle />
+          <Image
+            src="/images/logo-blue.jpg"
+            alt="logo-blue"
+            width={44}
+            height={44}
+            className="rounded-full"
+          />
         </div>
         <div className="mb-4 block w-[327px] text-center font-h3">
           대기를 하려면 로그인이 필요해요!
