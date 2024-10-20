@@ -12,16 +12,6 @@ const CancelModal = ({ waitingId, setModal }: CancelModalProps) => {
   useEffect(() => {
     setAccessToken(localStorage.getItem('accessToken'));
   }, [accessToken]);
-
-  // const handleCancel = async () => {
-  //   await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/waiting/cancel`, {
-  //     waitingId,
-  //     headers: { Authorization: `Bearer ${accessToken}` },
-  //   });
-
-  //   setModal(false);
-  // };
-
   const handleCancel = async () => {
     if (!accessToken) {
       console.error('로그인 후 이용해주세요!');
@@ -29,7 +19,7 @@ const CancelModal = ({ waitingId, setModal }: CancelModalProps) => {
     }
 
     try {
-      await axios.patch(
+      const response = await axios.patch(
         `${process.env.NEXT_PUBLIC_API_URL}/waiting/cancel`,
         {
           waitingId,
@@ -39,10 +29,16 @@ const CancelModal = ({ waitingId, setModal }: CancelModalProps) => {
         },
       );
 
-      setModal(false);
-      window.location.reload();
+      if (response.status === 200) {
+        setModal(false);
+        window.location.reload();
+      } else {
+        console.error('에러가 발생했습니다.', response);
+        setModal(true);
+      }
     } catch (error) {
       console.error('웨이팅 취소에 에러가 발생했습니다.', error);
+      setModal(true);
     }
   };
 
