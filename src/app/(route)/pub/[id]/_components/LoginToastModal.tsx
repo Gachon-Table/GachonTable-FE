@@ -18,7 +18,7 @@ export const LoginToastModal = ({
         onClick={onClose}
       ></div>
 
-      <div className="relative z-50 flex w-full flex-col items-center justify-center rounded-t-[20px] bg-wt px-6 pb-[53px] pt-8">
+      <div className="relative z-50 flex w-full  flex-col items-center justify-center rounded-t-[20px] bg-wt px-4 pb-8 pt-10">
         <div className="mb-4">
           <Image
             src="/images/logo-blue.jpg"
@@ -28,15 +28,15 @@ export const LoginToastModal = ({
             className="rounded-full"
           />
         </div>
-        <div className="mb-4 block w-[327px] text-center font-h3">
-          대기를 하려면 로그인이 필요해요!
+        <div className="mb-12 block w-[327px] text-center font-h3">
+          대기를 하려면 로그인이 필요해요.
         </div>
 
         <button
-          className="w-full rounded-md bg-kakao px-[43.5px] py-5"
+          className="flex w-full items-center justify-center rounded-md bg-kakao py-5"
           onClick={onSubmit}
         >
-          <span className="block w-[279px] max-w-full text-center text-gy-900 font-b1-normal-semibold">
+          <span className="text-gy-900 font-b1-normal-semibold">
             카카오로 3초만에 시작하기
           </span>
         </button>
