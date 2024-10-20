@@ -41,7 +41,7 @@ export const ServedClientList = ({
 
   return (
     <>
-      <div className="w-full space-y-3 px-4">
+      <div className="w-full space-y-3 bg-gy-0 px-4">
         <div className="flex items-end justify-between">
           <div className="pb-1 text-gy-400 font-b2-normal-semibold">
             퇴장 시간 임박순
@@ -50,7 +50,7 @@ export const ServedClientList = ({
             <ReloadButton />
           </button>
         </div>
-        <div className="h-[100vh-88px] space-y-3 overflow-y-auto">
+        <div className="max-h-[calc(100vh-150px)] space-y-3 overflow-y-auto pb-16">
           {servedClientList.map((client) => (
             <div key={client.waitingId}>
               <ServedClientItem
