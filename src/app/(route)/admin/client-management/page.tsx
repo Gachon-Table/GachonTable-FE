@@ -66,7 +66,7 @@ export default function ClientManagement() {
   }, [selectedValue]);
 
   return (
-    <div className="flex h-screen w-full flex-col items-center bg-gy-0">
+    <div className="flex h-screen w-full flex-col items-center overflow-hidden bg-gy-0">
       <div className="fixed top-0 z-50 w-full max-w-[430px]">
         <Navbar />
       </div>

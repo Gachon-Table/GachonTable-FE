@@ -87,7 +87,9 @@ const PubList = ({
   return (
     <div className="flex w-full flex-col items-center justify-center px-4">
       {loading ? (
-        <Loading />
+        <div className="mt-[260px] flex h-full items-center justify-center">
+          <Loading type="component" />
+        </div>
       ) : error ? (
         <div className="flex h-screen items-center justify-center">
           <p>{error}</p>

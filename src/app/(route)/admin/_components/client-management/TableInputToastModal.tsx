@@ -36,12 +36,13 @@ export const TableInputToastModal = ({
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center">
       <div className="fixed inset-0 bg-bk/30" onClick={onCancel}></div>
-      <div className="relative z-50 rounded-t-[20px] bg-wt px-4 pb-4 pt-8">
+
+      <div className="relative z-50 flex w-full flex-col rounded-t-[20px] bg-wt px-4 pb-4 pt-8">
         <div className="mb-4 font-h3">테이블 번호를 지정해주세요.</div>
-        <div className="mb-6 rounded-lg bg-gy-0 px-[15px] py-3 ">
+        <div className="mb-6 flex h-[60px] justify-center rounded-lg bg-gy-0 px-[15px] py-3 ">
           <input
             ref={inputRef}
-            type="text"
+            type="number"
             value={tableNumber === null ? '' : tableNumber}
             onChange={handleChange}
             className="w-full bg-gy-0 font-h2 focus:outline-none"
@@ -49,7 +50,7 @@ export const TableInputToastModal = ({
           />
           {tableNumber !== null && (
             <div
-              className="absolute right-10 top-[103px] -translate-y-1/2 transform cursor-pointer"
+              className="absolute right-10 top-[104.8px] -translate-y-1/2 transform cursor-pointer"
               onClick={handleClear}
             >
               <ClearButton />
