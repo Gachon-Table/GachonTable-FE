@@ -6,7 +6,6 @@ import axios from 'axios';
 import { isUserAuthenticated } from '@/app/api/service/user/userAuth';
 import Loading from '@/app/loading';
 import Image from 'next/image';
-import Image from 'next/image';
 
 interface Store {
   pubId: number;
