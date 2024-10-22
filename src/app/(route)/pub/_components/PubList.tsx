@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { isUserAuthenticated } from '@/app/api/service/user/userAuth';
 import Loading from '@/app/loading';
+import Image from 'next/image';
 
 interface Store {
   pubId: number;
@@ -87,9 +88,7 @@ const PubList = ({
   return (
     <div className="flex w-full flex-col items-center justify-center px-4">
       {loading ? (
-        <div className="mt-[260px] flex h-full items-center justify-center">
-          <Loading type="component" />
-        </div>
+        <Loading />
       ) : error ? (
         <div className="flex h-screen items-center justify-center">
           <p>{error}</p>
@@ -112,14 +111,28 @@ const PubList = ({
           >
             <div className="flex flex-row items-center">
               <div className="relative mr-3 h-20 w-20 flex-shrink-0 overflow-hidden rounded-[6px]">
-                <img
+                <Image
+                  src={
+                    store.thumbnails.length > 0
+                      ? store.thumbnails[0]
+                      : '/images/storeImage.png'
+                  }
+                  alt={`${store.pubName} 썸네일`}
+                  quality={100}
+                  className="object-cover"
+                  fill
+                  // sizes="80px"
+                  priority
+                  loading="eager"
+                />
+                {/* <img
                   src={
                     store.thumbnails.length > 0
                       ? store.thumbnails[0]
                       : '/images/storeImage.png'
                   }
                   className="h-full w-full object-cover"
-                />
+                /> */}
               </div>
 
               <div className="flex w-full flex-col">
