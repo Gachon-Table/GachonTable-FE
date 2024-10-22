@@ -1,5 +1,6 @@
 import React from 'react';
 import { patchWaitingCancel } from '@/app/api/service/user/patchWaitingCancel';
+import { throttle } from '@/app/utils/throttle';
 
 interface AlertModalProps {
   message: string;
@@ -22,12 +23,19 @@ const AlertModal = ({
   waitingId,
   isCloseButton = false,
 }: AlertModalProps) => {
+  const handleCancel = throttle(() => {
+    if (waitingId) {
+      patchWaitingCancel(waitingId);
+    } else {
+      console.error('waitingId가 유효하지 않습니다.');
+    }
+  }, 3000);
+
   const handleConfirm = async () => {
     if (waitingId && onConfirm) {
-      patchWaitingCancel(waitingId);
+      handleCancel();
       onConfirm();
-    }
-    if (onConfirm) {
+    } else if (onConfirm) {
       onConfirm();
     }
   };

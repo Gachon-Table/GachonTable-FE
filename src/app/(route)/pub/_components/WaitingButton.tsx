@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import userAxios from '@/app/api/axios/userAxios';
 import { isUserAuthenticated } from '@/app/api/service/user/userAuth';
 import AlertModal from '@/app/common/AlertModal';
 import { LoginToastModal } from '@/app/(route)/pub/[id]/_components/LoginToastModal';
 import { TableBottomSheet } from '@/app/(route)/pub/[id]/_components/TableBottomSheet';
 import { AxiosError } from 'axios';
+import userWaitingAxios from '@/app/api/axios/userWaitingAxios';
+import { throttle } from '@/app/utils/throttle';
 
 interface WaitingTeamsProps {
   pubId: number;
@@ -76,20 +77,12 @@ const WaitingButton: React.FC<WaitingTeamsProps> = ({
 
     try {
       setIsAlertModalOpen(false);
-      const token = localStorage.getItem('accessToken');
-
       const payload = {
         pubId: pubId,
         tableType: tableType,
       };
 
-      const response = await userAxios.post('/waiting/remote', payload, {
-        headers: {
-          'Content-Type': 'application/json',
-          accept: '*/*',
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await userWaitingAxios.post('/remote', payload);
 
       if (response.status === 200) {
         setIsWaitingSuccess(true);
@@ -120,6 +113,8 @@ const WaitingButton: React.FC<WaitingTeamsProps> = ({
     setIsVisitorModalOpen(false);
     setIsAlertModalOpen(true);
   };
+
+  const throttledhandleSubmit = throttle(handleSubmit, 3000);
 
   return (
     <div className="mt-2 flex w-[382px] flex-col">
@@ -157,7 +152,7 @@ const WaitingButton: React.FC<WaitingTeamsProps> = ({
           hasSubmessage={true}
           submessage={'신청 시 카카오톡으로 대기 현황을 알려드려요!'}
           onCancel={() => setIsAlertModalOpen(false)}
-          onConfirm={handleSubmit}
+          onConfirm={throttledhandleSubmit}
         />
       )}
 

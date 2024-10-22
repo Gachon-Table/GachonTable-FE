@@ -23,7 +23,7 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
   const [accessToken, setAccessToken] = useState<string | null>('');
 
   useEffect(() => {
-    setAccessToken(localStorage.getItem('accessToken'));
+    setAccessToken(localStorage.getItem('userAccessToken'));
   }, []);
 
   useEffect(() => {
