@@ -30,11 +30,9 @@ waitingAxios.interceptors.response.use(
       const refreshToken = localStorage.getItem('refreshToken');
       
       try {
-        const response = await adminAxios.post('/refresh', { refreshToken });
-        const { accessToken, refreshToken: newRefreshToken } = response.data;
-        
+        const response = await adminAxios.post('/refresh', { refreshToken: refreshToken });
+        const accessToken = response.data.accessToken
         localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', newRefreshToken);
         
         error.config.headers['Authorization'] = `Bearer ${accessToken}`;
         return waitingAxios(error.config);

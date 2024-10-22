@@ -1,8 +1,8 @@
-import pubAxios from '../../axios/pubAxios';
+import userPubAxios from '@/app/api/axios/userPubAxios';
 
 export const getPubInfoForUser = async (pubId: string) => {
   try {
-    const response = await pubAxios.get(`/${pubId}`);
+    const response = await userPubAxios.get(`/${pubId}`);
 
     return response.data;
   } catch (error) {
