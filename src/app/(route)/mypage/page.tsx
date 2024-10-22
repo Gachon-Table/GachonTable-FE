@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import CancelModal from './_components/CancelModal';
+import AlertModal from '@/app/common/AlertModal';
 import Tab from './_components/Tab';
 import WaitedList from './_components/WaitedList';
 import WaitingList from './_components/WaitingList';
@@ -12,13 +12,16 @@ const Mypage = () => {
   const [modal, setModal] = useState(false);
   const [id, setId] = useState('');
   const [accessToken, setAccessToken] = useState<string | null>('');
+
   useEffect(() => {
-    setAccessToken(localStorage.getItem('accessToken'));
+    setAccessToken(localStorage.getItem('userAccessToken'));
   }, []);
+
   useEffect(() => {
     localStorage.removeItem('pageRefreshed');
-    setAccessToken(localStorage.getItem('accessToken'));
+    setAccessToken(localStorage.getItem('userAccessToken'));
   }, []);
+
   return (
     <div className="flex h-screen w-full flex-col bg-gy-0">
       <div className="fixed top-0 z-10 w-full max-w-[430px] bg-wt">
@@ -35,8 +38,18 @@ const Mypage = () => {
         )}
       </div>
       {accessToken ? null : <Profile />}
-      {modal && <CancelModal setModal={setModal} waitingId={id} />}
+      {modal && (
+        <AlertModal
+          message="대기를 취소하시겠습니까?"
+          hasSubmessage={true}
+          submessage="확인 후 확인 버튼을 눌러주세요."
+          onCancel={() => setModal(false)}
+          onConfirm={() => setModal(false)}
+          waitingId={id}
+        />
+      )}
     </div>
   );
 };
+
 export default Mypage;

@@ -71,7 +71,7 @@ export const PendingClientList = ({
 
   return (
     <>
-      <div className="w-full space-y-3 px-4">
+      <div className="w-full space-y-3 bg-gy-0 px-4">
         <div className="flex items-end justify-between">
           <div className="pb-1 text-gy-400 font-b2-normal-semibold">
             웨이팅 등록순
@@ -81,7 +81,10 @@ export const PendingClientList = ({
             <ReloadButton />
           </button>
         </div>{' '}
-        <div className="h-[100vh-88px] space-y-3 overflow-y-auto" ref={listRef}>
+        <div
+          className="max-h-[calc(100vh-150px)] space-y-3 overflow-y-auto pb-16"
+          ref={listRef}
+        >
           {pendingClientList.map((client, idx) => (
             <div key={client.waitingId}>
               <PendingClientItem

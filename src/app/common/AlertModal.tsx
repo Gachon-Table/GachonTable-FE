@@ -1,5 +1,6 @@
 import React from 'react';
 import { patchWaitingCancel } from '@/app/api/service/user/patchWaitingCancel';
+import { throttle } from '@/app/utils/throttle';
 
 interface AlertModalProps {
   message: string;
@@ -22,12 +23,19 @@ const AlertModal = ({
   waitingId,
   isCloseButton = false,
 }: AlertModalProps) => {
+  const handleCancel = throttle(() => {
+    if (waitingId) {
+      patchWaitingCancel(waitingId);
+    } else {
+      console.error('waitingId가 유효하지 않습니다.');
+    }
+  }, 3000);
+
   const handleConfirm = async () => {
     if (waitingId && onConfirm) {
-      patchWaitingCancel(waitingId);
+      handleCancel();
       onConfirm();
-    }
-    if (onConfirm) {
+    } else if (onConfirm) {
       onConfirm();
     }
   };
@@ -50,16 +58,16 @@ const AlertModal = ({
             {hasCancelButton ? (
               <div className="mt-5 flex items-center justify-center gap-[7px]">
                 <button
-                  className="h-[46px] w-[136px] rounded-md bg-gy-100 px-[14px] py-[13px] font-semibold text-gy-700 hover:bg-gray-100"
+                  className="flex h-[46px] w-[136px] items-center justify-center rounded-md bg-gy-100 px-[14px] py-[13px] font-semibold text-gy-700 hover:bg-gray-100"
                   onClick={onCancel}
                 >
-                  {isCloseButton ? '닫기' : '취소'}
+                  <span>{isCloseButton ? '닫기' : '취소'}</span>
                 </button>
                 <button
-                  className="h-[46px] w-[136px] rounded-md bg-primary-400 px-[14px] py-[13px] font-semibold text-white"
+                  className="flex h-[46px] w-[136px] items-center justify-center rounded-md bg-primary-400 px-[14px] py-[13px] font-semibold text-white"
                   onClick={handleConfirm}
                 >
-                  {isCloseButton ? '웨이팅 내역 확인' : '확인'}
+                  <span>{isCloseButton ? '웨이팅 내역 확인' : '확인'}</span>
                 </button>
               </div>
             ) : (

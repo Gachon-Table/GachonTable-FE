@@ -60,7 +60,7 @@ export const PendingClientItem = ({
         </button>
       </div>
 
-      <div className="flex space-x-2.5">
+      <div className="flex space-x-2.5 font-b2-normal-semibold">
         <button
           className={`flex flex-1 items-center justify-center rounded-md px-7 py-3 text-center ${callButtonStyle}`}
           disabled={isDisabled}

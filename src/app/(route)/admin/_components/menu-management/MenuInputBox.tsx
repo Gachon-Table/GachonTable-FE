@@ -124,7 +124,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                       type="text"
                       name="menuName"
                       placeholder="메뉴 이름"
-                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      className="rounded-none border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
                       value={menu.menuName}
                       onChange={(e) => handleInputChange(index, e)}
                     />
@@ -132,7 +132,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                       type="text"
                       name="oneLiner"
                       placeholder="한 줄 설명"
-                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      className="rounded-none border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
                       value={menu.oneLiner}
                       onChange={(e) => handleInputChange(index, e)}
                     />
@@ -162,7 +162,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                       type="text"
                       name="menuName"
                       placeholder="메뉴 이름"
-                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      className="rounded-none border-b-[1px]  border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
                       value={menu.menuName}
                       onChange={(e) => handleInputChange(index, e)}
                     />
@@ -170,7 +170,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                       type="text"
                       name="oneLiner"
                       placeholder="한 줄 설명"
-                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      className="rounded-none border-b-[1px]  border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
                       value={menu.oneLiner}
                       onChange={(e) => handleInputChange(index, e)}
                     />
@@ -200,7 +200,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                       type="text"
                       name="menuName"
                       placeholder="메뉴 이름"
-                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      className="rounded-none border-b-[1px]  border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
                       value={menu.menuName}
                       onChange={(e) => handleInputChange(index, e)}
                     />
@@ -208,7 +208,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                       type="text"
                       name="oneLiner"
                       placeholder="한 줄 설명"
-                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      className="rounded-none border-b-[1px]  border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
                       value={menu.oneLiner}
                       onChange={(e) => handleInputChange(index, e)}
                     />
@@ -238,7 +238,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                       type="text"
                       name="menuName"
                       placeholder="메뉴 이름"
-                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      className="rounded-none border-b-[1px]  border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
                       value={menu.menuName}
                       onChange={(e) => handleInputChange(index, e)}
                     />
@@ -246,7 +246,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                       type="text"
                       name="oneLiner"
                       placeholder="한 줄 설명"
-                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      className="rounded-none border-b-[1px]  border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
                       value={menu.oneLiner}
                       onChange={(e) => handleInputChange(index, e)}
                     />
@@ -276,7 +276,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                       type="text"
                       name="menuName"
                       placeholder="메뉴 이름"
-                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      className="rounded-none border-b-[1px]  border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
                       value={menu.menuName}
                       onChange={(e) => handleInputChange(index, e)}
                     />
@@ -284,7 +284,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                       type="text"
                       name="oneLiner"
                       placeholder="한 줄 설명"
-                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      className="rounded-none border-b-[1px]  border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
                       value={menu.oneLiner}
                       onChange={(e) => handleInputChange(index, e)}
                     />
@@ -314,7 +314,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                       type="text"
                       name="menuName"
                       placeholder="메뉴 이름"
-                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      className="rounded-none border-b-[1px]  border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
                       value={menu.menuName}
                       onChange={(e) => handleInputChange(index, e)}
                     />
@@ -322,7 +322,7 @@ const MenuInputBox: React.FC<MenuInputBoxProps> = ({
                       type="text"
                       name="oneLiner"
                       placeholder="한 줄 설명"
-                      className="border-b-[1px] border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
+                      className="rounded-none border-b-[1px]  border-gy-200 px-2 py-[10px] font-b1-normal-medium placeholder:text-gy-200 focus:outline-none"
                       value={menu.oneLiner}
                       onChange={(e) => handleInputChange(index, e)}
                     />

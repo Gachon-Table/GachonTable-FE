@@ -1,20 +1,20 @@
 import axios from 'axios';
-import adminAxios from './adminAxios';
-import { adminLogout } from '../service/admin/adminAuth';
+import { userLogout } from '@/app/api/service/user/userAuth';
+import userAxios from '@/app/api/axios/userAxios';
 
-const pubAxios = axios.create({
+const userPubAxios = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_API_URL}/pub`,
     headers: {
         'Content-Type': 'application/json',
     },
 });
 
-pubAxios.interceptors.request.use(
+userPubAxios.interceptors.request.use(
   async (config) => {
     if (typeof window !== 'undefined') {
-      const accessToken = localStorage.getItem('accessToken');
-      if (accessToken) {
-        config.headers['Authorization'] = `Bearer ${accessToken}`;
+      const userAccessToken = localStorage.getItem('userAccessToken');
+      if (userAccessToken) {
+        config.headers['Authorization'] = `Bearer ${userAccessToken}`;
       }
     }
     return config;
@@ -24,23 +24,23 @@ pubAxios.interceptors.request.use(
   }
 );
 
-pubAxios.interceptors.response.use(
+userPubAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response?.status === 401) {
       if (typeof window !== 'undefined') {
-        const refreshToken = localStorage.getItem('refreshToken');
-        
+        const refreshToken = localStorage.getItem('userRefreshToken');
+
         try {
-          const response = await adminAxios.post('/refresh', { refreshToken: refreshToken });
+          const response = await userAxios.post('/refresh', { refreshToken: refreshToken });
           const accessToken = response.data.accessToken;
-          
-          localStorage.setItem('accessToken', accessToken);
-          
+
+          localStorage.setItem('userAccessToken', accessToken);
+
           error.config.headers['Authorization'] = `Bearer ${accessToken}`;
-          return pubAxios(error.config); 
+          return userPubAxios(error.config); 
         } catch (refreshError) {
-          adminLogout();
+          userLogout();
           return Promise.reject(refreshError);
         }
       } else {
@@ -51,4 +51,4 @@ pubAxios.interceptors.response.use(
   }
 );
 
-export default pubAxios;
+export default userPubAxios;
