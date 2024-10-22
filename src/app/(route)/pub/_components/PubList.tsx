@@ -121,7 +121,7 @@ const PubList = ({
                   quality={100}
                   className="object-cover"
                   fill
-                  // sizes="80px"
+                  sizes="300px"
                   priority
                   loading="eager"
                 />
