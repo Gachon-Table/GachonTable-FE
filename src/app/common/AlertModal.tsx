@@ -23,9 +23,16 @@ const AlertModal = ({
   waitingId,
   isCloseButton = false,
 }: AlertModalProps) => {
-  const handleCancel = throttle(() => {
+  const handleCancel = throttle(async () => {
     if (waitingId) {
-      patchWaitingCancel(waitingId);
+      try {
+        const result = await patchWaitingCancel(waitingId);
+        if (result.success) {
+          window.location.reload();
+        }
+      } catch (error) {
+        console.error('웨이팅 취소 중 오류 발생:', error);
+      }
     } else {
       console.error('waitingId가 유효하지 않습니다.');
     }
