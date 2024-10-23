@@ -121,7 +121,8 @@ const PubList = ({
                   alt={`랜딩페이지 썸네일`}
                   fill
                   quality={100}
-                  className="h-[80px] w-[80px] object-cover"
+                  sizes="300px"
+                  className="object-cover"
                   priority
                   loading="eager"
                 />

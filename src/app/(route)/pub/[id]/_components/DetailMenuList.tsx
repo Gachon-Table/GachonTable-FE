@@ -98,6 +98,9 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu, menuUrl }) => {
                         src={menuItem.thumbnail || '/images/place.png'}
                         width={82}
                         height={82}
+                        sizes="82"
+                        priority
+                        loading="eager"
                         className="h-[82px] w-[82px] rounded-md object-cover"
                         alt={`${menuItem.menuName}`}
                       />

@@ -61,7 +61,9 @@ const DetailImage: React.FC<DetailImageProps> = ({
                   src={thumbnail}
                   alt={`Slide ${index}`}
                   fill
-                  objectFit="cover"
+                  sizes="400px"
+                  className="object-cover"
+                  priority
                   onClick={() => openImageModal(thumbnail, index)}
                 />
               </div>
