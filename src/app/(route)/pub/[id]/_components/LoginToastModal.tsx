@@ -18,7 +18,7 @@ export const LoginToastModal = ({
         onClick={onClose}
       ></div>
 
-      <div className="relative z-50 flex w-full  flex-col items-center justify-center rounded-t-[20px] bg-wt px-4 pb-8 pt-10">
+      <div className="relative z-50 flex w-full max-w-[430px] flex-col items-center justify-center rounded-t-[20px] bg-wt px-4 pb-8 pt-10">
         <div className="mb-4">
           <Image
             src="/images/logo-blue.jpg"

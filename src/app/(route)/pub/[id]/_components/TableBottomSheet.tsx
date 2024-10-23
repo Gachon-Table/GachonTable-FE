@@ -32,7 +32,7 @@ export const TableBottomSheet = ({
         onClick={onClose}
       ></div>
 
-      <div className="relative z-50 flex w-full flex-col rounded-t-[20px] bg-wt px-4 pb-8 pt-6">
+      <div className="relative z-50 flex w-full max-w-[430px] flex-col rounded-t-[20px] bg-wt px-4 pb-8 pt-6">
         <div className="mb-6 flex flex-col space-y-0.5">
           <div className="text-gy-900 font-h3">
             방문 인원에 따라 테이블을 선택해주세요.

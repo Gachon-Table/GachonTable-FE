@@ -42,7 +42,7 @@ const StoreDetailPage: React.FC = () => {
   const imageRef = useRef<HTMLDivElement>(null);
 
   const [store, setStore] = useState<Store | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [isScrolled, setIsScrolled] = useState(false);
