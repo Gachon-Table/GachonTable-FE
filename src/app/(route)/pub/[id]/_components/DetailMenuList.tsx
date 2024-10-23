@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BackButtonreverse } from 'public';
 import Modal from '@/app/common/Modal';
+import Image from 'next/image';
 
 interface MenuItem {
   menuName: string;
@@ -44,7 +45,13 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu, menuUrl }) => {
       {/* 메뉴판 */}
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         {selectedImage && (
-          <img src={selectedImage} alt="이미지" className="h-auto max-w-full" />
+          <Image
+            src={selectedImage}
+            alt="메뉴판 이미지"
+            width={500}
+            height={500}
+            className="h-auto max-w-full"
+          />
         )}
       </Modal>
 
@@ -87,8 +94,10 @@ const DetailMenuList: React.FC<DetailMenuListProps> = ({ menu, menuUrl }) => {
                       className="flex-shrink-0 cursor-pointer"
                       onClick={() => handleOpenModal(menuItem.thumbnail)}
                     >
-                      <img
+                      <Image
                         src={menuItem.thumbnail || '/images/place.png'}
+                        width={82}
+                        height={82}
                         className="h-[82px] w-[82px] rounded-md object-cover"
                         alt={`${menuItem.menuName}`}
                       />

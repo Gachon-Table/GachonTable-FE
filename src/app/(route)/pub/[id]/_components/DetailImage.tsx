@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PageHeader } from '@/app/common/PageHeader';
 import { BackButtonWT } from 'public';
 import Modal from '@/app/common/Modal';
+import Image from 'next/image';
 
 interface DetailImageProps {
   thumbnails: string[];
@@ -55,20 +56,25 @@ const DetailImage: React.FC<DetailImageProps> = ({
         >
           {thumbnails.length > 0 ? (
             thumbnails.map((thumbnail, index) => (
-              <img
-                key={index}
-                src={thumbnail}
-                alt={`Slide ${index}`}
-                className="w-full flex-shrink-0 object-cover"
-                onClick={() => openImageModal(thumbnail, index)}
-              />
+              <div key={index} className="relative w-full flex-shrink-0">
+                <Image
+                  src={thumbnail}
+                  alt={`Slide ${index}`}
+                  fill
+                  objectFit="cover"
+                  onClick={() => openImageModal(thumbnail, index)}
+                />
+              </div>
             ))
           ) : (
-            <img
-              src="/images/place.png"
-              alt="Place"
-              className="w-full flex-shrink-0 object-cover"
-            />
+            <div className="relative w-full flex-shrink-0">
+              <Image
+                src="/images/place.png"
+                alt="Place"
+                fill
+                objectFit="cover"
+              />
+            </div>
           )}
         </div>
 
@@ -78,7 +84,7 @@ const DetailImage: React.FC<DetailImageProps> = ({
       </div>
 
       <div className="absolute bottom-6 right-5 z-10">
-        <div className="flex items-center justify-center rounded-[32px] border border-gy-200 bg-wt px-[10px] py-2 shadow-custom">
+        <div className="shadow-custom flex items-center justify-center rounded-[32px] border border-gy-200 bg-wt px-[10px] py-2">
           <a
             href={instagramUrl}
             target="_blank"
@@ -111,10 +117,13 @@ const DetailImage: React.FC<DetailImageProps> = ({
       >
         {selectedImage && (
           <div className="relative">
-            <img
+            <Image
               src={selectedImage}
               alt="Full view"
-              className="h-auto min-w-full object-cover"
+              layout="responsive"
+              width={800}
+              height={600}
+              objectFit="cover"
             />
           </div>
         )}
