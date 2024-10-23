@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { isUserAuthenticated } from '@/app/api/service/user/userAuth';
@@ -61,29 +61,30 @@ const PubList = ({
     checkLoginStatus();
   }, []);
 
-  const filteredStores = stores
-    .filter((store) => {
-      if (filterStudentCard !== null) {
-        return store.studentCard === filterStudentCard;
-      }
-      return true;
-    })
-    .filter(
-      (store) =>
-        store.pubName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        store.oneLiner.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
+  const filteredStores = useMemo(() => {
+    return stores
+      .filter((store) => {
+        if (filterStudentCard !== null) {
+          return store.studentCard === filterStudentCard;
+        }
+        return true;
+      })
+      .filter(
+        (store) =>
+          store.pubName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          store.oneLiner.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+  }, [stores, filterStudentCard, searchTerm]);
 
-  const sortedStores = [...filteredStores];
-
-  sortByPopular;
-  sortByLowCongestion;
-
-  if (sortByLowCongestion) {
-    sortedStores.sort((a, b) => b.waitingCount - a.waitingCount);
-  } else if (sortByPopular) {
-    sortedStores.sort((a, b) => a.waitingCount - b.waitingCount);
-  }
+  const sortedStores = useMemo(() => {
+    const storesCopy = [...filteredStores];
+    if (sortByLowCongestion) {
+      storesCopy.sort((a, b) => b.waitingCount - a.waitingCount);
+    } else if (sortByPopular) {
+      storesCopy.sort((a, b) => a.waitingCount - b.waitingCount);
+    }
+    return storesCopy;
+  }, [filteredStores, sortByPopular, sortByLowCongestion]);
 
   return (
     <div className="flex w-full flex-col items-center justify-center px-4">
@@ -117,22 +118,13 @@ const PubList = ({
                       ? store.thumbnails[0]
                       : '/images/storeImage.png'
                   }
-                  alt={`${store.pubName} 썸네일`}
-                  quality={100}
-                  className="object-cover"
+                  alt={`랜딩페이지 썸네일`}
                   fill
-                  sizes="300px"
+                  quality={100}
+                  className="h-[80px] w-[80px] object-cover"
                   priority
                   loading="eager"
                 />
-                {/* <img
-                  src={
-                    store.thumbnails.length > 0
-                      ? store.thumbnails[0]
-                      : '/images/storeImage.png'
-                  }
-                  className="h-full w-full object-cover"
-                /> */}
               </div>
 
               <div className="flex w-full flex-col">

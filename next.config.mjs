@@ -1,5 +1,3 @@
-// import { tree } from 'next/dist/build/templates/app-page';
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -19,9 +17,9 @@ const nextConfig = {
     ],
   },
   reactStrictMode: true,
-  swcMinify: true, 
+  swcMinify: true,
   compiler: {
-    styledComponents: true, 
+    styledComponents: true,
   },
   webpack(config) {
     config.module.rules.push({
