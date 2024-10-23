@@ -7,6 +7,7 @@ import { TableBottomSheet } from '@/app/(route)/pub/[id]/_components/TableBottom
 import { AxiosError } from 'axios';
 import userWaitingAxios from '@/app/api/axios/userWaitingAxios';
 import { throttle } from '@/app/utils/throttle';
+import LoadingModal from '@/app/common/LoadingModal';
 
 interface WaitingTeamsProps {
   pubId: number;
@@ -26,7 +27,7 @@ const WaitingButton: React.FC<WaitingTeamsProps> = ({
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isWaitingSuccess, setIsWaitingSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [suberror, setSuberror] = useState<string | null>(null);
   const router = useRouter();
@@ -85,6 +86,7 @@ const WaitingButton: React.FC<WaitingTeamsProps> = ({
       const response = await userWaitingAxios.post('/remote', payload);
 
       if (response.status === 200) {
+        setLoading(false);
         setIsWaitingSuccess(true);
       }
     } catch (error) {
@@ -105,10 +107,10 @@ const WaitingButton: React.FC<WaitingTeamsProps> = ({
           setIsError(true);
         }
       }
+      setLoading(false);
       console.error(error);
     }
   };
-
   const handleBottomSheet = () => {
     setIsVisitorModalOpen(false);
     setIsAlertModalOpen(true);
@@ -165,6 +167,8 @@ const WaitingButton: React.FC<WaitingTeamsProps> = ({
           onConfirm={handleErrorModal}
         />
       )}
+
+      {loading && <LoadingModal />}
 
       {isWaitingSuccess && (
         <AlertModal
