@@ -27,3 +27,4 @@ export { default as ReloadButton } from './icons/reload-button.svg';
 export { default as ScrollTopButton } from './icons/scroll-top-button.svg';
 export { default as BackButtonreverse } from './icons/back-button-reverse.svg';
 export { default as NobgClose } from './icons/nobg-close.svg';
+export { default as LoadingIcon } from './icons/loading-icon.svg'
