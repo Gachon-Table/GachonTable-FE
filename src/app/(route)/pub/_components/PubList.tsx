@@ -133,7 +133,7 @@ const PubList = ({
                   <div className="text-right text-gy-600 font-c1-semibold ">
                     현재&nbsp;
                     <span className="text-red-400">{store.waitingCount}</span>
-                    명이 대기 중
+                    팀이 대기 중
                   </div>
                 </div>
                 <div className="text-gy-900 font-h4">{store.pubName}</div>
