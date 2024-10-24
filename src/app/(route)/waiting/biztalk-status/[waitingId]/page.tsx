@@ -16,7 +16,7 @@ interface WaitingProps {
   pubName: string;
   orderStatus?: string;
   tableType: string;
-  order: number; //대기 순번: 취소상태 시 -1 반환
+  order: number;
   createdAt: string;
 }
 
@@ -45,7 +45,6 @@ const WaitingInfo = () => {
     try {
       const response = await getWaitingInfo(waitingId as string);
       const data: WaitingProps = await response;
-      console.log(data.order);
 
       setWaitingState({
         waitingId: data.waitingId,
