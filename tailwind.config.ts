@@ -12,6 +12,9 @@ const config: Config = {
       fontFamily: {
         pretendard: ['var(--font-pretendard)'],
       },
+      padding: {
+        'safe-bottom': 'env(safe-area-inset-bottom)',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -37,8 +40,8 @@ const config: Config = {
         'blue-200': '#E6F2FF',
         'pink-400': '#FF36D0',
         'pink-200': '#FFEEFB',
-        'wt': '#FFFFFF',
-        'bk': '#0F0F0F',
+        wt: '#FFFFFF',
+        bk: '#0F0F0F',
         'gy-0': '#F4F4F4',
         'gy-100': '#EEEEEE',
         'gy-200': '#DFDFDF',
@@ -49,7 +52,7 @@ const config: Config = {
         'gy-700': '#3E3E3E',
         'gy-800': '#2A2A2A',
         'gy-900': '#1B1B1B',
-        'kakao': '#FEE500',
+        kakao: '#FEE500',
       },
       boxShadow: {
         'client-item': '0px 4px 7px 0px rgba(0, 0, 0, 0.05)',
@@ -75,22 +78,22 @@ const config: Config = {
       },
     },
   },
-  plugins: [({ addUtilities }: any) => {
-    addUtilities({
-      '.font-default': {
-      },
-      '.font-num': {
-        '@apply font-default font-semibold': {},
-        fontSize: '32px',     
-        lineHeight: '32px',    
-        letterSpacing: '-0.025em',
-      },
-      '.font-h1': {
-        '@apply font-default font-bold': {},
-        fontSize: '24px',     
-        lineHeight: '32px',    
-        letterSpacing: '-0.025em',
-      },
+  plugins: [
+    ({ addUtilities }: any) => {
+      addUtilities({
+        '.font-default': {},
+        '.font-num': {
+          '@apply font-default font-semibold': {},
+          fontSize: '32px',
+          lineHeight: '32px',
+          letterSpacing: '-0.025em',
+        },
+        '.font-h1': {
+          '@apply font-default font-bold': {},
+          fontSize: '24px',
+          lineHeight: '32px',
+          letterSpacing: '-0.025em',
+        },
 
         '.font-h2': {
           '@apply font-default font-bold': {},
