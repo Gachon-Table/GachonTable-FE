@@ -10,38 +10,30 @@ const LandingNavbar: React.FC<{ onFilterChange: (filters: any) => void }> = ({
   const [sortByPopular, setsortByPopular] = useState(true);
   const [sortByLowCongestion, setSortByLowCongestion] = useState(false);
 
-  const handleStudentCardFilter = () => {
-    const newValue = filterStudentCard === false ? null : false;
-    setFilterStudentCard(newValue);
-    setsortByPopular(false);
-    setSortByLowCongestion(false);
-    onFilterChange({
-      filterStudentCard: newValue,
-      sortByCongestion: false,
-      sortByLowCongestion: false,
-    });
-  };
-
   const handleSortByCongestion = () => {
-    setsortByPopular((prev) => !prev);
-    setSortByLowCongestion(false);
-    setFilterStudentCard(null);
-    onFilterChange({
-      sortByCongestion: !setsortByPopular,
-      sortByLowCongestion: false,
-      filterStudentCard: null,
-    });
+    if (!sortByPopular) {
+      setsortByPopular(true);
+      setSortByLowCongestion(false);
+      setFilterStudentCard(null);
+      onFilterChange({
+        sortByCongestion: true,
+        sortByLowCongestion: false,
+        filterStudentCard: null,
+      });
+    }
   };
 
   const handleSortByLowCongestion = () => {
-    setSortByLowCongestion((prev) => !prev);
-    setsortByPopular(false);
-    setFilterStudentCard(null);
-    onFilterChange({
-      sortByLowCongestion: !sortByLowCongestion,
-      sortByCongestion: false,
-      filterStudentCard: null,
-    });
+    if (!sortByLowCongestion) {
+      setSortByLowCongestion(true);
+      setsortByPopular(false);
+      setFilterStudentCard(null);
+      onFilterChange({
+        sortByLowCongestion: true,
+        sortByCongestion: false,
+        filterStudentCard: null,
+      });
+    }
   };
 
   return (
