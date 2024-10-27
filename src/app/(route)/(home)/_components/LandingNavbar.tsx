@@ -3,8 +3,8 @@ import React from 'react';
 
 interface LandingNavbarProps {
   onFilterChange: (filters: any) => void;
-  sortByLowCongestion: boolean; // true이면 대기 적은 순
-  sortByPopular: boolean; // true이면 실시간 인기 순
+  sortByLowCongestion: boolean;
+  sortByPopular: boolean;
 }
 
 const LandingNavbar: React.FC<LandingNavbarProps> = ({
