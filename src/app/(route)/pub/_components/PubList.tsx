@@ -21,14 +21,12 @@ interface Store {
 
 interface ResponsiveTestProps {
   searchTerm: string;
-  filterStudentCard: boolean | null;
   sortByPopular: boolean;
   sortByLowCongestion: boolean;
 }
 
 const PubList = ({
   searchTerm,
-  filterStudentCard,
   sortByPopular,
   sortByLowCongestion,
 }: ResponsiveTestProps) => {
@@ -62,26 +60,19 @@ const PubList = ({
   }, []);
 
   const filteredStores = useMemo(() => {
-    return stores
-      .filter((store) => {
-        if (filterStudentCard !== null) {
-          return store.studentCard === filterStudentCard;
-        }
-        return true;
-      })
-      .filter(
-        (store) =>
-          store.pubName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          store.oneLiner.toLowerCase().includes(searchTerm.toLowerCase()),
-      );
-  }, [stores, filterStudentCard, searchTerm]);
+    return stores.filter(
+      (store) =>
+        store.pubName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        store.oneLiner.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+  }, [stores, searchTerm]);
 
   const sortedStores = useMemo(() => {
     const storesCopy = [...filteredStores];
     if (sortByLowCongestion) {
-      storesCopy.sort((a, b) => b.waitingCount - a.waitingCount);
-    } else if (sortByPopular) {
       storesCopy.sort((a, b) => a.waitingCount - b.waitingCount);
+    } else if (sortByPopular) {
+      storesCopy.sort((a, b) => b.waitingCount - a.waitingCount);
     }
     return storesCopy;
   }, [filteredStores, sortByPopular, sortByLowCongestion]);
