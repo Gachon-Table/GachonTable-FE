@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState, useEffect } from 'react';
 import PubList from '../pub/_components/PubList';
@@ -11,19 +10,61 @@ const Landing: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({
     filterStudentCard: null as boolean | null,
-    sortByPopular: true,
-    sortByLowCongestion: false,
+    sortByPopular: false,
+    sortByLowCongestion: true,
   });
 
   useEffect(() => {
-    if (!localStorage.getItem('pageRefreshed')) {
-      localStorage.setItem('pageRefreshed', 'true');
-      window.location.reload();
+    const storedData = sessionStorage.getItem('landingState');
+    if (storedData) {
+      const { searchTerm, filters } = JSON.parse(storedData);
+      setSearchTerm(searchTerm || '');
+      setFilters(
+        filters || {
+          filterStudentCard: null,
+          sortByPopular: false,
+          sortByLowCongestion: true,
+        },
+      );
+    } else {
+      setFilters({
+        filterStudentCard: null,
+        sortByPopular: false,
+        sortByLowCongestion: true,
+      });
     }
+
+    const handleBeforeUnload = () => {
+      sessionStorage.removeItem('landingState');
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
   }, []);
 
   const handleFilterChange = (newFilters: any) => {
-    setFilters((prevFilters) => ({ ...prevFilters, ...newFilters }));
+    const updatedFilters = { ...filters, ...newFilters };
+    setFilters(updatedFilters);
+
+    sessionStorage.setItem(
+      'landingState',
+      JSON.stringify({ searchTerm, filters: updatedFilters }),
+    );
+  };
+
+  const resetFilters = () => {
+    setFilters({
+      filterStudentCard: null,
+      sortByPopular: false,
+      sortByLowCongestion: true,
+    });
+    setSearchTerm('');
+    sessionStorage.removeItem('landingState');
+
+    window.history.replaceState(null, '', '?');
   };
 
   return (
@@ -34,13 +75,16 @@ const Landing: React.FC = () => {
           onSearchChange={(e) => setSearchTerm(e.target.value)}
           setSearchTerm={setSearchTerm}
         />
-        <LandingNavbar onFilterChange={handleFilterChange} />
+        <LandingNavbar
+          onFilterChange={handleFilterChange}
+          sortByPopular={filters.sortByPopular}
+          sortByLowCongestion={filters.sortByLowCongestion}
+        />
       </header>
 
-      <div className=" mt-32 flex w-full flex-grow flex-col items-start">
+      <div className="mt-32 flex w-full flex-grow flex-col items-start">
         <PubList
           searchTerm={searchTerm}
-          filterStudentCard={filters.filterStudentCard}
           sortByPopular={filters.sortByPopular}
           sortByLowCongestion={filters.sortByLowCongestion}
         />
