@@ -20,5 +20,6 @@ export const patchPubStatus = async (
     console.error('점포 상태 변경 실패: ', error);
   } finally {
     setIsPubModalOpen(false);
+    window.location.reload();
   }
 };
