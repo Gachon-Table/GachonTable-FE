@@ -19,5 +19,6 @@ export const patchWaitingStatus = async (
     console.error('웨이팅 상태 변경 실패: ', error);
   } finally {
     setIsWaitModalOpen(false);
+    window.location.reload();
   }
 };

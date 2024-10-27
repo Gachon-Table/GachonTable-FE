@@ -55,6 +55,7 @@ export const ServedClientList = ({
             <div key={client.waitingId}>
               <ServedClientItem
                 seatingNum={client.seatingNum}
+                tableType={client.tableType}
                 exitTime={client.exitTime}
                 handleExitModal={() =>
                   handleExitModal(client.seatingId as number)
