@@ -1,6 +1,7 @@
 import React from 'react';
 import { patchWaitingCancel } from '@/app/api/service/user/patchWaitingCancel';
 import { throttle } from '@/app/utils/throttle';
+import { useRouter } from 'next/navigation';
 
 interface AlertModalProps {
   message: string;
@@ -23,12 +24,13 @@ const AlertModal = ({
   waitingId,
   isCloseButton = false,
 }: AlertModalProps) => {
+  const router = useRouter();
   const handleCancel = throttle(async () => {
     if (waitingId) {
       try {
         const result = await patchWaitingCancel(waitingId);
         if (result.success) {
-          window.location.reload();
+          router.push('/mypage');
         }
       } catch (error) {
         console.error('웨이팅 취소 중 오류 발생:', error);
@@ -36,7 +38,7 @@ const AlertModal = ({
     } else {
       console.error('waitingId가 유효하지 않습니다.');
     }
-  }, 3000);
+  }, 5000);
 
   const handleConfirm = async () => {
     if (waitingId && onConfirm) {
