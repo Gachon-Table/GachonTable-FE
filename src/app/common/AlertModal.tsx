@@ -30,7 +30,8 @@ const AlertModal = ({
       try {
         const result = await patchWaitingCancel(waitingId);
         if (result.success) {
-          router.push('/mypage');
+          // router.push('/mypage');
+          router.refresh();
         }
       } catch (error) {
         console.error('웨이팅 취소 중 오류 발생:', error);
