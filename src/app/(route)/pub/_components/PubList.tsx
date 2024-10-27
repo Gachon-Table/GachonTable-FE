@@ -62,8 +62,14 @@ const PubList = ({
   const filteredStores = useMemo(() => {
     return stores.filter(
       (store) =>
-        store.pubName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        store.oneLiner.toLowerCase().includes(searchTerm.toLowerCase()),
+        store.pubName
+          .replace(/\s+/g, '')
+          .toLowerCase()
+          .includes(searchTerm.replace(/\s+/g, '').toLowerCase()) ||
+        store.oneLiner
+          .replace(/\s+/g, '')
+          .toLowerCase()
+          .includes(searchTerm.replace(/\s+/g, '').toLowerCase()),
     );
   }, [stores, searchTerm]);
 
