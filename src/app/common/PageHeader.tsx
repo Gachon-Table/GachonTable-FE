@@ -7,17 +7,23 @@ interface PageHeaderProps {
   icon?: React.ReactNode;
   title?: string;
   isDetailPage?: boolean;
+  isBackButton?: boolean;
 }
 
 export const PageHeader = ({
   icon = <BackButton />,
   title,
   isDetailPage = false,
+  isBackButton,
 }: PageHeaderProps) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push('/');
+    if (isBackButton) {
+      router.back();
+    } else {
+      router.push('/');
+    }
   };
 
   return (

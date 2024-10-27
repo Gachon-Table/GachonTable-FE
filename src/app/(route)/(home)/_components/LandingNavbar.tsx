@@ -1,47 +1,35 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 
-const LandingNavbar: React.FC<{ onFilterChange: (filters: any) => void }> = ({
+interface LandingNavbarProps {
+  onFilterChange: (filters: any) => void;
+  sortByLowCongestion: boolean;
+  sortByPopular: boolean;
+}
+
+const LandingNavbar: React.FC<LandingNavbarProps> = ({
   onFilterChange,
+  sortByLowCongestion,
+  sortByPopular,
 }) => {
-  const [filterStudentCard, setFilterStudentCard] = useState<boolean | null>(
-    null,
-  );
-  const [sortByPopular, setsortByPopular] = useState(true);
-  const [sortByLowCongestion, setSortByLowCongestion] = useState(false);
-
-  const handleStudentCardFilter = () => {
-    const newValue = filterStudentCard === false ? null : false;
-    setFilterStudentCard(newValue);
-    setsortByPopular(false);
-    setSortByLowCongestion(false);
-    onFilterChange({
-      filterStudentCard: newValue,
-      sortByCongestion: false,
-      sortByLowCongestion: false,
-    });
-  };
-
-  const handleSortByCongestion = () => {
-    setsortByPopular((prev) => !prev);
-    setSortByLowCongestion(false);
-    setFilterStudentCard(null);
-    onFilterChange({
-      sortByCongestion: !setsortByPopular,
-      sortByLowCongestion: false,
-      filterStudentCard: null,
-    });
-  };
-
   const handleSortByLowCongestion = () => {
-    setSortByLowCongestion((prev) => !prev);
-    setsortByPopular(false);
-    setFilterStudentCard(null);
-    onFilterChange({
-      sortByLowCongestion: !sortByLowCongestion,
-      sortByCongestion: false,
-      filterStudentCard: null,
-    });
+    if (!sortByLowCongestion) {
+      onFilterChange({
+        sortByLowCongestion: true,
+        sortByPopular: false,
+        filterStudentCard: null,
+      });
+    }
+  };
+
+  const handleSortByPopular = () => {
+    if (!sortByPopular) {
+      onFilterChange({
+        sortByLowCongestion: false,
+        sortByPopular: true,
+        filterStudentCard: null,
+      });
+    }
   };
 
   return (
@@ -49,9 +37,9 @@ const LandingNavbar: React.FC<{ onFilterChange: (filters: any) => void }> = ({
       <div className="flex items-center px-4">
         <div className="flex w-full border-b-2 border-gray-200">
           <div
-            onClick={handleSortByCongestion}
+            onClick={handleSortByLowCongestion}
             className={`flex flex-1 cursor-pointer items-center justify-center px-2 py-2 transition duration-300 ease-in-out font-b1-normal-semibold ${
-              sortByPopular
+              sortByLowCongestion
                 ? '-mb-0.5 border-b-2 border-gy-900 text-gy-900'
                 : 'text-gy-400 hover:border-gy-900 hover:text-gy-900'
             }`}
@@ -60,9 +48,9 @@ const LandingNavbar: React.FC<{ onFilterChange: (filters: any) => void }> = ({
           </div>
 
           <div
-            onClick={handleSortByLowCongestion}
+            onClick={handleSortByPopular}
             className={`flex flex-1 cursor-pointer items-center justify-center px-2 py-2 transition duration-300 ease-in-out font-b1-normal-semibold ${
-              sortByLowCongestion
+              sortByPopular
                 ? '-mb-0.5 border-b-2 border-gy-900 text-gy-900'
                 : 'text-gy-400 hover:border-gy-900 hover:text-gy-900'
             }`}

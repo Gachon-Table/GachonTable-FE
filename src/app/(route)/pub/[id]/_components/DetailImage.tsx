@@ -81,7 +81,11 @@ const DetailImage: React.FC<DetailImageProps> = ({
         </div>
 
         <div onClick={handleHeaderClick} className="relative z-10">
-          <PageHeader icon={<BackButtonWT />} isDetailPage={true} />
+          <PageHeader
+            icon={<BackButtonWT />}
+            isDetailPage={true}
+            isBackButton={true}
+          />
         </div>
       </div>
 
