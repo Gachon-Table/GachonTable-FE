@@ -107,7 +107,7 @@ export const ServedClientList = ({
           hasSubmessage={false}
           hasCancelButton={false}
           message={error}
-          onConfirm={() => setIsMessage(false)}
+          onConfirm={() => setIsError(false)}
         />
       )}
     </>

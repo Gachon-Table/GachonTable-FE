@@ -8,6 +8,7 @@ import { PendingClientList } from '@/app/(route)/admin/_components/client-manage
 import { ServedClientList } from '@/app/(route)/admin/_components/client-management/ServedClientList';
 import { getWaitingList } from '@/app/api/service/admin/getWaitingList';
 import { getSeatingList } from '@/app/api/service/admin/getSeatingList';
+import AlertModal from '@/app/common/AlertModal';
 
 export default function ClientManagement() {
   const router = useRouter();
@@ -16,22 +17,26 @@ export default function ClientManagement() {
   );
   const [pendingClientList, setPendingClientList] = useState([]);
   const [servedClientList, setServedClientList] = useState([]);
+  const [error, setError] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const fetchWaitingList = async () => {
-    try {
-      const waitingList = await getWaitingList();
-      setPendingClientList(waitingList);
-    } catch (error) {
-      console.error('대기열 조회 중 오류 발생:', error);
+    const result = await getWaitingList();
+    if (result.success) {
+      setPendingClientList(result.value);
+    } else {
+      setError(result.message as string);
+      setIsError(true);
     }
   };
 
   const fetchSeatingList = async () => {
-    try {
-      const seatingList = await getSeatingList();
-      setServedClientList(seatingList);
-    } catch (error) {
-      console.error('이용 고객 조회 중 오류 발생:', error);
+    const result = await getSeatingList();
+    if (result.success) {
+      setServedClientList(result.value);
+    } else {
+      setError(result.message as string);
+      setIsError(true);
     }
   };
 
@@ -84,6 +89,15 @@ export default function ClientManagement() {
           <ServedClientList servedClientList={servedClientList} />
         )}
       </div>
+
+      {isError && (
+        <AlertModal
+          hasSubmessage={false}
+          hasCancelButton={false}
+          message={error}
+          onConfirm={() => setIsError(false)}
+        />
+      )}
     </div>
   );
 }
