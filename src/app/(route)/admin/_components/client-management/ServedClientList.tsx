@@ -7,6 +7,7 @@ import {
 import { patchExitClient } from '@/app/api/service/admin/patchExitClient';
 import AlertModal from '@/app/common/AlertModal';
 import { ReloadButton } from 'public';
+import LoadingModal from '@/app/common/LoadingModal';
 
 export interface ServedClientListProps {
   servedClientList: ServedClientItemProps[];
@@ -17,6 +18,11 @@ export const ServedClientList = ({
 }: ServedClientListProps) => {
   const [isExitModalOpen, setIsExitModalOpen] = useState(false);
   const [selectedSeatingId, setSelectedSeatingId] = useState(0);
+  const [message, setMessage] = useState('');
+  const [isMessage, setIsMessage] = useState(false);
+  const [error, setError] = useState('');
+  const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleExitModal = (seatingId: number) => {
     setSelectedSeatingId(seatingId);
@@ -25,12 +31,16 @@ export const ServedClientList = ({
 
   const handleExitClient = async () => {
     if (selectedSeatingId > 0) {
-      try {
-        await patchExitClient(selectedSeatingId);
-        setIsExitModalOpen(false);
-        window.location.reload();
-      } catch (error) {
-        console.error('퇴장 처리 중 오류 발생:', error);
+      setLoading(true);
+      const result = await patchExitClient(selectedSeatingId);
+      setLoading(false);
+      setIsExitModalOpen(false);
+      if (result.success) {
+        setMessage(result.message as string);
+        setIsMessage(true);
+      } else {
+        setError(result.message as string);
+        setIsError(true);
       }
     }
   };
@@ -75,6 +85,29 @@ export const ServedClientList = ({
           }번 테이블을 퇴장 처리하시겠습니까?`}
           onCancel={() => setIsExitModalOpen(false)}
           onConfirm={handleExitClient}
+        />
+      )}
+
+      {loading && <LoadingModal message={'요청 중...\n 곧 요청이 완료돼요.'} />}
+
+      {isMessage && (
+        <AlertModal
+          hasSubmessage={false}
+          hasCancelButton={false}
+          message={message}
+          onConfirm={() => {
+            setIsMessage(false);
+            window.location.reload();
+          }}
+        />
+      )}
+
+      {isError && (
+        <AlertModal
+          hasSubmessage={false}
+          hasCancelButton={false}
+          message={error}
+          onConfirm={() => setIsMessage(false)}
         />
       )}
     </>
