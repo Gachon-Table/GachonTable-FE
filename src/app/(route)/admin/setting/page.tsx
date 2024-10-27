@@ -101,7 +101,7 @@ export default function Setting() {
           />
         </div>
         <div className="w-full px-4">
-          <LogoutButton onClick={handleLogoutClick} />
+          <LogoutButton onClick={() => handleLogoutClick} />
         </div>
       </div>
 

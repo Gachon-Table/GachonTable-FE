@@ -2,11 +2,13 @@ import { LoadingIcon } from 'public';
 import React from 'react';
 
 interface LoadingModalProps {
-  message?: string;
+  firstLine?: string;
+  secondLine?: string;
 }
 
 const LoadingModal = ({
-  message = '웨이팅 신청 중...\n 곧 신청이 완료돼요.',
+  firstLine = '웨이팅 신청 중...',
+  secondLine = '곧 신청이 완료돼요.',
 }: LoadingModalProps) => {
   return (
     <>
@@ -16,7 +18,8 @@ const LoadingModal = ({
         <div className="flex flex-col items-center justify-center space-y-2 rounded-md bg-gy-700 px-4 py-5">
           <LoadingIcon />
           <div className="block w-[279px] text-center text-white font-h4">
-            {message}
+            {firstLine} <br />
+            {secondLine}
           </div>
         </div>
       </div>

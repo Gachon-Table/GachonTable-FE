@@ -88,8 +88,9 @@ export const ServedClientList = ({
         />
       )}
 
-      {loading && <LoadingModal message={'요청 중...\n 곧 요청이 완료돼요.'} />}
-
+      {loading && (
+        <LoadingModal firstLine="요청 중..." secondLine="곧 요청이 완료돼요." />
+      )}
       {isMessage && (
         <AlertModal
           hasSubmessage={false}

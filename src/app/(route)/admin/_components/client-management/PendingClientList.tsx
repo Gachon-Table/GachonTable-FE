@@ -64,9 +64,9 @@ export const PendingClientList = ({
   const handleCallClient = async () => {
     if (selectedClientId) {
       setLoading(true);
+      setIsCallModalOpen(false);
       const result = await patchCallClient(selectedClientId);
       setLoading(false);
-      setIsCallModalOpen(false);
       if (result.success) {
         setMessage(result.message as string);
         setIsMessage(true);
@@ -141,7 +141,9 @@ export const PendingClientList = ({
         />
       )}
 
-      {loading && <LoadingModal message={'요청 중...\n 곧 요청이 완료돼요.'} />}
+      {loading && (
+        <LoadingModal firstLine="요청 중..." secondLine="곧 요청이 완료돼요." />
+      )}
 
       {isMessage && (
         <AlertModal
