@@ -10,6 +10,7 @@ import { patchCallClient } from '@/app/api/service/admin/patchCallClient';
 import { patchEnterClient } from '@/app/api/service/admin/patchEnterClient';
 import { ReloadButton } from 'public';
 import { ScrollToTopButton } from '@/app/common/ScrollToTopButton';
+import LoadingModal from '@/app/common/LoadingModal';
 
 export interface PendingClientListProps {
   pendingClientList: PendingClientItemProps[];
@@ -26,7 +27,11 @@ export const PendingClientList = ({
   const [selectedClientIndex, setSelectedClientIndex] = useState<number | null>(
     null,
   );
-
+  const [message, setMessage] = useState('');
+  const [isMessage, setIsMessage] = useState(false);
+  const [error, setError] = useState('');
+  const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
 
   const handleCallClick = (waitingId: string, index: number) => {
@@ -41,27 +46,35 @@ export const PendingClientList = ({
 
   const handleEnterClient = async (tableNumber: number) => {
     if (selectedClientId) {
-      try {
-        await patchEnterClient(selectedClientId, tableNumber);
-        setIsTableModalOpen(false);
-        refreshPendingClientList();
-        window.location.reload();
-      } catch (error) {
-        console.error('입장 처리 중 오류 발생:', error);
+      setLoading(true);
+      const result = await patchEnterClient(selectedClientId, tableNumber);
+      setLoading(false);
+      setIsTableModalOpen(false);
+      if (result.success) {
+        setMessage(result.message as string);
+        setIsMessage(true);
+      } else {
+        setError(result.message as string);
+        setIsError(true);
       }
+      refreshPendingClientList();
     }
   };
 
   const handleCallClient = async () => {
     if (selectedClientId) {
-      try {
-        await patchCallClient(selectedClientId);
-        setIsCallModalOpen(false);
-        refreshPendingClientList();
-        window.location.reload();
-      } catch (error) {
-        console.error('고객 호출 중 오류 발생:', error);
+      setLoading(true);
+      const result = await patchCallClient(selectedClientId);
+      setLoading(false);
+      setIsCallModalOpen(false);
+      if (result.success) {
+        setMessage(result.message as string);
+        setIsMessage(true);
+      } else {
+        setError(result.message as string);
+        setIsError(true);
       }
+      refreshPendingClientList();
     }
   };
 
@@ -118,12 +131,36 @@ export const PendingClientList = ({
           onSubmit={handleEnterClient}
         />
       )}
+
       {isCallModalOpen && selectedClientId && selectedClientIndex && (
         <AlertModal
           hasSubmessage={false}
           message={`${selectedClientIndex}번 고객을 호출하시겠습니까?`}
           onCancel={() => setIsCallModalOpen(false)}
           onConfirm={handleCallClient}
+        />
+      )}
+
+      {loading && <LoadingModal message={'요청 중...\n 곧 요청이 완료돼요.'} />}
+
+      {isMessage && (
+        <AlertModal
+          hasSubmessage={false}
+          hasCancelButton={false}
+          message={message}
+          onConfirm={() => {
+            setIsMessage(false);
+            window.location.reload();
+          }}
+        />
+      )}
+
+      {isError && (
+        <AlertModal
+          hasSubmessage={false}
+          hasCancelButton={false}
+          message={error}
+          onConfirm={() => setIsMessage(false)}
         />
       )}
     </>
