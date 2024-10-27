@@ -11,11 +11,7 @@ export default function AdminLogin() {
   const [password, setPassword] = useState('');
   const [isLoginSuccess, setIsLoginSuccess] = useState(false);
   const [isLoginErrorModalOpen, setIsLoginErrorModalOpen] = useState(false);
-  const [errorCode, setErrorCode] = useState(0);
-  const errorMessage = {
-    403: '로그인 정보를 다시 확인해 주세요.',
-    500: '네트워크를 다시 확인해 주세요.',
-  };
+  const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
 
   const handleLogin = async () => {
@@ -33,7 +29,7 @@ export default function AdminLogin() {
       }, 2000);
     } else {
       setIsLoginSuccess(false);
-      setErrorCode(result.code);
+      setErrorMessage(result.message as string);
       setIsLoginErrorModalOpen(true);
     }
   };
@@ -125,7 +121,7 @@ export default function AdminLogin() {
         <AlertModal
           hasSubmessage={false}
           hasCancelButton={false}
-          message={`로그인에 실패했습니다.\n${errorCode === 403 ? errorMessage[403] : errorMessage[500]}`}
+          message={`로그인에 실패했습니다.\n${errorMessage}`}
           onConfirm={() => setIsLoginErrorModalOpen(false)}
         />
       )}

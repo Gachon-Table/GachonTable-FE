@@ -1,6 +1,5 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Navbar from '@/app/(route)/admin/_components/NavBar';
 import AlertModal from '@/app/common/AlertModal';
 import { ClouserCard } from '@/app/(route)/admin/_components/setting/ClosureCard';
@@ -9,15 +8,20 @@ import { WaitingClose, PubClose } from 'public';
 import { patchPubStatus } from '@/app/api/service/admin/patchPubStatus';
 import { patchWaitingStatus } from '@/app/api/service/admin/patchWaitingStatus';
 import { getPubInfo } from '@/app/api/service/admin/getPubInfo';
+import { adminLogout } from '@/app/api/service/admin/adminAuth';
 
 export default function Setting() {
-  const router = useRouter();
   const [isWaitModalOpen, setIsWaitModalOpen] = useState(false);
   const [isPubModalOpen, setIsPubModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const [openStatus, setOpenStatus] = useState(false);
   const [waitingStatus, setWaitingStatus] = useState(false);
+
+  const [message, setMessage] = useState('');
+  const [isMessage, setIsMessage] = useState(false);
+  const [error, setError] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const handleWaitingClouserClick = () => {
     setIsWaitModalOpen(true);
@@ -31,30 +35,36 @@ export default function Setting() {
     setIsLogoutModalOpen(true);
   };
 
-  const confirmLogout = async () => {
-    try {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-      localStorage.removeItem('pubId');
-      router.push('/admin');
-    } catch (error) {
-      console.error('로그아웃 처리 중 오류 발생:', error);
-      alert('로그아웃 실패');
-    } finally {
-      setIsLogoutModalOpen(false);
-    }
-  };
-
   const handleConfirmWaiting = async () => {
-    await patchWaitingStatus(
+    const result = await patchWaitingStatus(
       waitingStatus,
       setWaitingStatus,
       setIsWaitModalOpen,
     );
+
+    if (result.success) {
+      setMessage(result.message as string);
+      setIsMessage(true);
+    } else {
+      setError(result.message as string);
+      setIsError(true);
+    }
   };
 
   const handleConfirmPub = async () => {
-    await patchPubStatus(openStatus, setOpenStatus, setIsPubModalOpen);
+    const result = await patchPubStatus(
+      openStatus,
+      setOpenStatus,
+      setIsPubModalOpen,
+    );
+
+    if (result.success) {
+      setMessage(result.message as string);
+      setIsMessage(true);
+    } else {
+      setError(result.message as string);
+      setIsError(true);
+    }
   };
 
   useEffect(() => {
@@ -65,7 +75,8 @@ export default function Setting() {
         setWaitingStatus(data.pub.waitingStatus);
         console.log(openStatus, waitingStatus);
       } catch (error) {
-        console.error('주점 정보 가져오기 실패:', error);
+        setError('주점 정보 조회 실패\n 관리자에게 문의하세요.');
+        setIsError(true);
       }
     };
     fetchPubInfo();
@@ -90,7 +101,7 @@ export default function Setting() {
           />
         </div>
         <div className="w-full px-4">
-          <LogoutButton onClick={handleLogoutClick} />
+          <LogoutButton onClick={() => handleLogoutClick} />
         </div>
       </div>
 
@@ -117,7 +128,28 @@ export default function Setting() {
           hasSubmessage={false}
           message="로그아웃 하시겠습니까?"
           onCancel={() => setIsLogoutModalOpen(false)}
-          onConfirm={confirmLogout}
+          onConfirm={adminLogout}
+        />
+      )}
+
+      {isMessage && (
+        <AlertModal
+          hasSubmessage={false}
+          hasCancelButton={false}
+          message={message}
+          onConfirm={() => {
+            setIsMessage(false);
+            window.location.reload();
+          }}
+        />
+      )}
+
+      {isError && (
+        <AlertModal
+          hasSubmessage={false}
+          hasCancelButton={false}
+          message={error}
+          onConfirm={() => setIsError(false)}
         />
       )}
     </div>

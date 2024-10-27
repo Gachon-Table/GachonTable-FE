@@ -20,20 +20,16 @@ export const adminLogin = async (credentials: AdminProps) => {
       localStorage.setItem('pubId', tokens.pubId);
       return { success: true, code: 200 };
     } else {
-      return { success: false, code: 500 };
+      return { success: false, message: '관리자에게 문의하세요.' };
     }
   } catch (error: unknown) {
     const axiosError = error as AxiosError;
-    let code = 500;
-
-    if (axiosError.response) {
-      const statusCode = axiosError.response.status;
-      if (statusCode === 403) {
-        code = 403;
-      }
+    if (axiosError.response && axiosError.response.data) {
+      const errorData = axiosError.response.data as { message?: string };
+      return { success: false, message: errorData.message };
     }
 
-    return { success: false, code };
+    return { success: false, message: '관리자에게 문의하세요.' };
   }
 };
 
