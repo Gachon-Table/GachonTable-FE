@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { userLogout } from '@/app/api/service/user/userAuth';
 import userAxios from '@/app/api/axios/userAxios';
 
@@ -27,26 +27,36 @@ userPubAxios.interceptors.request.use(
 userPubAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response?.status === 401) {
-      if (typeof window !== 'undefined') {
-        const refreshToken = localStorage.getItem('userRefreshToken');
+    const axiosError = error as AxiosError;
+    const originalRequest = axiosError.config as InternalAxiosRequestConfig & { _retry?: boolean };
+
+    if (originalRequest._retry) {
+      return Promise.reject(error);
+    }
+
+    if (axiosError.response && axiosError.response.data) {
+      const errorData = axiosError.response.data as { code?: string, httpStatus?: number };
+      const userRefreshToken = localStorage.getItem('userRefreshToken');
+
+      if (errorData?.code === 'EXPIRED_TOKEN' && userRefreshToken) {
+        originalRequest._retry = true;
 
         try {
-          const response = await userAxios.post('/refresh', { refreshToken: refreshToken });
-          const accessToken = response.data.accessToken;
+          const response = await userAxios.post('/refresh', { refreshToken: userRefreshToken });
+          const newAccessToken = response.data.accessToken;
+          localStorage.setItem('userAccessToken', newAccessToken);
 
-          localStorage.setItem('userAccessToken', accessToken);
-
-          error.config.headers['Authorization'] = `Bearer ${accessToken}`;
-          return userPubAxios(error.config); 
+          originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+          return userAxios(originalRequest);
         } catch (refreshError) {
           userLogout();
           return Promise.reject(refreshError);
         }
       } else {
-        return Promise.reject(new Error('Unauthorized - No access to localStorage'));
+        userLogout();
       }
     }
+
     return Promise.reject(error);
   }
 );

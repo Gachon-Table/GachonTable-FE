@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import adminAxios from './adminAxios';
 import { adminLogout } from '../service/admin/adminAuth';
 
@@ -27,28 +27,39 @@ pubAxios.interceptors.request.use(
 pubAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response?.status === 401) {
-      if (typeof window !== 'undefined') {
-        const refreshToken = localStorage.getItem('refreshToken');
-        
+    const axiosError = error as AxiosError;
+    const originalRequest = axiosError.config as InternalAxiosRequestConfig & { _retry?: boolean };
+
+    if (originalRequest._retry) {
+      return Promise.reject(error);
+    }
+
+    if (axiosError.response && axiosError.response.data) {
+      const errorData = axiosError.response.data as { code?: string, httpStatus?: number };
+      const refreshToken = localStorage.getItem('refreshToken');
+
+      if (errorData?.code === 'EXPIRED_TOKEN' && refreshToken) {
+        originalRequest._retry = true; 
+
         try {
           const response = await adminAxios.post('/refresh', { refreshToken: refreshToken });
           const accessToken = response.data.accessToken;
-          
           localStorage.setItem('accessToken', accessToken);
-          
-          error.config.headers['Authorization'] = `Bearer ${accessToken}`;
-          return pubAxios(error.config); 
+
+          originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+          return adminAxios(originalRequest);
         } catch (refreshError) {
           adminLogout();
           return Promise.reject(refreshError);
         }
       } else {
-        return Promise.reject(new Error('Unauthorized - No access to localStorage'));
+        adminLogout();
       }
     }
+
     return Promise.reject(error);
   }
 );
+
 
 export default pubAxios;
