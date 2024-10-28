@@ -60,7 +60,7 @@ const WaitedList = () => {
                 ? parseExitTime(element.exitTime)
                 : null;
               const currentTime = new Date();
-              const isExited = exitTime && exitTime < currentTime;
+              const isExited = exitTime !== null && exitTime < currentTime;
 
               return (
                 <div
