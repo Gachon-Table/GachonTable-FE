@@ -1,7 +1,5 @@
-'use client';
 import adminAxios from '../../axios/adminAxios';
 import { AxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
 import { getWaitingList } from './getWaitingList';
 
 interface AdminProps {
@@ -37,8 +35,7 @@ export const adminLogout = () => {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
   localStorage.removeItem('pubId');
-  const router = useRouter();
-  router.push('/admin');
+  window.location.href = '/admin';
 };
 
 export const isAuthenticated = async (): Promise<boolean> => {
@@ -58,6 +55,7 @@ export const isAuthenticated = async (): Promise<boolean> => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('pubId');
+    window.location.href = '/admin';
     return false;
   }
 };
