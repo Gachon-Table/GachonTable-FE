@@ -8,9 +8,11 @@ import { WaitingClose, PubClose } from 'public';
 import { patchPubStatus } from '@/app/api/service/admin/patchPubStatus';
 import { patchWaitingStatus } from '@/app/api/service/admin/patchWaitingStatus';
 import { getPubInfo } from '@/app/api/service/admin/getPubInfo';
-import { adminLogout } from '@/app/api/service/admin/adminAuth';
+import { useRouter } from 'next/navigation';
+import { AxiosError } from 'axios';
 
 export default function Setting() {
+  const router = useRouter();
   const [isWaitModalOpen, setIsWaitModalOpen] = useState(false);
   const [isPubModalOpen, setIsPubModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
@@ -22,6 +24,28 @@ export default function Setting() {
   const [isMessage, setIsMessage] = useState(false);
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
+
+  const confirmLogout = async () => {
+    try {
+      setIsLogoutModalOpen(false);
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('pubId');
+      router.push('/admin');
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response && axiosError.response.data) {
+        const errorData = axiosError.response.data as { message?: string };
+        setError(errorData.message as string);
+        setIsError(true);
+        return;
+      }
+
+      setError('관리자에게 문의하세요.');
+      setIsError(true);
+      return;
+    }
+  };
 
   const handleWaitingClouserClick = () => {
     setIsWaitModalOpen(true);
@@ -101,7 +125,7 @@ export default function Setting() {
           />
         </div>
         <div className="w-full px-4">
-          <LogoutButton onClick={() => handleLogoutClick} />
+          <LogoutButton onClick={handleLogoutClick} />
         </div>
       </div>
 
@@ -128,7 +152,7 @@ export default function Setting() {
           hasSubmessage={false}
           message="로그아웃 하시겠습니까?"
           onCancel={() => setIsLogoutModalOpen(false)}
-          onConfirm={adminLogout}
+          onConfirm={confirmLogout}
         />
       )}
 
