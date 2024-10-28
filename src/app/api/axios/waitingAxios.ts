@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import adminAxios from './adminAxios';
 import { adminLogout } from '../service/admin/adminAuth';
 
@@ -26,21 +26,36 @@ waitingAxios.interceptors.request.use(
 waitingAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response?.status === 401) {
+    const axiosError = error as AxiosError;
+    const originalRequest = axiosError.config as InternalAxiosRequestConfig & { _retry?: boolean };
+
+    if (originalRequest._retry) {
+      return Promise.reject(error);
+    }
+
+    if (axiosError.response && axiosError.response.data) {
+      const errorData = axiosError.response.data as { code?: string, httpStatus?: number };
       const refreshToken = localStorage.getItem('refreshToken');
-      
-      try {
-        const response = await adminAxios.post('/refresh', { refreshToken: refreshToken });
-        const accessToken = response.data.accessToken
-        localStorage.setItem('accessToken', accessToken);
-        
-        error.config.headers['Authorization'] = `Bearer ${accessToken}`;
-        return waitingAxios(error.config);
-      } catch (refreshError) {
+
+      if (errorData?.code === 'EXPIRED_TOKEN' && refreshToken) {
+        originalRequest._retry = true; 
+
+        try {
+          const response = await adminAxios.post('/refresh', { refreshToken: refreshToken });
+          const accessToken = response.data.accessToken;
+          localStorage.setItem('accessToken', accessToken);
+
+          originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+          return adminAxios(originalRequest);
+        } catch (refreshError) {
+          adminLogout();
+          return Promise.reject(refreshError);
+        }
+      } else {
         adminLogout();
-        return Promise.reject(refreshError);
       }
     }
+
     return Promise.reject(error);
   }
 );

@@ -32,9 +32,7 @@ export const adminLogin = async (credentials: AdminProps) => {
 };
 
 export const adminLogout = () => {
-  localStorage.removeItem('accessToken');
-  localStorage.removeItem('refreshToken');
-  localStorage.removeItem('pubId');
+  localStorage.clear();
   window.location.href = '/admin';
 };
 
@@ -52,9 +50,7 @@ export const isAuthenticated = async (): Promise<boolean> => {
   } catch (error) {
     console.error('로그인 유효성 검증 실패:', error);
 
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('pubId');
+    localStorage.clear();
     window.location.href = '/admin';
     return false;
   }
