@@ -37,7 +37,9 @@ const WaitedList = () => {
     }
   };
 
-  const parseExitTime = (exitTimeStr: string) => {
+  const parseExitTime = (exitTimeStr: string | null | undefined) => {
+    if (!exitTimeStr) return new Date();
+
     const [hourStr] = exitTimeStr.split('시');
     const hour = parseInt(hourStr, 10);
     const now = new Date();
@@ -87,11 +89,13 @@ const WaitedList = () => {
                     </div>
                   ) : (
                     <>
-                      <div
-                        className={`mt-1 font-b2-normal-medium ${isExited ? 'text-gy-400' : 'text-red-400'}`}
-                      >
-                        퇴장 예정 시간 : {element.exitTime}
-                      </div>
+                      {element.exitTime && (
+                        <div
+                          className={`mt-1 font-b2-normal-medium ${isExited ? 'text-gy-400' : 'text-red-400'}`}
+                        >
+                          퇴장 예정 시간 : {element.exitTime}
+                        </div>
+                      )}
                       <div
                         className={`text-gy-500 font-b2-normal-medium ${isExited ? 'text-gy-400' : 'text-gy-500'}`}
                       >
