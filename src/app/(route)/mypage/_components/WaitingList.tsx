@@ -79,7 +79,7 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
                     등록 시간 : {element.createdAt}
                   </div>
                   <div className="mb-3 text-gy-500 font-b2-normal-medium">
-                    테이블 :{' '}
+                    신청좌석 :{' '}
                     {element.tableType === 'BASIC'
                       ? '4인 테이블'
                       : element.tableType === 'PARTY'
