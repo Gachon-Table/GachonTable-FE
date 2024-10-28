@@ -37,14 +37,46 @@ const WaitedList = () => {
     }
   };
 
-  const parseExitTime = (exitTimeStr: string | null | undefined) => {
-    if (!exitTimeStr) return new Date();
+  const changeExitTime = (exitTimeStr: string | null | undefined) => {
+    if (!exitTimeStr) {
+      return new Date();
+    }
 
-    const [hourStr] = exitTimeStr.split('시');
-    const hour = parseInt(hourStr, 10);
-    const now = new Date();
-    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour);
+    const dateMatch = exitTimeStr.match(
+      /(\d{1,2})월 (\d{1,2})일.*?(\d{1,2}):(\d{2})/,
+    );
+
+    if (dateMatch) {
+      const month = parseInt(dateMatch[1], 10) - 1;
+      const day = parseInt(dateMatch[2], 10);
+      const hour = parseInt(dateMatch[3], 10);
+      const minute = parseInt(dateMatch[4], 10);
+
+      const now = new Date();
+      return new Date(now.getFullYear(), month, day, hour, minute);
+    }
+
+    return new Date();
   };
+
+  // useEffect(() => {
+  //   const checkvalid = setInterval(() => {
+  //     setWaitedList((prevList) =>
+  //       prevList.map((item) => {
+  //         const exitTime = changeExitTime(item.exitTime);
+  //         const currentTime = new Date();
+  //         const isExited = exitTime < currentTime;
+
+  //         if (isExited && item.status !== 'CANCELED') {
+  //           return { ...item, status: '퇴장완료' };
+  //         }
+  //         return item;
+  //       }),
+  //     );
+  //   }, 60000);
+
+  //   return () => clearInterval(checkvalid);
+  // }, [waitedList]);
 
   return (
     <div className="flex h-full flex-col bg-gy-0">
@@ -52,9 +84,9 @@ const WaitedList = () => {
         waitedList.length > 0 ? (
           <div className="mt-5 flex w-full flex-col items-center justify-center gap-3 px-4 pb-[69px]">
             {waitedList.map((element) => {
-              const exitTime = parseExitTime(element.exitTime);
+              const exitTime2 = changeExitTime(element.exitTime);
               const currentTime = new Date();
-              const isExited = exitTime < currentTime;
+              const isExited = exitTime2 < currentTime;
 
               return (
                 <div
