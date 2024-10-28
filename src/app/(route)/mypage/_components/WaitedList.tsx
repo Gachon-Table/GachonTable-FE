@@ -37,47 +37,82 @@ const WaitedList = () => {
     }
   };
 
+  const parseExitTime = (exitTimeStr: string) => {
+    const [hourStr] = exitTimeStr.split('시');
+    const hour = parseInt(hourStr, 10);
+    const now = new Date();
+    const exitDate = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      hour,
+    );
+    return exitDate;
+  };
+
   return (
     <div className="flex h-full flex-col bg-gy-0">
       {accessToken ? (
         waitedList.length > 0 ? (
           <div className="mt-5 flex w-full flex-col items-center justify-center gap-3 px-4 pb-[69px]">
-            {waitedList.map((element) => (
-              <div
-                key={element.waitingId}
-                className="w-full rounded-lg border border-gy-200 bg-wt p-5"
-              >
+            {waitedList.map((element) => {
+              const exitTime = element.exitTime
+                ? parseExitTime(element.exitTime)
+                : null;
+              const currentTime = new Date();
+              const isExited = exitTime && exitTime < currentTime;
+
+              return (
                 <div
-                  className={`inline-block rounded-full px-2 py-[5px] font-c2-semibold ${
-                    element.status === 'ENTERED'
-                      ? 'bg-green-100 text-green-500'
-                      : 'bg-red-100 text-red-500'
-                  }`}
+                  key={element.waitingId}
+                  className="w-full rounded-lg border border-gy-200 bg-wt p-5"
                 >
-                  {element.status === 'ENTERED' ? '입장 완료' : '대기 취소'}
-                </div>
-
-                <div className="mt-2 text-gy-900 font-h4">
-                  {element.pubName}
-                </div>
-
-                {element.status === 'CANCELED' ? (
-                  <div className="mt-1 text-gy-500 font-b2-normal-medium">
-                    {/* 취소시간 api 수정 */}
-                    취소 시간 : {element.enteredTime}
+                  <div
+                    className={`inline-block rounded-full px-2 py-[5px] font-c2-semibold ${
+                      isExited
+                        ? 'bg-gy-100 text-gy-500'
+                        : element.status === 'ENTERED'
+                          ? 'bg-green-100 text-green-500'
+                          : 'bg-red-100 text-red-500'
+                    }`}
+                  >
+                    {isExited
+                      ? '퇴장 완료'
+                      : element.status === 'ENTERED'
+                        ? '입장 완료'
+                        : '대기 취소'}
                   </div>
-                ) : (
-                  <>
-                    <div className="mt-1 text-red-400 font-b2-normal-medium">
-                      퇴장 예정 시간 : {element.exitTime}
+
+                  <div
+                    className={`mt-2 font-h4 ${isExited ? 'text-gy-600' : 'text-gy-900'}`}
+                  >
+                    {element.pubName}
+                  </div>
+
+                  {element.status === 'CANCELED' ? (
+                    <div className="mt-1 text-gy-500 font-b2-normal-medium">
+                      취소 시간 : {element.enteredTime}
                     </div>
-                    <div className="text-gy-500 font-b2-normal-medium">
-                      입장 시간 : {element.enteredTime}
-                    </div>
-                  </>
-                )}
-              </div>
-            ))}
+                  ) : (
+                    <>
+                      <div
+                        className={`mt-1 font-b2-normal-medium ${isExited ? 'text-gy-400' : 'text-red-400'}`}
+                      >
+                        퇴장 예정 시간 :{' '}
+                        {element.exitTime
+                          ? element.exitTime
+                          : '퇴장 예정 시간이 없습니다.'}
+                      </div>
+                      <div
+                        className={`text-gy-500 font-b2-normal-medium ${isExited ? 'text-gy-400' : 'text-gy-500'}`}
+                      >
+                        입장 시간 : {element.enteredTime}
+                      </div>
+                    </>
+                  )}
+                </div>
+              );
+            })}
           </div>
         ) : (
           <div className="flex h-[calc(100vh_-_210px)] items-center justify-center">
