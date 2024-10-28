@@ -7,7 +7,7 @@ interface WaitedItem {
   pubName: string;
   status: string;
   enteredTime: string;
-  exitTime?: string;
+  exitTime: string;
 }
 
 const WaitedList = () => {
@@ -41,13 +41,7 @@ const WaitedList = () => {
     const [hourStr] = exitTimeStr.split('시');
     const hour = parseInt(hourStr, 10);
     const now = new Date();
-    const exitDate = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      hour,
-    );
-    return exitDate;
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour);
   };
 
   return (
@@ -56,11 +50,9 @@ const WaitedList = () => {
         waitedList.length > 0 ? (
           <div className="mt-5 flex w-full flex-col items-center justify-center gap-3 px-4 pb-[69px]">
             {waitedList.map((element) => {
-              const exitTime = element.exitTime
-                ? parseExitTime(element.exitTime)
-                : null;
+              const exitTime = parseExitTime(element.exitTime);
               const currentTime = new Date();
-              const isExited = exitTime !== null && exitTime < currentTime;
+              const isExited = exitTime < currentTime;
 
               return (
                 <div
@@ -98,10 +90,7 @@ const WaitedList = () => {
                       <div
                         className={`mt-1 font-b2-normal-medium ${isExited ? 'text-gy-400' : 'text-red-400'}`}
                       >
-                        퇴장 예정 시간 :{' '}
-                        {element.exitTime
-                          ? element.exitTime
-                          : '퇴장 예정 시간이 없습니다.'}
+                        퇴장 예정 시간 : {element.exitTime}
                       </div>
                       <div
                         className={`text-gy-500 font-b2-normal-medium ${isExited ? 'text-gy-400' : 'text-gy-500'}`}
