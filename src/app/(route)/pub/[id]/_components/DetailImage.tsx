@@ -17,18 +17,22 @@ const DetailImage: React.FC<DetailImageProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImageIndex, setModalImageIndex] = useState<number>(0);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [isSwiping, setIsSwiping] = useState(false);
 
   useEffect(() => {
     if (thumbnails.length > 1) {
       const intervalId = setInterval(() => {
-        setCurrentImageIndex((prevIndex) =>
-          prevIndex === thumbnails.length - 1 ? 0 : prevIndex + 1,
-        );
+        if (!isSwiping) {
+          setCurrentImageIndex((prevIndex) =>
+            prevIndex === thumbnails.length - 1 ? 0 : prevIndex + 1,
+          );
+        }
       }, 5000);
 
       return () => clearInterval(intervalId);
     }
-  }, [thumbnails]);
+  }, [thumbnails, isSwiping]);
 
   const handleHeaderClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -45,18 +49,54 @@ const DetailImage: React.FC<DetailImageProps> = ({
     setSelectedImage(null);
   };
 
+  const handleSwiperStart = (e: React.TouchEvent) => {
+    setIsSwiping(true);
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleSwiper = (e: React.TouchEvent) => {
+    if (touchStartX !== null) {
+      const touchEndX = e.touches[0].clientX;
+      const swipeDistance = touchStartX - touchEndX;
+      const threshold = 50;
+
+      if (Math.abs(swipeDistance) > threshold) {
+        if (swipeDistance > 0) {
+          setCurrentImageIndex((prevIndex) =>
+            prevIndex === thumbnails.length - 1 ? 0 : prevIndex + 1,
+          );
+        } else {
+          setCurrentImageIndex((prevIndex) =>
+            prevIndex === 0 ? thumbnails.length - 1 : prevIndex - 1,
+          );
+        }
+        setTouchStartX(null);
+      }
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setTouchStartX(null);
+    setIsSwiping(false);
+  };
+
   return (
-    <div className="relative h-48 w-full">
-      <div className="relative h-full w-full overflow-hidden">
+    <div className="relative h-48 w-full overflow-hidden">
+      <div
+        className="relative h-full w-full"
+        onTouchStart={handleSwiperStart}
+        onTouchMove={handleSwiper}
+        onTouchEnd={handleTouchEnd}
+      >
         <div
-          className="absolute flex h-full w-full transition-transform duration-1000 ease-in-out"
+          className="absolute flex h-full w-full transform-gpu transition-transform duration-300 ease-out will-change-transform"
           style={{
             transform: `translateX(-${currentImageIndex * 100}%)`,
           }}
         >
           {thumbnails.length > 0 ? (
             thumbnails.map((thumbnail, index) => (
-              <div key={index} className="relative w-full flex-shrink-0">
+              <div key={index} className="relative h-full w-full flex-shrink-0">
                 <Image
                   src={thumbnail}
                   alt={`Slide ${index}`}
@@ -69,12 +109,12 @@ const DetailImage: React.FC<DetailImageProps> = ({
               </div>
             ))
           ) : (
-            <div className="relative w-full flex-shrink-0">
+            <div className="relative h-full w-full flex-shrink-0">
               <Image
                 src="/images/place.png"
                 alt="Place"
                 fill
-                objectFit="cover"
+                className="object-cover"
               />
             </div>
           )}
@@ -125,11 +165,10 @@ const DetailImage: React.FC<DetailImageProps> = ({
           <div className="relative">
             <Image
               src={selectedImage}
-              alt="Full view"
-              layout="responsive"
+              alt="Modal Image"
               width={800}
               height={600}
-              objectFit="cover"
+              className="object-cover"
             />
           </div>
         )}
