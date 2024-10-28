@@ -1,52 +1,61 @@
-import axios from 'axios';
+import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { userLogout } from '../service/user/userAuth';
 
 const userAxios = axios.create({
-    baseURL: `${process.env.NEXT_PUBLIC_API_URL}/user`, 
-    headers: {
-        'Content-Type': 'application/json',
-        'accept': '*/*',
-    }
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/user`,
+  timeout: 5000,
+  headers: {
+    'Content-Type': 'application/json',
+    'accept': '*/*',
+  },
 });
 
 userAxios.interceptors.request.use(
-    async (config) => {
-        const accessToken = localStorage.getItem('userAccessToken');
-        if (accessToken) {
-            config.headers['Authorization'] = `Bearer ${accessToken}`;
-        }
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
+  async (config) => {
+    const accessToken = localStorage.getItem('userAccessToken');
+    if (accessToken) {
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
+    return config;
+  },
+  (error) => Promise.reject(error)
 );
 
 userAxios.interceptors.response.use(
-    (response) => response,
-    async (error) => {
-        if (error.response?.status === 401) {
-            const userRefreshToken = localStorage.getItem('userRefreshToken');
-            
-            if (!userRefreshToken) {
-                userLogout();
-                return Promise.reject(new Error('No refresh token available, logging out'));
-            }
+  (response) => response,
+  async (error) => {
+    const axiosError = error as AxiosError;
+    const originalRequest = axiosError.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
-            try {
-                const response = await userAxios.post('/refresh', { refreshToken: userRefreshToken });
-                const accessToken = response.data.accessToken
-                localStorage.setItem('userAccessToken', accessToken);
-                error.config.headers['Authorization'] = `Bearer ${accessToken}`;
-                return userAxios(error.config); 
-
-            } catch (refreshError) {
-                userLogout();
-                return Promise.reject(refreshError);
-            }
-        }
-        return Promise.reject(error);
+    if (originalRequest._retry) {
+      return Promise.reject(error);
     }
+
+    if (axiosError.response && axiosError.response.data) {
+      const errorData = axiosError.response.data as { code?: string, httpStatus?: number };
+      const userRefreshToken = localStorage.getItem('userRefreshToken');
+
+      if (errorData?.code === 'EXPIRED_TOKEN' && userRefreshToken) {
+        originalRequest._retry = true;
+
+        try {
+          const response = await userAxios.post('/refresh', { refreshToken: userRefreshToken });
+          const newAccessToken = response.data.accessToken;
+          localStorage.setItem('userAccessToken', newAccessToken);
+
+          originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+          return userAxios(originalRequest);
+        } catch (refreshError) {
+          userLogout();
+          return Promise.reject(refreshError);
+        }
+      } else {
+        userLogout();
+      }
+    }
+
+    return Promise.reject(error);
+  }
 );
 
 export default userAxios;
