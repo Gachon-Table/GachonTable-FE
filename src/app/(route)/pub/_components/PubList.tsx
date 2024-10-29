@@ -6,6 +6,7 @@ import axios from 'axios';
 import { isUserAuthenticated } from '@/app/api/service/user/userAuth';
 import Loading from '@/app/loading';
 import Image from 'next/image';
+import userPubAxios from '@/app/api/axios/userPubAxios';
 
 interface Store {
   pubId: number;
@@ -31,29 +32,23 @@ const PubList = ({
   sortByLowCongestion,
 }: ResponsiveTestProps) => {
   const router = useRouter();
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [stores, setStores] = useState<Store[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const checkLoginStatus = async () => {
-      const loggedIn = await isUserAuthenticated();
-      setIsLoggedIn(loggedIn);
-
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      axios
-        .get(`${apiUrl}/pub/all`)
-        .then((response) => {
-          setStores(response.data);
-        })
-        .catch((error) => {
-          console.error('데이터를 가져오는 중 오류 발생: ', error);
-          setError('데이터를 가져오는 중 오류가 발생했습니다.');
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      try {
+        const response = await userPubAxios.get('/all');
+        setStores(response.data);
+      } catch (error) {
+        console.error('데이터를 가져오는 중 오류 발생: ', error);
+        setError(
+          '데이터를 가져오는 중 오류가 발생했습니다.\n 다시 시도해주세요.',
+        );
+      } finally {
+        setLoading(false);
+      }
     };
 
     checkLoginStatus();
@@ -88,7 +83,7 @@ const PubList = ({
       {loading ? (
         <Loading />
       ) : error ? (
-        <div className="flex h-screen items-center justify-center">
+        <div className="flex h-screen items-center justify-center whitespace-pre-line text-center text-gy-500 font-b1-normal-semibold">
           <p>{error}</p>
         </div>
       ) : sortedStores.length === 0 ? (
