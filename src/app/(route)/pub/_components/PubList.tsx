@@ -96,7 +96,7 @@ const PubList = ({
           <div
             key={store.pubId}
             onClick={() => {
-              router.push(`/pub/${store.pubId}`);
+              window.location.href = `/pub/${store.pubId}`;
             }}
             className={` flex w-full cursor-pointer flex-col justify-center gap-3 bg-wt py-4 ${
               index !== sortedStores.length - 1 ? 'border-b border-gy-100' : ''
