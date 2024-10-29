@@ -1,5 +1,5 @@
 'use client';
-import axios from 'axios';
+import userWaitingAxios from '@/app/api/axios/userWaitingAxios';
 import React, { useEffect, useState } from 'react';
 
 interface WaitedItem {
@@ -27,10 +27,7 @@ const WaitedList = () => {
   const waitedApi = async () => {
     if (!accessToken) return;
     try {
-      const result = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/waiting/history`,
-        { headers: { Authorization: `Bearer ${accessToken}` } },
-      );
+      const result = await userWaitingAxios.get('/history');
       setWaitedList(result.data);
     } catch (error) {
       console.error('Error fetching waited list:', error);

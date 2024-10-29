@@ -1,7 +1,7 @@
 'use client';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import AlertBox from '../../waiting/biztalk-status/[waitingId]/_components/AlertBox';
+import userWaitingAxios from '@/app/api/axios/userWaitingAxios';
 
 interface WaitingItem {
   waitingId: string;
@@ -35,10 +35,7 @@ const WaitingList = ({ modal, setFunc, setId }: WaitingProps) => {
   const waitingApi = async () => {
     if (!accessToken) return;
     try {
-      const result = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/waiting/status`,
-        { headers: { Authorization: `Bearer ${accessToken}` } },
-      );
+      const result = await userWaitingAxios.get('/status');
       setWaitingList(result.data);
       console.log(waitingList);
     } catch (error) {
