@@ -1,6 +1,12 @@
+'use client';
+import { useRouter } from 'next/navigation';
+
 export const userLogout = () => {
-  localStorage.clear();
-  window.location.href = '/';
+  localStorage.removeItem('userAccessToken');
+  localStorage.removeItem('userRefreshToken');
+  localStorage.removeItem('userName');
+  const router = useRouter();
+  router.push('/');
 };
 
 export const isUserAuthenticated = () => {
