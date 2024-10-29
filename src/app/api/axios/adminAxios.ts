@@ -33,11 +33,11 @@ adminAxios.interceptors.response.use(
     }
 
     if (axiosError.response && axiosError.response.data) {
-      const errorData = axiosError.response.data as { code?: string, httpStatus?: number };
+      const errorData = axiosError.response?.data as { result?: { code?: string; httpStatus?: number; message?: string } };
       const refreshToken = localStorage.getItem('refreshToken');
 
-      if (errorData?.code === 'EXPIRED_TOKEN' && refreshToken) {
-        originalRequest._retry = true; 
+      if (errorData?.result?.code === 'EXPIRED_TOKEN' && refreshToken) {
+        originalRequest._retry = true;
 
         try {
           const response = await adminAxios.post('/refresh', { refreshToken });
@@ -50,11 +50,11 @@ adminAxios.interceptors.response.use(
           adminLogout();
           return Promise.reject(refreshError);
         }
-      } else {
+      }
+      else if (["EXPIRED_TOKEN", 'INVALID_KEY', 'INVALID_TOKEN', 'MALFORMED_TOKEN', 'UNSUPPORTED_TOKEN', 'EMPTY_AUTHENTICATION'].includes(errorData?.result?.code as string)) {
         adminLogout();
       }
     }
-
     return Promise.reject(error);
   }
 );

@@ -32,25 +32,25 @@ userAxios.interceptors.response.use(
     }
 
     if (axiosError.response && axiosError.response.data) {
-      const errorData = axiosError.response.data as { code?: string, httpStatus?: number };
+      const errorData = axiosError.response?.data as { result?: { code?: string; httpStatus?: number; message?: string } };
       const userRefreshToken = localStorage.getItem('userRefreshToken');
-
-      if (errorData?.code === 'EXPIRED_TOKEN' && userRefreshToken) {
-        originalRequest._retry = true; 
-
+      
+      if (errorData?.result?.code === 'EXPIRED_TOKEN' && userRefreshToken) {
+        originalRequest._retry = true;
+      
         try {
           const response = await userAxios.post('/refresh', { refreshToken: userRefreshToken });
           const newAccessToken = response.data.accessToken;
           localStorage.setItem('userAccessToken', newAccessToken);
-
+      
           originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
           return userAxios(originalRequest);
         } catch (refreshError) {
           userLogout();
           return Promise.reject(refreshError);
         }
-      } else {
-
+      } 
+      else if (["EXPIRED_TOKEN", 'INVALID_KEY', 'INVALID_TOKEN', 'MALFORMED_TOKEN', 'UNSUPPORTED_TOKEN', 'EMPTY_AUTHENTICATION'].includes(errorData?.result?.code as string)) {
         userLogout();
       }
     }
