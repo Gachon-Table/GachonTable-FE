@@ -37,7 +37,7 @@ export const TableInputToastModal = ({
     <div className="fixed inset-0 z-50 flex items-end justify-center">
       <div className="fixed inset-0 bg-bk/30" onClick={onCancel}></div>
 
-      <div className="relative z-50 flex w-full flex-col rounded-t-[20px] bg-wt px-4 pb-4 pt-8">
+      <div className="relative z-50 flex w-full max-w-[430px] flex-col rounded-t-[20px] bg-wt px-4 pb-4 pt-8">
         <div className="mb-4 font-h3">테이블 번호를 지정해주세요.</div>
         <div className="mb-6 flex h-[60px] justify-center rounded-lg bg-gy-0 px-[15px] py-3 ">
           <input
