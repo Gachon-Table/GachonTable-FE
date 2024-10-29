@@ -56,7 +56,7 @@ const StoreDetailPage: React.FC = () => {
         console.log(response);
       } catch (err) {
         console.error('데이터를 가져오지 못했습니다', err);
-        setError('데이터를 가져오지 못했습니다');
+        setError('데이터를 가져오지 못했습니다.\n 다시 시도해주세요.');
       } finally {
         setLoading(false);
       }
@@ -104,7 +104,9 @@ const StoreDetailPage: React.FC = () => {
 
   if (error) {
     return (
-      <div className="flex h-screen items-center justify-center">{error}</div>
+      <div className="flex h-screen items-center justify-center whitespace-pre-line text-center text-gy-500 font-b1-normal-semibold">
+        {error}
+      </div>
     );
   }
 
