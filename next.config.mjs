@@ -1,4 +1,7 @@
+/* eslint-disable no-undef */
 /** @type {import('next').NextConfig} */
+import { withSentryConfig } from "@sentry/nextjs";
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -30,9 +33,21 @@ const nextConfig = {
         },
       ],
     });
-
     return config;
   },
 };
 
-export default nextConfig;
+export default withSentryConfig(
+  nextConfig,
+  {
+    silent: true,
+    org: "LUPG",  
+    project: "gachontable-fe",  
+    authToken: process.env.SENTRY_AUTH_TOKEN, 
+    widenClientFileUpload: true,              
+    hideSourceMaps: true,                   
+    disableLogger: true,                    
+    automaticVercelMonitors: true,  
+  },
+
+);
